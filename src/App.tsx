@@ -16,6 +16,11 @@ import Error406 from "./pages/Error406";
 import ProjectList from "./pages/ProjectList";
 import ProjectListTable from "./pages/ProjectListTable";
 import ProjectOverview from "./pages/ProjectOverview";
+import BacklogPrototype from "./pages/BacklogPrototype";
+import ActiveSprintListView from "./pages/ActiveSprintListView";
+import ProjectKanbanBoard from "./pages/ProjectKanbanBoard";
+import ProjectCalendarView from "./pages/ProjectCalendarView";
+import AddTask from "./pages/AddTask";
 
 const queryClient = new QueryClient();
 
@@ -36,7 +41,11 @@ const App = () => (
           <Route path="/project-list" element={<ProjectList />} />
           <Route path="/project-list-table" element={<ProjectListTable />} />
           <Route path="/project-overview" element={<ProjectOverview />} />
-          
+          <Route path="/backlog-prototype" element={<BacklogPrototype />} />
+          <Route path="/active-sprint-list" element={<ActiveSprintListView />} />
+          <Route path="/project-kanban-board" element={<ProjectKanbanBoard />} />
+                      <Route path="/calendar" element={<ProjectCalendarView />} />
+          <Route path="/add-task" element={<AddTask />} />
           {/* Main app routes - inside Layout */}
           <Route path="/" element={
             <Layout>
