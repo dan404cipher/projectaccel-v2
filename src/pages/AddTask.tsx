@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AttachmentTab from '@/components/AttachmentTab';
 
 // Image assets from Figma design
 const imgEllipse253 = "http://localhost:3845/assets/c888080ce94d57f50955fb04d5962065ea66f33f.png";
@@ -32,6 +33,8 @@ const imgSolarMenuDotsBold = "http://localhost:3845/assets/0d9adb6cbac7a09d66074
 const imgMakiCross = "http://localhost:3845/assets/e263f2bc45efe8e6e8fa4cb04e10a4d60daf65ff.svg";
 
 export default function AddTask() {
+  const [activeTab, setActiveTab] = useState<'comment' | 'attachment'>('attachment');
+
   return (
     <div className="relative size-full min-h-screen bg-gray-50 p-6">
       <div className="bg-white rounded-3xl shadow-sm max-w-7xl mx-auto h-[984px] relative">
@@ -216,25 +219,51 @@ export default function AddTask() {
             {/* Comment/Attachment Section */}
             <div className="mb-8">
               <div className="flex items-center gap-8 mb-4">
-                <h3 className="text-xl font-medium text-gray-900">Comment</h3>
-                <h3 className="text-xl font-medium text-gray-900">Attachment</h3>
-              </div>
-              <div className="h-0 w-[86px] mb-6">
-                <img alt="" className="block max-w-none size-full" src={imgLine35} />
+                <button 
+                  onClick={() => setActiveTab('comment')}
+                  className={`text-xl font-medium ${activeTab === 'comment' ? 'text-gray-900' : 'text-gray-500'}`}
+                >
+                  Comment
+                </button>
+                <button 
+                  onClick={() => setActiveTab('attachment')}
+                  className={`text-xl font-medium ${activeTab === 'attachment' ? 'text-gray-900' : 'text-gray-500'}`}
+                >
+                  Attachment
+                </button>
               </div>
               
-              <div className="border border-gray-300 rounded-full p-4 mb-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-6">
-                    <div className="flex gap-2">
-                      <img alt="icon" className="w-8 h-8" src={imgGroup2087324215} />
-                      <img alt="icon" className="w-8 h-8" src={imgGroup2087324218} />
-                    </div>
-                    <span className="text-gray-500 opacity-90">Add your comment...</span>
-                  </div>
-                  <img alt="send" className="w-8 h-8" src={imgGroup2087324219} />
+              {/* Tab indicator line */}
+              <div className="relative mb-6">
+                <div className="h-0 w-[100px]">
+                  <img alt="" className="block max-w-none size-full" src={imgLine35} />
+                </div>
+                <div 
+                  className={`absolute top-0 h-0 w-[100px] transition-transform duration-200 ${
+                    activeTab === 'comment' ? 'translate-x-0' : 'translate-x-[109px]'
+                  }`}
+                >
+                  <img alt="" className="block max-w-none size-full" src={imgLine35} />
                 </div>
               </div>
+              
+              {/* Tab Content */}
+              {activeTab === 'comment' ? (
+                <div className="border border-gray-300 rounded-full p-4 mb-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-6">
+                      <div className="flex gap-2">
+                        <img alt="icon" className="w-8 h-8" src={imgGroup2087324215} />
+                        <img alt="icon" className="w-8 h-8" src={imgGroup2087324218} />
+                      </div>
+                      <span className="text-gray-500 opacity-90">Add your comment...</span>
+                    </div>
+                    <img alt="send" className="w-8 h-8" src={imgGroup2087324219} />
+                  </div>
+                </div>
+              ) : (
+                <AttachmentTab className="mb-6" />
+              )}
             </div>
 
             {/* Activity Section */}
