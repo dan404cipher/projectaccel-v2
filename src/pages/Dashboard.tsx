@@ -68,162 +68,162 @@ const Dashboard = () => {
   ]
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-10 px-2 sm:px-4 lg:px-6 w-full max-w-full overflow-x-hidden">
       {/* Welcome Section */}
-      <div className="space-y-2">
-        <h1 className="text-[32px] font-medium text-[#438197]">Welcome Back !!</h1>
-        <p className="text-[20px] font-medium text-[#252525]">Krishna kumar</p>
+      <div className="space-y-1 sm:space-y-2">
+        <h1 className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#438197]">Welcome Back !!</h1>
+        <p className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525]">Krishna kumar</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="flex flex-row gap-[23px] items-center justify-start w-full">
-        <div className="bg-white h-[140px] w-[260px] rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-2 px-4">
-          <h3 className="text-[20px] font-semibold text-[#333333] text-center">Total Projects</h3>
-          <div className="text-[20px] font-bold text-[#06263D]">4</div>
-          <p className="text-[14px] font-medium text-[#999999] text-center">Assigned to me</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-[23px] w-full">
+        <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4">
+          <h3 className="text-sm sm:text-base lg:text-[20px] font-semibold text-[#333333] text-center">Total Projects</h3>
+          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">4</div>
+          <p className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#999999] text-center">Assigned to me</p>
         </div>
         
-        <div className="bg-white h-[140px] w-[260px] rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-2 px-4">
-          <h3 className="text-[20px] font-semibold text-[#333333] text-center">Assigned Issues</h3>
-          <div className="text-[20px] font-bold text-[#06263D]">44</div>
-          <p className="text-[14px] font-medium text-[#999999] text-center">Issues across all projects</p>
+        <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4">
+          <h3 className="text-sm sm:text-base lg:text-[20px] font-semibold text-[#333333] text-center">Assigned Issues</h3>
+          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">44</div>
+          <p className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#999999] text-center">Issues across all projects</p>
         </div>
         
-        <div className="bg-white h-[140px] w-[260px] rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-2 px-4">
-          <h3 className="text-[20px] font-semibold text-[#333333] text-center">In progress</h3>
-          <div className="text-[20px] font-bold text-[#06263D]">32</div>
-          <p className="text-[14px] font-medium text-[#999999] text-center">Currently being worked on</p>
+        <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4">
+          <h3 className="text-sm sm:text-base lg:text-[20px] font-semibold text-[#333333] text-center">In progress</h3>
+          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">32</div>
+          <p className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#999999] text-center">Currently being worked on</p>
         </div>
         
-        <div className="bg-white h-[140px] w-[260px] rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-2 px-4">
-          <h3 className="text-[20px] font-semibold text-[#333333] text-center">Over Due Issues</h3>
-          <div className="text-[20px] font-bold text-[#06263D]">5</div>
-          <p className="text-[14px] font-medium text-[#999999] text-center">Pending Beyond Deadline</p>
+        <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4">
+          <h3 className="text-sm sm:text-base lg:text-[20px] font-semibold text-[#333333] text-center">Over Due Issues</h3>
+          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">5</div>
+          <p className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#999999] text-center">Pending Beyond Deadline</p>
         </div>
         
-        <div className="bg-white h-[140px] w-[260px] rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-2 px-4 relative">
-          <h3 className="text-[20px] font-semibold text-[#333333] text-center">Completion Rate</h3>
+        <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 relative">
+          <h3 className="text-sm sm:text-base lg:text-[20px] font-semibold text-[#333333] text-center">Completion Rate</h3>
           
-          <div className="relative w-[72px] h-[72px] rounded-full overflow-hidden">
-            <div className="absolute inset-[3.2%] bg-[rgba(255,255,255,0.4)] opacity-40 rounded-full border-[3px] border-[#67909b]"></div>
+          <div className="relative w-12 h-12 sm:w-16 sm:h-16 lg:w-[72px] lg:h-[72px] rounded-full overflow-hidden">
+            <div className="absolute inset-[3.2%] bg-[rgba(255,255,255,0.4)] opacity-40 rounded-full border-[2px] sm:border-[3px] border-[#67909b]"></div>
             <div className="absolute inset-[6%] overflow-hidden rounded-full">
               <div className="absolute bottom-[-50%] left-[-70%] right-[-7.73%] top-[46.36%]">
                 <div className="absolute bottom-[-45.45%] left-[-2.27%] right-[-5.46%] top-[46.36%] opacity-60">
-                  <div className="h-9 w-full bg-[#67909b]"></div>
+                  <div className="h-6 sm:h-8 lg:h-9 w-full bg-[#67909b]"></div>
                   <div className="bg-[#67909b] flex-grow min-h-px w-full"></div>
                 </div>
               </div>
-              <div className="absolute font-medium text-[12px] text-white" style={{ top: "calc(50% + 11px)", left: "calc(50% + 0.5px)", transform: "translate(-50%, -50%)" }}>
+              <div className="absolute font-medium text-[10px] sm:text-[12px] text-white" style={{ top: "calc(50% + 8px)", left: "calc(50% + 0.5px)", transform: "translate(-50%, -50%)" }}>
                 32%
               </div>
             </div>
           </div>
           
-          <div className="absolute right-4 top-[71px]">
-            <div className="text-[14px] font-semibold text-[#06263D] text-center">41 of 131</div>
+          <div className="absolute right-2 sm:right-4 top-16 sm:top-20 lg:top-[71px]">
+            <div className="text-xs sm:text-sm lg:text-[14px] font-semibold text-[#06263D] text-center">41 of 131</div>
           </div>
-          <p className="text-[14px] font-medium text-[#999999] text-center">Issues completed</p>
+          <p className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#999999] text-center">Issues completed</p>
         </div>
       </div>
 
       {/* Issues Analysis Section */}
-      <div className="flex flex-row gap-6 items-center justify-start w-full">
-        <div className="bg-white h-[395px] w-[861px] rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex">
-          <div className="flex flex-col gap-10 items-start justify-center p-6 w-[252px]">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-stretch lg:items-center justify-start w-full">
+        <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col lg:flex-row">
+          <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10 items-start justify-center p-4 sm:p-6 w-full lg:w-[252px]">
             <div className="flex flex-row gap-2 items-center justify-start">
-              <div className="w-8 h-8">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <div className="w-6 h-6 sm:w-8 sm:h-8">
+                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" className="sm:w-8 sm:h-8">
                   <rect width="32" height="32" rx="6" fill="#f0f0f0"/>
                 </svg>
               </div>
-              <div className="text-[20px] font-medium text-[#252525]">Issues Analysis</div>
+              <div className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525]">Issues Analysis</div>
             </div>
             
             <div className="flex flex-col gap-2 items-start justify-start w-full">
-              <div className="text-[16px] font-normal text-[#333333] w-full">Time Spent on Tasks</div>
-              <div className="flex flex-col gap-4 items-start justify-start w-full">
+              <div className="text-sm sm:text-base lg:text-[16px] font-normal text-[#333333] w-full">Time Spent on Tasks</div>
+              <div className="flex flex-col gap-3 sm:gap-4 items-start justify-start w-full">
                 <div className="flex flex-row gap-2 items-center justify-start w-full">
-                  <div className="bg-[#f9f9f9] h-[107px] w-[121px] rounded-2xl shadow-[0px_2px_4px_0px_rgba(6,38,61,0.1)] flex flex-col gap-1 items-center justify-center p-3">
-                    <div className="text-[32px] font-medium text-[#06263D]">89</div>
-                    <div className="text-[14px] font-medium text-[#60646C] text-center h-11 w-[79px]">Assigned<br/>Issues</div>
+                  <div className="bg-[#f9f9f9] h-20 sm:h-24 lg:h-[107px] w-full sm:w-28 lg:w-[121px] rounded-xl sm:rounded-2xl shadow-[0px_2px_4px_0px_rgba(6,38,61,0.1)] flex flex-col gap-1 items-center justify-center p-2 sm:p-3">
+                    <div className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#06263D]">89</div>
+                    <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#60646C] text-center h-8 sm:h-10 lg:h-11 w-full">Assigned<br/>Issues</div>
                   </div>
-                  <div className="bg-[#f9f9f9] h-[107px] w-[121px] rounded-2xl shadow-[0px_2px_4px_0px_rgba(6,38,61,0.1)] flex flex-col gap-1 items-center justify-center p-3">
-                    <div className="text-[32px] font-medium text-[#06263D]">85</div>
-                    <div className="text-[14px] font-medium text-[#60646C] text-center h-11 w-[79px]">Completed<br/>Issues</div>
+                  <div className="bg-[#f9f9f9] h-20 sm:h-24 lg:h-[107px] w-full sm:w-28 lg:w-[121px] rounded-xl sm:rounded-2xl shadow-[0px_2px_4px_0px_rgba(6,38,61,0.1)] flex flex-col gap-1 items-center justify-center p-2 sm:p-3">
+                    <div className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#06263D]">85</div>
+                    <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#60646C] text-center h-8 sm:h-10 lg:h-11 w-full">Completed<br/>Issues</div>
                   </div>
                 </div>
-                <div className="bg-[#f9f9f9] h-[122px] w-full rounded-2xl shadow-[0px_2px_4px_0px_rgba(6,38,61,0.1)] flex flex-col gap-2 items-start justify-center p-3">
-                  <div className="text-[32px] font-medium text-[#06263D]">90%</div>
-                  <div className="text-[14px] font-medium text-[#60646C] h-11 w-[201px]">This week's work tracking is higher than last week's</div>
+                <div className="bg-[#f9f9f9] h-20 sm:h-24 lg:h-[122px] w-full rounded-xl sm:rounded-2xl shadow-[0px_2px_4px_0px_rgba(6,38,61,0.1)] flex flex-col gap-2 items-start justify-center p-3">
+                  <div className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#06263D]">90%</div>
+                  <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#60646C] h-8 sm:h-10 lg:h-11 w-full">This week's work tracking is higher than last week's</div>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="h-[311px] w-[543px] mt-[72px] ml-[302px]">
-            <div className="flex items-end gap-2 h-[254px] w-[475px] ml-[35px] mt-1">
-              {issueAnalysisData.map((item, index) => {
-                const maxValue = Math.max(...issueAnalysisData.map(i => i.value))
-                return (
-                  <div key={index} className="flex-1 flex flex-col items-center gap-1">
-                    <div 
-                      className="w-full rounded-t-sm transition-all duration-300 hover:opacity-80"
-                      style={{ 
-                        height: `${(item.value / maxValue) * 100}%`,
-                        backgroundColor: item.color,
-                        minHeight: '8px'
-                      }}
-                    />
-                    <span className="text-[14px] text-[#60646C] text-center">{item.label}</span>
-                  </div>
-                )
-              })}
+          <div className="h-auto lg:h-[311px] w-full mt-4 lg:mt-[72px] flex-1">
+            <div className="flex items-end gap-1 sm:gap-2 h-48 sm:h-64 lg:h-[254px] w-full mt-1">
+                              {issueAnalysisData.map((item, index) => {
+                  const maxValue = Math.max(...issueAnalysisData.map(i => i.value))
+                  return (
+                    <div key={index} className="flex-1 flex flex-col items-center gap-1">
+                      <div 
+                        className="w-full rounded-t-sm transition-all duration-300 hover:opacity-80"
+                        style={{ 
+                          height: `${(item.value / maxValue) * 100}%`,
+                          backgroundColor: item.color,
+                          minHeight: '6px'
+                        }}
+                      />
+                    <span className="text-xs sm:text-sm lg:text-[14px] text-[#60646C] text-center">{item.label}</span>
+                    </div>
+                  )
+                })}
             </div>
           </div>
         </div>
 
         {/* Recent Comments */}
-        <div className="bg-white h-[395px] w-[507px] rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] overflow-hidden">
-          <div className="flex flex-col gap-6 items-start justify-start p-6 w-[459px]">
+        <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] overflow-hidden">
+          <div className="flex flex-col gap-4 sm:gap-6 items-start justify-start p-4 sm:p-6 w-full">
             <div className="flex flex-row items-center justify-between w-full">
-              <div className="flex flex-row gap-2 items-center justify-start w-[239px]">
-                <div className="w-8 h-8">
-                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <div className="flex flex-row gap-2 items-center justify-start w-full">
+                <div className="w-6 h-6 sm:w-8 sm:h-8">
+                  <svg width="24" height="24" viewBox="0 0 32 32" fill="none" className="sm:w-8 sm:h-8">
                     <rect width="32" height="32" rx="6" fill="#f0f0f0"/>
                   </svg>
                 </div>
-                <div className="text-[20px] font-medium text-[#252525]">Recent Comments</div>
-                <div className="bg-[#586468] w-6 h-6 rounded-full flex items-center justify-center">
-                  <div className="text-[14px] font-medium text-white">44</div>
+                <div className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525]">Recent Comments</div>
+                <div className="bg-[#586468] w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center">
+                  <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-white">44</div>
                 </div>
               </div>
             </div>
             
-            <div className="flex flex-col gap-4 h-[291px] items-start justify-start overflow-y-auto w-full">
+            <div className="flex flex-col gap-3 sm:gap-4 h-48 sm:h-64 lg:h-[291px] items-start justify-start overflow-y-auto w-full">
               {recentComments.map((comment, index) => (
-                <div key={index} className="bg-[#f9f9f9] flex flex-row gap-4 items-start justify-start px-4 py-2 rounded-2xl w-full">
-                  <div className="flex flex-row items-center justify-between px-0 py-px w-[62px]">
-                    <div className="bg-[#263238] w-5 h-5 rounded-[32px] flex items-center justify-center">
-                      <svg width="12.8" height="12.8" viewBox="0 0 24 24" fill="none">
+                <div key={index} className="bg-[#f9f9f9] flex flex-row gap-3 sm:gap-4 items-start justify-start px-3 sm:px-4 py-2 rounded-xl sm:rounded-2xl w-full">
+                  <div className="flex flex-row items-center justify-between px-0 py-px w-12 sm:w-[62px] flex-shrink-0">
+                    <div className="bg-[#263238] w-4 h-4 sm:w-5 sm:h-5 rounded-full sm:rounded-[32px] flex items-center justify-center">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="sm:w-3 sm:h-3">
                         <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="white" strokeWidth="1" fill="white"/>
                       </svg>
                     </div>
-                    <div className="text-[12px] font-normal text-[#666666] text-right tracking-[-0.072px]">BG – 17</div>
+                    <div className="text-[10px] sm:text-[12px] font-normal text-[#666666] text-right tracking-[-0.072px] hidden sm:block">BG – 17</div>
                   </div>
                   
-                  <div className="flex flex-col gap-2 items-start justify-start w-[349px]">
-                    <div className="flex flex-col gap-2 items-start justify-start w-[349px]">
-                      <div className="text-[16px] font-medium text-[#333333]">Login forgot password bugfix</div>
-                      <div className="text-[12px] font-normal text-[#999999] w-[349px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                  <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start flex-1 min-w-0">
+                    <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start w-full">
+                      <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333]">Login forgot password bugfix</div>
+                      <div className="text-xs sm:text-sm lg:text-[12px] font-normal text-[#999999] w-full">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                     </div>
                     
                     <div className="flex flex-row items-center justify-between w-full">
                       <div className="flex flex-row gap-1 items-center justify-start">
-                        <div className="w-4 h-4 rounded-full bg-gray-300"></div>
-                        <div className="text-[16px] font-medium text-[#333333] tracking-[-0.32px]">Kate</div>
+                        <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-gray-300"></div>
+                        <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333] tracking-[-0.32px]">Kate</div>
                       </div>
                       
-                      <div className="text-[12px] font-normal text-[#999999] tracking-[-0.24px]">6 mins ago</div>
+                      <div className="text-xs sm:text-sm lg:text-[12px] font-normal text-[#999999] tracking-[-0.24px]">6 mins ago</div>
                     </div>
                   </div>
                 </div>
@@ -233,44 +233,44 @@ const Dashboard = () => {
         </div>
         
         {/* Emerging Issues */}
-        <div className="bg-white h-[395px] w-[507px] rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)]">
-          <div className="flex flex-col gap-6 items-start justify-start p-6 w-[459px]">
+        <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)]">
+          <div className="flex flex-col gap-4 sm:gap-6 items-start justify-start p-4 sm:p-6 w-full">
             <div className="flex flex-row items-center justify-between w-full">
               <div className="flex flex-row gap-2 items-center justify-start">
-                <div className="w-8 h-8">
-                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <div className="w-6 h-6 sm:w-8 sm:h-8">
+                  <svg width="24" height="24" viewBox="0 0 32 32" fill="none" className="sm:w-8 sm:h-8">
                     <rect width="32" height="32" rx="6" fill="#f0f0f0"/>
                   </svg>
                 </div>
-                <div className="text-[20px] font-medium text-[#252525]">Emerg Issues</div>
+                <div className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525]">Emerg Issues</div>
               </div>
             </div>
             
-            <div className="flex flex-col gap-10 items-start justify-start w-full">
+            <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10 items-start justify-start w-full">
               {emergingIssues.slice(0, 4).map((issue, index) => (
-                <div key={issue.id} className="flex flex-row gap-4 items-start justify-start w-full">
-                  <div className="flex flex-row items-center justify-between px-0 py-px w-[62px]">
-                    <div className="bg-[#263238] w-5 h-5 rounded-[32px] flex items-center justify-center">
-                      <svg width="12.8" height="12.8" viewBox="0 0 24 24" fill="none">
+                <div key={issue.id} className="flex flex-row gap-3 sm:gap-4 items-start justify-start w-full">
+                  <div className="flex flex-row items-center justify-between px-0 py-px w-12 sm:w-[62px] flex-shrink-0">
+                    <div className="bg-[#263238] w-4 h-4 sm:w-5 sm:h-5 rounded-full sm:rounded-[32px] flex items-center justify-center">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="sm:w-3 sm:h-3">
                         <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="white" strokeWidth="1" fill="white"/>
                       </svg>
                     </div>
-                    <div className="text-[12px] font-normal text-[#666666] text-right tracking-[-0.072px]">BG – 17</div>
+                    <div className="text-[10px] sm:text-[12px] font-normal text-[#666666] text-right tracking-[-0.072px] hidden sm:block">BG – 17</div>
                   </div>
                   
-                  <div className="flex flex-row gap-[91px] items-center justify-start">
-                    <div className="flex flex-col gap-2 items-start justify-start w-[210px]">
-                      <div className="text-[16px] font-medium text-[#333333]">{issue.title}</div>
-                      <div className="flex flex-row gap-2 items-start justify-start text-[12px]">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 lg:gap-[91px] items-start sm:items-center justify-start flex-1 min-w-0">
+                    <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start flex-1 min-w-0">
+                      <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333]">{issue.title}</div>
+                      <div className="flex flex-row gap-1 sm:gap-2 items-start justify-start text-xs sm:text-[12px]">
                         <div className="font-normal text-[#999999]">Projects</div>
                         <div className="font-medium text-[#999999]">Hire-Accel Portal</div>
                       </div>
                     </div>
                     
-                    <div className="flex flex-col gap-1 items-start justify-start w-20">
-                      <div className="text-[14px] font-medium text-[#252525] text-center w-full">Time Left</div>
-                      <div className="bg-[#c0ced2] h-5 w-20 rounded-lg relative">
-                        <div className="text-[12px] font-medium text-[#445256] absolute top-[3px] left-[27px]">
+                    <div className="flex flex-col gap-1 items-start justify-start w-full sm:w-20 flex-shrink-0">
+                      <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#252525] text-center w-full">Time Left</div>
+                      <div className="bg-[#c0ced2] h-4 sm:h-5 w-full sm:w-20 rounded-lg relative">
+                        <div className="text-[10px] sm:text-[12px] font-medium text-[#445256] absolute top-[2px] sm:top-[3px] left-[8px] sm:left-[27px]">
                           {index === 0 ? '8 hrs' : index === 1 ? '10 hrs' : index === 2 ? '1 day' : '2 days'}
                         </div>
                       </div>
@@ -285,17 +285,17 @@ const Dashboard = () => {
 
       {/* Types of Work and Priority Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white h-[395px] w-[419px] rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)]">
-          <div className="flex flex-col gap-2 items-start justify-start p-6 w-[377px]">
-            <div className="text-[20px] font-medium text-[#252525] w-full">Types of work</div>
-            <div className="text-[16px] font-medium text-[#999999] w-full">Issues in all projects</div>
+        <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)]">
+          <div className="flex flex-col gap-2 items-start justify-start p-4 sm:p-6 w-full">
+            <div className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525] w-full">Types of work</div>
+            <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#999999] w-full">Issues in all projects</div>
           </div>
           
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {workTypeData.map((item, index) => (
-              <div key={item.label} className="flex items-center gap-[25px] mb-4">
-                <div className="h-[30px] w-10 flex items-center justify-center">
-                  <div className="text-[16px] font-medium text-[#1c2024]">{item.label}</div>
+              <div key={item.label} className="flex items-center gap-4 sm:gap-6 lg:gap-[25px] mb-3 sm:mb-4">
+                <div className="h-6 sm:h-8 lg:h-[30px] w-8 sm:w-10 flex items-center justify-center">
+                  <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#1c2024]">{item.label}</div>
                 </div>
                 <div className="flex-1 h-10 bg-gray-200 rounded relative">
                   <div 
