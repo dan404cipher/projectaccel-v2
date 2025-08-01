@@ -6,6 +6,44 @@
 All colors MUST be HSL.
 */
 
+/* Shimmer animation for workspace button */
+@keyframes borderShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Workspace button border animation */
+.workspace-button {
+  position: relative;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.workspace-button::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  border-radius: inherit;
+  background-size: 200% 100%;
+  animation: borderShimmer 4s infinite linear;
+  z-index: -1;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 2px 2px, 2px calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 2px, 2px 2px);
+}
+
+.workspace-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  border-radius: inherit;
+  z-index: -1;
+}
+
 @layer base {
   :root {
     --background: 0 0% 98%;

@@ -16,11 +16,11 @@ export function Layout({ children }: LayoutProps) {
           <Header />
           
           {/* Content area */}
-          <div className="h-[calc(100vh-5vh)] pt-5">
+          <div className="h-[100%] pt-5">
             <div className="flex h-full">
               <AppSidebar />
               <main className="flex-1 overflow-auto pt-16">
-                <div className="p-6">
+                <div className="py-6">
                   {children}
                 </div>
               </main>

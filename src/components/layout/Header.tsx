@@ -1,4 +1,4 @@
-import { Search, Bell, MessageSquare, Puzzle } from "lucide-react"
+import { Search, Bell, MessageSquare, Puzzle, Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -29,13 +29,14 @@ export function Header() {
           <DropdownMenuTrigger asChild>
             <Button 
               variant="ghost" 
-              className="justify-between h-7 sm:h-9 lg:h-10 px-3 sm:px-4 lg:px-6 w-32 sm:w-48 lg:w-[264px] bg-[rgba(255,255,255,0.07)]"
+              className="h-7 sm:h-9 lg:h-10 px-3 sm:px-4 lg:px-6 w-29 sm:w-41 lg:w-49 rounded-full relative workspace-button overflow-hidden focus:outline-none focus:ring-0 focus:border-none"
               style={{
-                borderRadius: '100px',
-                background: 'rgba(255, 255, 255, 0.07)'
+                background: 'linear-gradient(0deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.18) 100%), rgba(255, 255, 255, 0.07)',
+                backgroundBlendMode: 'color-dodge, normal',
+                borderRadius: '9999px'
               }}
             >
-              <span className="text-[#06263D] font-medium text-sm sm:text-base lg:text-[20px] capitalize truncate">
+              <span className="text-[#06263D] pr-4 font-medium text-sm sm:text-base lg:text-base capitalize truncate">
                 <span className="hidden sm:inline">Workspace name</span>
                 <span className="sm:hidden">Workspace</span>
               </span>
@@ -51,34 +52,32 @@ export function Header() {
         </DropdownMenu>
       </div>
 
-      {/* Center Section - Search Bar */}
-      <div className="bg-white rounded-[100px] h-7 sm:h-9 lg:h-10 flex-1 max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-[356px] mx-2 sm:mx-4 flex items-center px-3 sm:px-4 lg:px-6 gap-2 sm:gap-4">
-        <Search className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-gray-400 flex-shrink-0" />
-        <input 
-          type="text"
-          placeholder="search..." 
-          className="flex-1 border-none outline-none text-sm sm:text-base text-[#999999] placeholder:text-[#999999] bg-transparent lowercase min-w-0"
-        />
-        <Button size="sm" variant="ghost" className="hidden sm:flex h-4 w-4 sm:h-6 sm:w-6 p-0 hover:bg-gray-100 flex-shrink-0">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="sm:w-6 sm:h-6">
-            <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1"/>
-          </svg>
-        </Button>
-      </div>
-
-      {/* Right Section - Action Buttons and User */}
+      {/* Right Section - Search Bar, Action Buttons and User */}
       <div className="flex items-center gap-2 sm:gap-4 lg:gap-6 flex-shrink-0">
+        {/* Search Bar */}
+        <div className="bg-white rounded-[100px] h-6 sm:h-8 lg:h-9 w-40 sm:w-56 lg:w-80 flex items-center px-3 sm:px-4 lg:px-6">
+          <Search className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-black flex-shrink-0 mr-2 sm:mr-3 lg:mr-4" />
+          <input 
+            type="text"
+            placeholder="search for anything..." 
+            className="flex-1 border-none outline-none text-xs sm:text-sm lg:text-base text-[#999999] placeholder:text-[#999999] bg-transparent lowercase min-w-0"
+          />
+          <Button size="sm" variant="ghost" className="hidden sm:flex h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 p-0 hover:bg-gray-100 flex-shrink-0 ml-2 sm:ml-3 lg:ml-4">
+            <Settings className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-black" />
+          </Button>
+        </div>
+
         {/* Action Buttons */}
-        <div className="hidden lg:flex items-center gap-4">
-          <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full hover:bg-white/30">
+        <div className="hidden lg:flex items-center gap-3">
+          <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full bg-white hover:bg-white/30">
             <Puzzle className="h-5 w-5 text-gray-700" />
           </Button>
           
-          <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full hover:bg-white/30">
+          <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full bg-white hover:bg-white/30">
             <Bell className="h-5 w-5 text-gray-700" />
           </Button>
           
-          <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full hover:bg-white/30">
+          <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full bg-white hover:bg-white/30">
             <MessageSquare className="h-5 w-5 text-gray-700" />
           </Button>
         </div>
@@ -97,18 +96,15 @@ export function Header() {
         {/* User Profile */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="gap-2 sm:gap-4 h-7 sm:h-9 lg:h-10 px-2 sm:px-4 rounded-full bg-white hover:bg-white/90">
-              <Avatar className="h-5 w-5 sm:h-7 sm:w-7 lg:h-8 lg:w-8">
-                <AvatarImage src="" />
-                <AvatarFallback className="bg-orange-400 text-white text-xs sm:text-sm lg:text-base font-medium">L</AvatarFallback>
+            <Button variant="ghost" className="justify-between items-center gap-2 sm:gap-4 h-7 sm:h-9 lg:h-10 px-5 sm:pl-3 pr-6 rounded-full bg-white hover:bg-white/90">
+              <Avatar className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8">
+                <AvatarImage src="/placeholder.svg" />
+                <AvatarFallback className="text-xs sm:text-sm lg:text-base">JD</AvatarFallback>
               </Avatar>
-              <div className="text-left hidden sm:block">
-                <div className="text-xs sm:text-sm lg:text-[14px] font-normal text-[#292D32]">Lisa</div>
-                <div className="text-xs lg:text-[12px] font-normal text-[rgba(41,45,50,0.44)] hidden lg:block">Product manager</div>
-              </div>
+              <span className="hidden lg:inline text-sm font-medium text-gray-700">John Doe</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent>
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Logout</DropdownMenuItem>
