@@ -316,7 +316,7 @@ export default function ProjectOverview() {
         </div>
 
         {/* Additional Sections */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* Status Overview */}
           <div className="bg-white rounded-3xl p-6 shadow-sm">
             <h3 className="text-xl font-medium text-[#242424] mb-6">Status Overview</h3>
@@ -383,6 +383,253 @@ export default function ProjectOverview() {
                     </div>
                     <p className="text-sm text-[#f59f0a] mt-1">85%</p>
                     <p className="text-xs text-[#666666]">workload</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Sprint Overview */}
+        <div className="bg-white rounded-3xl p-6 mb-8 shadow-sm">
+          <h3 className="text-xl font-medium text-[#242424] mb-6">Sprint Overview</h3>
+          <div className="space-y-4">
+            {[
+              { name: 'Scrum 24', subtitle: 'Payments', status: 'Planned', progress: 0, color: '#4e84b4' },
+              { name: 'Scrum 23', subtitle: 'Payment Integration', status: 'Active', progress: 68, color: '#f59f0a' },
+              { name: 'Scrum 22', subtitle: 'User Authentication', status: 'Completed', progress: 100, color: '#16a249' }
+            ].map((sprint, index) => (
+              <div key={index} className="bg-[#f9f9f9] rounded-2xl p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <img alt="sprint" className="w-4 h-4" src={index === 0 ? imgWpfFuture : index === 1 ? imgCarbonInProgress : imgSvg5} />
+                    <div>
+                      <span className="text-base font-medium text-[#333333]">{sprint.name} </span>
+                      <span className="text-xs text-[#666666]">{sprint.subtitle}</span>
+                    </div>
+                  </div>
+                  <div className={`px-2 py-1 rounded-full text-xs font-bold text-white`} style={{ backgroundColor: sprint.color }}>
+                    {sprint.status}
+                  </div>
+                </div>
+                <p className="text-xs text-[#666666] mb-3">Jun 25, 2025 - Jul 30, 2025</p>
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 bg-[#ecf2f2] h-3 rounded-full">
+                    <div className="bg-[#67909b] h-3 rounded-full" style={{ width: `${sprint.progress}%` }}></div>
+                  </div>
+                  <span className="text-sm text-zinc-500">{sprint.progress}%</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Issues Analysis and Recent Comments */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Issues Analysis */}
+          <div className="bg-white rounded-3xl p-6 shadow-sm">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-2">
+                <img alt="analysis" className="w-8 h-8" src={imgFrame1116606892} />
+                <h3 className="text-xl font-medium text-[#252525]">Issues Analysis</h3>
+              </div>
+              <div className="bg-[#06263d] px-3 py-2 rounded-lg flex items-center gap-1">
+                <span className="text-sm text-white">Week</span>
+                <img alt="arrow" className="w-4 h-4 rotate-180" src={imgIconamoonArrowUp2Light1} />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-base font-medium text-[#333333] mb-2">Time Spent on Tasks</h4>
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="bg-[#f9f9f9] rounded-2xl p-4 text-center">
+                    <div className="text-3xl font-bold text-[#06263d] mb-1">89</div>
+                    <p className="text-sm text-[#60646c]">Assigned Issues</p>
+                  </div>
+                  <div className="bg-[#f9f9f9] rounded-2xl p-4 text-center">
+                    <div className="text-3xl font-bold text-[#06263d] mb-1">85</div>
+                    <p className="text-sm text-[#60646c]">Completed Issues</p>
+                  </div>
+                </div>
+                <div className="bg-[#f9f9f9] rounded-2xl p-4 text-center">
+                  <div className="text-3xl font-bold text-[#06263d] mb-2">90%</div>
+                  <p className="text-sm text-[#60646c]">This week's work tracking is higher than last week's</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Recent Comments */}
+          <div className="bg-white rounded-3xl p-6 shadow-sm">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-2">
+                <img alt="comments" className="w-8 h-8" src={imgFrame1116606892} />
+                <h3 className="text-xl font-medium text-[#252525]">Recent Comments</h3>
+              </div>
+              <div className="bg-[#586468] w-6 h-6 rounded-full flex items-center justify-center">
+                <span className="text-sm text-white font-medium">44</span>
+              </div>
+            </div>
+            <div className="space-y-4 max-h-80 overflow-y-auto">
+              {[1, 2, 3, 4, 5].map((item) => (
+                <div key={item} className="bg-[#f9f9f9] rounded-2xl p-4">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-[#263238] w-5 h-5 rounded-full flex items-center justify-center">
+                      <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline1} />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xs text-[#666666] mb-1">BG – 17</p>
+                      <h4 className="text-base font-medium text-[#333333] mb-2">
+                        Login forgot password bugfix
+                      </h4>
+                      <p className="text-xs text-[#999999] mb-3">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque interdum sem, id eleifend mauris tempor sederty
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1">
+                          <img alt="user" className="w-4 h-4 rounded-full" src={imgEllipse253} />
+                          <span className="text-sm font-medium text-[#333333]">Kate</span>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-1">
+                            <img alt="stack" className="w-3.5 h-3.5" src={imgFluentStack48Regular} />
+                            <span className="text-xs text-[#06263d] font-medium">5</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
+                            <span className="text-xs text-[#06263d] font-medium">14</span>
+                          </div>
+                          <span className="text-xs text-[#999999]">6 mins ago</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bug Overview and Recent Activity */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Bug Overview */}
+          <div className="bg-white rounded-3xl p-6 shadow-sm">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-medium text-[#242424]">Bug overview</h3>
+              <div className="bg-[#06263d] w-8 h-8 rounded-full flex items-center justify-center">
+                <img alt="add" className="w-4 h-4" src={imgStashPlusSolid} />
+              </div>
+            </div>
+            <p className="text-base text-[#999999] mb-6">
+              Connect integrations with other services to be faster
+            </p>
+            <div className="space-y-4">
+              {[1, 2, 3, 4, 5].map((item) => (
+                <div key={item} className="flex items-center gap-4">
+                  <div className="bg-[#263238] w-5 h-5 rounded-full flex items-center justify-center">
+                    <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-xs text-[#666666] mb-1">BG – 17</p>
+                    <h4 className="text-base font-medium text-[#252525] mb-2">
+                      Login forgot password bugfix
+                    </h4>
+                    <div className="flex items-center gap-2 text-xs text-[#333333] mb-2">
+                      <span>Projects</span>
+                      <span className="font-semibold text-[#666666]">Hire-Accel Portal</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="text-center">
+                      <p className="text-sm text-[#4a4a4a] mb-1">Status</p>
+                      <div className="bg-[rgba(192,206,210,0.4)] h-5 rounded flex items-center px-2">
+                        <span className="text-xs text-[#445256]">Open</span>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm text-[#4a4a4a] mb-1">Priority</p>
+                      <div className="bg-[rgba(192,206,210,0.4)] h-5 rounded flex items-center px-2">
+                        <span className="text-xs text-[#445256]">Highest</span>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm text-[#4a4a4a] mb-1">Severity</p>
+                      <div className="bg-[rgba(192,206,210,0.4)] h-5 rounded flex items-center px-2">
+                        <span className="text-xs text-[#445256]">Critical</span>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm text-[#4a4a4a] mb-1">Category</p>
+                      <div className="bg-[rgba(192,206,210,0.4)] h-5 rounded flex items-center px-2">
+                        <span className="text-xs text-[#445256]">Functionality</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Activity */}
+          <div className="bg-white rounded-3xl p-6 shadow-sm">
+            <h3 className="text-xl font-medium text-[#242424] mb-6">Recent Activity</h3>
+            <div className="space-y-4">
+              {[
+                { 
+                  user: 'AC', 
+                  name: 'Alex Chen', 
+                  color: '#67909b', 
+                  action: 'Payment Integration Completed',
+                  priority: 'high',
+                  priorityColor: '#ef4343',
+                  description: 'Successfully integrated Stripe payment gateway with error handling and webhook support',
+                  time: '6 mins ago'
+                },
+                { 
+                  user: 'SJ', 
+                  name: 'Sarah Johnson', 
+                  color: '#679b7c', 
+                  action: 'API Rate Limit Risk Identified',
+                  priority: 'medium',
+                  priorityColor: '#f59f0a',
+                  description: 'Third-party API may hit rate limits during peak usage. Need to implement caching strategy.',
+                  time: '6 mins ago'
+                },
+                { 
+                  user: 'SJ', 
+                  name: 'Sarah Johnson', 
+                  color: '#7b679b', 
+                  action: 'API Rate Limit Risk Identified',
+                  priority: 'medium',
+                  priorityColor: '#f59f0a',
+                  description: 'Third-party API may hit rate limits during peak usage. Need to implement caching strategy.',
+                  time: '6 mins ago'
+                }
+              ].map((activity, index) => (
+                <div key={index} className="flex items-start gap-4 p-4 rounded-2xl">
+                  <div className="relative">
+                    <div 
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-white font-medium"
+                      style={{ backgroundColor: activity.color }}
+                    >
+                      {activity.user}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-4 mb-2">
+                      <div className="flex items-center gap-2">
+                        <img alt="activity" className="w-4 h-4" src={index === 0 ? imgSvg5 : imgSvg6} />
+                        <span className="text-base font-medium text-[#333333]">{activity.action}</span>
+                      </div>
+                      <div className={`px-2 py-1 rounded-full text-xs font-bold text-white`} style={{ backgroundColor: activity.priorityColor }}>
+                        {activity.priority}
+                      </div>
+                    </div>
+                    <p className="text-xs text-zinc-500 mb-2">{activity.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-[#333333]">By {activity.name}</span>
+                      <span className="text-xs text-[#999999]">{activity.time}</span>
+                    </div>
                   </div>
                 </div>
               ))}
