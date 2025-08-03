@@ -30,7 +30,7 @@ export function AppSidebar() {
       : "hover:bg-gradient-to-r hover:from-white/20 hover:to-white/10 text-[#06263D] rounded-xl transition-all duration-300 hover:shadow-md"
 
   return (
-    <div className={`${collapsed ? "w-20 sm:w-24" : "w-48 sm:w-60"} flex-shrink-0 h-full h-[calc(100%-7rem)] mt-16 transition-all duration-300 ease-in-out`}>
+    <div className={`${collapsed ? "w-20 sm:w-24" : "w-48 sm:w-60"} flex-shrink-0 h-full h-[calc(100%-7.1rem)] mt-16 transition-all duration-300 ease-in-out`}>
       <div 
         className="h-full m-1 sm:m-2 lg:m-4 rounded-xl sm:rounded-2xl lg:rounded-[32px] p-2 sm:p-3 lg:p-2 relative flex flex-col shadow-2xl border border-white/20"
         style={{

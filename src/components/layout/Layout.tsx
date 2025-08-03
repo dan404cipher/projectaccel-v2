@@ -11,16 +11,16 @@ export function Layout({ children }: LayoutProps) {
   return (
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
       <SidebarProvider>
-        <div className="h-screen bg-background overflow-hidden">
+        <div className="h-screen bg-background overflow-hidden w-full">
           {/* Fixed Header */}
           <Header />
           
           {/* Content area */}
           <div className="h-[100%] pt-5">
-            <div className="flex h-full">
+            <div className="flex h-full w-full">
               <AppSidebar />
               <main className="flex-1 overflow-auto pt-16">
-                <div className="py-6">
+                <div className="h-full">
                   {children}
                 </div>
               </main>
