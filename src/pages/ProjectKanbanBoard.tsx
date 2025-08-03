@@ -1,5 +1,4 @@
 import React from 'react';
-import { Layout } from '@/components/layout/Layout';
 
 // Image assets from Figma design
 const imgEllipse3226 = "http://localhost:3845/assets/afcdad76e6a54041bae78e7f511725140b74e504.png";
@@ -48,600 +47,598 @@ const imgGroup5 = "http://localhost:3845/assets/2e309aa74b76b1ebfdfb2f41c4d8d82d
 
 export default function ProjectKanbanBoard() {
   return (
-    <Layout>
-      <div className="bg-[#f6f6f6] min-h-screen w-full">
-        {/* Project Header */}
-        <div className="mb-6 sm:mb-8 lg:mb-10">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="rotate-90">
-              <img alt="arrow" className="w-10 h-10" src={imgGroup3} />
-            </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#438197]">
-              Example project name
-            </h1>
+    <div className="bg-[#f6f6f6] min-h-screen w-full">
+      {/* Project Header */}
+      <div className="mb-6 sm:mb-8 lg:mb-10">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="rotate-90">
+            <img alt="arrow" className="w-10 h-10" src={imgGroup3} />
           </div>
-          
-          {/* Navigation Tabs */}
-          <div className="flex items-center gap-10 mb-6">
-            <div className="flex items-center gap-2">
-              <img alt="dashboard" className="w-6 h-6" src={imgSiDashboardFill} />
-              <span className="text-xl font-medium text-[#06263d]">Overview</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img alt="backlog" className="w-6 h-6" src={imgCodiconDebugStepBack} />
-              <span className="text-xl font-medium text-[#06263d]">Backlog</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img alt="sprint" className="w-6 h-6" src={imgFluentArrowSprint20Filled} />
-              <span className="text-xl font-medium text-[#06263d]">Active Sprint</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img alt="team" className="w-6 h-6" src={imgPhKanbanFill} />
-              <span className="text-xl font-medium text-[#06263d]">Team</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <img alt="report" className="w-6 h-6" src={imgPhKanbanFill} />
-              <span className="text-xl font-medium text-[#06263d]">Report</span>
-            </div>
-          </div>
-          
-          {/* Active Tab Indicator */}
-          <div className="h-0.5 w-36 bg-[#438197] ml-24"></div>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-[#438197]">
+            Example project name
+          </h1>
         </div>
-
-        {/* View Controls */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-4">
-            <h2 className="text-2xl font-medium text-[#06263d]">Kanban Board View</h2>
-            <div className="flex items-center gap-1">
-              <div className="w-7 h-7 bg-[#67909b] rounded-full flex items-center justify-center">
-                <span className="text-white text-base font-medium">22</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Team Members */}
+        
+        {/* Navigation Tabs */}
+        <div className="flex items-center gap-10 mb-6">
           <div className="flex items-center gap-2">
-            <div className="flex -space-x-2">
-              <div className="w-10 h-10 bg-[#999999] rounded-full flex items-center justify-center">
-                <img alt="profile" className="w-4 h-4" src={imgGroup5} />
-              </div>
-              <div className="w-10 h-10 bg-[#416880] rounded-full flex items-center justify-center">
-                <span className="text-white text-sm">K</span>
-              </div>
-              <img alt="member" className="w-10 h-10 rounded-full" src={imgEllipse248} />
-              <img alt="member" className="w-10 h-10 rounded-full" src={imgEllipse242} />
-              <img alt="member" className="w-10 h-10 rounded-full" src={imgEllipse246} />
+            <img alt="dashboard" className="w-6 h-6" src={imgSiDashboardFill} />
+            <span className="text-xl font-medium text-[#06263d]">Overview</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <img alt="backlog" className="w-6 h-6" src={imgCodiconDebugStepBack} />
+            <span className="text-xl font-medium text-[#06263d]">Backlog</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <img alt="sprint" className="w-6 h-6" src={imgFluentArrowSprint20Filled} />
+            <span className="text-xl font-medium text-[#06263d]">Active Sprint</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <img alt="team" className="w-6 h-6" src={imgPhKanbanFill} />
+            <span className="text-xl font-medium text-[#06263d]">Team</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <img alt="report" className="w-6 h-6" src={imgPhKanbanFill} />
+            <span className="text-xl font-medium text-[#06263d]">Report</span>
+          </div>
+        </div>
+        
+        {/* Active Tab Indicator */}
+        <div className="h-0.5 w-36 bg-[#438197] ml-24"></div>
+      </div>
+
+      {/* View Controls */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-4">
+          <h2 className="text-2xl font-medium text-[#06263d]">Kanban Board View</h2>
+          <div className="flex items-center gap-1">
+            <div className="w-7 h-7 bg-[#67909b] rounded-full flex items-center justify-center">
+              <span className="text-white text-base font-medium">22</span>
             </div>
           </div>
         </div>
-
-        {/* Action Buttons */}
-        <div className="flex items-center gap-4 mb-6">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-[#67909b] rounded-lg flex items-center justify-center">
-              <img alt="search" className="w-4 h-4" src={imgGroup4} />
+        
+        {/* Team Members */}
+        <div className="flex items-center gap-2">
+          <div className="flex -space-x-2">
+            <div className="w-10 h-10 bg-[#999999] rounded-full flex items-center justify-center">
+              <img alt="profile" className="w-4 h-4" src={imgGroup5} />
             </div>
-            <div className="w-10 h-10 bg-[#67909b] rounded-lg flex items-center justify-center">
-              <img alt="sort" className="w-4 h-4" src={imgLucideSortDesc} />
+            <div className="w-10 h-10 bg-[#416880] rounded-full flex items-center justify-center">
+              <span className="text-white text-sm">K</span>
             </div>
-            <div className="w-10 h-10 bg-[#67909b] rounded-lg flex items-center justify-center">
-              <img alt="group" className="w-4 h-4" src={imgFluentGroup24Regular} />
-            </div>
-            <div className="w-10 h-10 bg-[#67909b] rounded-lg flex items-center justify-center">
-              <img alt="sprint" className="w-4 h-4" src={imgFluentArrowSprint20Filled1} />
-            </div>
-          </div>
-          <button className="bg-[#67909b] text-white px-6 py-2 rounded-lg font-medium">
-            Complete Sprint
-          </button>
-        </div>
-
-        {/* Kanban Board */}
-        <div className="flex gap-8 overflow-x-auto pb-6">
-          {/* To-Do Column */}
-          <div className="flex-shrink-0 w-72">
-            <div className="bg-[rgba(103,144,155,0.06)] rounded-t-2xl p-4 min-h-[462px]">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <h3 className="text-xl font-medium text-[#06263d]">To - Do</h3>
-                  <div className="w-6 h-6 bg-[#67909b] rounded-full flex items-center justify-center">
-                    <span className="text-white text-base font-medium">2</span>
-                  </div>
-                </div>
-                <img alt="add" className="w-6 h-6 rotate-45" src={imgIcRoundPlus} />
-              </div>
-              
-              {/* Task Cards */}
-              <div className="space-y-4">
-                {/* Task Card 1 */}
-                <div className="bg-white rounded-2xl p-4 shadow-sm">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
-                        <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <img alt="message" className="w-3.5 h-3.5" src={img1} />
-                        <span className="text-xs text-[#787486] font-medium">16</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
-                        <span className="text-xs text-[#787486] font-medium">14</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
-                  <p className="text-[#787486] text-xs mb-3 leading-4">
-                    Brainstorming brings team members' diverse experience into play.
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                        <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
-                      </div>
-                      <span className="text-xs text-[#666666]">BG – 17</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
-                        <span className="text-xs text-[#d58d49] font-medium">Low</span>
-                      </div>
-                      <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Task Card 2 (Rotated) */}
-                <div className="bg-white rounded-2xl p-4 shadow-sm transform rotate-1">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
-                        <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <img alt="message" className="w-3.5 h-3.5" src={img2} />
-                        <span className="text-xs text-[#787486] font-medium">16</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
-                        <span className="text-xs text-[#787486] font-medium">14</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
-                  <p className="text-[#787486] text-xs mb-3 leading-4">
-                    Brainstorming brings team members' diverse experience into play.
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                        <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
-                      </div>
-                      <span className="text-xs text-[#666666]">BG – 17</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
-                        <span className="text-xs text-[#d58d49] font-medium">Low</span>
-                      </div>
-                      <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* In Progress Column */}
-          <div className="flex-shrink-0 w-72">
-            <div className="bg-[rgba(103,144,155,0.06)] rounded-t-2xl p-4 min-h-[583px]">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <h3 className="text-xl font-medium text-[#06263d]">In progress</h3>
-                  <div className="w-6 h-6 bg-[#67909b] rounded-full flex items-center justify-center">
-                    <span className="text-white text-base font-medium">3</span>
-                  </div>
-                </div>
-                <img alt="add" className="w-6 h-6 rotate-45" src={imgIcRoundPlus} />
-              </div>
-              
-              {/* Task Cards */}
-              <div className="space-y-4">
-                {/* Task Card 1 */}
-                <div className="bg-white rounded-2xl p-4 shadow-sm">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
-                        <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <img alt="message" className="w-3.5 h-3.5" src={img3} />
-                        <span className="text-xs text-[#787486] font-medium">16</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
-                        <span className="text-xs text-[#787486] font-medium">14</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
-                  <p className="text-[#787486] text-xs mb-3 leading-4">
-                    Brainstorming brings team members' diverse experience into play.
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                        <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
-                      </div>
-                      <span className="text-xs text-[#666666]">BG – 17</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
-                        <span className="text-xs text-[#d58d49] font-medium">Low</span>
-                      </div>
-                      <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Task Card 2 */}
-                <div className="bg-white rounded-2xl p-4 shadow-sm">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
-                        <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <img alt="message" className="w-3.5 h-3.5" src={img3} />
-                        <span className="text-xs text-[#787486] font-medium">16</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
-                        <span className="text-xs text-[#787486] font-medium">14</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
-                  <p className="text-[#787486] text-xs mb-3 leading-4">
-                    Brainstorming brings team members' diverse experience into play.
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                        <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
-                      </div>
-                      <span className="text-xs text-[#666666]">BG – 17</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
-                        <span className="text-xs text-[#d58d49] font-medium">Low</span>
-                      </div>
-                      <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Task Card 3 */}
-                <div className="bg-white rounded-2xl p-4 shadow-sm">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
-                        <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <img alt="message" className="w-3.5 h-3.5" src={img3} />
-                        <span className="text-xs text-[#787486] font-medium">16</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
-                        <span className="text-xs text-[#787486] font-medium">14</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
-                  <p className="text-[#787486] text-xs mb-3 leading-4">
-                    Brainstorming brings team members' diverse experience into play.
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                        <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
-                      </div>
-                      <span className="text-xs text-[#666666]">BG – 17</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
-                        <span className="text-xs text-[#d58d49] font-medium">Low</span>
-                      </div>
-                      <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* In Review Column */}
-          <div className="flex-shrink-0 w-72">
-            <div className="bg-[rgba(103,144,155,0.06)] rounded-t-2xl p-4 min-h-[583px]">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <h3 className="text-xl font-medium text-[#06263d]">In review</h3>
-                  <div className="w-6 h-6 bg-[#67909b] rounded-full flex items-center justify-center">
-                    <span className="text-white text-base font-medium">3</span>
-                  </div>
-                </div>
-                <img alt="add" className="w-6 h-6 rotate-45" src={imgIcRoundPlus} />
-              </div>
-              
-              {/* Task Cards */}
-              <div className="space-y-4">
-                {/* Task Card 1 */}
-                <div className="bg-white rounded-2xl p-4 shadow-sm">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
-                        <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <img alt="message" className="w-3.5 h-3.5" src={img3} />
-                        <span className="text-xs text-[#787486] font-medium">16</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
-                        <span className="text-xs text-[#787486] font-medium">14</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
-                  <p className="text-[#787486] text-xs mb-3 leading-4">
-                    Brainstorming brings team members' diverse experience into play.
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                        <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
-                      </div>
-                      <span className="text-xs text-[#666666]">BG – 17</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
-                        <span className="text-xs text-[#d58d49] font-medium">Low</span>
-                      </div>
-                      <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Task Card 2 */}
-                <div className="bg-white rounded-2xl p-4 shadow-sm">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
-                        <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <img alt="message" className="w-3.5 h-3.5" src={img3} />
-                        <span className="text-xs text-[#787486] font-medium">16</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
-                        <span className="text-xs text-[#787486] font-medium">14</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
-                  <p className="text-[#787486] text-xs mb-3 leading-4">
-                    Brainstorming brings team members' diverse experience into play.
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                        <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
-                      </div>
-                      <span className="text-xs text-[#666666]">BG – 17</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
-                        <span className="text-xs text-[#d58d49] font-medium">Low</span>
-                      </div>
-                      <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Done Column */}
-          <div className="flex-shrink-0 w-72">
-            <div className="bg-[rgba(103,144,155,0.06)] rounded-t-2xl p-4 min-h-[418px]">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <h3 className="text-xl font-medium text-[#06263d]">Done</h3>
-                  <div className="w-6 h-6 bg-[#67909b] rounded-full flex items-center justify-center">
-                    <span className="text-white text-base font-medium">2</span>
-                  </div>
-                </div>
-                <img alt="add" className="w-6 h-6 rotate-45" src={imgIcRoundPlus} />
-              </div>
-              
-              {/* Task Cards */}
-              <div className="space-y-4">
-                {/* Task Card 1 */}
-                <div className="bg-white rounded-2xl p-4 shadow-sm">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
-                        <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <img alt="message" className="w-3.5 h-3.5" src={img3} />
-                        <span className="text-xs text-[#787486] font-medium">16</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
-                        <span className="text-xs text-[#787486] font-medium">14</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
-                  <p className="text-[#787486] text-xs mb-3 leading-4">
-                    Brainstorming brings team members' diverse experience into play.
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                        <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
-                      </div>
-                      <span className="text-xs text-[#666666]">BG – 17</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
-                        <span className="text-xs text-[#d58d49] font-medium">Low</span>
-                      </div>
-                      <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Task Card 2 */}
-                <div className="bg-white rounded-2xl p-4 shadow-sm">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-2">
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
-                        <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
-                        <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <img alt="message" className="w-3.5 h-3.5" src={img3} />
-                        <span className="text-xs text-[#787486] font-medium">16</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
-                        <span className="text-xs text-[#787486] font-medium">14</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
-                  <p className="text-[#787486] text-xs mb-3 leading-4">
-                    Brainstorming brings team members' diverse experience into play.
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                        <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
-                      </div>
-                      <span className="text-xs text-[#666666]">BG – 17</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
-                        <span className="text-xs text-[#d58d49] font-medium">Low</span>
-                      </div>
-                      <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Add Task Button */}
-        <div className="fixed bottom-8 right-8">
-          <div className="w-8 h-8 bg-[#67909b] rounded-lg flex items-center justify-center">
-            <img alt="add" className="w-6 h-6" src={imgIcRoundPlus1} />
+            <img alt="member" className="w-10 h-10 rounded-full" src={imgEllipse248} />
+            <img alt="member" className="w-10 h-10 rounded-full" src={imgEllipse242} />
+            <img alt="member" className="w-10 h-10 rounded-full" src={imgEllipse246} />
           </div>
         </div>
       </div>
-    </Layout>
+
+      {/* Action Buttons */}
+      <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 bg-[#67909b] rounded-lg flex items-center justify-center">
+            <img alt="search" className="w-4 h-4" src={imgGroup4} />
+          </div>
+          <div className="w-10 h-10 bg-[#67909b] rounded-lg flex items-center justify-center">
+            <img alt="sort" className="w-4 h-4" src={imgLucideSortDesc} />
+          </div>
+          <div className="w-10 h-10 bg-[#67909b] rounded-lg flex items-center justify-center">
+            <img alt="group" className="w-4 h-4" src={imgFluentGroup24Regular} />
+          </div>
+          <div className="w-10 h-10 bg-[#67909b] rounded-lg flex items-center justify-center">
+            <img alt="sprint" className="w-4 h-4" src={imgFluentArrowSprint20Filled1} />
+          </div>
+        </div>
+        <button className="bg-[#67909b] text-white px-6 py-2 rounded-lg font-medium">
+          Complete Sprint
+        </button>
+      </div>
+
+      {/* Kanban Board */}
+      <div className="flex gap-8 overflow-x-auto pb-6">
+        {/* To-Do Column */}
+        <div className="flex-shrink-0 w-72">
+          <div className="bg-[rgba(103,144,155,0.06)] rounded-t-2xl p-4 min-h-[462px]">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <h3 className="text-xl font-medium text-[#06263d]">To - Do</h3>
+                <div className="w-6 h-6 bg-[#67909b] rounded-full flex items-center justify-center">
+                  <span className="text-white text-base font-medium">2</span>
+                </div>
+              </div>
+              <img alt="add" className="w-6 h-6 rotate-45" src={imgIcRoundPlus} />
+            </div>
+            
+            {/* Task Cards */}
+            <div className="space-y-4">
+              {/* Task Card 1 */}
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-2">
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
+                      <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <img alt="message" className="w-3.5 h-3.5" src={img1} />
+                      <span className="text-xs text-[#787486] font-medium">16</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
+                      <span className="text-xs text-[#787486] font-medium">14</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
+                <p className="text-[#787486] text-xs mb-3 leading-4">
+                  Brainstorming brings team members' diverse experience into play.
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                      <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
+                    </div>
+                    <span className="text-xs text-[#666666]">BG – 17</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
+                      <span className="text-xs text-[#d58d49] font-medium">Low</span>
+                    </div>
+                    <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Task Card 2 (Rotated) */}
+              <div className="bg-white rounded-2xl p-4 shadow-sm transform rotate-1">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-2">
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
+                      <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <img alt="message" className="w-3.5 h-3.5" src={img2} />
+                      <span className="text-xs text-[#787486] font-medium">16</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
+                      <span className="text-xs text-[#787486] font-medium">14</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
+                <p className="text-[#787486] text-xs mb-3 leading-4">
+                  Brainstorming brings team members' diverse experience into play.
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                      <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
+                    </div>
+                    <span className="text-xs text-[#666666]">BG – 17</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
+                      <span className="text-xs text-[#d58d49] font-medium">Low</span>
+                    </div>
+                    <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* In Progress Column */}
+        <div className="flex-shrink-0 w-72">
+          <div className="bg-[rgba(103,144,155,0.06)] rounded-t-2xl p-4 min-h-[583px]">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <h3 className="text-xl font-medium text-[#06263d]">In progress</h3>
+                <div className="w-6 h-6 bg-[#67909b] rounded-full flex items-center justify-center">
+                  <span className="text-white text-base font-medium">3</span>
+                </div>
+              </div>
+              <img alt="add" className="w-6 h-6 rotate-45" src={imgIcRoundPlus} />
+            </div>
+            
+            {/* Task Cards */}
+            <div className="space-y-4">
+              {/* Task Card 1 */}
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-2">
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
+                      <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <img alt="message" className="w-3.5 h-3.5" src={img3} />
+                      <span className="text-xs text-[#787486] font-medium">16</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
+                      <span className="text-xs text-[#787486] font-medium">14</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
+                <p className="text-[#787486] text-xs mb-3 leading-4">
+                  Brainstorming brings team members' diverse experience into play.
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                      <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
+                    </div>
+                    <span className="text-xs text-[#666666]">BG – 17</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
+                      <span className="text-xs text-[#d58d49] font-medium">Low</span>
+                    </div>
+                    <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Task Card 2 */}
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-2">
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
+                      <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <img alt="message" className="w-3.5 h-3.5" src={img3} />
+                      <span className="text-xs text-[#787486] font-medium">16</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
+                      <span className="text-xs text-[#787486] font-medium">14</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
+                <p className="text-[#787486] text-xs mb-3 leading-4">
+                  Brainstorming brings team members' diverse experience into play.
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                      <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
+                    </div>
+                    <span className="text-xs text-[#666666]">BG – 17</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
+                      <span className="text-xs text-[#d58d49] font-medium">Low</span>
+                    </div>
+                    <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Task Card 3 */}
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-2">
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
+                      <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <img alt="message" className="w-3.5 h-3.5" src={img3} />
+                      <span className="text-xs text-[#787486] font-medium">16</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
+                      <span className="text-xs text-[#787486] font-medium">14</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
+                <p className="text-[#787486] text-xs mb-3 leading-4">
+                  Brainstorming brings team members' diverse experience into play.
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                      <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
+                    </div>
+                    <span className="text-xs text-[#666666]">BG – 17</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
+                      <span className="text-xs text-[#d58d49] font-medium">Low</span>
+                    </div>
+                    <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* In Review Column */}
+        <div className="flex-shrink-0 w-72">
+          <div className="bg-[rgba(103,144,155,0.06)] rounded-t-2xl p-4 min-h-[583px]">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <h3 className="text-xl font-medium text-[#06263d]">In review</h3>
+                <div className="w-6 h-6 bg-[#67909b] rounded-full flex items-center justify-center">
+                  <span className="text-white text-base font-medium">3</span>
+                </div>
+              </div>
+              <img alt="add" className="w-6 h-6 rotate-45" src={imgIcRoundPlus} />
+            </div>
+            
+            {/* Task Cards */}
+            <div className="space-y-4">
+              {/* Task Card 1 */}
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-2">
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
+                      <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <img alt="message" className="w-3.5 h-3.5" src={img3} />
+                      <span className="text-xs text-[#787486] font-medium">16</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
+                      <span className="text-xs text-[#787486] font-medium">14</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
+                <p className="text-[#787486] text-xs mb-3 leading-4">
+                  Brainstorming brings team members' diverse experience into play.
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                      <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
+                    </div>
+                    <span className="text-xs text-[#666666]">BG – 17</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
+                      <span className="text-xs text-[#d58d49] font-medium">Low</span>
+                    </div>
+                    <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Task Card 2 */}
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-2">
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
+                      <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <img alt="message" className="w-3.5 h-3.5" src={img3} />
+                      <span className="text-xs text-[#787486] font-medium">16</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
+                      <span className="text-xs text-[#787486] font-medium">14</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
+                <p className="text-[#787486] text-xs mb-3 leading-4">
+                  Brainstorming brings team members' diverse experience into play.
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                      <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
+                    </div>
+                    <span className="text-xs text-[#666666]">BG – 17</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
+                      <span className="text-xs text-[#d58d49] font-medium">Low</span>
+                    </div>
+                    <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Done Column */}
+        <div className="flex-shrink-0 w-72">
+          <div className="bg-[rgba(103,144,155,0.06)] rounded-t-2xl p-4 min-h-[418px]">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-4">
+                <h3 className="text-xl font-medium text-[#06263d]">Done</h3>
+                <div className="w-6 h-6 bg-[#67909b] rounded-full flex items-center justify-center">
+                  <span className="text-white text-base font-medium">2</span>
+                </div>
+              </div>
+              <img alt="add" className="w-6 h-6 rotate-45" src={imgIcRoundPlus} />
+            </div>
+            
+            {/* Task Cards */}
+            <div className="space-y-4">
+              {/* Task Card 1 */}
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-2">
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
+                      <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <img alt="message" className="w-3.5 h-3.5" src={img3} />
+                      <span className="text-xs text-[#787486] font-medium">16</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
+                      <span className="text-xs text-[#787486] font-medium">14</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
+                <p className="text-[#787486] text-xs mb-3 leading-4">
+                  Brainstorming brings team members' diverse experience into play.
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                      <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
+                    </div>
+                    <span className="text-xs text-[#666666]">BG – 17</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
+                      <span className="text-xs text-[#d58d49] font-medium">Low</span>
+                    </div>
+                    <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Task Card 2 */}
+              <div className="bg-white rounded-2xl p-4 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-2">
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse12} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse13} />
+                      <img alt="member" className="w-5 h-5 rounded-full" src={imgEllipse15} />
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="date" className="w-3.5 h-3.5" src={imgClarityDateLine} />
+                      <span className="text-xs text-[#e52828] font-medium">Sep 22</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <img alt="message" className="w-3.5 h-3.5" src={img3} />
+                      <span className="text-xs text-[#787486] font-medium">16</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <img alt="attach" className="w-3.5 h-3.5" src={imgFluentAttach28Regular} />
+                      <span className="text-xs text-[#787486] font-medium">14</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 className="font-semibold text-[#0d062d] text-base mb-2">Brainstorming</h4>
+                <p className="text-[#787486] text-xs mb-3 leading-4">
+                  Brainstorming brings team members' diverse experience into play.
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                      <img alt="bug" className="w-3 h-3" src={imgMdiBugOutline} />
+                    </div>
+                    <span className="text-xs text-[#666666]">BG – 17</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-2 py-1">
+                      <span className="text-xs text-[#d58d49] font-medium">Low</span>
+                    </div>
+                    <img alt="menu" className="w-5 h-5 rotate-90" src={imgSolarMenuDotsBold} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Add Task Button */}
+      <div className="fixed bottom-8 right-8">
+        <div className="w-8 h-8 bg-[#67909b] rounded-lg flex items-center justify-center">
+          <img alt="add" className="w-6 h-6" src={imgIcRoundPlus1} />
+        </div>
+      </div>
+    </div>
   );
 } 

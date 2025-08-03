@@ -15,20 +15,19 @@ const imgPajamasCollapseLeft = "http://localhost:3845/assets/28a69ae95d5ba66094a
 const img = "http://localhost:3845/assets/ebf941e488128d66d349845b389b3ee78ee00cf9.svg";
 const imgLine27 = "http://localhost:3845/assets/5c5ae86a41b21741dd2c43b19c33de528f79bde9.svg";
 const imgIconamoonProfileFill = "http://localhost:3845/assets/487e0f12c53c81dc91fd660664c6c5cd0ee500be.svg";
-const imgGroup3 = "http://localhost:3845/assets/8c1e0a738a8e77ba75afd06a20e28703c82d36f4.svg";
+const imgGroup3 = "http://localhost:3845/assets/3cd577c12abd53bfa8c66f4cccbe1761c00f5303.svg";
 const imgIcBaselineNotifications = "http://localhost:3845/assets/e2e3efe3ce7eb16f1c1a95c14e44ad3e15eff503.svg";
-const imgMaterialSymbolsSupport = "http://localhost:3845/assets/e81aa0c13207a01d63a376b00c6d07d2a8a8d5df.svg";
-const imgStreamlineStartupSolid = "http://localhost:3845/assets/e369db08b3ba1e7938ac5e18d029e624d2ae6a2c.svg";
-const imgEosIconsProject = "http://localhost:3845/assets/aaf9bd805b3bb3fc08e153f1af5fa4e714cb07a6.svg";
-const imgRiTeamFill = "http://localhost:3845/assets/3f74201c412174b0de14e20005d70d669847e832.svg";
-const imgGroup4 = "http://localhost:3845/assets/45b4d0494d875a1d8c05e8ca614f03e2ce9323e4.svg";
-const imgMaterialSymbolsSettingsAccountBoxRounded = "http://localhost:3845/assets/f4ea32ef1b24a1d804f8e9ddc9f1b019e7e5492d.svg";
-const imgLine29 = "http://localhost:3845/assets/f3369ba62f7af4a5086c46f25c50b53a6700ed80.svg";
-const imgIconamoonArrowUp2Light1 = "http://localhost:3845/assets/051a4f22b6dad27a6b0f727f9cd989a94a2d3876.svg";
-const imgIconamoonArrowUp2Light2 = "http://localhost:3845/assets/54c9878d42c56271b44ecbadb09991b493ba770e.svg";
-const imgGroup1984077195 = "http://localhost:3845/assets/55a2cc886712fb7ac0be0b2139d55e7ebf391a07.svg";
+const imgMaterialSymbolsSupport = "http://localhost:3845/assets/6eeaabc1c5661897f4eb499490df41cad8c72684.svg";
+const imgIconamoonArrowUp2Light1 = "http://localhost:3845/assets/54c9878d42c56271b44ecbadb09991b493ba770e.svg";
+const imgFrame1984077829 = "http://localhost:3845/assets/fc4e83c326b639c9733fe775961f661393fd16b5.svg";
+const imgGroup2087324115 = "http://localhost:3845/assets/26b5fcd6c33ad322e5e4d00ca9b740b215133eab.svg";
+const imgGroup2087324113 = "http://localhost:3845/assets/08de2c2927055866b8fac7a27ae2e93aed98f5b6.svg";
+const imgGroup2087324112 = "http://localhost:3845/assets/a87ce7e3585ed86e5a67adeca96af0595fbd1aee.svg";
+const imgGroup2087324111 = "http://localhost:3845/assets/09c4f0c2f66afa44d8019234d8276346724f92d3.svg";
+const imgGroup2087324114 = "http://localhost:3845/assets/21569b691b198f04da7e89b398827e08b079c1e6.svg";
+const imgGroup2087324110 = "http://localhost:3845/assets/03c47e4ee16bd4bbd82dbad0550f674401ad0c30.svg";
 
-export default function HelpSupport() {
+export default function PreferenceScreen() {
   return (
     <div className="bg-[#f6f6f6] relative size-full min-h-screen">
       {/* Top Bar */}
@@ -264,7 +263,7 @@ export default function HelpSupport() {
 
       {/* Settings Navigation */}
       <div className="absolute contents left-[344px] top-[228px]">
-        <div className="absolute flex h-[0px] items-center justify-center left-[344px] top-[513px] w-[0px]">
+        <div className="absolute flex h-[0px] items-center justify-center left-[344px] top-[323px] w-[0px]">
           <div className="flex-none rotate-[90deg]">
             <div className="bg-[#06263d] h-2 rounded-[40px] w-8" />
           </div>
@@ -293,7 +292,7 @@ export default function HelpSupport() {
                 </div>
               </div>
             </div>
-            <div className="font-medium leading-[0] relative shrink-0 text-[#8a9da2] text-[24px] text-left text-nowrap">
+            <div className="font-medium leading-[0] relative shrink-0 text-[#06263d] text-[24px] text-left text-nowrap">
               <p className="block leading-[normal] whitespace-pre">Preference</p>
             </div>
           </div>
@@ -313,214 +312,172 @@ export default function HelpSupport() {
             <div className="relative shrink-0 size-8">
               <img alt="support-icon" className="block max-w-none size-full" src={imgMaterialSymbolsSupport} />
             </div>
-            <div className="font-medium leading-[0] relative shrink-0 text-[#06263d] text-[24px] text-left text-nowrap">
+            <div className="font-medium leading-[0] relative shrink-0 text-[#8a9da2] text-[24px] text-left text-nowrap">
               <p className="block leading-[normal] whitespace-pre">Help & support</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Title and Icon */}
-      <div className="absolute flex flex-row items-center justify-between left-[785px] p-0 top-[191px] w-[800px]">
-        <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#438197] text-[32px] text-left text-nowrap">
-          <p className="block leading-[1.4] whitespace-pre">Help & Support</p>
-        </div>
-        <div className="relative shrink-0 size-10">
-          <div className="absolute bottom-[-30%] left-[-20%] right-[-20%] top-[-10%]">
-            <img alt="support-icon" className="block max-w-none size-full" src={imgGroup1984077195} />
+      {/* Main Content */}
+      <div className="absolute flex flex-col gap-8 items-start justify-start left-[785px] p-0 top-[200px] w-[800px]">
+        <div className="flex flex-col gap-8 items-start justify-start p-0 relative shrink-0 w-full">
+          {/* Title */}
+          <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#438197] text-[32px] text-left w-full">
+            <p className="block leading-[1.4]">Preference</p>
           </div>
-        </div>
-      </div>
 
-      {/* Search Bar */}
-      <div className="absolute bg-[#ffffff] flex flex-row gap-[322px] h-20 items-center justify-start left-[785px] px-12 py-2 rounded-lg top-[268px] w-[800px]">
-        <div className="capitalize font-medium h-6 leading-[0] opacity-90 relative shrink-0 text-[#5a5a5a] text-[20px] text-left w-[358px]">
-          <p className="block leading-[normal]">How can we help you?</p>
-        </div>
-      </div>
-
-      {/* Help Categories */}
-      <div className="absolute flex flex-row gap-6 items-center justify-start leading-[0] left-[785px] p-0 top-[380px]">
-        {/* Getting Started */}
-        <div className="inline-grid place-items-start relative shrink-0">
-          <div className="bg-[rgba(138,157,162,0.16)] ml-0 mt-0 rounded-2xl size-[140px]" />
-          <div className="flex flex-col gap-6 h-[85.867px] items-center justify-center ml-[6.533px] mt-[27.067px] p-0 relative w-[126.933px]">
-            <div className="relative shrink-0 size-10">
-              <img alt="startup-icon" className="block max-w-none size-full" src={imgStreamlineStartupSolid} />
-            </div>
-            <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#333333] text-[16px] text-left text-nowrap">
-              <p className="block leading-[1.4] whitespace-pre">Getting Started</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Project Management */}
-        <div className="inline-grid place-items-start relative shrink-0">
-          <div className="bg-[rgba(138,157,162,0.16)] ml-0 mt-0 rounded-2xl size-[140px]" />
-          <div className="flex flex-col gap-6 h-28 items-center justify-center ml-[14.934px] mt-3.5 p-0 relative w-[111.067px]">
-            <div className="relative shrink-0 size-10">
-              <img alt="project-icon" className="block max-w-none size-full" src={imgEosIconsProject} />
-            </div>
-            <div className="flex flex-col font-medium justify-center leading-[1.4] relative shrink-0 text-[#333333] text-[16px] text-center text-nowrap whitespace-pre">
-              <p className="block mb-0">Project</p>
-              <p className="block">Management</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Team Collaboration */}
-        <div className="inline-grid place-items-start relative shrink-0">
-          <div className="bg-[rgba(138,157,162,0.16)] ml-0 mt-0 rounded-2xl size-[140px]" />
-          <div className="flex flex-col gap-6 items-center justify-center ml-3.5 mt-3.5 p-0 relative size-28">
-            <div className="relative shrink-0 size-10">
-              <img alt="team-icon" className="block max-w-none size-full" src={imgRiTeamFill} />
-            </div>
-            <div className="flex flex-col font-medium justify-center leading-[1.4] relative shrink-0 text-[#333333] text-[16px] text-center text-nowrap whitespace-pre">
-              <p className="block mb-0">Team</p>
-              <p className="block">Collaboration</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Integrations */}
-        <div className="inline-grid place-items-start relative shrink-0">
-          <div className="bg-[rgba(138,157,162,0.16)] ml-0 mt-0 rounded-2xl size-[140px]" />
-          <div className="flex flex-col gap-6 h-[85.867px] items-center justify-center ml-[19.6px] mt-[27.067px] p-0 relative w-[100.8px]">
-            <div className="overflow-clip relative shrink-0 size-10">
-              <div className="absolute inset-[8.333%]">
-                <div className="absolute inset-[-5%]">
-                  <img alt="connect-icon" className="block max-w-none size-full" src={imgGroup4} />
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#333333] text-[16px] text-left text-nowrap">
-              <p className="block leading-[1.4] whitespace-pre">Integrations</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Account Settings */}
-        <div className="inline-grid place-items-start relative shrink-0">
-          <div className="ml-0 mt-0 relative size-[140px]">
-            <div className="absolute bg-[rgba(138,157,162,0.16)] left-0 rounded-2xl size-[140px] top-0" />
-          </div>
-          <div className="flex flex-col gap-6 h-[100.8px] items-center justify-center ml-[42.467px] mt-[19.598px] p-0 relative w-14">
-            <div className="relative shrink-0 size-10">
-              <img alt="settings-icon" className="block max-w-none size-full" src={imgMaterialSymbolsSettingsAccountBoxRounded} />
-            </div>
-            <div className="flex flex-col font-medium justify-center leading-[1.4] relative shrink-0 text-[#333333] text-[16px] text-left text-nowrap whitespace-pre">
-              <p className="block mb-0">Account</p>
-              <p className="block">Settings</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Contact and FAQs Section */}
-      <div className="absolute flex flex-col gap-8 items-start justify-start left-[785px] p-0 top-[552px] w-[800.003px]">
-        {/* Contact Us */}
-        <div className="flex flex-col gap-8 items-start justify-start p-0 relative shrink-0 w-[800.003px]">
+          {/* Language & Region Section */}
           <div className="flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
-            <div className="flex flex-col font-medium justify-center leading-[0] min-w-full relative shrink-0 text-[#438197] text-[24px] text-left" style={{ width: "min-content" }}>
-              <p className="block leading-[1.4]">Contact us</p>
-            </div>
-            <div className="flex flex-row gap-[120px] items-center justify-start p-0 relative shrink-0">
-              {/* Support Email */}
-              <div className="flex flex-col font-medium gap-2 items-start justify-start leading-[0] p-0 relative shrink-0 text-left w-[139px]">
-                <div className="flex flex-col justify-center relative shrink-0 text-[#666666] text-[20px] w-full">
-                  <p className="block leading-[1.4]">Support Email</p>
-                </div>
-                <div className="flex flex-col justify-center relative shrink-0 text-[#999999] text-[16px] tracking-[-0.32px] w-full">
-                  <p className="block leading-[24px]">example@v-accel.ai</p>
-                </div>
+            <div className="flex flex-col font-medium gap-2 items-start justify-start leading-[0] p-0 relative shrink-0 text-left w-full">
+              <div className="flex flex-col justify-center relative shrink-0 text-[#333333] text-[24px] w-full">
+                <p className="block leading-[1.4]">Language & Region</p>
               </div>
-
-              {/* Helpline */}
-              <div className="flex flex-col font-medium gap-2 items-start justify-start leading-[0] p-0 relative shrink-0 text-left w-[111px]">
-                <div className="flex flex-col justify-center relative shrink-0 text-[#666666] text-[20px] w-full">
-                  <p className="block leading-[1.4]">Helpline </p>
-                </div>
-                <div className="flex flex-col justify-center relative shrink-0 text-[#999999] text-[16px] tracking-[-0.32px] w-full">
-                  <p className="block leading-[24px]">91-8976542435</p>
-                </div>
-              </div>
-
-              {/* Toll-free number */}
-              <div className="flex flex-col font-medium gap-2 items-start justify-start leading-[0] p-0 relative shrink-0 text-left text-nowrap w-[149px]">
-                <div className="flex flex-col justify-center relative shrink-0 text-[#666666] text-[20px]">
-                  <p className="block leading-[1.4] text-nowrap whitespace-pre">Toll-free number</p>
-                </div>
-                <div className="flex flex-col justify-center relative shrink-0 text-[#999999] text-[16px] tracking-[-0.32px]">
-                  <p className="block leading-[24px] text-nowrap whitespace-pre">1800 7654 3345</p>
-                </div>
+              <div className="flex flex-col justify-center relative shrink-0 text-[#999999] text-[16px] w-full">
+                <p className="block leading-[1.4]">Select your preferred language & region for a personalized experience</p>
               </div>
             </div>
-          </div>
-          <div className="h-0 relative shrink-0 w-full">
-            <div className="absolute bottom-0 left-0 right-0 top-[-3px]">
-              <img alt="divider" className="block max-w-none size-full" loading="lazy" src={imgLine29} />
+            <div className="flex flex-col gap-4 items-start justify-start p-0 relative shrink-0 w-full">
+              {/* Language Dropdown */}
+              <div className="bg-[#ffffff] flex flex-row gap-[322px] h-20 items-center justify-start px-12 py-2 relative rounded-lg shrink-0 w-full">
+                <div className="capitalize font-medium h-6 leading-[0] opacity-90 relative shrink-0 text-[#5a5a5a] text-[20px] text-left w-[358px]">
+                  <p className="block leading-[normal]">English</p>
+                </div>
+                <div className="flex items-center justify-center relative shrink-0">
+                  <div className="flex-none rotate-[180deg]">
+                    <div className="relative size-8">
+                      <img alt="dropdown-arrow" className="block max-w-none size-full" src={imgIconamoonArrowUp2Light1} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Timezone Dropdown */}
+              <div className="bg-[#ffffff] flex flex-row gap-[322px] h-20 items-center justify-start px-12 py-2 relative rounded-lg shrink-0 w-full">
+                <div className="capitalize font-medium h-6 leading-[0] opacity-90 relative shrink-0 text-[#5a5a5a] text-[20px] text-left w-[358px]">
+                  <p className="block leading-[normal]">Timezone</p>
+                </div>
+                <div className="flex items-center justify-center relative shrink-0">
+                  <div className="flex-none rotate-[180deg]">
+                    <div className="relative size-8">
+                      <img alt="dropdown-arrow" className="block max-w-none size-full" src={imgIconamoonArrowUp2Light1} />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* FAQs */}
-        <div className="flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-[800.003px]">
-          <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#438197] text-[24px] text-left w-full">
-            <p className="block leading-[1.4]">FAQs</p>
-          </div>
-          <div className="flex flex-col gap-[25px] items-start justify-start p-0 relative shrink-0 w-full">
-            {/* Expanded FAQ */}
-            <div className="flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-[800.003px]">
-              <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#666666] text-[20px] text-left w-full">
-                <p className="block leading-[1.4]">How do I reset my password?</p>
+        {/* Themes Section */}
+        <div className="flex flex-col gap-[42px] items-start justify-start p-0 relative shrink-0 w-full">
+          <div className="flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
+            <div className="flex flex-col font-medium gap-2 items-start justify-start leading-[0] p-0 relative shrink-0 text-left w-full">
+              <div className="flex flex-col justify-center relative shrink-0 text-[#333333] text-[24px] w-full">
+                <p className="block leading-[1.4]">Themes</p>
               </div>
-              <div className="flex flex-row gap-2 items-center justify-end p-0 relative shrink-0 w-full">
-                <div className="basis-0 flex flex-col font-medium grow justify-center leading-[24px] min-h-px min-w-px relative shrink-0 text-[#999999] text-[16px] text-left tracking-[-0.32px]">
-                  <p className="block mb-0">
-                    consectetur adipiscing elit, sed do eiusmod tempor incididunt utabore et dolore magna aliqua ed do eiusmodeiusmodconsectetur adipiscing elit, sed do eiusmod tempor incididunt utabore et dolore magna
-                  </p>
-                  <p className="block">eiusmod ed do eiusmod </p>
+              <div className="flex flex-col justify-center relative shrink-0 text-[#999999] text-[16px] w-full">
+                <p className="block leading-[1.4]">Select your preferred theme for a personalized experience</p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-4 items-start justify-start p-0 relative shrink-0 w-full">
+              {/* Light Mode Toggle */}
+              <div className="flex flex-row items-center justify-between p-0 relative shrink-0 w-full">
+                <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#666666] text-[20px] text-left text-nowrap">
+                  <p className="block leading-[1.4] whitespace-pre">Light mode</p>
                 </div>
-                <div className="relative shrink-0 size-8">
-                  <img alt="arrow-up" className="block max-w-none size-full" loading="lazy" src={imgIconamoonArrowUp2Light1} />
+                <div className="h-8 relative shrink-0 w-16">
+                  <img alt="toggle-switch" className="block max-w-none size-full" loading="lazy" src={imgFrame1984077829} />
+                </div>
+              </div>
+              
+              {/* Customize Theme */}
+              <div className="flex flex-row items-center justify-between p-0 relative shrink-0 w-full">
+                <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#666666] text-[20px] text-left text-nowrap">
+                  <p className="block leading-[1.4] whitespace-pre">Customize your theme</p>
+                </div>
+                <div className="flex flex-row items-center justify-start pl-0 pr-4 py-0 relative shrink-0">
+                  <div className="flex h-[0px] items-center justify-center mr-[-16px] relative shrink-0 w-[0px]">
+                    <div className="flex-none rotate-[303.317deg]">
+                      <div className="h-[32.001px] relative w-[31.999px]">
+                        <img alt="color-palette" className="block max-w-none size-full" loading="lazy" src={imgGroup2087324115} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex h-[0px] items-center justify-center mr-[-16px] relative shrink-0 w-[0px]">
+                    <div className="flex-none rotate-[303.317deg]">
+                      <div className="h-[32.001px] relative w-[31.999px]">
+                        <img alt="color-palette" className="block max-w-none size-full" loading="lazy" src={imgGroup2087324113} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex h-[0px] items-center justify-center mr-[-16px] relative shrink-0 w-[0px]">
+                    <div className="flex-none rotate-[303.317deg]">
+                      <div className="h-[32.001px] relative w-[31.999px]">
+                        <img alt="color-palette" className="block max-w-none size-full" loading="lazy" src={imgGroup2087324112} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex h-[0px] items-center justify-center mr-[-16px] relative shrink-0 w-[0px]">
+                    <div className="flex-none rotate-[303.317deg]">
+                      <div className="h-[32.001px] relative w-[31.999px]">
+                        <img alt="color-palette" className="block max-w-none size-full" loading="lazy" src={imgGroup2087324111} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex h-[0px] items-center justify-center mr-[-16px] relative shrink-0 w-[0px]">
+                    <div className="flex-none rotate-[303.317deg]">
+                      <div className="h-[32.001px] relative w-[31.999px]">
+                        <img alt="color-palette" className="block max-w-none size-full" loading="lazy" src={imgGroup2087324114} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex h-[0px] items-center justify-center mr-[-16px] relative shrink-0 w-[0px]">
+                    <div className="flex-none rotate-[303.317deg]">
+                      <div className="h-[31.999px] relative w-[32px]">
+                        <img alt="color-palette" className="block max-w-none size-full" loading="lazy" src={imgGroup2087324110} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Collapsed FAQs */}
-            <div className="flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
-              <div className="h-0 relative shrink-0 w-full">
-                <div className="absolute bottom-0 left-0 right-0 top-[-3px]">
-                  <img alt="divider" className="block max-w-none size-full" loading="lazy" src={imgLine29} />
-                </div>
+          {/* Accessibility Section */}
+          <div className="flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
+            <div className="flex flex-col font-medium gap-2 items-start justify-start leading-[0] p-0 relative shrink-0 text-left w-full">
+              <div className="flex flex-col justify-center relative shrink-0 text-[#333333] text-[24px] w-full">
+                <p className="block leading-[1.4]">Accessibility</p>
               </div>
-              <div className="flex flex-row items-center justify-start p-0 relative shrink-0 w-full">
-                <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#666666] text-[20px] text-left w-[767px]">
-                  <p className="block leading-[1.4]">How do I reset my password?</p>
+              <div className="flex flex-col justify-center relative shrink-0 text-[#999999] text-[16px] w-full">
+                <p className="block leading-[1.4]">Select your preferred Font size & contrast for your accessibility</p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-4 items-start justify-start p-0 relative shrink-0 w-full">
+              {/* Font Size Toggle */}
+              <div className="flex flex-row items-center justify-between p-0 relative shrink-0 w-full">
+                <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#666666] text-[20px] text-left text-nowrap">
+                  <p className="block leading-[1.4] whitespace-pre">Font size</p>
                 </div>
-                <div className="flex items-center justify-center relative shrink-0">
-                  <div className="flex-none rotate-[180deg]">
-                    <div className="relative size-8">
-                      <img alt="arrow-down" className="block max-w-none size-full" loading="lazy" src={imgIconamoonArrowUp2Light2} />
-                    </div>
+                <div className="bg-[rgba(103,144,155,0.2)] h-8 overflow-clip relative rounded-[50px] shrink-0 w-16">
+                  <div className="absolute bg-[#67909b] bottom-[12.5%] left-[6.25%] right-[56.25%] rounded-[50px] top-[12.5%]" />
+                  <div className="absolute bottom-[28.13%] flex flex-col font-medium justify-center leading-[0] left-[14.06%] right-[65.63%] text-[#ffffff] text-[10px] text-left text-nowrap top-[28.13%]">
+                    <p className="block leading-[1.4] whitespace-pre">Aa</p>
+                  </div>
+                  <div className="absolute bottom-[15.63%] flex flex-col font-medium justify-center leading-[0] left-[60.94%] right-[7.81%] text-[#ffffff] text-[16px] text-left text-nowrap top-[15.63%]">
+                    <p className="block leading-[1.4] whitespace-pre">Aa</p>
                   </div>
                 </div>
               </div>
-              <div className="h-0 relative shrink-0 w-full">
-                <div className="absolute bottom-0 left-0 right-0 top-[-3px]">
-                  <img alt="divider" className="block max-w-none size-full" loading="lazy" src={imgLine29} />
+              
+              {/* Increase Contrast Toggle */}
+              <div className="flex flex-row items-center justify-between p-0 relative shrink-0 w-full">
+                <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#666666] text-[20px] text-left text-nowrap">
+                  <p className="block leading-[1.4] whitespace-pre">Increase contrast</p>
                 </div>
-              </div>
-              <div className="flex flex-row items-center justify-start p-0 relative shrink-0 w-full">
-                <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#666666] text-[20px] text-left w-[767px]">
-                  <p className="block leading-[1.4]">Can I duplicate a task or project?</p>
-                </div>
-                <div className="flex items-center justify-center relative shrink-0">
-                  <div className="flex-none rotate-[180deg]">
-                    <div className="relative size-8">
-                      <img alt="arrow-down" className="block max-w-none size-full" loading="lazy" src={imgIconamoonArrowUp2Light2} />
-                    </div>
-                  </div>
+                <div className="bg-[rgba(103,144,155,0.2)] h-8 overflow-clip relative rounded-[50px] shrink-0 w-16">
+                  <div className="absolute bg-[#67909b] bottom-[12.5%] left-[6.25%] right-[56.25%] rounded-[50px] top-[12.5%]" />
                 </div>
               </div>
             </div>
@@ -529,4 +486,4 @@ export default function HelpSupport() {
       </div>
     </div>
   );
-}
+} 

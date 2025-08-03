@@ -9,7 +9,7 @@ import {
 
 const navigationItems = [
   { title: "Dash Board", url: "/", icon: Home },
-  { title: "Projects", url: "/projects", icon: Folder },
+  { title: "Projects", url: "/project-list", icon: Folder },
 ]
 
 const recentItems = [
