@@ -1,3 +1,4 @@
+import { Select, SelectItem, SelectValue, SelectContent, SelectTrigger } from '@/components/ui/select';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -42,12 +43,11 @@ const groupIcon4 = "/icons/Group.png";
 const pepiconsIcon = "/icons/pepicons-pop_arrow-up.png";
 
 // Team member avatars from Figma design
-const teamMember1 = "http://localhost:3845/assets/2c9169f96717641f0bb06a7a6be7046836bd4ada.png";
-const teamMember2 = "http://localhost:3845/assets/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
-const teamMember3 = "http://localhost:3845/assets/5375465d21d8f708db62b44f13c796c91c2a4e5f.png";
-const teamMember4 = "http://localhost:3845/assets/d3d4f37717609e977f5fe8d69a995ab2ca7dff62.png";
-const teamMember5 = "http://localhost:3845/assets/be8f7c59d45aca4f6175e23713a9d21d9742abc7.png";
-const teamMember6 = "http://localhost:3845/assets/b38481751890bb742ffc613e1fe570486af1f031.png";
+const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const img6 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
 export default function ProjectList() {
   const navigate = useNavigate();
@@ -72,19 +72,29 @@ export default function ProjectList() {
         {/* Action Buttons */}
         <div className="flex gap-2">
           {/* Search Button */}
-          <div className="bg-[#67909b] rounded-lg p-1.5 w-8 h-8 flex items-center justify-center">
+          <div className="bg-[#67909b] rounded-lg p-1.5 w-8 h-8 flex items-center justify-center cursor-pointer">
             <img alt="search" className="w-3 h-3" src={searchIcon} />
           </div>
           
           {/* Sort Button */}
-          <div className="bg-[#67909b] rounded-lg p-1.5 w-8 h-8 flex items-center justify-center">
+          <div className="bg-[#67909b] rounded-lg p-1.5 w-8 h-8 flex items-center justify-center cursor-pointer">
             <img alt="sort" className="w-3 h-3" src={sortIcon} />
           </div>
           
           {/* Group Button */}
-          <div className="bg-[#67909b] rounded-lg p-1.5 w-8 h-8 flex items-center justify-center">
+          <div className="bg-[#67909b] rounded-lg p-1.5 w-8 h-8 flex items-center justify-center cursor-pointer">
             <img alt="group" className="w-3 h-3" src={groupIcon} />
           </div>
+          <Select>
+            <SelectTrigger className='bg-[#67909b] rounded-lg p-1.5 w-35 px-2 text-white h-8 flex items-center justify-center border-none'>
+              <SelectValue placeholder="View Type" className='text-white' />
+            </SelectTrigger>
+            <SelectContent className='bg-white border border-gray-200 rounded-lg shadow-lg'>
+              <SelectItem value="project-1">Project 1</SelectItem>
+              <SelectItem value="project-2">Project 2</SelectItem>
+              <SelectItem value="project-3">Project 3</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -126,12 +136,11 @@ export default function ProjectList() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember1} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember6} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
               </div>
               <span className="text-xs text-[#999999] font-medium">24+</span>
             </div>
@@ -177,12 +186,11 @@ export default function ProjectList() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember1} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember6} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
               </div>
               <span className="text-xs text-[#999999] font-medium">24+</span>
             </div>
@@ -228,12 +236,11 @@ export default function ProjectList() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember1} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember6} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
               </div>
               <span className="text-xs text-[#999999] font-medium">24+</span>
             </div>
@@ -279,12 +286,11 @@ export default function ProjectList() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember1} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember6} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
               </div>
               <span className="text-xs text-[#999999] font-medium">24+</span>
             </div>
@@ -330,12 +336,11 @@ export default function ProjectList() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember1} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember6} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
               </div>
               <span className="text-xs text-[#999999] font-medium">24+</span>
             </div>
@@ -381,12 +386,11 @@ export default function ProjectList() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember1} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={teamMember6} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
+                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
               </div>
               <span className="text-xs text-[#999999] font-medium">24+</span>
             </div>

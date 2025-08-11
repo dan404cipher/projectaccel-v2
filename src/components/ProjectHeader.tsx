@@ -55,8 +55,8 @@ const ProjectHeader: React.FC<ProjectHeaderProps> = ({
     <div className="bg-[#f6f6f6] p-4 pb-2 flex-shrink-0">
       <div className="mb-3">
         <div className="flex items-center gap-3 mb-4">
-          <div className="flex items-center justify-center w-8 h-8">
-            <img alt="arrow" className="w-5 h-5 rotate-90" src={imgGroup} />
+          <div className="flex items-center justify-center w-8 h-8" onClick={()=>navigate('/project-list')}>
+            <img alt="arrow" className="w-5 h-5 rotate-[-90deg]" src={imgGroup} />
           </div>
           <h1 className="text-2xl font-medium text-[#438197]">
             {projectName}

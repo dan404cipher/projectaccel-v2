@@ -1,15 +1,14 @@
-import { Grid, BarChart3, Settings, HelpCircle, Home, Folder, ChevronLeft } from "lucide-react"
+import { Grid, BarChart3, Settings, HelpCircle, Home, Folder, ChevronLeft, List, File, FileText  } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button" 
 import {
-  Sidebar,
-  SidebarContent,
   useSidebar,
 } from "@/components/ui/sidebar"
 
 const navigationItems = [
   { title: "Dash Board", url: "/", icon: Home },
   { title: "Projects", url: "/project-list", icon: Folder },
+  {title:'My Tasks', url:'/my-tasks', icon: FileText },
 ]
 
 const recentItems = [
@@ -26,14 +25,14 @@ export function AppSidebar() {
   const isActive = (path: string) => location.pathname === path
   const getNavClass = (isActiveLink: boolean) =>
     isActiveLink 
-      ? "bg-gradient-to-r from-white to-white/90 text-[#06263D] shadow-lg rounded-xl border border-white/30 backdrop-blur-sm" 
-      : "hover:bg-gradient-to-r hover:from-white/20 hover:to-white/10 text-[#06263D] rounded-xl transition-all duration-300 hover:shadow-md"
+      ? "bg-white text-[#06263D] shadow-lg rounded-l-full rounded-r-[32px] border border-white/30"
+      : "hover:bg-white/20 text-[#06263D] rounded-xl transition-all duration-300 hover:shadow-md"
 
   return (
-    <div className={`${collapsed ? "w-20 sm:w-24" : "w-48 sm:w-60"} flex-shrink-0 h-full h-[calc(100%-7.1rem)] mt-16 transition-all duration-300 ease-in-out`}>
+    <div className={`${collapsed ? "w-20 sm:w-24" : "w-60 sm:w-60"} flex-shrink-0 h-full transition-all duration-300 ease-in-out`}>
       <div 
-        className="h-full m-1 sm:m-2 lg:m-4 rounded-xl sm:rounded-2xl lg:rounded-[32px] p-2 sm:p-3 lg:p-2 relative flex flex-col shadow-2xl border border-white/20"
-        style={{
+        className="h-full rounded-xl sm:rounded-2xl lg:rounded-[32px] pl-2 relative flex flex-col shadow-2xl border border-white/20"
+        style={{ 
           background: 'linear-gradient(135deg, #C0CED2 0%, #B0BEC2 50%, #A0AEB2 100%)',
           backdropFilter: 'blur(50px)'
         }}
@@ -42,8 +41,7 @@ export function AppSidebar() {
         <div className="flex flex-col h-full pt-4 sm:pt-6 lg:pt-8">
           {/* MANAGE Section */}
           <div className="flex-shrink-0">
-            <div className={`text-xs sm:text-[12px] text-[#4A5568] uppercase tracking-wider font-semibold mb-2 sm:mb-3 lg:mb-4 px-2 sm:px-3 ${collapsed ? 'hidden' : 'block'} flex items-center gap-2`}>
-              <div className="w-1 h-1 bg-[#4A5568] rounded-full"></div>
+            <div className={`text-xs sm:text-[12px] text-[#4A5568] uppercase tracking-wider font-semibold mb-2 sm:mb-3 lg:mb-4 sm:px-3 ${collapsed ? 'hidden' : 'block'} flex items-center gap-2`}>
               MANAGE
             </div>
             <div className="space-y-1 sm:space-y-1.5">
@@ -68,7 +66,6 @@ export function AppSidebar() {
           {/* RECENT Section */}
           <div className="flex-shrink-0 mt-3 sm:mt-4 lg:mt-5">
             <div className={`text-xs sm:text-[12px] text-[#4A5568] uppercase tracking-wider font-semibold mb-2 sm:mb-3 lg:mb-4 px-2 sm:px-3 ${collapsed ? 'hidden' : 'block'} flex items-center gap-2`}>
-              <div className="w-1 h-1 bg-[#4A5568] rounded-full"></div>
               RECENT
             </div>
             <div className="space-y-0.5 sm:space-y-1">
