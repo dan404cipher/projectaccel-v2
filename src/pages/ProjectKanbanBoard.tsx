@@ -1,40 +1,22 @@
-import React from 'react';
 
 // Image assets from Figma design
-const imgEllipse3226 = "http://localhost:3845/assets/afcdad76e6a54041bae78e7f511725140b74e504.png";
-const imgEllipse12 = "http://localhost:3845/assets/8dfb37f1c44b89cb8fd0798a06c53bd80dcfc600.png";
-const imgEllipse13 = "http://localhost:3845/assets/732647e8b520de80006c6fe583f7fa220490cccf.png";
-const imgEllipse15 = "http://localhost:3845/assets/d6fe311a0f3e161a383b51f2328646aa2f1c672a.png";
-const imgEllipse248 = "http://localhost:3845/assets/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
-const imgEllipse242 = "http://localhost:3845/assets/2c9169f96717641f0bb06a7a6be7046836bd4ada.png";
-const imgEllipse246 = "http://localhost:3845/assets/be8f7c59d45aca4f6175e23713a9d21d9742abc7.png";
-const imgLogo = "http://localhost:3845/assets/b84b5d40d2b309aeb74557c18f9c8aee107bb331.svg";
-const imgIconamoonArrowUp2Light = "http://localhost:3845/assets/6da921a9801912b57d27cdefe8385059e7ddd31a.svg";
-const imgEllipse10 = "http://localhost:3845/assets/88364341615089b24b27f35494b0b95acb2276c1.svg";
-const imgGroup = "http://localhost:3845/assets/93765e3060a5e02b5efd9ef1791db8c21fc953ef.svg";
-const imgGroup1 = "http://localhost:3845/assets/6cc6be37ebeba6b60c040f7ae12b8c7cc6c03eb3.svg";
-const imgGroup2 = "http://localhost:3845/assets/e56e056d80f3538d5ece29278399adf7a83f00f8.svg";
-const imgMageFilter = "http://localhost:3845/assets/eb541e44da29796a676123f07dd6a6b02f8f359b.svg";
-const imgGroup3 = "http://localhost:3845/assets/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg";
+const imgEllipse12 = "/icons/8dfb37f1c44b89cb8fd0798a06c53bd80dcfc600.png";
+const imgEllipse13 = "/icons/732647e8b520de80006c6fe583f7fa220490cccf.png";
+const imgEllipse15 = "/icons/d6fe311a0f3e161a383b51f2328646aa2f1c672a.png";
+const imgEllipse248 = "/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
+const imgEllipse242 = "/icons/2c9169f96717641f0bb06a7a6be7046836bd4ada.png";
+const imgEllipse246 = "/icons/be8f7c59d45aca4f6175e23713a9d21d9742abc7.png";
+const imgGroup3 = "/icons/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg";
 const imgSiDashboardFill = "http://localhost:3845/assets/5ac3c5615fbd1cad010f0b75903f41f026f896e6.svg";
 const imgCodiconDebugStepBack = "http://localhost:3845/assets/2176357e9181f53976019d69384d18af292f2abf.svg";
 const imgFluentArrowSprint20Filled = "http://localhost:3845/assets/2ec924c70b4581fb8ce85d780f89be6ca89bd48f.svg";
 const imgPhKanbanFill = "http://localhost:3845/assets/e2ce8adfcd886987cce0123d57e63e02541a1d0d.svg";
-const imgLine35 = "http://localhost:3845/assets/81ce532d0a0d98f2326d579d1a3f2e96926b2b05.svg";
-const imgSubtract = "http://localhost:3845/assets/1dbd1f8e058554c0de78294c5b16c7d70ee9bbd8.svg";
-const imgPajamasCollapseLeft = "http://localhost:3845/assets/28a69ae95d5ba66094af1375314dbb52a710a84e.svg";
-const img = "http://localhost:3845/assets/ebf941e488128d66d349845b389b3ee78ee00cf9.svg";
-const imgPhKanbanFill1 = "http://localhost:3845/assets/fdfd6519ff8dc5acdbb6048589d6921fea71cbe8.svg";
-const imgProiconsTaskList = "http://localhost:3845/assets/935666228f191e7eff80fb57543eff5c627baebf.svg";
-const imgFontistoDate = "http://localhost:3845/assets/bce17fdf9a51ff413188a2e607f8b8803f6fae97.svg";
-const imgMynauiChartGantt = "http://localhost:3845/assets/e178fe15f264f6b933e72ff0d92acfdb728a5346.svg";
 const imgClarityDateLine = "http://localhost:3845/assets/064b642908ce6cbe140760e38a6e00e45ce77a36.svg";
 const img1 = "http://localhost:3845/assets/32071ad77bcf9778ea9aae10b7520bd900ac8779.svg";
 const imgFluentAttach28Regular = "http://localhost:3845/assets/0b65a341c3ab47931dd25e72e72b0e139b46c905.svg";
 const imgMdiBugOutline = "http://localhost:3845/assets/cb2280d66195675cdb1a349a2b097f5c140ee578.svg";
 const imgSolarMenuDotsBold = "http://localhost:3845/assets/47e9bb51bb7dfdf67ffe9d9c86d8c6a51cf3b83b.svg";
 const img2 = "http://localhost:3845/assets/bfa8f6f3becd2a73409cd3e5f2323742ac206163.svg";
-const imgEllipse3246 = "http://localhost:3845/assets/f542e4d39e3f43983f6fdb3b9e67653136aabd63.svg";
 const imgIcRoundPlus = "http://localhost:3845/assets/e138cc0ae5a850e01d85522e507912eed33ad923.svg";
 const img3 = "http://localhost:3845/assets/bc788964e3d0118d1034faf145539d337f616372.svg";
 const imgGroup4 = "http://localhost:3845/assets/35c5b2d24ff24f1d3138f02467137d71a2b9ae93.svg";
@@ -42,7 +24,6 @@ const imgLucideSortDesc = "http://localhost:3845/assets/9d83a8d7e9a88e769a7429c8
 const imgFluentGroup24Regular = "http://localhost:3845/assets/c66d9c4f0de85cf008c34c3ad437fa008be564db.svg";
 const imgFluentArrowSprint20Filled1 = "http://localhost:3845/assets/73f802ab897d9a51d1c751ca20d91a3752bdac65.svg";
 const imgIcRoundPlus1 = "http://localhost:3845/assets/dd4dc3f173b43504e12901612a14573c7f02aef5.svg";
-const imgEllipse3247 = "http://localhost:3845/assets/57b4edc8b84a1622fb3b235fb5a9ea11a143525.svg";
 const imgGroup5 = "http://localhost:3845/assets/2e309aa74b76b1ebfdfb2f41c4d8d82d5c6e1c26.svg";
 
 export default function ProjectKanbanBoard() {

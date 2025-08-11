@@ -1,53 +1,19 @@
 import ProjectHeader from '@/components/ProjectHeader';
 import { Checkbox } from '@/components/ui/checkbox';
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Image assets from Figma design
-const imgGroup = "/icons/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg";
-const imgCodiconDebugStepBack = "/icons/25d9978e6ee520adcae953bb81971ba680eb074e.svg";
-const imgFluentArrowSprint20Filled = "/icons/2ec924c70b4581fb8ce85d780f89be6ca89bd48f.svg";
-const imgStreamlineFlexDashboard3 = "/icons/19558319ea945b979494611aee69f1a69fdd5ed5.svg";
-const imgFluentPeopleTeam16Regular = "/icons/f626b26b7a59007334b99699a973c47adb5c30df.svg";
 const imgSearch = "/icons/icon-park-outline_search.png";
 const filter = '/icons/solar_filter-broken.svg';
 const lucideSortDesc = '/icons/lucide_sort-desc.png';
 const downarrow = '/icons/iconamoon_arrow-up-2-fill.svg';
 const menu = '/icons/solar_menu-dots-bold.svg';
 const bug = '/icons/mdi_bug-outline.svg';
-
-const imgEllipse3226 = "http://localhost:3845/assets/afcdad76e6a54041bae78e7f511725140b74e504.png";
-const img2 = "http://localhost:3845/assets/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
-const img3 = "http://localhost:3845/assets/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
-const img4 = "http://localhost:3845/assets/27329e3b78d83b20619fddee55560c05c2cd1469.png";
-const img5 = "http://localhost:3845/assets/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
-const img6 = "http://localhost:3845/assets/f373c72d51af21d02977bea40bdb4a1d38533f48.png";
-const img7 = "http://localhost:3845/assets/e8ca84c111215893799dd1a1575ed9277e36a0ed.png";
-const imgLogo = "http://localhost:3845/assets/b84b5d40d2b309aeb74557c18f9c8aee107bb331.svg";
-const imgIconamoonArrowUp2Light = "http://localhost:3845/assets/6da921a9801912b57d27cdefe8385059e7ddd31a.svg";
-const imgEllipse10 = "http://localhost:3845/assets/88364341615089b24b27f35494b0b95acb2276c1.svg";
-const imgGroup1 = "http://localhost:3845/assets/fe5ff0a6cc4ccdea2f38da4d6baf3716def90e5c.svg";
-const imgGroup1984077193 = "http://localhost:3845/assets/c1b6d222986627b36f13ba42ac2e73da7b39c04a.svg";
-const imgGroup2 = "http://localhost:3845/assets/e56e056d80f3538d5ece29278399adf7a83f00f8.svg";
-const imgMageFilter = "http://localhost:3845/assets/eb541e44da29796a676123f07dd6a6b02f8f359b.svg";
-const imgGroup3 = "http://localhost:3845/assets/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg";
-const imgMdiReportBoxMultipleOutline = "/icons/70cdbc2f90478290385b72c771b5e2f1049efd9d.svg";
-const imgLine35 = "http://localhost:3845/assets/97d1e99b3fd30737cdfd73a1cde46f84d96098b3.svg";
-const imgSubtract = "http://localhost:3845/assets/1dbd1f8e058554c0de78294c5b16c7d70ee9bbd8.svg";
-const imgPajamasCollapseLeft = "http://localhost:3845/assets/28a69ae95d5ba66094af1375314dbb52a710a84e.svg";
-const img = "http://localhost:3845/assets/ebf941e488128d66d349845b389b3ee78ee00cf9.svg";
-const img8 = "http://localhost:3845/assets/ac219d72c89e10b7410405a81fe6b233a9af6c93.svg";
-const img9 = "http://localhost:3845/assets/ef171a17ec4b77b6976558bf1f15fe749eff8bf8.svg";
-
-const img11 = "http://localhost:3845/assets/57b4ed4c8b84a1622fb3b235fb5a9ea11a143525.svg";
-const img12 = "http://localhost:3845/assets/d01d29cf9c35b06aa948a0c0535a848ba4464c2c.svg";
-const img13 = "http://localhost:3845/assets/149722239e4f250fb6e6a41ac7c710b29b5c0d7e.svg";
-const img14 = "http://localhost:3845/assets/34f2994ec12d0a8dadde39d377898c6ab3b73cf3.svg";
-const img15 = "http://localhost:3845/assets/16590fb1c2b55a11f570d67551f4b8115a2b0ecb.svg";
-const img16 = "http://localhost:3845/assets/2a6f318b0e3a9ddd7bed3e99975de7c7cfdc1fa7.svg";
-const imgEllipse3246 = "http://localhost:3845/assets/cebfe28422e12c731ee3640d638a6bc51febc0e0.svg";
-
-
+const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const img6 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
 
 export default function BacklogPrototype() {
@@ -99,13 +65,13 @@ export default function BacklogPrototype() {
 
             {/* Action Buttons */}
             <div className="flex items-center gap-3">
-              <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-7 h-7 flex items-center justify-center">
+              <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-7 h-7 flex items-center justify-center cursor-pointer">
                 <img alt="search" className="w-4 h-4" src={imgSearch} />
               </div>
-              <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-7 h-7 flex items-center justify-center">
+              <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-7 h-7 flex items-center justify-center cursor-pointer">
                 <img alt="filter" className="w-4 h-4" src={filter} />
               </div>
-              <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-7 h-7 flex items-center justify-center">
+              <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-7 h-7 flex items-center justify-center cursor-pointer">
                 <img alt="sort" className="w-4 h-4" src={lucideSortDesc} />
               </div>
             </div>
@@ -153,11 +119,11 @@ export default function BacklogPrototype() {
 
               {/* Table Header */}
               <div className="grid grid-cols-7 gap-3 mb-3 text-sm font-medium text-[#252525]">
-                <div>Type</div>
-                <div>Issue Title</div>
-                <div>Assign to</div>
-                <div>Status</div>
-                <div>Priority</div>
+                <div className='text-left'>Type</div>
+                <div className='text-left'>Issue Title</div>
+                <div className='text-center'>Assign to</div>
+                <div className='text-center'>Status</div>
+                <div className='text-center'>Priority</div>
                 <div className="text-center">Due date</div>
                 <div className="text-center">Action</div>
               </div>
@@ -166,29 +132,29 @@ export default function BacklogPrototype() {
               <div className="space-y-3">
                 {/* Row 1 */}
                 <div className="grid grid-cols-7 gap-3 items-center py-3">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
                       <img alt="bug" className="w-3 h-3" src={bug} />
                     </div>
                     <span className="text-xs text-[#666666]">TA – 117</span>
                   </div>
                   <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center justify-center gap-1">
                     <div className="flex -space-x-4">
                       <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img2} />
                       <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img3} />
                       <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img4} />
                       <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img5} />
                       <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img6} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img7} />
+                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img2} />
                     </div>
-                    <span className="text-sm text-[#333333]">24+</span>
+                    <span className="text-sm text-[#333333]">24+</span> 
                   </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
-                    To-do
+                  <div className="text-xs w-full flex items-center justify-center font-medium gap-1">
+                    <span className="text-[#8a96f7] bg-[rgba(138,150,247,0.2)] px-2 py-1 rounded">To-do</span>
                   </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
-                    Low
+                  <div className=" text-[#d58d49] text-xs font-medium w-full flex items-center justify-center gap-1">
+                    <span className="text-[#d58d49]  bg-[rgba(223,168,116,0.2)] text-center px-2 py-1 rounded ">Low</span>
                   </div>
                   <div className="text-center font-medium text-[#e52828]">Dec 5</div>
                   <div className="flex justify-center">
@@ -200,21 +166,21 @@ export default function BacklogPrototype() {
 
                 {/* Row 2 */}
                 <div className="grid grid-cols-7 gap-3 items-center py-3">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
                       <img alt="bug" className="w-3 h-3" src={bug} />
                     </div>
                     <span className="text-xs text-[#666666]">TA – 117</span>
                   </div>
                   <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center gap-1">
                     <span className="text-sm text-[#333333]">Unassigned</span>
                   </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
-                    To-do
+                  <div className=" text-xs font-medium w-full flex items-center justify-center">
+                    <span className='bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded'>Todo</span>
                   </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
-                    Low
+                  <div className="text-xs font-medium w-full flex items-center justify-center gap-1">
+                    <span className='bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded'>Low</span>
                   </div>
                   <div className="text-center font-medium text-[#808080]">-</div>
                   <div className="flex justify-center">
@@ -226,21 +192,21 @@ export default function BacklogPrototype() {
 
                 {/* Row 3 */}
                 <div className="grid grid-cols-7 gap-3 items-center py-3">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
                       <img alt="bug" className="w-3 h-3" src={bug} />
                     </div>
                     <span className="text-xs text-[#666666]">TA – 117</span>
                   </div>
                   <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center gap-1">
                     <span className="text-sm text-[#333333]">Unassigned</span>
                   </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
-                    To-do
+                  <div className="text-xs font-medium w-full flex items-center justify-center gap-1">
+                    <span className='bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded'>Todo</span>
                   </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
-                    Low
+                  <div className="text-xs font-medium w-full flex items-center justify-center gap-1">
+                    <span className='bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded'>Low</span>
                   </div>
                   <div className="text-center font-medium text-[#808080]">-</div>
                   <div className="flex justify-center">
@@ -293,11 +259,11 @@ export default function BacklogPrototype() {
 
               {/* Table Header */}
               <div className="grid grid-cols-7 gap-3 mb-3 text-sm font-medium text-[#252525]">
-                <div>Type</div>
-                <div>Issue Title</div>
-                <div>Assign to</div>
-                <div>Status</div>
-                <div>Priority</div>
+                <div className='text-left'>Type</div>
+                <div className='text-left'>Issue Title</div>
+                <div className='text-center'>Assign to</div>
+                <div className='text-center'>Status</div>
+                <div className='text-center'>Priority</div>
                 <div className="text-center">Due date</div>
                 <div className="text-center">Action</div>
               </div>
@@ -306,21 +272,21 @@ export default function BacklogPrototype() {
               <div className="space-y-3">
                 {/* Row 1 */}
                 <div className="grid grid-cols-7 gap-3 items-center py-3">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
                       <img alt="bug" className="w-3 h-3" src={bug} />
                     </div>
                     <span className="text-xs text-[#666666]">TA – 117</span>
                   </div>
                   <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center gap-1">
                     <span className="text-sm text-[#333333]">Unassigned</span>
                   </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
-                    To-do
+                  <div className="text-xs font-medium w-full flex items-center justify-center gap-1">
+                    <span className='bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded'>Todo</span>
                   </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
-                    Low
+                  <div className="text-xs font-medium w-full flex items-center justify-center gap-1">
+                    <span className='bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded'>Low</span>
                   </div>
                   <div className="text-center font-medium text-[#808080]">-</div>
                   <div className="flex justify-center">
@@ -332,21 +298,21 @@ export default function BacklogPrototype() {
 
                 {/* Row 2 */}
                 <div className="grid grid-cols-7 gap-3 items-center py-3">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
                       <img alt="bug" className="w-3 h-3" src={bug} />
                     </div>
                     <span className="text-xs text-[#666666]">TA – 117</span>
                   </div>
                   <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center gap-1">
                     <span className="text-sm text-[#333333]">Unassigned</span>
                   </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
-                    To-do
+                  <div className="text-xs font-medium w-full flex items-center justify-center gap-1">
+                    <span className='bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded'>Todo</span>
                   </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
-                    Low
+                  <div className="text-xs font-medium w-full flex items-center justify-center gap-1">
+                    <span className='bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded'>Low</span>
                   </div>
                   <div className="text-center font-medium text-[#808080]">-</div>
                   <div className="flex justify-center">
@@ -358,21 +324,21 @@ export default function BacklogPrototype() {
 
                 {/* Row 3 */}
                 <div className="grid grid-cols-7 gap-3 items-center py-3">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
                       <img alt="bug" className="w-3 h-3" src={bug} />
                     </div>
                     <span className="text-xs text-[#666666]">TA – 117</span>
                   </div>
                   <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center justify-center">
+                    <div className="flex items-center justify-center gap-1">
                     <span className="text-sm text-[#333333]">Unassigned</span>
                   </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
-                    To-do
+                  <div className="text-xs font-medium w-full flex items-center justify-center gap-1">
+                    <span className='bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded'>Todo</span>
                   </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
-                    Low
+                  <div className="text-xs font-medium w-full flex items-center justify-center gap-1">
+                    <span className='bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded'>Low</span>
                   </div>
                   <div className="text-center font-medium text-[#808080]">-</div>
                   <div className="flex justify-center">
