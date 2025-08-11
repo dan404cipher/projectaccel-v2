@@ -1,5 +1,4 @@
 import React from 'react';
-import { Layout } from '@/components/layout/Layout';
 
 // Image assets from Figma design
 const imgEllipse3226 = "http://localhost:3845/assets/afcdad76e6a54041bae78e7f511725140b74e504.png";
@@ -44,500 +43,334 @@ const imgEllipse3246 = "http://localhost:3845/assets/cebfe28422e12c731ee3640d638
 
 export default function BacklogPrototype() {
   return (
-    <Layout>
-      <div className="bg-[#f6f6f6] relative min-h-screen w-full">
-        {/* Project Header */}
-        <div className="flex items-center gap-4 mb-6 px-6">
+    <div className="bg-[#f6f6f6] h-screen w-full flex flex-col">
+      {/* Project Header - Fixed */}
+      <div className="bg-[#f6f6f6] p-4 pb-2 flex-shrink-0">
+        <div className="flex items-center gap-3 mb-4">
           <div className="flex items-center justify-center rotate-90">
-            <div className="relative w-10 h-10">
+            <div className="relative w-8 h-8">
               <img alt="arrow" className="w-full h-full" src={imgGroup3} />
             </div>
           </div>
-          <h1 className="text-3xl font-medium text-[#438197]">
+          <h1 className="text-2xl font-medium text-[#438197]">
             Example project name
           </h1>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-10 mb-8 px-6">
-          <div className="flex items-center gap-2">
-            <img alt="overview" className="w-6 h-6" src={imgStreamlineFlexDashboard3} />
-            <span className="text-xl font-medium text-[#06263d]">Overview</span>
+        <div className="flex items-center gap-6 mb-3 relative">
+        <div className="flex items-center gap-2">
+          <img alt="overview" className="w-5 h-5" src={imgStreamlineFlexDashboard3} />
+          <span className="text-lg font-medium text-[#06263d]">Overview</span>
+        </div>
+        <div className="flex items-center gap-2 relative">
+          <img alt="backlog" className="w-5 h-5" src={imgCodiconDebugStepBack} />
+          <span className="text-lg font-medium text-[#06263d]">Backlog</span>
+          {/* Active tab underline */}
+          <div className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-[#EB7500] rounded-full"></div>
+        </div>
+        <div className="flex items-center gap-2">
+          <img alt="sprint" className="w-5 h-5" src={imgFluentArrowSprint20Filled} />
+          <span className="text-lg font-medium text-[#06263d]">Active Sprint</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <img alt="team" className="w-5 h-5" src={imgFluentPeopleTeam16Regular} />
+          <span className="text-lg font-medium text-[#06263d]">Team</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <img alt="report" className="w-5 h-5" src={imgMdiReportBoxMultipleOutline} />
+          <span className="text-lg font-medium text-[#06263d]">Report</span>
+        </div>
+      </div>
+      </div>
+
+      {/* Main Content - Scrollable */}
+      <div className="flex-1 overflow-y-auto p-4">
+      {/* Main Content Area */}
+      <div className="bg-[#f2f2f2] rounded-2xl p-4">
+        {/* List View Header */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <h2 className="text-lg font-medium text-[#06263d]">
+              List View / Sort by status
+            </h2>
+            <div className="flex items-center gap-1">
+              <div className="bg-[#438197] rounded-full w-6 h-6 flex items-center justify-center">
+                <span className="text-white text-sm font-medium">22</span>
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <img alt="backlog" className="w-6 h-6" src={imgCodiconDebugStepBack} />
-            <span className="text-xl font-medium text-[#06263d]">Backlog</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <img alt="sprint" className="w-6 h-6" src={imgFluentArrowSprint20Filled} />
-            <span className="text-xl font-medium text-[#06263d]">Active Sprint</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <img alt="team" className="w-6 h-6" src={imgFluentPeopleTeam16Regular} />
-            <span className="text-xl font-medium text-[#06263d]">Team</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <img alt="report" className="w-6 h-6" src={imgMdiReportBoxMultipleOutline} />
-            <span className="text-xl font-medium text-[#06263d]">Report</span>
-          </div>
-          {/* Active tab indicator */}
-          <div className="absolute h-0.5 left-[461px] top-[258px] w-[105px]">
-            <img alt="line" className="w-full h-full" src={imgLine35} />
+          
+          {/* Action Buttons */}
+          <div className="flex items-center gap-3">
+            <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-6 h-6 flex items-center justify-center">
+              <img alt="search" className="w-3 h-3" src={imgGroup4} />
+            </div>
+            <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-6 h-6 flex items-center justify-center">
+              <img alt="filter" className="w-3 h-3" src={imgSolarFilterBroken} />
+            </div>
+            <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-6 h-6 flex items-center justify-center">
+              <img alt="sort" className="w-3 h-3" src={imgLucideSortDesc} />
+            </div>
           </div>
         </div>
 
-        {/* Main Content Area */}
-        <div className="bg-[#f2f2f2] rounded-[40px] mx-6 p-8">
-          {/* List View Header */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-4">
-              <h2 className="text-2xl font-medium text-[#06263d]">
-                List View / Sort by status
-              </h2>
-              <div className="flex items-center gap-1">
-                <div className="bg-[#438197] rounded-full w-7 h-7 flex items-center justify-center">
-                  <span className="text-white text-base font-medium">22</span>
+        {/* Sprint Cards */}
+        <div className="space-y-4">
+          {/* Sprint 1 - Active */}
+          <div className="bg-white rounded-2xl p-4">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1">
+                  <button className="w-5 h-5">
+                    <img alt="checkbox" className="w-full h-full" src={img9} />
+                  </button>
+                  <button className="w-5 h-5 rotate-180">
+                    <img alt="drag" className="w-full h-full" src={img10} />
+                  </button>
+                  <h3 className="text-lg font-medium text-[#06263d]">SCRUM Sprint 1</h3>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="bg-[#438197] rounded-full w-6 h-6 flex items-center justify-center">
+                    <span className="text-white text-sm font-medium">4</span>
+                  </div>
                 </div>
               </div>
+              <span className="text-sm text-[#838488]">01 Dec-07 Dec (3 issue items)</span>
             </div>
-            
-            {/* Action Buttons */}
-            <div className="flex items-center gap-4">
-              <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-8 h-8 flex items-center justify-center">
-                <img alt="search" className="w-4 h-4" src={imgGroup4} />
+
+            {/* Complete Sprint Button */}
+            <div className="flex justify-end mb-4">
+              <button className="bg-[#06263d] text-white px-2 py-2 rounded-lg text-xs font-medium">
+                Complete Sprint
+              </button>
+            </div>
+
+            {/* Table Header */}
+            <div className="grid grid-cols-7 gap-3 mb-3 text-sm font-medium text-[#252525]">
+              <div>Type</div>
+              <div>Issue Title</div>
+              <div>Assign to</div>
+              <div>Status</div>
+              <div>Priority</div>
+              <div className="text-right">Due date</div>
+              <div className="text-center">Action</div>
+            </div>
+
+            {/* Table Rows */}
+            <div className="space-y-3">
+              {/* Row 1 */}
+              <div className="grid grid-cols-7 gap-3 items-center py-3">
+                <div className="flex items-center gap-1">
+                  <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                    <img alt="bug" className="w-3 h-3" src={img1} />
+                  </div>
+                  <span className="text-xs text-[#666666]">TA – 117</span>
+                </div>
+                <div className="font-medium text-[#252525]">Publish blog page</div>
+                <div className="flex items-center gap-1">
+                  <div className="flex -space-x-4">
+                    <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img2} />
+                    <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img3} />
+                    <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img4} />
+                    <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img5} />
+                    <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img6} />
+                    <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img7} />
+                  </div>
+                  <span className="text-sm text-[#333333]">24+</span>
+                </div>
+                <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
+                  To-do
+                </div>
+                <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
+                  Low
+                </div>
+                <div className="text-right font-medium text-[#e52828]">Dec 5</div>
+                <div className="flex justify-center">
+                  <button className="w-5 h-5 rotate-90">
+                    <img alt="menu" className="w-full h-full" src={img8} />
+                  </button>
+                </div>
               </div>
-              <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-8 h-8 flex items-center justify-center">
-                <img alt="filter" className="w-4 h-4" src={imgSolarFilterBroken} />
+
+              {/* Row 2 */}
+              <div className="grid grid-cols-7 gap-3 items-center py-3">
+                <div className="flex items-center gap-1">
+                  <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                    <img alt="bug" className="w-3 h-3" src={img1} />
+                  </div>
+                  <span className="text-xs text-[#666666]">TA – 117</span>
+                </div>
+                <div className="font-medium text-[#252525]">Publish blog page</div>
+                <div className="flex items-center justify-center">
+                  <span className="text-sm text-[#333333]">Unassigned</span>
+                </div>
+                <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
+                  To-do
+                </div>
+                <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
+                  Low
+                </div>
+                <div className="text-center font-medium text-[#808080]">-</div>
+                <div className="flex justify-center">
+                  <button className="w-5 h-5 rotate-90">
+                    <img alt="menu" className="w-full h-full" src={img8} />
+                  </button>
+                </div>
               </div>
-              <div className="bg-[rgba(6,38,61,0.4)] rounded-lg w-8 h-8 flex items-center justify-center">
-                <img alt="sort" className="w-4 h-4" src={imgLucideSortDesc} />
+
+              {/* Row 3 */}
+              <div className="grid grid-cols-7 gap-3 items-center py-3">
+                <div className="flex items-center gap-1">
+                  <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                    <img alt="bug" className="w-3 h-3" src={img1} />
+                  </div>
+                  <span className="text-xs text-[#666666]">TA – 117</span>
+                </div>
+                <div className="font-medium text-[#252525]">Publish blog page</div>
+                <div className="flex items-center justify-center">
+                  <span className="text-sm text-[#333333]">Unassigned</span>
+                </div>
+                <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
+                  To-do
+                </div>
+                <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
+                  Low
+                </div>
+                <div className="text-center font-medium text-[#808080]">-</div>
+                <div className="flex justify-center">
+                  <button className="w-5 h-5 rotate-90">
+                    <img alt="menu" className="w-full h-full" src={img8} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Sprint Cards */}
-          <div className="space-y-6">
-            {/* Sprint 1 - Active */}
-            <div className="bg-white rounded-3xl p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1">
-                    <button className="w-6 h-6">
-                      <img alt="checkbox" className="w-full h-full" src={img9} />
-                    </button>
-                    <button className="w-6 h-6 rotate-180">
-                      <img alt="drag" className="w-full h-full" src={img10} />
-                    </button>
-                    <h3 className="text-2xl font-medium text-[#06263d]">SCRUM Sprint 1</h3>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#438197] rounded-full w-7 h-7 flex items-center justify-center">
-                      <span className="text-white text-base font-medium">4</span>
-                    </div>
-                  </div>
-                </div>
-                <span className="text-base text-[#838488]">01 Dec-07 Dec (3 issue items)</span>
-              </div>
-
-              {/* Complete Sprint Button */}
-              <div className="flex justify-end mb-6">
-                <button className="bg-[#06263d] text-white px-3 py-4 rounded-lg text-sm font-medium">
-                  Complete Sprint
-                </button>
-              </div>
-
-              {/* Table Header */}
-              <div className="grid grid-cols-7 gap-4 mb-4 text-xl font-medium text-[#252525]">
-                <div>Type</div>
-                <div>Issue Title</div>
-                <div>Assign to</div>
-                <div>Status</div>
-                <div>Priority</div>
-                <div className="text-right">Due date</div>
-                <div className="text-center">Action</div>
-              </div>
-
-              {/* Table Rows */}
-              <div className="space-y-4">
-                {/* Row 1 */}
-                <div className="grid grid-cols-7 gap-4 items-center py-4">
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                      <img alt="bug" className="w-3 h-3" src={img1} />
-                    </div>
-                    <span className="text-xs text-[#666666]">TA – 117</span>
-                  </div>
-                  <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center gap-1">
-                    <div className="flex -space-x-4">
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img2} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img3} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img4} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img5} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img6} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img7} />
-                    </div>
-                    <span className="text-sm text-[#333333]">24+</span>
-                  </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-3 py-2 rounded text-sm font-medium w-fit">
-                    To-do
-                  </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-3 py-2 rounded text-sm font-medium w-fit">
-                    Low
-                  </div>
-                  <div className="text-right font-medium text-[#e52828]">Dec 5</div>
-                  <div className="flex justify-center">
-                    <button className="w-6 h-6 rotate-90">
-                      <img alt="menu" className="w-full h-full" src={img8} />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Row 2 */}
-                <div className="grid grid-cols-7 gap-4 items-center py-4">
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                      <img alt="bug" className="w-3 h-3" src={img1} />
-                    </div>
-                    <span className="text-xs text-[#666666]">TA – 117</span>
-                  </div>
-                  <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center gap-1">
-                    <div className="flex -space-x-4">
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img2} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img3} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img4} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img5} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img6} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img7} />
-                    </div>
-                    <span className="text-sm text-[#333333]">24+</span>
-                  </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-3 py-2 rounded text-sm font-medium w-fit">
-                    To-do
-                  </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-3 py-2 rounded text-sm font-medium w-fit">
-                    Low
-                  </div>
-                  <div className="text-right font-medium text-[#e52828]">Dec 6</div>
-                  <div className="flex justify-center">
-                    <button className="w-6 h-6 rotate-90">
-                      <img alt="menu" className="w-full h-full" src={img8} />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Row 3 */}
-                <div className="grid grid-cols-7 gap-4 items-center py-4">
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                      <img alt="bug" className="w-3 h-3" src={img1} />
-                    </div>
-                    <span className="text-xs text-[#666666]">TA – 117</span>
-                  </div>
-                  <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center gap-1">
-                    <div className="flex -space-x-4">
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img2} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img3} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img4} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img5} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img6} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img7} />
-                    </div>
-                    <span className="text-sm text-[#333333]">24+</span>
-                  </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-3 py-2 rounded text-sm font-medium w-fit">
-                    To-do
-                  </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-3 py-2 rounded text-sm font-medium w-fit">
-                    Low
-                  </div>
-                  <div className="text-right font-medium text-[#e52828]">Dec 5</div>
-                  <div className="flex justify-center">
-                    <button className="w-6 h-6 rotate-90">
-                      <img alt="menu" className="w-full h-full" src={img8} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Sprint 2 - Planned */}
-            <div className="bg-white rounded-3xl p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1">
-                    <button className="w-6 h-6">
-                      <img alt="checkbox" className="w-full h-full" src={img9} />
-                    </button>
-                    <button className="w-6 h-6 rotate-180">
-                      <img alt="drag" className="w-full h-full" src={img14} />
-                    </button>
-                    <h3 className="text-2xl font-medium text-[#06263d]">SCRUM Sprint 1</h3>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#438197] rounded-full w-7 h-7 flex items-center justify-center">
-                      <span className="text-white text-base font-medium">8</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <button className="w-6 h-6">
-                    <img alt="edit" className="w-full h-full" src={img15} />
+          {/* Backlog Card */}
+          <div className="bg-white rounded-2xl p-4">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1">
+                  <button className="w-5 h-5">
+                    <img alt="checkbox" className="w-full h-full" src={img9} />
                   </button>
-                  <span className="text-base text-[#838488]">Add date (8 issues items)</span>
+                  <button className="w-5 h-5 rotate-180">
+                    <img alt="drag" className="w-full h-full" src={img10} />
+                  </button>
+                  <h3 className="text-lg font-medium text-[#06263d]">Backlog</h3>
                 </div>
-              </div>
-
-              {/* Start Sprint Button */}
-              <div className="flex justify-end mb-6">
-                <button className="bg-[#06263d] text-white px-3 py-4 rounded-lg text-sm font-medium">
-                  Start Sprint
-                </button>
-              </div>
-
-              {/* Table Header */}
-              <div className="grid grid-cols-7 gap-4 mb-4 text-xl font-medium text-[#252525]">
-                <div>Type</div>
-                <div>Issue Title</div>
-                <div>Assign to</div>
-                <div>Status</div>
-                <div>Priority</div>
-                <div className="text-right">Due date</div>
-                <div className="text-center">Action</div>
-              </div>
-
-              {/* Table Rows */}
-              <div className="space-y-4">
-                {/* Row 1 */}
-                <div className="grid grid-cols-7 gap-4 items-center py-4">
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                      <img alt="bug" className="w-3 h-3" src={img1} />
-                    </div>
-                    <span className="text-xs text-[#666666]">TA – 117</span>
-                  </div>
-                  <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center gap-1">
-                    <div className="flex -space-x-4">
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img2} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img3} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img4} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img5} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img6} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img7} />
-                    </div>
-                    <span className="text-sm text-[#333333]">24+</span>
-                  </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-3 py-2 rounded text-sm font-medium w-fit">
-                    To-do
-                  </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-3 py-2 rounded text-sm font-medium w-fit">
-                    Low
-                  </div>
-                  <div className="text-right font-medium text-[#e52828]">Dec 5</div>
-                  <div className="flex justify-center">
-                    <button className="w-6 h-6 rotate-90">
-                      <img alt="menu" className="w-full h-full" src={img8} />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Row 2 */}
-                <div className="grid grid-cols-7 gap-4 items-center py-4">
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                      <img alt="bug" className="w-3 h-3" src={img1} />
-                    </div>
-                    <span className="text-xs text-[#666666]">TA – 117</span>
-                  </div>
-                  <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center gap-1">
-                    <div className="flex -space-x-4">
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img2} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img3} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img4} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img5} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img6} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img7} />
-                    </div>
-                    <span className="text-sm text-[#333333]">24+</span>
-                  </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-3 py-2 rounded text-sm font-medium w-fit">
-                    To-do
-                  </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-3 py-2 rounded text-sm font-medium w-fit">
-                    Low
-                  </div>
-                  <div className="text-right font-medium text-[#e52828]">Dec 5</div>
-                  <div className="flex justify-center">
-                    <button className="w-6 h-6 rotate-90">
-                      <img alt="menu" className="w-full h-full" src={img8} />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Row 3 */}
-                <div className="grid grid-cols-7 gap-4 items-center py-4">
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                      <img alt="bug" className="w-3 h-3" src={img1} />
-                    </div>
-                    <span className="text-xs text-[#666666]">TA – 117</span>
-                  </div>
-                  <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center gap-1">
-                    <div className="flex -space-x-4">
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img2} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img3} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img4} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img5} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img6} />
-                      <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={img7} />
-                    </div>
-                    <span className="text-sm text-[#333333]">24+</span>
-                  </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-3 py-2 rounded text-sm font-medium w-fit">
-                    To-do
-                  </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-3 py-2 rounded text-sm font-medium w-fit">
-                    Low
-                  </div>
-                  <div className="text-right font-medium text-[#e52828]">Dec 5</div>
-                  <div className="flex justify-center">
-                    <button className="w-6 h-6 rotate-90">
-                      <img alt="menu" className="w-full h-full" src={img8} />
-                    </button>
+                <div className="flex items-center gap-1">
+                  <div className="bg-[#438197] rounded-full w-6 h-6 flex items-center justify-center">
+                    <span className="text-white text-sm font-medium">9</span>
                   </div>
                 </div>
               </div>
+              <span className="text-sm text-[#838488]">(9 issues items)</span>
             </div>
 
-            {/* Backlog */}
-            <div className="bg-white rounded-3xl p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1">
-                    <button className="w-6 h-6">
-                      <img alt="checkbox" className="w-full h-full" src={img9} />
-                    </button>
-                    <button className="w-6 h-6 rotate-180">
-                      <img alt="drag" className="w-full h-full" src={img16} />
-                    </button>
-                    <h3 className="text-2xl font-medium text-[#06263d]">Backlog</h3>
+            {/* Create Sprint Button */}
+            <div className="flex justify-end mb-4">
+              <button className="bg-[#06263d] text-white px-2 py-2 rounded-lg text-xs font-medium">
+                Create Sprint
+              </button>
+            </div>
+
+            {/* Table Header */}
+            <div className="grid grid-cols-7 gap-3 mb-3 text-sm font-medium text-[#252525]">
+              <div>Type</div>
+              <div>Issue Title</div>
+              <div>Assign to</div>
+              <div>Status</div>
+              <div>Priority</div>
+              <div className="text-right">Due date</div>
+              <div className="text-center">Action</div>
+            </div>
+
+            {/* Table Rows */}
+            <div className="space-y-3">
+              {/* Row 1 */}
+              <div className="grid grid-cols-7 gap-3 items-center py-3">
+                <div className="flex items-center gap-1">
+                  <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                    <img alt="bug" className="w-3 h-3" src={img1} />
                   </div>
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#438197] rounded-full w-7 h-7 flex items-center justify-center">
-                      <span className="text-white text-base font-medium">9</span>
-                    </div>
-                  </div>
+                  <span className="text-xs text-[#666666]">TA – 117</span>
                 </div>
-                <span className="text-base text-[#838488]">(9 issues items)</span>
+                <div className="font-medium text-[#252525]">Publish blog page</div>
+                <div className="flex items-center justify-center">
+                  <span className="text-sm text-[#333333]">Unassigned</span>
+                </div>
+                <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
+                  To-do
+                </div>
+                <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
+                  Low
+                </div>
+                <div className="text-center font-medium text-[#808080]">-</div>
+                <div className="flex justify-center">
+                  <button className="w-5 h-5 rotate-90">
+                    <img alt="menu" className="w-full h-full" src={img8} />
+                  </button>
+                </div>
               </div>
 
-              {/* Create Sprint Button */}
-              <div className="flex justify-end mb-6">
-                <button className="bg-[#06263d] text-white px-3 py-4 rounded-lg text-sm font-medium">
-                  Create Sprint
-                </button>
+              {/* Row 2 */}
+              <div className="grid grid-cols-7 gap-3 items-center py-3">
+                <div className="flex items-center gap-1">
+                  <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                    <img alt="bug" className="w-3 h-3" src={img1} />
+                  </div>
+                  <span className="text-xs text-[#666666]">TA – 117</span>
+                </div>
+                <div className="font-medium text-[#252525]">Publish blog page</div>
+                <div className="flex items-center justify-center">
+                  <span className="text-sm text-[#333333]">Unassigned</span>
+                </div>
+                <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
+                  To-do
+                </div>
+                <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
+                  Low
+                </div>
+                <div className="text-center font-medium text-[#808080]">-</div>
+                <div className="flex justify-center">
+                  <button className="w-5 h-5 rotate-90">
+                    <img alt="menu" className="w-full h-full" src={img8} />
+                  </button>
+                </div>
               </div>
 
-              {/* Table Header */}
-              <div className="grid grid-cols-7 gap-4 mb-4 text-xl font-medium text-[#252525]">
-                <div>Type</div>
-                <div>Issue Title</div>
-                <div>Assign to</div>
-                <div>Status</div>
-                <div>Priority</div>
-                <div className="text-right">Due date</div>
-                <div className="text-center">Action</div>
-              </div>
-
-              {/* Table Rows */}
-              <div className="space-y-4">
-                {/* Row 1 */}
-                <div className="grid grid-cols-7 gap-4 items-center py-4">
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                      <img alt="bug" className="w-3 h-3" src={img1} />
-                    </div>
-                    <span className="text-xs text-[#666666]">TA – 117</span>
+              {/* Row 3 */}
+              <div className="grid grid-cols-7 gap-3 items-center py-3">
+                <div className="flex items-center gap-1">
+                  <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
+                    <img alt="bug" className="w-3 h-3" src={img1} />
                   </div>
-                  <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center justify-center">
-                    <span className="text-sm text-[#333333]">Unassigned</span>
-                  </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-3 py-2 rounded text-sm font-medium w-fit">
-                    To-do
-                  </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-3 py-2 rounded text-sm font-medium w-fit">
-                    Low
-                  </div>
-                  <div className="text-center font-medium text-[#808080]">-</div>
-                  <div className="flex justify-center">
-                    <button className="w-6 h-6 rotate-90">
-                      <img alt="menu" className="w-full h-full" src={img8} />
-                    </button>
-                  </div>
+                  <span className="text-xs text-[#666666]">TA – 117</span>
                 </div>
-
-                {/* Row 2 */}
-                <div className="grid grid-cols-7 gap-4 items-center py-4">
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                      <img alt="bug" className="w-3 h-3" src={img1} />
-                    </div>
-                    <span className="text-xs text-[#666666]">TA – 117</span>
-                  </div>
-                  <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center justify-center">
-                    <span className="text-sm text-[#333333]">Unassigned</span>
-                  </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-3 py-2 rounded text-sm font-medium w-fit">
-                    To-do
-                  </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-3 py-2 rounded text-sm font-medium w-fit">
-                    Low
-                  </div>
-                  <div className="text-center font-medium text-[#808080]">-</div>
-                  <div className="flex justify-center">
-                    <button className="w-6 h-6 rotate-90">
-                      <img alt="menu" className="w-full h-full" src={img8} />
-                    </button>
-                  </div>
+                <div className="font-medium text-[#252525]">Publish blog page</div>
+                <div className="flex items-center justify-center">
+                  <span className="text-sm text-[#333333]">Unassigned</span>
                 </div>
-
-                {/* Row 3 */}
-                <div className="grid grid-cols-7 gap-4 items-center py-4">
-                  <div className="flex items-center gap-1">
-                    <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
-                      <img alt="bug" className="w-3 h-3" src={img1} />
-                    </div>
-                    <span className="text-xs text-[#666666]">TA – 117</span>
-                  </div>
-                  <div className="font-medium text-[#252525]">Publish blog page</div>
-                  <div className="flex items-center justify-center">
-                    <span className="text-sm text-[#333333]">Unassigned</span>
-                  </div>
-                  <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-3 py-2 rounded text-sm font-medium w-fit">
-                    To-do
-                  </div>
-                  <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-3 py-2 rounded text-sm font-medium w-fit">
-                    Low
-                  </div>
-                  <div className="text-center font-medium text-[#808080]">-</div>
-                  <div className="flex justify-center">
-                    <button className="w-6 h-6 rotate-90">
-                      <img alt="menu" className="w-full h-full" src={img8} />
-                    </button>
-                  </div>
+                <div className="bg-[rgba(138,150,247,0.2)] text-[#8a96f7] px-2 py-1 rounded text-xs font-medium w-fit">
+                  To-do
+                </div>
+                <div className="bg-[rgba(223,168,116,0.2)] text-[#d58d49] px-2 py-1 rounded text-xs font-medium w-fit">
+                  Low
+                </div>
+                <div className="text-center font-medium text-[#808080]">-</div>
+                <div className="flex justify-center">
+                  <button className="w-5 h-5 rotate-90">
+                    <img alt="menu" className="w-full h-full" src={img8} />
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </Layout>
+      </div>
+    </div>
   );
 } 

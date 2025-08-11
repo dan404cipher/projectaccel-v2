@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Icon assets from public/icons directory
 const bugIcon = "/icons/mdi_bug-outline.png";
@@ -49,6 +50,12 @@ const teamMember5 = "http://localhost:3845/assets/be8f7c59d45aca4f6175e23713a9d2
 const teamMember6 = "http://localhost:3845/assets/b38481751890bb742ffc613e1fe570486af1f031.png";
 
 export default function ProjectList() {
+  const navigate = useNavigate();
+
+  const handleCardClick = (projectId: string) => {
+    navigate(`/project-overview`);
+  };
+
   return (
     <div className="bg-[#f6f6f6] min-h-screen w-full p-6">
       {/* Page Header */}
@@ -84,7 +91,10 @@ export default function ProjectList() {
       {/* Project Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
         {/* Project Card 1 */}
-        <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+        <div 
+          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
+          onClick={() => handleCardClick('project-1')}
+        >
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
               Example Project Title
@@ -132,7 +142,10 @@ export default function ProjectList() {
         </div>
 
         {/* Project Card 2 */}
-        <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+        <div 
+          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
+          onClick={() => handleCardClick('project-2')}
+        >
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
               Example Project Title
@@ -180,7 +193,10 @@ export default function ProjectList() {
         </div>
 
         {/* Project Card 3 */}
-        <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+        <div 
+          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
+          onClick={() => handleCardClick('project-3')}
+        >
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
               Example Project Title
@@ -228,7 +244,10 @@ export default function ProjectList() {
         </div>
 
         {/* Project Card 4 */}
-        <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+        <div 
+          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
+          onClick={() => handleCardClick('project-4')}
+        >
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
               Example Project Title
@@ -276,7 +295,10 @@ export default function ProjectList() {
         </div>
 
         {/* Project Card 5 */}
-        <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+        <div 
+          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
+          onClick={() => handleCardClick('project-5')}
+        >
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
               Example Project Title
@@ -324,7 +346,10 @@ export default function ProjectList() {
         </div>
 
         {/* Project Card 6 */}
-        <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200">
+        <div 
+          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
+          onClick={() => handleCardClick('project-6')}
+        >
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
               Example Project Title

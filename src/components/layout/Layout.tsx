@@ -19,7 +19,7 @@ export function Layout({ children }: LayoutProps) {
           <div className="h-[100%] pt-5">
             <div className="flex h-full w-full">
               <AppSidebar />
-              <main className="flex-1 overflow-auto pt-16">
+              <main className="flex-1 pt-16">
                 <div className="h-full">
                   {children}
                 </div>
