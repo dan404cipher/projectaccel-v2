@@ -68,7 +68,7 @@ const Dashboard = () => {
   ]
 
   return (
-    <div className="space-y-4 sm:space-y-6 lg:space-y-10 px-2 sm:px-4 lg:px-6 w-full max-w-full overflow-x-hidden">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-10 px-2 sm:px-4 lg:px-6 w-full">
       {/* Welcome Section */}
       <div className="space-y-1 sm:space-y-2">
         <h1 className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#438197]">Welcome Back !!</h1>

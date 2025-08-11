@@ -1,6 +1,13 @@
+import ProjectHeader from '@/components/ProjectHeader';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Image assets from Figma design
+const imgGroup = "/icons/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg";
+const imgCodiconDebugStepBack = "/icons/25d9978e6ee520adcae953bb81971ba680eb074e.svg";
+const imgFluentArrowSprint20Filled = "/icons/2ec924c70b4581fb8ce85d780f89be6ca89bd48f.svg";
+const imgStreamlineFlexDashboard3 = "/icons/19558319ea945b979494611aee69f1a69fdd5ed5.svg";
+const imgFluentPeopleTeam16Regular = "/icons/f626b26b7a59007334b99699a973c47adb5c30df.svg";
 const imgEllipse3226 = "http://localhost:3845/assets/afcdad76e6a54041bae78e7f511725140b74e504.png";
 const img2 = "http://localhost:3845/assets/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
 const img3 = "http://localhost:3845/assets/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
@@ -11,17 +18,12 @@ const img7 = "http://localhost:3845/assets/e8ca84c111215893799dd1a1575ed9277e36a
 const imgLogo = "http://localhost:3845/assets/b84b5d40d2b309aeb74557c18f9c8aee107bb331.svg";
 const imgIconamoonArrowUp2Light = "http://localhost:3845/assets/6da921a9801912b57d27cdefe8385059e7ddd31a.svg";
 const imgEllipse10 = "http://localhost:3845/assets/88364341615089b24b27f35494b0b95acb2276c1.svg";
-const imgGroup = "http://localhost:3845/assets/93765e3060a5e02b5efd9ef1791db8c21fc953ef.svg";
 const imgGroup1 = "http://localhost:3845/assets/fe5ff0a6cc4ccdea2f38da4d6baf3716def90e5c.svg";
 const imgGroup1984077193 = "http://localhost:3845/assets/c1b6d222986627b36f13ba42ac2e73da7b39c04a.svg";
 const imgGroup2 = "http://localhost:3845/assets/e56e056d80f3538d5ece29278399adf7a83f00f8.svg";
 const imgMageFilter = "http://localhost:3845/assets/eb541e44da29796a676123f07dd6a6b02f8f359b.svg";
 const imgGroup3 = "http://localhost:3845/assets/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg";
-const imgStreamlineFlexDashboard3 = "http://localhost:3845/assets/19558319ea945b979494611aee69f1a69fdd5ed5.svg";
-const imgCodiconDebugStepBack = "http://localhost:3845/assets/25d9978e6ee520adcae953bb81971ba680eb074e.svg";
-const imgFluentArrowSprint20Filled = "http://localhost:3845/assets/2ec924c70b4581fb8ce85d780f89be6ca89bd48f.svg";
-const imgFluentPeopleTeam16Regular = "http://localhost:3845/assets/f626b26b7a59007334b99699a973c47adb5c30df.svg";
-const imgMdiReportBoxMultipleOutline = "http://localhost:3845/assets/70cdbc2f90478290385b72c771b5e2f1049efd9d.svg";
+const imgMdiReportBoxMultipleOutline = "/icons/70cdbc2f90478290385b72c771b5e2f1049efd9d.svg";
 const imgLine35 = "http://localhost:3845/assets/97d1e99b3fd30737cdfd73a1cde46f84d96098b3.svg";
 const imgSubtract = "http://localhost:3845/assets/1dbd1f8e058554c0de78294c5b16c7d70ee9bbd8.svg";
 const imgPajamasCollapseLeft = "http://localhost:3845/assets/28a69ae95d5ba66094af1375314dbb52a710a84e.svg";
@@ -41,49 +43,39 @@ const imgSolarFilterBroken = "http://localhost:3845/assets/37ac6255a9f6071e9df7e
 const imgLucideSortDesc = "http://localhost:3845/assets/b3c3c9bd0d2578ea02b628bf34cfc1821d5473a8.svg";
 const imgEllipse3246 = "http://localhost:3845/assets/cebfe28422e12c731ee3640d638a6bc51febc0e0.svg";
 
+
+
+
 export default function BacklogPrototype() {
+  const navigate = useNavigate();
+
+
+  const handleTabClick = (tab: string) => {
+    switch (tab) {
+      case 'overview':
+        navigate('/project-overview');
+        break;
+      case 'backlog':
+        navigate('/backlog');
+        break;
+      case 'sprint':
+        navigate('/active-sprint');
+        break;
+      case 'team':
+        navigate('/project-team');
+        break;
+      case 'report':
+        navigate('/report');
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="bg-[#f6f6f6] h-screen w-full flex flex-col">
       {/* Project Header - Fixed */}
-      <div className="bg-[#f6f6f6] p-4 pb-2 flex-shrink-0">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="flex items-center justify-center rotate-90">
-            <div className="relative w-8 h-8">
-              <img alt="arrow" className="w-full h-full" src={imgGroup3} />
-            </div>
-          </div>
-          <h1 className="text-2xl font-medium text-[#438197]">
-            Example project name
-          </h1>
-        </div>
-
-        {/* Navigation Tabs */}
-        <div className="flex items-center gap-6 mb-3 relative">
-        <div className="flex items-center gap-2">
-          <img alt="overview" className="w-5 h-5" src={imgStreamlineFlexDashboard3} />
-          <span className="text-lg font-medium text-[#06263d]">Overview</span>
-        </div>
-        <div className="flex items-center gap-2 relative">
-          <img alt="backlog" className="w-5 h-5" src={imgCodiconDebugStepBack} />
-          <span className="text-lg font-medium text-[#06263d]">Backlog</span>
-          {/* Active tab underline */}
-          <div className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-[#EB7500] rounded-full"></div>
-        </div>
-        <div className="flex items-center gap-2">
-          <img alt="sprint" className="w-5 h-5" src={imgFluentArrowSprint20Filled} />
-          <span className="text-lg font-medium text-[#06263d]">Active Sprint</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <img alt="team" className="w-5 h-5" src={imgFluentPeopleTeam16Regular} />
-          <span className="text-lg font-medium text-[#06263d]">Team</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <img alt="report" className="w-5 h-5" src={imgMdiReportBoxMultipleOutline} />
-          <span className="text-lg font-medium text-[#06263d]">Report</span>
-        </div>
-      </div>
-      </div>
-
+      <ProjectHeader projectName="Example project name" activeTab="backlog" onTabChange={handleTabClick}/>
       {/* Main Content - Scrollable */}
       <div className="flex-1 overflow-y-auto p-4">
       {/* Main Content Area */}

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ProjectHeader from '@/components/ProjectHeader';
+import { useNavigate } from 'react-router-dom';
 
 // Image assets from Figma design
 const imgEllipse3226 = "http://localhost:3845/assets/afcdad76e6a54041bae78e7f511725140b74e504.png";
@@ -28,119 +30,35 @@ const imgIconamoonArrowUp2Light1 = "http://localhost:3845/assets/051a4f22b6dad27
 const imgIconamoonArrowUp2Light2 = "http://localhost:3845/assets/54c9878d42c56271b44ecbadb09991b493ba770e.svg";
 const imgGroup1984077195 = "http://localhost:3845/assets/55a2cc886712fb7ac0be0b2139d55e7ebf391a07.svg";
 
-export default function HelpSupport() {
+export const HelpSupport = () => {
+  const navigate = useNavigate();
+
+  const handleTabClick = (tab: string) => {
+    switch (tab) {
+      case 'overview':
+        navigate('/project-overview');
+        break;
+      case 'backlog':
+        navigate('/backlog');
+        break;
+      case 'sprint':
+        navigate('/active-sprint');
+        break;
+      case 'team':
+        navigate('/project-team');
+        break;
+      case 'report':
+        navigate('/report');
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="bg-[#f6f6f6] relative size-full min-h-screen">
-      {/* Top Bar */}
-      <div className="absolute backdrop-blur-[50px] backdrop-filter bg-[#c0ced2] flex flex-row gap-[425px] h-[88px] items-center justify-start left-1/2 px-10 py-4 rounded-[100px] top-6 translate-x-[-50%] w-[1680px]">
-        {/* Logo and Workspace */}
-        <div className="flex flex-row gap-10 items-center justify-start p-0 relative shrink-0 w-[414px]">
-          <div className="h-5 relative shrink-0 w-[110px]">
-            <img alt="logo" className="block max-w-none size-full" src={imgLogo} />
-          </div>
-          <div className="inline-grid leading-[0] place-items-start relative shrink-0">
-            <div className="bg-[rgba(255,255,255,0.07)] h-12 ml-0 mt-0 relative rounded-[100px] w-[264px]">
-              <div className="absolute flex flex-row gap-[42px] items-center justify-start left-6 p-0 top-3">
-                <div className="capitalize font-medium leading-[0] relative shrink-0 text-[#06263d] text-[20px] text-left text-nowrap">
-                  <p className="block leading-[normal] whitespace-pre">Workspace name</p>
-                </div>
-                <div className="flex items-center justify-center relative shrink-0">
-                  <div className="flex-none rotate-[180deg]">
-                    <div className="relative size-6">
-                      <img alt="arrow" className="block max-w-none size-full" src={imgIconamoonArrowUp2Light} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* User Actions */}
-        <div className="absolute flex flex-row gap-6 items-start justify-center left-[1275px] p-0 top-1/2 translate-y-[-50%]">
-          <div className="flex flex-row gap-4 items-center justify-start p-0 relative shrink-0">
-            {/* AI Icon */}
-            <div className="relative shrink-0 size-12">
-              <div className="absolute contents left-0 top-0">
-                <div className="absolute left-0 size-12 top-0">
-                  <div className="absolute bottom-[-25%] left-[-16.67%] right-[-16.67%] top-[-8.33%]">
-                    <img alt="ai-bg" className="block max-w-none size-full" src={imgEllipse10} />
-                  </div>
-                </div>
-                <div className="absolute left-1/2 overflow-clip size-6 top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                  <div className="absolute bottom-[0.77%] left-[8.73%] right-[8.33%] top-[8.33%]">
-                    <img alt="ai-icon" className="block max-w-none size-full" src={imgGroup} />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Notification Icon */}
-            <div className="relative shrink-0 size-12">
-              <div className="absolute contents left-0 top-0">
-                <div className="absolute left-0 size-12 top-0">
-                  <div className="absolute bottom-[-25%] left-[-16.67%] right-[-16.67%] top-[-8.33%]">
-                    <img alt="notification-bg" className="block max-w-none size-full" src={imgEllipse10} />
-                  </div>
-                </div>
-                <div className="absolute left-1/2 overflow-clip size-6 top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                  <div className="absolute bottom-[5.22%] left-[9.38%] right-[5.2%] top-[5.21%]">
-                    <img alt="notification-icon" className="block max-w-none size-full" src={imgGroup1} />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Message Icon */}
-            <div className="relative shrink-0 size-12">
-              <div className="absolute left-0 size-12 top-0">
-                <div className="absolute bottom-[-25%] left-[-16.67%] right-[-16.67%] top-[-8.33%]">
-                  <img alt="message-bg" className="block max-w-none size-full" src={imgMessageIconBackground} />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* User Profile */}
-          <div className="bg-[#ffffff] flex flex-row gap-2.5 items-center justify-start pl-2 pr-4 py-[5px] relative rounded-3xl shrink-0">
-            <div className="relative shrink-0 size-[38px]">
-              <div className="absolute bottom-[-26.32%] left-[-15.79%] right-[-15.79%] top-[-5.26%]">
-                <img alt="user-avatar" className="block max-w-none size-full" height="50" src={imgEllipse3226} width="50" />
-              </div>
-            </div>
-            <div className="flex flex-row gap-3.5 items-center justify-start p-0 relative shrink-0">
-              <div className="flex flex-col gap-1 items-start justify-center leading-[0] p-0 relative shrink-0 text-left text-nowrap">
-                <div className="relative shrink-0 text-[#292d32] text-[14px]">
-                  <p className="block leading-[normal] text-nowrap whitespace-pre">Lisa</p>
-                </div>
-                <div className="relative shrink-0 text-[12px] text-[rgba(41,45,50,0.44)]">
-                  <p className="block leading-[normal] text-nowrap whitespace-pre">Prodcut manager</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Search and Filter */}
-        <div className="bg-[#ffffff] h-12 relative rounded-[100px] shrink-0 w-[356px]">
-          <div className="absolute flex flex-row gap-4 items-center justify-center left-6 p-0 top-3">
-            <div className="overflow-clip relative shrink-0 size-6">
-              <div className="absolute bottom-[13.11%] left-[8.33%] right-[13.11%] top-[8.33%]">
-                <div className="absolute inset-[-7.07%]">
-                  <img alt="search-icon" className="block max-w-none size-full" src={imgGroup2} />
-                </div>
-              </div>
-            </div>
-            <div className="font-normal leading-[0] lowercase relative shrink-0 text-[#999999] text-[16px] text-left text-nowrap">
-              <p className="block leading-[normal] whitespace-pre">search for anything...</p>
-            </div>
-          </div>
-          <div className="absolute left-[308px] size-6 top-3">
-            <img alt="filter-icon" className="block max-w-none size-full" src={imgMageFilter} />
-          </div>
-        </div>
-      </div>
-
+{/* Project Header */}
+    <ProjectHeader projectName="Example project name" activeTab="report" onTabChange={handleTabClick}/>
       {/* Side Navigation */}
       <div className="absolute h-[957px] left-6 top-[136px] w-60">
         <div className="absolute h-[957px] left-0 top-0 w-60">

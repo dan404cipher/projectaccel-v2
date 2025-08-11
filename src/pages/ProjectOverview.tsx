@@ -1,3 +1,4 @@
+import ProjectHeader from '@/components/ProjectHeader';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -97,97 +98,45 @@ export default function ProjectOverview() {
   return (
     <div className="bg-[#f6f6f6] h-screen w-full flex flex-col overflow-hidden">
       {/* Project Header - Fixed */}
-      <div className="bg-[#f6f6f6] p-4 pb-2 flex-shrink-0">
-        <div className="mb-3">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="flex items-center justify-center w-8 h-8">
-            <img alt="arrow" className="w-5 h-5 rotate-90" src={imgGroup} />
-          </div>
-          <h1 className="text-2xl font-medium text-[#438197]">
-            Example project name
-          </h1>
-        </div>
-        
-        {/* Navigation Tabs */}
-        <div className="flex gap-6 mb-3 relative">
-          <div 
-            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity relative"
-            onClick={() => handleTabClick('overview')}
-          >
-            <img alt="dashboard" className="w-5 h-5" src={imgStreamlineFlexDashboard3} />
-            <span className="text-lg font-medium text-[#06263d]">Overview</span>
-            {/* Active tab underline */}
-            <div className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-[#EB7500] rounded-full"></div>
-          </div>
-          <div 
-            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-            onClick={() => handleTabClick('backlog')}
-          >
-            <img alt="backlog" className="w-5 h-5" src={imgCodiconDebugStepBack} />
-            <span className="text-lg font-medium text-[#06263d]">Backlog</span>
-          </div>
-          <div 
-            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-            onClick={() => handleTabClick('sprint')}
-          >
-            <img alt="sprint" className="w-5 h-5" src={imgFluentArrowSprint20Filled} />
-            <span className="text-lg font-medium text-[#06263d]">Active Sprint</span>
-          </div>
-          <div 
-            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-            onClick={() => handleTabClick('team')}
-          >
-            <img alt="team" className="w-5 h-5" src={imgFluentPeopleTeam16Regular} />
-            <span className="text-lg font-medium text-[#06263d]">Team</span>
-          </div>
-          <div 
-            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-            onClick={() => handleTabClick('report')}
-          >
-            <img alt="report" className="w-5 h-5" src={imgMdiReportBoxMultipleOutline} />
-            <span className="text-lg font-medium text-[#06263d]">Report</span>
-          </div>
-        </div>
-      </div>
-      </div>
+     <ProjectHeader projectName='Example project name' activeTab='overview' onTabChange={handleTabClick}/>
 
       {/* Main Content - Scrollable */}
       <div className="flex-1 overflow-y-auto p-4 pt-2 pb-20">
-      {/* Project Info Card */}
-      <div className="bg-white rounded-2xl p-4 mb-6 shadow-sm">
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-3">
-              <h2 className="text-2xl font-bold text-[#438197]">
-                E-commerce Platform Redesign
-              </h2>
-              <div className="bg-[rgba(223,168,116,0.2)] px-2 py-0.5 rounded">
-                <span className="text-xs font-medium text-[#d58d49]">In progress</span>
+        {/* Project Info Card */}
+        <div className="bg-white rounded-2xl p-4 mb-6 shadow-sm">
+          <div className="flex justify-between items-start">
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-3">
+                <h2 className="text-2xl font-bold text-[#438197]">
+                  E-commerce Platform Redesign
+                </h2>
+                <div className="bg-[rgba(223,168,116,0.2)] px-2 py-0.5 rounded">
+                  <span className="text-xs font-medium text-[#d58d49]">In progress</span>
+                </div>
+              </div>
+              <p className="text-base text-zinc-500 mb-3">
+                Client: <span className="text-[#333333]">TechCorp Industries</span>
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="flex items-center gap-2">
+                  <img alt="calendar" className="w-3 h-3" src={imgSvg} />
+                  <span className="text-xs text-zinc-500">Start: Jan 15, 2024</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <img alt="calendar" className="w-3 h-3" src={imgSvg1} />
+                  <span className="text-xs text-zinc-500">Due: Apr 30, 2024</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <img alt="users" className="w-3 h-3" src={imgSvg2} />
+                  <span className="text-xs text-zinc-500">8 members</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <img alt="progress" className="w-3 h-3" src={imgSvg3} />
+                  <span className="text-xs text-zinc-500">68% complete</span>
+                </div>
               </div>
             </div>
-            <p className="text-base text-zinc-500 mb-3">
-              Client: <span className="text-[#333333]">TechCorp Industries</span>
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <div className="flex items-center gap-2">
-                <img alt="calendar" className="w-3 h-3" src={imgSvg} />
-                <span className="text-xs text-zinc-500">Start: Jan 15, 2024</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <img alt="calendar" className="w-3 h-3" src={imgSvg1} />
-                <span className="text-xs text-zinc-500">Due: Apr 30, 2024</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <img alt="users" className="w-3 h-3" src={imgSvg2} />
-                <span className="text-xs text-zinc-500">8 members</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <img alt="progress" className="w-3 h-3" src={imgSvg3} />
-                <span className="text-xs text-zinc-500">68% complete</span>
-              </div>
-            </div>
-          </div>
-                      <div className="text-right">
+            <div className="text-right">
               <div className="mb-3">
                 <div className="flex items-start justify-end gap-2">
                   <div className="text-right pb-4">
@@ -199,490 +148,489 @@ export default function ProjectOverview() {
                   </div>
                 </div>
               </div>
-            <div>
-              <div className="flex justify-between items-center mb-1 ">
-                <span className="text-xs text-zinc-950">Overall Progress</span>
-                <span className="text-xs text-zinc-500">68%</span>
-              </div>
-              <div className="w-48 bg-[#ecf2f2] h-2 rounded-full">
-                <div className="bg-[#67909b] h-2 rounded-full" style={{ width: '68%' }}></div>
+              <div>
+                <div className="flex justify-between items-center mb-1 ">
+                  <span className="text-xs text-zinc-950">Overall Progress</span>
+                  <span className="text-xs text-zinc-500">68%</span>
+                </div>
+                <div className="w-48 bg-[#ecf2f2] h-2 rounded-full">
+                  <div className="bg-[#67909b] h-2 rounded-full" style={{ width: '68%' }}></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <h3 className="text-lg font-semibold text-[#333333] text-center mb-3">
-            Unassigned Issues
-          </h3>
-          <div className="text-center">
-            <div className="text-xl font-bold text-[#06263d] mb-1">4</div>
-            <p className="text-xs text-[#999999]">Issues across projects</p>
-          </div>
-        </div>
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <h3 className="text-lg font-semibold text-[#333333] text-center mb-3">
-            Assigned Issues
-          </h3>
-          <div className="text-center">
-            <div className="text-xl font-bold text-[#06263d] mb-1">44</div>
-            <p className="text-xs text-[#999999]">Issues across projects</p>
-          </div>
-        </div>
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <h3 className="text-lg font-semibold text-[#333333] text-center mb-3">
-            In progress
-          </h3>
-          <div className="text-center">
-            <div className="text-xl font-bold text-[#06263d] mb-1">32</div>
-            <p className="text-xs text-[#999999]">Currently being worked on</p>
-          </div>
-        </div>
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <h3 className="text-lg font-semibold text-[#333333] text-center mb-3">
-            Over Due Issues
-          </h3>
-          <div className="text-center">
-            <div className="text-xl font-bold text-[#06263d] mb-1">5</div>
-            <p className="text-xs text-[#999999]">Pending Beyond Deadline</p>
-          </div>
-        </div>
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <h3 className="text-lg font-semibold text-[#333333] text-center mb-3">
-            Completion Rate
-          </h3>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-[#2a9d90] mb-1">32%</div>
-            <p className="text-xs text-[#999999]">61 of 131 Issues completed</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 mb-6">
-        {/* Types of Work Chart */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm lg:col-span-2">
-          <h3 className="text-lg font-medium text-[#252525] mb-1">Types of work</h3>
-          <p className="text-sm text-[#999999] mb-4">Issues in all projects</p>
-          <div className="flex items-center justify-center h-[168px]">
+        {/* Statistics Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <h3 className="text-lg font-semibold text-[#333333] text-center mb-3">
+              Unassigned Issues
+            </h3>
             <div className="text-center">
-              <div className="w-16 h-16 bg-gray-200 rounded-full mb-2"></div>
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-blue-500 rounded"></div>
-                  <span className="text-xs">Epic</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded"></div>
-                  <span className="text-xs">Task</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-500 rounded"></div>
-                  <span className="text-xs">Bug</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-yellow-500 rounded"></div>
-                  <span className="text-xs">Story</span>
-                </div>
-              </div>
+              <div className="text-xl font-bold text-[#06263d] mb-1">4</div>
+              <p className="text-xs text-[#999999]">Issues across projects</p>
             </div>
           </div>
-        </div>
-
-        {/* Priority Breakdown */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm lg:col-span-2">
-          <h3 className="text-lg font-medium text-[#252525] mb-1">Priority Breakdown</h3>
-          <p className="text-sm text-[#999999] mb-4">Priority breakdown of all projects</p>
-          <div className="flex items-center justify-center h-[168px]">
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <h3 className="text-lg font-semibold text-[#333333] text-center mb-3">
+              Assigned Issues
+            </h3>
             <div className="text-center">
-              <div className="text-2xl font-medium text-[#2a9d90] mb-2">32</div>
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-500 rounded"></div>
-                  <span className="text-xs">Highest</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-orange-500 rounded"></div>
-                  <span className="text-xs">High</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-yellow-500 rounded"></div>
-                  <span className="text-xs">Medium</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded"></div>
-                  <span className="text-xs">Low</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-gray-500 rounded"></div>
-                  <span className="text-xs">Lowest</span>
-                </div>
-              </div>
+              <div className="text-xl font-bold text-[#06263d] mb-1">44</div>
+              <p className="text-xs text-[#999999]">Issues across projects</p>
+            </div>
+          </div>
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <h3 className="text-lg font-semibold text-[#333333] text-center mb-3">
+              In progress
+            </h3>
+            <div className="text-center">
+              <div className="text-xl font-bold text-[#06263d] mb-1">32</div>
+              <p className="text-xs text-[#999999]">Currently being worked on</p>
+            </div>
+          </div>
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <h3 className="text-lg font-semibold text-[#333333] text-center mb-3">
+              Over Due Issues
+            </h3>
+            <div className="text-center">
+              <div className="text-xl font-bold text-[#06263d] mb-1">5</div>
+              <p className="text-xs text-[#999999]">Pending Beyond Deadline</p>
+            </div>
+          </div>
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <h3 className="text-lg font-semibold text-[#333333] text-center mb-3">
+              Completion Rate
+            </h3>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-[#2a9d90] mb-1">32%</div>
+              <p className="text-xs text-[#999999]">61 of 131 Issues completed</p>
             </div>
           </div>
         </div>
 
-        {/* Emergency Issues */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm lg:col-span-2">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
+        {/* Charts Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 mb-6">
+          {/* Types of Work Chart */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm lg:col-span-2">
+            <h3 className="text-lg font-medium text-[#252525] mb-1">Types of work</h3>
+            <p className="text-sm text-[#999999] mb-4">Issues in all projects</p>
+            <div className="flex items-center justify-center h-[168px]">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-gray-200 rounded-full mb-2"></div>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-blue-500 rounded"></div>
+                    <span className="text-xs">Epic</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-green-500 rounded"></div>
+                    <span className="text-xs">Task</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-red-500 rounded"></div>
+                    <span className="text-xs">Bug</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-yellow-500 rounded"></div>
+                    <span className="text-xs">Story</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Priority Breakdown */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm lg:col-span-2">
+            <h3 className="text-lg font-medium text-[#252525] mb-1">Priority Breakdown</h3>
+            <p className="text-sm text-[#999999] mb-4">Priority breakdown of all projects</p>
+            <div className="flex items-center justify-center h-[168px]">
+              <div className="text-center">
+                <div className="text-2xl font-medium text-[#2a9d90] mb-2">32</div>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-red-500 rounded"></div>
+                    <span className="text-xs">Highest</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-orange-500 rounded"></div>
+                    <span className="text-xs">High</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-yellow-500 rounded"></div>
+                    <span className="text-xs">Medium</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-green-500 rounded"></div>
+                    <span className="text-xs">Low</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 bg-gray-500 rounded"></div>
+                    <span className="text-xs">Lowest</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Emergency Issues */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm lg:col-span-2">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <img alt="emergency" className="w-6 h-6" src={imgFrame1116606892} />
+                <h3 className="text-lg font-medium text-[#252525]">Emerg Issues</h3>
+              </div>
               <img alt="emergency" className="w-6 h-6" src={imgFrame1116606892} />
-              <h3 className="text-lg font-medium text-[#252525]">Emerg Issues</h3>
             </div>
-            <img alt="emergency" className="w-6 h-6" src={imgFrame1116606892} />
-          </div>
-          <div className="space-y-2 max-h-[168px] overflow-y-auto">
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="flex items-start gap-3">
-                <div className="bg-[#263238] w-4 h-4 rounded-full flex items-center justify-center">
-                  <img alt="bug" className="w-2.5 h-2.5" src={imgMdiBugOutline} />
-                </div>
-                <div className="flex-1">
-                  <p className="text-xs text-[#666666] mb-1">BG – 17</p>
-                  <h4 className="text-sm font-medium text-[#333333] mb-1">
-                    Login forgot password bugfix
-                  </h4>
-                  <div className="flex items-center gap-2 text-xs text-[#999999] mb-1">
-                    <span>Projects</span>
-                    <span>Hire-Accel Portal</span>
-                  </div>
-                  <div>
-                    <p className="text-xs text-[#252525] mb-1">Time Left</p>
-                    <div className="bg-[#c0ced2] h-4 rounded flex items-center px-2">
-                      <span className="text-xs text-[#445256]">{item === 1 ? '8 hrs' : item === 2 ? '10 hrs' : item === 3 ? '1 day' : '2 days'}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Additional Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-        {/* Status Overview */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <h3 className="text-lg font-medium text-[#242424] mb-4">Status Overview</h3>
-          <div className="text-center">
-            <div className="text-3xl font-medium text-[#2a9d90] mb-3">86</div>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-blue-500 rounded"></div>
-                <span className="text-xs">To-do</span>
-                <span className="text-xs font-bold">43</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-orange-500 rounded"></div>
-                <span className="text-xs">In progress</span>
-                <span className="text-xs font-bold">12</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-red-500 rounded"></div>
-                <span className="text-xs">In review</span>
-                <span className="text-xs font-bold">3</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-500 rounded"></div>
-                <span className="text-xs">Done</span>
-                <span className="text-xs font-bold">18</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Team Overview */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <h3 className="text-lg font-medium text-[#242424] mb-4">Team Overview</h3>
-          <div className="space-y-3">
-            {[
-              { name: 'Alex Chen', role: 'Frontend Developer', color: '#67909b', initials: 'AC', status: 'online' },
-              { name: 'Maria', role: 'Backend Developer', color: '#679b7c', initials: 'MR', status: 'online' },
-              { name: 'David', role: 'UX Designer', color: '#7b679b', initials: 'DK', status: 'busy' },
-              { name: 'Emily', role: 'QA Engineer', color: '#bdaa6f', initials: 'EM', status: 'busy' }
-            ].map((member, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="relative">
-                    <div 
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium"
-                      style={{ backgroundColor: member.color }}
-                    >
-                      {member.initials}
-                    </div>
-                    <div className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-white ${
-                      member.status === 'online' ? 'bg-green-500' : 'bg-orange-500'
-                    }`}></div>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-[#252525]">{member.name}</p>
-                    <p className="text-xs text-[#666666]">{member.role}</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs text-[#252525]">12/15</p>
-                  <p className="text-xs text-[#666666]">Tasks</p>
-                  <div className="w-16 bg-[#beced2] h-1 rounded-full mt-1">
-                    <div className="bg-[#67909b] h-1 rounded-full" style={{ width: '80%' }}></div>
-                  </div>
-                  <p className="text-xs text-[#f59f0a] mt-1">85%</p>
-                  <p className="text-xs text-[#666666]">workload</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Sprint Overview */}
-      <div className="bg-white rounded-2xl p-4 mb-6 shadow-sm">
-        <h3 className="text-lg font-medium text-[#242424] mb-4">Sprint Overview</h3>
-        <div className="space-y-3">
-          {[
-            { name: 'Scrum 24', subtitle: 'Payments', status: 'Planned', progress: 0, color: '#4e84b4' },
-            { name: 'Scrum 23', subtitle: 'Payment Integration', status: 'Active', progress: 68, color: '#f59f0a' },
-            { name: 'Scrum 22', subtitle: 'User Authentication', status: 'Completed', progress: 100, color: '#16a249' }
-          ].map((sprint, index) => (
-            <div key={index} className="bg-[#f9f9f9] rounded-xl p-3">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <img alt="sprint" className="w-3.5 h-3.5" src={index === 0 ? imgWpfFuture : index === 1 ? imgCarbonInProgress : imgSvg5} />
-                  <div>
-                    <span className="text-sm font-medium text-[#333333]">{sprint.name} </span>
-                    <span className="text-xs text-[#666666]">{sprint.subtitle}</span>
-                  </div>
-                </div>
-                <div className={`px-2 py-0.5 rounded-full text-xs font-bold text-white`} style={{ backgroundColor: sprint.color }}>
-                  {sprint.status}
-                </div>
-              </div>
-              <p className="text-xs text-[#666666] mb-2">Jun 25, 2025 - Jul 30, 2025</p>
-              <div className="flex items-center gap-2">
-                <div className="flex-1 bg-[#ecf2f2] h-2 rounded-full">
-                  <div className="bg-[#67909b] h-2 rounded-full" style={{ width: `${sprint.progress}%` }}></div>
-                </div>
-                <span className="text-xs text-zinc-500">{sprint.progress}%</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Issues Analysis and Recent Comments */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-        {/* Issues Analysis */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <img alt="analysis" className="w-6 h-6" src={imgFrame1116606892} />
-              <h3 className="text-lg font-medium text-[#252525]">Issues Analysis</h3>
-            </div>
-            <div className="bg-[#06263d] px-2 py-1 rounded flex items-center gap-1">
-              <span className="text-xs text-white">Week</span>
-              <img alt="arrow" className="w-3 h-3 rotate-180" src={imgIconamoonArrowUp2Light1} />
-            </div>
-          </div>
-          <div className="space-y-3">
-            <div>
-              <h4 className="text-sm font-medium text-[#333333] mb-1">Time Spent on Tasks</h4>
-              <div className="grid grid-cols-2 gap-3 mb-3">
-                <div className="bg-[#f9f9f9] rounded-xl p-3 text-center">
-                  <div className="text-2xl font-bold text-[#06263d] mb-1">89</div>
-                  <p className="text-xs text-[#60646c]">Assigned Issues</p>
-                </div>
-                <div className="bg-[#f9f9f9] rounded-xl p-3 text-center">
-                  <div className="text-2xl font-bold text-[#06263d] mb-1">85</div>
-                  <p className="text-xs text-[#60646c]">Completed Issues</p>
-                </div>
-              </div>
-              <div className="bg-[#f9f9f9] rounded-xl p-3 text-center">
-                <div className="text-2xl font-bold text-[#06263d] mb-1">90%</div>
-                <p className="text-xs text-[#60646c]">This week's work tracking is higher than last week's</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Comments */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <img alt="comments" className="w-6 h-6" src={imgFrame1116606892} />
-              <h3 className="text-lg font-medium text-[#252525]">Recent Comments</h3>
-            </div>
-            <div className="bg-[#586468] w-5 h-5 rounded-full flex items-center justify-center">
-              <span className="text-xs text-white font-medium">44</span>
-            </div>
-          </div>
-          <div className="space-y-3 max-h-60 overflow-y-auto">
-            {[1, 2, 3, 4, 5].map((item) => (
-              <div key={item} className="bg-[#f9f9f9] rounded-xl p-3">
-                <div className="flex items-start gap-3">
+            <div className="space-y-2 max-h-[168px] overflow-y-auto">
+              {[1, 2, 3, 4].map((item) => (
+                <div key={item} className="flex items-start gap-3">
                   <div className="bg-[#263238] w-4 h-4 rounded-full flex items-center justify-center">
-                    <img alt="bug" className="w-2.5 h-2.5" src={imgMdiBugOutline1} />
+                    <img alt="bug" className="w-2.5 h-2.5" src={imgMdiBugOutline} />
                   </div>
                   <div className="flex-1">
                     <p className="text-xs text-[#666666] mb-1">BG – 17</p>
                     <h4 className="text-sm font-medium text-[#333333] mb-1">
                       Login forgot password bugfix
                     </h4>
-                    <p className="text-xs text-[#999999] mb-2">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque interdum sem, id eleifend mauris tempor sederty
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        <img alt="user" className="w-3 h-3 rounded-full" src={imgEllipse253} />
-                        <span className="text-xs font-medium text-[#333333]">Kate</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-1">
-                          <img alt="stack" className="w-3 h-3" src={imgFluentStack48Regular} />
-                          <span className="text-xs text-[#06263d] font-medium">5</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <img alt="attach" className="w-3 h-3" src={imgFluentAttach28Regular} />
-                          <span className="text-xs text-[#06263d] font-medium">14</span>
-                        </div>
-                        <span className="text-xs text-[#999999]">6 mins ago</span>
+                    <div className="flex items-center gap-2 text-xs text-[#999999] mb-1">
+                      <span>Projects</span>
+                      <span>Hire-Accel Portal</span>
+                    </div>
+                    <div>
+                      <p className="text-xs text-[#252525] mb-1">Time Left</p>
+                      <div className="bg-[#c0ced2] h-4 rounded flex items-center px-2">
+                        <span className="text-xs text-[#445256]">{item === 1 ? '8 hrs' : item === 2 ? '10 hrs' : item === 3 ? '1 day' : '2 days'}</span>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Bug Overview and Recent Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-        {/* Bug Overview */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-medium text-[#242424]">Bug overview</h3>
-            <div className="bg-[#06263d] w-6 h-6 rounded-full flex items-center justify-center">
-              <img alt="add" className="w-3 h-3" src={imgStashPlusSolid} />
+              ))}
             </div>
           </div>
-          <p className="text-sm text-[#999999] mb-4">
-            Connect integrations with other services to be faster
-          </p>
+        </div>
+
+        {/* Additional Sections */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+          {/* Status Overview */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <h3 className="text-lg font-medium text-[#242424] mb-4">Status Overview</h3>
+            <div className="text-center">
+              <div className="text-3xl font-medium text-[#2a9d90] mb-3">86</div>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-blue-500 rounded"></div>
+                  <span className="text-xs">To-do</span>
+                  <span className="text-xs font-bold">43</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-orange-500 rounded"></div>
+                  <span className="text-xs">In progress</span>
+                  <span className="text-xs font-bold">12</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-red-500 rounded"></div>
+                  <span className="text-xs">In review</span>
+                  <span className="text-xs font-bold">3</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-green-500 rounded"></div>
+                  <span className="text-xs">Done</span>
+                  <span className="text-xs font-bold">18</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Team Overview */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <h3 className="text-lg font-medium text-[#242424] mb-4">Team Overview</h3>
+            <div className="space-y-3">
+              {[
+                { name: 'Alex Chen', role: 'Frontend Developer', color: '#67909b', initials: 'AC', status: 'online' },
+                { name: 'Maria', role: 'Backend Developer', color: '#679b7c', initials: 'MR', status: 'online' },
+                { name: 'David', role: 'UX Designer', color: '#7b679b', initials: 'DK', status: 'busy' },
+                { name: 'Emily', role: 'QA Engineer', color: '#bdaa6f', initials: 'EM', status: 'busy' }
+              ].map((member, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="relative">
+                      <div
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium"
+                        style={{ backgroundColor: member.color }}
+                      >
+                        {member.initials}
+                      </div>
+                      <div className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-white ${member.status === 'online' ? 'bg-green-500' : 'bg-orange-500'
+                        }`}></div>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-[#252525]">{member.name}</p>
+                      <p className="text-xs text-[#666666]">{member.role}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-[#252525]">12/15</p>
+                    <p className="text-xs text-[#666666]">Tasks</p>
+                    <div className="w-16 bg-[#beced2] h-1 rounded-full mt-1">
+                      <div className="bg-[#67909b] h-1 rounded-full" style={{ width: '80%' }}></div>
+                    </div>
+                    <p className="text-xs text-[#f59f0a] mt-1">85%</p>
+                    <p className="text-xs text-[#666666]">workload</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Sprint Overview */}
+        <div className="bg-white rounded-2xl p-4 mb-6 shadow-sm">
+          <h3 className="text-lg font-medium text-[#242424] mb-4">Sprint Overview</h3>
           <div className="space-y-3">
-            {[1, 2, 3, 4, 5].map((item) => (
-              <div key={item} className="flex items-center gap-3">
-                <div className="bg-[#263238] w-4 h-4 rounded-full flex items-center justify-center">
-                  <img alt="bug" className="w-2.5 h-2.5" src={imgMdiBugOutline} />
+            {[
+              { name: 'Scrum 24', subtitle: 'Payments', status: 'Planned', progress: 0, color: '#4e84b4' },
+              { name: 'Scrum 23', subtitle: 'Payment Integration', status: 'Active', progress: 68, color: '#f59f0a' },
+              { name: 'Scrum 22', subtitle: 'User Authentication', status: 'Completed', progress: 100, color: '#16a249' }
+            ].map((sprint, index) => (
+              <div key={index} className="bg-[#f9f9f9] rounded-xl p-3">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <img alt="sprint" className="w-3.5 h-3.5" src={index === 0 ? imgWpfFuture : index === 1 ? imgCarbonInProgress : imgSvg5} />
+                    <div>
+                      <span className="text-sm font-medium text-[#333333]">{sprint.name} </span>
+                      <span className="text-xs text-[#666666]">{sprint.subtitle}</span>
+                    </div>
+                  </div>
+                  <div className={`px-2 py-0.5 rounded-full text-xs font-bold text-white`} style={{ backgroundColor: sprint.color }}>
+                    {sprint.status}
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <p className="text-xs text-[#666666] mb-1">BG – 17</p>
-                  <h4 className="text-sm font-medium text-[#252525] mb-1">
-                    Login forgot password bugfix
-                  </h4>
-                  <div className="flex items-center gap-2 text-xs text-[#333333] mb-1">
-                    <span>Projects</span>
-                    <span className="font-semibold text-[#666666]">Hire-Accel Portal</span>
+                <p className="text-xs text-[#666666] mb-2">Jun 25, 2025 - Jul 30, 2025</p>
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 bg-[#ecf2f2] h-2 rounded-full">
+                    <div className="bg-[#67909b] h-2 rounded-full" style={{ width: `${sprint.progress}%` }}></div>
                   </div>
-                </div>
-                <div className="flex gap-3">
-                  <div className="text-center">
-                    <p className="text-xs text-[#4a4a4a] mb-1">Status</p>
-                    <div className="bg-[rgba(192,206,210,0.4)] h-4 rounded flex items-center px-2">
-                      <span className="text-xs text-[#445256]">Open</span>
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-xs text-[#4a4a4a] mb-1">Priority</p>
-                    <div className="bg-[rgba(192,206,210,0.4)] h-4 rounded flex items-center px-2">
-                      <span className="text-xs text-[#445256]">Highest</span>
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-xs text-[#4a4a4a] mb-1">Severity</p>
-                    <div className="bg-[rgba(192,206,210,0.4)] h-4 rounded flex items-center px-2">
-                      <span className="text-xs text-[#445256]">Critical</span>
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-xs text-[#4a4a4a] mb-1">Category</p>
-                    <div className="bg-[rgba(192,206,210,0.4)] h-4 rounded flex items-center px-2">
-                      <span className="text-xs text-[#445256]">Functionality</span>
-                    </div>
-                  </div>
+                  <span className="text-xs text-zinc-500">{sprint.progress}%</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Recent Activity */}
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
-          <h3 className="text-lg font-medium text-[#242424] mb-4">Recent Activity</h3>
-          <div className="space-y-3">
-            {[
-              { 
-                user: 'AC', 
-                name: 'Alex Chen', 
-                color: '#67909b', 
-                action: 'Payment Integration Completed',
-                priority: 'high',
-                priorityColor: '#ef4343',
-                description: 'Successfully integrated Stripe payment gateway with error handling and webhook support',
-                time: '6 mins ago'
-              },
-              { 
-                user: 'SJ', 
-                name: 'Sarah Johnson', 
-                color: '#679b7c', 
-                action: 'API Rate Limit Risk Identified',
-                priority: 'medium',
-                priorityColor: '#f59f0a',
-                description: 'Third-party API may hit rate limits during peak usage. Need to implement caching strategy.',
-                time: '6 mins ago'
-              },
-              { 
-                user: 'SJ', 
-                name: 'Sarah Johnson', 
-                color: '#7b679b', 
-                action: 'API Rate Limit Risk Identified',
-                priority: 'medium',
-                priorityColor: '#f59f0a',
-                description: 'Third-party API may hit rate limits during peak usage. Need to implement caching strategy.',
-                time: '6 mins ago'
-              }
-            ].map((activity, index) => (
-              <div key={index} className="flex items-start gap-3 p-3 rounded-xl">
-                <div className="relative">
-                  <div 
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium"
-                    style={{ backgroundColor: activity.color }}
-                  >
-                    {activity.user}
+        {/* Issues Analysis and Recent Comments */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+          {/* Issues Analysis */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <img alt="analysis" className="w-6 h-6" src={imgFrame1116606892} />
+                <h3 className="text-lg font-medium text-[#252525]">Issues Analysis</h3>
+              </div>
+              <div className="bg-[#06263d] px-2 py-1 rounded flex items-center gap-1">
+                <span className="text-xs text-white">Week</span>
+                <img alt="arrow" className="w-3 h-3 rotate-180" src={imgIconamoonArrowUp2Light1} />
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <h4 className="text-sm font-medium text-[#333333] mb-1">Time Spent on Tasks</h4>
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div className="bg-[#f9f9f9] rounded-xl p-3 text-center">
+                    <div className="text-2xl font-bold text-[#06263d] mb-1">89</div>
+                    <p className="text-xs text-[#60646c]">Assigned Issues</p>
+                  </div>
+                  <div className="bg-[#f9f9f9] rounded-xl p-3 text-center">
+                    <div className="text-2xl font-bold text-[#06263d] mb-1">85</div>
+                    <p className="text-xs text-[#60646c]">Completed Issues</p>
                   </div>
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-1">
-                    <div className="flex items-center gap-2">
-                      <img alt="activity" className="w-3.5 h-3.5" src={index === 0 ? imgSvg5 : imgSvg6} />
-                      <span className="text-sm font-medium text-[#333333]">{activity.action}</span>
-                    </div>
-                    <div className={`px-2 py-0.5 rounded-full text-xs font-bold text-white`} style={{ backgroundColor: activity.priorityColor }}>
-                      {activity.priority}
-                    </div>
-                  </div>
-                  <p className="text-xs text-zinc-500 mb-1">{activity.description}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-[#333333]">By {activity.name}</span>
-                    <span className="text-xs text-[#999999]">{activity.time}</span>
-                  </div>
+                <div className="bg-[#f9f9f9] rounded-xl p-3 text-center">
+                  <div className="text-2xl font-bold text-[#06263d] mb-1">90%</div>
+                  <p className="text-xs text-[#60646c]">This week's work tracking is higher than last week's</p>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
+
+          {/* Recent Comments */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <img alt="comments" className="w-6 h-6" src={imgFrame1116606892} />
+                <h3 className="text-lg font-medium text-[#252525]">Recent Comments</h3>
+              </div>
+              <div className="bg-[#586468] w-5 h-5 rounded-full flex items-center justify-center">
+                <span className="text-xs text-white font-medium">44</span>
+              </div>
+            </div>
+            <div className="space-y-3 max-h-60 overflow-y-auto">
+              {[1, 2, 3, 4, 5].map((item) => (
+                <div key={item} className="bg-[#f9f9f9] rounded-xl p-3">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-[#263238] w-4 h-4 rounded-full flex items-center justify-center">
+                      <img alt="bug" className="w-2.5 h-2.5" src={imgMdiBugOutline1} />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xs text-[#666666] mb-1">BG – 17</p>
+                      <h4 className="text-sm font-medium text-[#333333] mb-1">
+                        Login forgot password bugfix
+                      </h4>
+                      <p className="text-xs text-[#999999] mb-2">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque interdum sem, id eleifend mauris tempor sederty
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1">
+                          <img alt="user" className="w-3 h-3 rounded-full" src={imgEllipse253} />
+                          <span className="text-xs font-medium text-[#333333]">Kate</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-1">
+                            <img alt="stack" className="w-3 h-3" src={imgFluentStack48Regular} />
+                            <span className="text-xs text-[#06263d] font-medium">5</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <img alt="attach" className="w-3 h-3" src={imgFluentAttach28Regular} />
+                            <span className="text-xs text-[#06263d] font-medium">14</span>
+                          </div>
+                          <span className="text-xs text-[#999999]">6 mins ago</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-      </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bug Overview and Recent Activity */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+          {/* Bug Overview */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-medium text-[#242424]">Bug overview</h3>
+              <div className="bg-[#06263d] w-6 h-6 rounded-full flex items-center justify-center">
+                <img alt="add" className="w-3 h-3" src={imgStashPlusSolid} />
+              </div>
+            </div>
+            <p className="text-sm text-[#999999] mb-4">
+              Connect integrations with other services to be faster
+            </p>
+            <div className="space-y-3">
+              {[1, 2, 3, 4, 5].map((item) => (
+                <div key={item} className="flex items-center gap-3">
+                  <div className="bg-[#263238] w-4 h-4 rounded-full flex items-center justify-center">
+                    <img alt="bug" className="w-2.5 h-2.5" src={imgMdiBugOutline} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-xs text-[#666666] mb-1">BG – 17</p>
+                    <h4 className="text-sm font-medium text-[#252525] mb-1">
+                      Login forgot password bugfix
+                    </h4>
+                    <div className="flex items-center gap-2 text-xs text-[#333333] mb-1">
+                      <span>Projects</span>
+                      <span className="font-semibold text-[#666666]">Hire-Accel Portal</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <div className="text-center">
+                      <p className="text-xs text-[#4a4a4a] mb-1">Status</p>
+                      <div className="bg-[rgba(192,206,210,0.4)] h-4 rounded flex items-center px-2">
+                        <span className="text-xs text-[#445256]">Open</span>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xs text-[#4a4a4a] mb-1">Priority</p>
+                      <div className="bg-[rgba(192,206,210,0.4)] h-4 rounded flex items-center px-2">
+                        <span className="text-xs text-[#445256]">Highest</span>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xs text-[#4a4a4a] mb-1">Severity</p>
+                      <div className="bg-[rgba(192,206,210,0.4)] h-4 rounded flex items-center px-2">
+                        <span className="text-xs text-[#445256]">Critical</span>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-xs text-[#4a4a4a] mb-1">Category</p>
+                      <div className="bg-[rgba(192,206,210,0.4)] h-4 rounded flex items-center px-2">
+                        <span className="text-xs text-[#445256]">Functionality</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Activity */}
+          <div className="bg-white rounded-2xl p-4 shadow-sm">
+            <h3 className="text-lg font-medium text-[#242424] mb-4">Recent Activity</h3>
+            <div className="space-y-3">
+              {[
+                {
+                  user: 'AC',
+                  name: 'Alex Chen',
+                  color: '#67909b',
+                  action: 'Payment Integration Completed',
+                  priority: 'high',
+                  priorityColor: '#ef4343',
+                  description: 'Successfully integrated Stripe payment gateway with error handling and webhook support',
+                  time: '6 mins ago'
+                },
+                {
+                  user: 'SJ',
+                  name: 'Sarah Johnson',
+                  color: '#679b7c',
+                  action: 'API Rate Limit Risk Identified',
+                  priority: 'medium',
+                  priorityColor: '#f59f0a',
+                  description: 'Third-party API may hit rate limits during peak usage. Need to implement caching strategy.',
+                  time: '6 mins ago'
+                },
+                {
+                  user: 'SJ',
+                  name: 'Sarah Johnson',
+                  color: '#7b679b',
+                  action: 'API Rate Limit Risk Identified',
+                  priority: 'medium',
+                  priorityColor: '#f59f0a',
+                  description: 'Third-party API may hit rate limits during peak usage. Need to implement caching strategy.',
+                  time: '6 mins ago'
+                }
+              ].map((activity, index) => (
+                <div key={index} className="flex items-start gap-3 p-3 rounded-xl">
+                  <div className="relative">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-white font-medium"
+                      style={{ backgroundColor: activity.color }}
+                    >
+                      {activity.user}
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-1">
+                      <div className="flex items-center gap-2">
+                        <img alt="activity" className="w-3.5 h-3.5" src={index === 0 ? imgSvg5 : imgSvg6} />
+                        <span className="text-sm font-medium text-[#333333]">{activity.action}</span>
+                      </div>
+                      <div className={`px-2 py-0.5 rounded-full text-xs font-bold text-white`} style={{ backgroundColor: activity.priorityColor }}>
+                        {activity.priority}
+                      </div>
+                    </div>
+                    <p className="text-xs text-zinc-500 mb-1">{activity.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-[#333333]">By {activity.name}</span>
+                      <span className="text-xs text-[#999999]">{activity.time}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

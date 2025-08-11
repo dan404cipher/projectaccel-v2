@@ -1,7 +1,9 @@
+import ProjectHeader from '@/components/ProjectHeader';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Image assets from Figma design
+const imgGroup = "/icons/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg";
 const imgEllipse3246 = "http://localhost:3845/assets/e85eabedbb63d4230d4ab41a8bd410860763bcb0.svg";
 const img1 = "http://localhost:3845/assets/709e3d642f94395997d33c1d1b41452781858dc7.svg";
 const imgFrame = "http://localhost:3845/assets/fd4081f2e32f7cb9874727acba000ef067d3e88d.svg";
@@ -137,64 +139,7 @@ export default function ProjectTeam() {
   return (
     <div className="w-full">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-4 h-[45px] mb-[40px]">
-        <div className="rotate-[270deg]">
-          <img alt="Back Arrow" className="w-10 h-10" src={imgGroup3} />
-        </div>
-        <h1 className="font-medium text-[#438197] text-[32px] leading-[1.4]">
-          Example project name
-        </h1>
-      </div>
-
-      {/* Project tabs */}
-      <div className="flex items-center gap-[42px] mb-[38px] relative">
-        <button
-          onClick={() => handleTabClick('overview')}
-          className="flex items-center gap-2"
-        >
-          <img alt="Overview" className="w-6 h-6" src={imgStreamlineFlexDashboard3} />
-          <span className="font-medium text-[#06263d] text-xl">Overview</span>
-        </button>
-        
-        <button
-          onClick={() => handleTabClick('backlog')}
-          className="flex items-center gap-2"
-        >
-          <img alt="Backlog" className="w-6 h-6" src={imgCodiconDebugStepBack} />
-          <span className="font-medium text-[#06263d] text-xl">Backlog</span>
-        </button>
-        
-        <button
-          onClick={() => handleTabClick('sprint')}
-          className="flex items-center gap-2"
-        >
-          <img alt="Sprint" className="w-6 h-6" src={imgFluentArrowSprint20Filled} />
-          <span className="font-medium text-[#06263d] text-xl">Active Sprint</span>
-        </button>
-        
-        <button
-          onClick={() => handleTabClick('team')}
-          className="flex items-center gap-2"
-        >
-          <img alt="Team" className="w-6 h-6" src={imgFluentPeopleTeam16Regular} />
-          <span className="font-medium text-[#06263d] text-xl">Team</span>
-        </button>
-        
-        <button
-          onClick={() => handleTabClick('report')}
-          className="flex items-center gap-2"
-        >
-          <img alt="Report" className="w-6 h-6" src={imgMdiReportBoxMultipleOutline} />
-          <span className="font-medium text-[#06263d] text-xl">Report</span>
-        </button>
-
-        {/* Active tab indicator */}
-        {activeTab === 'team' && (
-          <div className="absolute top-[38px] left-[799px] h-0 w-[83px]">
-            <img alt="Tab Indicator" className="w-full h-full" src={imgLine35} />
-          </div>
-        )}
-      </div>
+      <ProjectHeader projectName="Example project name" activeTab="team" onTabChange={handleTabClick} />
 
       {/* Content area */}
       <div className="bg-[#f2f2f2] rounded-tl-[40px] rounded-tr-[40px] h-[802px] w-full relative">
@@ -222,8 +167,8 @@ export default function ProjectTeam() {
               <img alt="Group" className="w-4 h-4" src={imgFluentGroup24Regular} />
             </div>
           </div>
-          
-          <button 
+
+          <button
             className="bg-[#67909b] flex items-center gap-1 h-10 px-4 py-4 rounded-lg text-white"
             onClick={handleAddMember}
           >
@@ -240,9 +185,8 @@ export default function ProjectTeam() {
             <button
               key={mode.id}
               onClick={() => handleViewModeClick(mode.id)}
-              className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                mode.isActive ? 'bg-[#06263d] shadow-[2px_2px_4px_0px_rgba(6,38,61,0.1)]' : ''
-              }`}
+              className={`w-8 h-8 rounded-lg flex items-center justify-center ${mode.isActive ? 'bg-[#06263d] shadow-[2px_2px_4px_0px_rgba(6,38,61,0.1)]' : ''
+                }`}
             >
               <img alt={mode.id} className="w-4 h-4" src={mode.icon} />
             </button>
@@ -257,14 +201,14 @@ export default function ProjectTeam() {
               <TeamMemberCard key={member.id} member={member} />
             ))}
           </div>
-          
+
           {/* Row 2 */}
           <div className="flex gap-4 w-full">
             {teamMembers.slice(2, 4).map((member) => (
               <TeamMemberCard key={member.id} member={member} />
             ))}
           </div>
-          
+
           {/* Row 3 */}
           <div className="flex gap-4 w-full">
             {teamMembers.slice(4, 6).map((member) => (
@@ -298,12 +242,12 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
           <img alt="Calendar" className="w-6 h-6" src={img1} />
           <span className="font-medium text-[#666666] text-sm leading-5">{member.dateRange}</span>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <img alt="Tasks" className="w-6 h-6" src={imgFrame} />
           <span className="font-medium text-[#666666] text-sm leading-5">{member.tasks} Tasks</span>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <img alt="Time" className="w-6 h-6" src={img2} />
           <span className="font-medium text-[#666666] text-sm leading-5">{member.timeSpent}</span>
@@ -315,7 +259,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
         {/* Progress bar */}
         <div className="flex items-center gap-4 w-full">
           <div className="bg-[#f0f2f4] h-4 overflow-hidden rounded-[9999px] w-[509px] relative">
-            <div 
+            <div
               className="absolute bg-[#438197] bottom-0 left-0 top-0"
               style={{ right: `${509 - (509 * member.progress / 100)}px` }}
             />
@@ -328,11 +272,10 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
           {member.skills.map((skill, index) => (
             <div
               key={index}
-              className={`${
-                skill.startsWith('+') 
-                  ? 'border border-[#666666] border-solid' 
+              className={`${skill.startsWith('+')
+                  ? 'border border-[#666666] border-solid'
                   : 'bg-[#f0f5f8]'
-              } flex items-center justify-center h-5 px-2 py-0 rounded-3xl`}
+                } flex items-center justify-center h-5 px-2 py-0 rounded-3xl`}
             >
               <span className="font-medium text-[#666666] text-xs leading-5">{skill}</span>
             </div>
