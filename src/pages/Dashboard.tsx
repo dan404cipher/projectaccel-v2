@@ -5,6 +5,7 @@ import { useState } from "react"
 import TypeOfWork from "@/components/dashboard/TypeOfWork"
 import { PriorityBreakdown } from "@/components/dashboard/PriorityBreakdown"
 import EmergenceIssue from "@/components/dashboard/EmergenceIssue"
+import IssuesAnalysis from "@/components/dashboard/IssuesAnalysis"
 
 const Dashboard = () => {
   const [date, setDate] = useState<Date | undefined>(new Date())
@@ -130,15 +131,23 @@ const Dashboard = () => {
       </div>
 
       {/*  Type of work , Priority Section and Emerengence Issue Section */}
-      <div className="grid grid-cols-6 gap-4">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div>
           <TypeOfWork />
         </div>
-        <div className="col-span-2">
+        <div>
           <PriorityBreakdown />
         </div>
-        <div className="col-span-2">
+        <div>
           <EmergenceIssue />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="lg:col-span-2">
+          <IssuesAnalysis />
+        </div>
+        <div>
+          s
         </div>
       </div>
 
@@ -264,276 +273,221 @@ const Dashboard = () => {
 
 
       {/* Issues Analysis Section */}
-      {/* <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-stretch lg:items-center justify-start w-full"> */}
-      {/* <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col lg:flex-row">
-          <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10 items-start justify-center p-4 sm:p-6 w-full lg:w-[252px]">
-            <div className="flex flex-row gap-2 items-center justify-start">
-              <div className="w-6 h-6 sm:w-8 sm:h-8">
-                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" className="sm:w-8 sm:h-8">
-                  <rect width="32" height="32" rx="6" fill="#f0f0f0" />
-                </svg>
-              </div>
-              <div className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525]">Issues Analysis</div>
+          {/* Recent Comments */}
+    {/* <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] overflow-hidden">
+      <div className="flex flex-col gap-4 sm:gap-6 items-start justify-start p-4 sm:p-6 w-full">
+        <div className="flex flex-row items-center justify-between w-full">
+          <div className="flex flex-row gap-2 items-center justify-start w-full">
+            <div className="w-6 h-6 sm:w-8 sm:h-8">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none" className="sm:w-8 sm:h-8">
+                <rect width="32" height="32" rx="6" fill="#f0f0f0" />
+              </svg>
             </div>
-
-            <div className="flex flex-col gap-2 items-start justify-start w-full">
-              <div className="text-sm sm:text-base lg:text-[16px] font-normal text-[#333333] w-full">Time Spent on Tasks</div>
-              <div className="flex flex-col gap-3 sm:gap-4 items-start justify-start w-full">
-                <div className="flex flex-row gap-2 items-center justify-start w-full">
-                  <div className="bg-[#f9f9f9] h-20 sm:h-24 lg:h-[107px] w-full sm:w-28 lg:w-[121px] rounded-xl sm:rounded-2xl shadow-[0px_2px_4px_0px_rgba(6,38,61,0.1)] flex flex-col gap-1 items-center justify-center p-2 sm:p-3">
-                    <div className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#06263D]">89</div>
-                    <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#60646C] text-center h-8 sm:h-10 lg:h-11 w-full">Assigned<br />Issues</div>
-                  </div>
-                  <div className="bg-[#f9f9f9] h-20 sm:h-24 lg:h-[107px] w-full sm:w-28 lg:w-[121px] rounded-xl sm:rounded-2xl shadow-[0px_2px_4px_0px_rgba(6,38,61,0.1)] flex flex-col gap-1 items-center justify-center p-2 sm:p-3">
-                    <div className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#06263D]">85</div>
-                    <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#60646C] text-center h-8 sm:h-10 lg:h-11 w-full">Completed<br />Issues</div>
-                  </div>
-                </div>
-                <div className="bg-[#f9f9f9] h-20 sm:h-24 lg:h-[122px] w-full rounded-xl sm:rounded-2xl shadow-[0px_2px_4px_0px_rgba(6,38,61,0.1)] flex flex-col gap-2 items-start justify-center p-3">
-                  <div className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#06263D]">90%</div>
-                  <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#60646C] h-8 sm:h-10 lg:h-11 w-full">This week's work tracking is higher than last week's</div>
-                </div>
-              </div>
+            <div className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525]">Recent Comments</div>
+            <div className="bg-[#586468] w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center">
+              <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-white">44</div>
             </div>
           </div>
+        </div>
 
-          <div className="h-auto lg:h-[311px] w-full mt-4 lg:mt-[72px] flex-1">
-            <div className="flex items-end gap-1 sm:gap-2 h-48 sm:h-64 lg:h-[254px] w-full mt-1">
-              {issueAnalysisData.map((item, index) => {
-                const maxValue = Math.max(...issueAnalysisData.map(i => i.value))
-                return (
-                  <div key={index} className="flex-1 flex flex-col items-center gap-1">
-                    <div
-                      className="w-full rounded-t-sm transition-all duration-300 hover:opacity-80"
-                      style={{
-                        height: `${(item.value / maxValue) * 100}%`,
-                        backgroundColor: item.color,
-                        minHeight: '6px'
-                      }}
-                    />
-                    <span className="text-xs sm:text-sm lg:text-[14px] text-[#60646C] text-center">{item.label}</span>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div> */}
-
-      {/* Recent Comments */}
-      {/* <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] overflow-hidden">
-          <div className="flex flex-col gap-4 sm:gap-6 items-start justify-start p-4 sm:p-6 w-full">
-            <div className="flex flex-row items-center justify-between w-full">
-              <div className="flex flex-row gap-2 items-center justify-start w-full">
-                <div className="w-6 h-6 sm:w-8 sm:h-8">
-                  <svg width="24" height="24" viewBox="0 0 32 32" fill="none" className="sm:w-8 sm:h-8">
-                    <rect width="32" height="32" rx="6" fill="#f0f0f0" />
+        <div className="flex flex-col gap-3 sm:gap-4 h-48 sm:h-64 lg:h-[291px] items-start justify-start overflow-y-auto w-full">
+          {recentComments.map((comment, index) => (
+            <div key={index} className="bg-[#f9f9f9] flex flex-row gap-3 sm:gap-4 items-start justify-start px-3 sm:px-4 py-2 rounded-xl sm:rounded-2xl w-full">
+              <div className="flex flex-row items-center justify-between px-0 py-px w-12 sm:w-[62px] flex-shrink-0">
+                <div className="bg-[#263238] w-4 h-4 sm:w-5 sm:h-5 rounded-full sm:rounded-[32px] flex items-center justify-center">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="sm:w-3 sm:h-3">
+                    <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="white" strokeWidth="1" fill="white" />
                   </svg>
                 </div>
-                <div className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525]">Recent Comments</div>
-                <div className="bg-[#586468] w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center">
-                  <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-white">44</div>
+                <div className="text-[10px] sm:text-[12px] font-normal text-[#666666] text-right tracking-[-0.072px] hidden sm:block">BG – 17</div>
+              </div>
+
+              <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start flex-1 min-w-0">
+                <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start w-full">
+                  <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333]">Login forgot password bugfix</div>
+                  <div className="text-xs sm:text-sm lg:text-[12px] font-normal text-[#999999] w-full">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                </div>
+
+                <div className="flex flex-row items-center justify-between w-full">
+                  <div className="flex flex-row gap-1 items-center justify-start">
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-gray-300"></div>
+                    <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333] tracking-[-0.32px]">Kate</div>
+                  </div>
+
+                  <div className="text-xs sm:text-sm lg:text-[12px] font-normal text-[#999999] tracking-[-0.24px]">6 mins ago</div>
                 </div>
               </div>
             </div>
+          ))}
+        </div>
+      </div>
+    </div> */}
 
-            <div className="flex flex-col gap-3 sm:gap-4 h-48 sm:h-64 lg:h-[291px] items-start justify-start overflow-y-auto w-full">
-              {recentComments.map((comment, index) => (
-                <div key={index} className="bg-[#f9f9f9] flex flex-row gap-3 sm:gap-4 items-start justify-start px-3 sm:px-4 py-2 rounded-xl sm:rounded-2xl w-full">
-                  <div className="flex flex-row items-center justify-between px-0 py-px w-12 sm:w-[62px] flex-shrink-0">
-                    <div className="bg-[#263238] w-4 h-4 sm:w-5 sm:h-5 rounded-full sm:rounded-[32px] flex items-center justify-center">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="sm:w-3 sm:h-3">
-                        <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="white" strokeWidth="1" fill="white" />
-                      </svg>
-                    </div>
-                    <div className="text-[10px] sm:text-[12px] font-normal text-[#666666] text-right tracking-[-0.072px] hidden sm:block">BG – 17</div>
-                  </div>
 
-                  <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start flex-1 min-w-0">
-                    <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start w-full">
-                      <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333]">Login forgot password bugfix</div>
-                      <div className="text-xs sm:text-sm lg:text-[12px] font-normal text-[#999999] w-full">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                    </div>
+    {/* </div> */}
 
-                    <div className="flex flex-row items-center justify-between w-full">
-                      <div className="flex flex-row gap-1 items-center justify-start">
-                        <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-gray-300"></div>
-                        <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333] tracking-[-0.32px]">Kate</div>
-                      </div>
+    {/* Schedule and Additional Sections */}
+    {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <Card style={{
+      borderRadius: '24px',
+      background: '#FFF',
+      boxShadow: '0 9px 20px 0 rgba(46, 35, 94, 0.07)'
+    }}>
+      <CardHeader>
+        <CardTitle className="text-base font-semibold">My Schedule</CardTitle>
+        <p className="text-sm text-muted-foreground">According to my schedule</p>
+      </CardHeader>
+      <CardContent>
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          className="rounded-md border-0"
+        />
+      </CardContent>
+    </Card>
 
-                      <div className="text-xs sm:text-sm lg:text-[12px] font-normal text-[#999999] tracking-[-0.24px]">6 mins ago</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+    <Card style={{
+      borderRadius: '24px',
+      background: '#FFF',
+      boxShadow: '0 9px 20px 0 rgba(46, 35, 94, 0.07)'
+    }}>
+      <CardHeader>
+        <CardTitle className="text-base font-semibold">Bug overview</CardTitle>
+        <p className="text-sm text-muted-foreground">Connect Integrations with other services in the future</p>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-3">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <div key={index} className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-primary"></div>
+                <span className="text-sm">Login forgot password bugfix</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <span>Open</span>
+                <span>Normal</span>
+                <span>UI Bug</span>
+                <span>P - Normal</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  </div> */}
+
+    {/* App Integrations */}
+    {/* <Card className="shadow-[var(--shadow-card)]">
+    <CardHeader>
+      <CardTitle className="text-base font-semibold">App Integrations</CardTitle>
+      <p className="text-sm text-muted-foreground">Connect integrations with other services in the future</p>
+    </CardHeader>
+    <CardContent>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center">
+              <span className="text-white font-bold text-sm">GM</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium">Google Meet</p>
+              <p className="text-xs text-muted-foreground">Connect calls and meetings online</p>
             </div>
           </div>
-        </div> */}
+          <span className="text-xs text-muted-foreground">...</span>
+        </div>
 
-
-      {/* </div> */}
-
-      {/* Schedule and Additional Sections */}
-      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card style={{
-          borderRadius: '24px',
-          background: '#FFF',
-          boxShadow: '0 9px 20px 0 rgba(46, 35, 94, 0.07)'
-        }}>
-          <CardHeader>
-            <CardTitle className="text-base font-semibold">My Schedule</CardTitle>
-            <p className="text-sm text-muted-foreground">According to my schedule</p>
-          </CardHeader>
-          <CardContent>
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              className="rounded-md border-0"
-            />
-          </CardContent>
-        </Card>
-
-        <Card style={{
-          borderRadius: '24px',
-          background: '#FFF',
-          boxShadow: '0 9px 20px 0 rgba(46, 35, 94, 0.07)'
-        }}>
-          <CardHeader>
-            <CardTitle className="text-base font-semibold">Bug overview</CardTitle>
-            <p className="text-sm text-muted-foreground">Connect Integrations with other services in the future</p>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {Array.from({ length: 4 }).map((_, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-primary"></div>
-                    <span className="text-sm">Login forgot password bugfix</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <span>Open</span>
-                    <span>Normal</span>
-                    <span>UI Bug</span>
-                    <span>P - Normal</span>
-                  </div>
-                </div>
-              ))}
+        <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-purple-500 flex items-center justify-center">
+              <span className="text-white font-bold text-sm">F</span>
             </div>
-          </CardContent>
-        </Card>
-      </div> */}
-
-      {/* App Integrations */}
-      {/* <Card className="shadow-[var(--shadow-card)]">
-        <CardHeader>
-          <CardTitle className="text-base font-semibold">App Integrations</CardTitle>
-          <p className="text-sm text-muted-foreground">Connect integrations with other services in the future</p>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">GM</span>
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Google Meet</p>
-                  <p className="text-xs text-muted-foreground">Connect calls and meetings online</p>
-                </div>
-              </div>
-              <span className="text-xs text-muted-foreground">...</span>
-            </div>
-
-            <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-purple-500 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">F</span>
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Figma</p>
-                  <p className="text-xs text-muted-foreground">Communicate with the team</p>
-                </div>
-              </div>
-              <span className="text-xs text-muted-foreground">...</span>
-            </div>
-
-            <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-teal-500 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">L</span>
-                </div>
-                <div>
-                  <p className="text-sm font-medium">Loom</p>
-                  <p className="text-xs text-muted-foreground">Loom lorem is a dummy text to fit</p>
-                </div>
-              </div>
-              <span className="text-xs text-muted-foreground">...</span>
+            <div>
+              <p className="text-sm font-medium">Figma</p>
+              <p className="text-xs text-muted-foreground">Communicate with the team</p>
             </div>
           </div>
-        </CardContent>
-      </Card> */}
+          <span className="text-xs text-muted-foreground">...</span>
+        </div>
 
-      {/* Assigned Issues Table */}
-      {/* <Card className="shadow-[var(--shadow-card)]">
-        <CardHeader>
-          <CardTitle className="text-base font-semibold">Assigned Issues</CardTitle>
-          <p className="text-sm text-muted-foreground">Assigned issues of all projects</p>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left p-2 text-sm font-medium text-muted-foreground">Type</th>
-                  <th className="text-left p-2 text-sm font-medium text-muted-foreground">Issue Title</th>
-                  <th className="text-left p-2 text-sm font-medium text-muted-foreground">Assign to</th>
-                  <th className="text-left p-2 text-sm font-medium text-muted-foreground">Status</th>
-                  <th className="text-left p-2 text-sm font-medium text-muted-foreground">Priority</th>
-                  <th className="text-left p-2 text-sm font-medium text-muted-foreground">Due date</th>
-                  <th className="text-left p-2 text-sm font-medium text-muted-foreground">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.from({ length: 6 }).map((_, index) => (
-                  <tr key={index} className="border-b border-border hover:bg-muted/50">
-                    <td className="p-2">
-                      <div className="w-6 h-6 rounded bg-muted flex items-center justify-center">
-                        <span className="text-xs font-medium">E</span>
-                      </div>
-                    </td>
-                    <td className="p-2">
-                      <span className="text-sm font-medium">Publish blog page</span>
-                    </td>
-                    <td className="p-2">
-                      <div className="flex -space-x-2">
-                        <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs border-2 border-background">
-                          J
-                        </div>
-                        <div className="w-6 h-6 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs border-2 border-background">
-                          A
-                        </div>
-                        <span className="ml-2 text-xs text-muted-foreground">...</span>
-                      </div>
-                    </td>
-                    <td className="p-2">
-                      <Badge variant="outline" className="text-xs">Ready</Badge>
-                    </td>
-                    <td className="p-2">
-                      <Badge variant="secondary" className="text-xs bg-yellow-100 text-yellow-800">Low</Badge>
-                    </td>
-                    <td className="p-2">
-                      <Badge variant="destructive" className="text-xs">Dec 5</Badge>
-                    </td>
-                    <td className="p-2">
-                      <span className="text-xs text-muted-foreground cursor-pointer hover:text-foreground">...</span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-teal-500 flex items-center justify-center">
+              <span className="text-white font-bold text-sm">L</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium">Loom</p>
+              <p className="text-xs text-muted-foreground">Loom lorem is a dummy text to fit</p>
+            </div>
           </div>
-        </CardContent>
-      </Card> */}
+          <span className="text-xs text-muted-foreground">...</span>
+        </div>
+      </div>
+    </CardContent>
+  </Card> */}
+
+    {/* Assigned Issues Table */}
+    {/* <Card className="shadow-[var(--shadow-card)]">
+    <CardHeader>
+      <CardTitle className="text-base font-semibold">Assigned Issues</CardTitle>
+      <p className="text-sm text-muted-foreground">Assigned issues of all projects</p>
+    </CardHeader>
+    <CardContent>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Type</th>
+              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Issue Title</th>
+              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Assign to</th>
+              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Status</th>
+              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Priority</th>
+              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Due date</th>
+              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Array.from({ length: 6 }).map((_, index) => (
+              <tr key={index} className="border-b border-border hover:bg-muted/50">
+                <td className="p-2">
+                  <div className="w-6 h-6 rounded bg-muted flex items-center justify-center">
+                    <span className="text-xs font-medium">E</span>
+                  </div>
+                </td>
+                <td className="p-2">
+                  <span className="text-sm font-medium">Publish blog page</span>
+                </td>
+                <td className="p-2">
+                  <div className="flex -space-x-2">
+                    <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs border-2 border-background">
+                      J
+                    </div>
+                    <div className="w-6 h-6 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs border-2 border-background">
+                      A
+                    </div>
+                    <span className="ml-2 text-xs text-muted-foreground">...</span>
+                  </div>
+                </td>
+                <td className="p-2">
+                  <Badge variant="outline" className="text-xs">Ready</Badge>
+                </td>
+                <td className="p-2">
+                  <Badge variant="secondary" className="text-xs bg-yellow-100 text-yellow-800">Low</Badge>
+                </td>
+                <td className="p-2">
+                  <Badge variant="destructive" className="text-xs">Dec 5</Badge>
+                </td>
+                <td className="p-2">
+                  <span className="text-xs text-muted-foreground cursor-pointer hover:text-foreground">...</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </CardContent>
+  </Card> */}
     </div>
   )
 }

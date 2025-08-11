@@ -58,7 +58,7 @@ export const PriorityBreakdown = () => {
                  colors: ['#fff'],
                  lineCap: 'round' as const,
              },
-             colors: ["#FBBF24", "#3B82F6", "#EF4444", "#22C55E", "#86EFAC"],
+             colors: ["#2A9D90", "#228277", "#2A9D90", "rgba(42, 157, 144, 0.5)", "rgba(42, 157, 144, 0.2)"],
             legend: {
                 position: "right" as const,
                 show: false,
