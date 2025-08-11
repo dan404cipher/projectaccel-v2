@@ -10,10 +10,12 @@ const imgEllipse247 = "http://localhost:3845/assets/5e8ebfd479625e19c8c0d4ccd07e
 const img = "http://localhost:3845/assets/5e6faf15b21556bf868441bffff13dcbbc899a58.svg";
 const img1 = "http://localhost:3845/assets/1fd7df02040a68d286de7dce8e8e2dbf7843506e.svg";
 const imgIconamoonArrowUp2 = "http://localhost:3845/assets/4415bab17aed0da490b9a2f1409f1adb3b3b9fb4.svg";
-const img2 = "http://localhost:3845/assets/4690eec7948e80345b11a008b059e711571a0752.svg";
-const img3 = "http://localhost:3845/assets/249caeadd1d855eb3857e521e12570f56cdc3f6d.svg";
-const img4 = "http://localhost:3845/assets/7ad63f9d91e4545ae3a9d45ef8d04ead675a6098.svg";
 const imgLine43 = "http://localhost:3845/assets/a525da146341f21b89a94d74a479fa74563111ec.svg";
+const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const img6 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
 interface WorkspaceSwitchDropdownProps {
   isOpen: boolean;
@@ -61,23 +63,23 @@ export default function WorkspaceSwitchDropdown({ isOpen, onClose }: WorkspaceSw
             </div>
             <div className="flex flex-row gap-2 items-center justify-start p-0 relative shrink-0">
               <div className="flex flex-row items-center justify-start pl-0 pr-7 py-0 relative shrink-0">
-                <div className="mr-[-28px] relative shrink-0 size-[50px]">
-                  <img alt="member-1" className="block max-w-none size-full" height="50" src={imgEllipse242} width="50" />
+                <div className="mr-[-28px] relative shrink-0 size-[40px]">
+                  <img alt="member-1" className="block max-w-none" height="40" src={img2} width="40" />
                 </div>
-                <div className="mr-[-28px] relative shrink-0 size-[50px]">
-                  <img alt="member-2" className="block max-w-none size-full" height="50" src={imgEllipse243} width="50" />
+                <div className="mr-[-28px] relative shrink-0 size-[40px]">
+                  <img alt="member-2" className="block max-w-none" height="40" src={img3} width="40" />
                 </div>
-                <div className="mr-[-28px] relative shrink-0 size-[50px]">
-                  <img alt="member-3" className="block max-w-none size-full" height="50" src={imgEllipse244} width="50" />
+                <div className="mr-[-28px] relative shrink-0 size-[40px]">
+                  <img alt="member-3" className="block max-w-none" height="40" src ={img4} width="40" />
                 </div>
-                <div className="mr-[-28px] relative shrink-0 size-[50px]">
-                  <img alt="member-4" className="block max-w-none size-full" height="50" src={imgEllipse245} width="50" />
+                <div className="mr-[-28px] relative shrink-0 size-[40px]">
+                  <img alt="member-4" className="block max-w-none" height="40" src={img5} width="40" />
                 </div>
-                <div className="mr-[-28px] relative shrink-0 size-[50px]">
-                  <img alt="member-5" className="block max-w-none size-full" height="50" src={imgEllipse246} width="50" />
+                <div className="mr-[-28px] relative shrink-0 size-[40px]">
+                    <img alt="member-5" className="block max-w-none" height="40" src={img5} width="40" />
                 </div>
-                <div className="mr-[-28px] relative shrink-0 size-[50px]">
-                  <img alt="member-6" className="block max-w-none size-full" height="50" src={imgEllipse247} width="50" />
+                <div className="mr-[-28px] relative shrink-0 size-[40px]">
+                  <img alt="member-6" className="block max-w-none" height="40" src={img2} width="40" />
                 </div>
               </div>
               <div className="capitalize font-medium leading-[0] relative shrink-0 text-[#333333] text-[14px] text-left text-nowrap">
@@ -101,7 +103,7 @@ export default function WorkspaceSwitchDropdown({ isOpen, onClose }: WorkspaceSw
           {/* Workspace List */}
           <div className="absolute flex flex-col gap-5 items-start justify-start left-8 p-0 top-[235px] w-[287px]">
             {workspaces.slice(1).map((workspace) => (
-              <div key={workspace.id} className="flex flex-row gap-[75px] items-center justify-start p-0 relative shrink-0 w-full hover:bg-gray-50 rounded-lg p-2 cursor-pointer">
+              <div key={workspace.id} className="flex flex-row gap-[75px] items-center justify-start relative shrink-0 w-full hover:bg-gray-50 rounded-lg p-2 cursor-pointer">
                 <div className="flex flex-row gap-6 items-center justify-start p-0 relative shrink-0 w-[188px]">
                   <div className="relative rounded-[90px] shrink-0 size-6">
                     <div className="absolute inset-0">
