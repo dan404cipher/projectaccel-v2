@@ -6,9 +6,18 @@ import TypeOfWork from "@/components/dashboard/TypeOfWork"
 import { PriorityBreakdown } from "@/components/dashboard/PriorityBreakdown"
 import EmergenceIssue from "@/components/dashboard/EmergenceIssue"
 import IssuesAnalysis from "@/components/dashboard/IssuesAnalysis"
+import RecentCommand from "@/components/dashboard/RecentCommand"
+import { useCounter } from "@/hooks/use-counter"
 
 const Dashboard = () => {
   const [date, setDate] = useState<Date | undefined>(new Date())
+  
+  // Counter hooks for stats animation
+  const totalProjects = useCounter({ end: 4, delay: 200 });
+  const assignedIssues = useCounter({ end: 44, delay: 400 });
+  const inProgress = useCounter({ end: 32, delay: 600 });
+  const overDueIssues = useCounter({ end: 5, delay: 800 });
+  const completionRate = useCounter({ end: 32, delay: 1000 });
 
   const issueAnalysisData = [
     { label: "Mon", value: 89, color: "hsl(var(--chart-primary))" },
@@ -83,49 +92,31 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-[23px] w-full">
         <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4">
           <h3 className="text-sm sm:text-base lg:text-[20px] font-semibold text-[#333333] text-center">Total Projects</h3>
-          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">4</div>
+          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">{totalProjects}</div>
           <p className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#999999] text-center">Assigned to me</p>
         </div>
 
         <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4">
           <h3 className="text-sm sm:text-base lg:text-[20px] font-semibold text-[#333333] text-center">Assigned Issues</h3>
-          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">44</div>
+          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">{assignedIssues}</div>
           <p className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#999999] text-center">Issues across all projects</p>
         </div>
 
         <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4">
           <h3 className="text-sm sm:text-base lg:text-[20px] font-semibold text-[#333333] text-center">In progress</h3>
-          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">32</div>
+          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">{inProgress}</div>
           <p className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#999999] text-center">Currently being worked on</p>
         </div>
 
         <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4">
           <h3 className="text-sm sm:text-base lg:text-[20px] font-semibold text-[#333333] text-center">Over Due Issues</h3>
-          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">5</div>
+          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">{overDueIssues}</div>
           <p className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#999999] text-center">Pending Beyond Deadline</p>
         </div>
 
-        <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 relative">
+        <div className="bg-white h-24 sm:h-32 lg:h-[140px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4">
           <h3 className="text-sm sm:text-base lg:text-[20px] font-semibold text-[#333333] text-center">Completion Rate</h3>
-
-          <div className="relative w-12 h-12 sm:w-16 sm:h-16 lg:w-[72px] lg:h-[72px] rounded-full overflow-hidden">
-            <div className="absolute inset-[3.2%] bg-[rgba(255,255,255,0.4)] opacity-40 rounded-full border-[2px] sm:border-[3px] border-[#67909b]"></div>
-            <div className="absolute inset-[6%] overflow-hidden rounded-full">
-              <div className="absolute bottom-[-50%] left-[-70%] right-[-7.73%] top-[46.36%]">
-                <div className="absolute bottom-[-45.45%] left-[-2.27%] right-[-5.46%] top-[46.36%] opacity-60">
-                  <div className="h-6 sm:h-8 lg:h-9 w-full bg-[#67909b]"></div>
-                  <div className="bg-[#67909b] flex-grow min-h-px w-full"></div>
-                </div>
-              </div>
-              <div className="absolute font-medium text-[10px] sm:text-[12px] text-white" style={{ top: "calc(50% + 8px)", left: "calc(50% + 0.5px)", transform: "translate(-50%, -50%)" }}>
-                32%
-              </div>
-            </div>
-          </div>
-
-          <div className="absolute right-2 sm:right-4 top-16 sm:top-20 lg:top-[71px]">
-            <div className="text-xs sm:text-sm lg:text-[14px] font-semibold text-[#06263D] text-center">41 of 131</div>
-          </div>
+          <div className="text-lg sm:text-xl lg:text-[20px] font-bold text-[#06263D]">{completionRate}%</div>
           <p className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#999999] text-center">Issues completed</p>
         </div>
       </div>
@@ -147,7 +138,7 @@ const Dashboard = () => {
           <IssuesAnalysis />
         </div>
         <div>
-          s
+          <RecentCommand/>
         </div>
       </div>
 
@@ -274,54 +265,7 @@ const Dashboard = () => {
 
       {/* Issues Analysis Section */}
           {/* Recent Comments */}
-    {/* <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] overflow-hidden">
-      <div className="flex flex-col gap-4 sm:gap-6 items-start justify-start p-4 sm:p-6 w-full">
-        <div className="flex flex-row items-center justify-between w-full">
-          <div className="flex flex-row gap-2 items-center justify-start w-full">
-            <div className="w-6 h-6 sm:w-8 sm:h-8">
-              <svg width="24" height="24" viewBox="0 0 32 32" fill="none" className="sm:w-8 sm:h-8">
-                <rect width="32" height="32" rx="6" fill="#f0f0f0" />
-              </svg>
-            </div>
-            <div className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525]">Recent Comments</div>
-            <div className="bg-[#586468] w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center">
-              <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-white">44</div>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-3 sm:gap-4 h-48 sm:h-64 lg:h-[291px] items-start justify-start overflow-y-auto w-full">
-          {recentComments.map((comment, index) => (
-            <div key={index} className="bg-[#f9f9f9] flex flex-row gap-3 sm:gap-4 items-start justify-start px-3 sm:px-4 py-2 rounded-xl sm:rounded-2xl w-full">
-              <div className="flex flex-row items-center justify-between px-0 py-px w-12 sm:w-[62px] flex-shrink-0">
-                <div className="bg-[#263238] w-4 h-4 sm:w-5 sm:h-5 rounded-full sm:rounded-[32px] flex items-center justify-center">
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="sm:w-3 sm:h-3">
-                    <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="white" strokeWidth="1" fill="white" />
-                  </svg>
-                </div>
-                <div className="text-[10px] sm:text-[12px] font-normal text-[#666666] text-right tracking-[-0.072px] hidden sm:block">BG – 17</div>
-              </div>
-
-              <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start flex-1 min-w-0">
-                <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start w-full">
-                  <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333]">Login forgot password bugfix</div>
-                  <div className="text-xs sm:text-sm lg:text-[12px] font-normal text-[#999999] w-full">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                </div>
-
-                <div className="flex flex-row items-center justify-between w-full">
-                  <div className="flex flex-row gap-1 items-center justify-start">
-                    <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-gray-300"></div>
-                    <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333] tracking-[-0.32px]">Kate</div>
-                  </div>
-
-                  <div className="text-xs sm:text-sm lg:text-[12px] font-normal text-[#999999] tracking-[-0.24px]">6 mins ago</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div> */}
+   
 
 
     {/* </div> */}
