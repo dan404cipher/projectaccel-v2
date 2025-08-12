@@ -8,12 +8,14 @@ import EmergenceIssue from "@/components/dashboard/EmergenceIssue"
 import IssuesAnalysis from "@/components/dashboard/IssuesAnalysis"
 import RecentCommand from "@/components/dashboard/RecentCommand"
 import { useCounter } from "@/hooks/use-counter"
+import MySchedule from "@/components/dashboard/MySchedule"
+import BugOverview from "@/components/dashboard/BugOverview"
 
 const Dashboard = () => {
   const [date, setDate] = useState<Date | undefined>(new Date())
-  
+
   // Counter hooks for stats animation
-  const totalProjects = useCounter({ end: 4, delay: 200 });
+  const totalProjects = useCounter({ end: 4, delay: 3000 });
   const assignedIssues = useCounter({ end: 44, delay: 400 });
   const inProgress = useCounter({ end: 32, delay: 600 });
   const overDueIssues = useCounter({ end: 5, delay: 800 });
@@ -138,140 +140,22 @@ const Dashboard = () => {
           <IssuesAnalysis />
         </div>
         <div>
-          <RecentCommand/>
+          <RecentCommand />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="lg:col-span-1">
+          <MySchedule />
+        </div>
+        <div className="lg:col-span-2">
+          <BugOverview />
         </div>
       </div>
 
-      {/* Types of Work and Priority Section */}
+
+
+      {/* Schedule and Additional Sections */}
       {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)]">
-          <div className="flex flex-col gap-2 items-start justify-start p-4 sm:p-6 w-full">
-            <div className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525] w-full">Types of work</div>
-            <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#999999] w-full">Issues in all projects</div>
-          </div>
-
-          <div className="p-4 sm:p-6">
-            {workTypeData.map((item, index) => (
-              <div key={item.label} className="flex items-center gap-4 sm:gap-6 lg:gap-[25px] mb-3 sm:mb-4">
-                <div className="h-6 sm:h-8 lg:h-[30px] w-8 sm:w-10 flex items-center justify-center">
-                  <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#1c2024]">{item.label}</div>
-                </div>
-                <div className="flex-1 h-10 bg-gray-200 rounded relative">
-                  <div
-                    className="h-full rounded"
-                    style={{
-                      width: `${item.value}%`,
-                      backgroundColor: item.color
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <Card style={{
-          borderRadius: '24px',
-          background: '#FFF',
-          boxShadow: '0 9px 20px 0 rgba(46, 35, 94, 0.07)'
-        }}>
-          <CardHeader>
-            <CardTitle className="text-base font-semibold">Priority Breakdown</CardTitle>
-            <p className="text-sm text-muted-foreground">Priority breakdown of all projects</p>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-center mb-4">
-              <div className="relative w-24 h-24">
-                <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
-                  <circle cx="18" cy="18" r="16" fill="none" stroke="hsl(var(--chart-accent))" strokeWidth="3" strokeDasharray="60 40" strokeLinecap="round" />
-                  <circle cx="18" cy="18" r="12" fill="none" stroke="hsl(var(--chart-primary))" strokeWidth="2" strokeDasharray="40 60" strokeLinecap="round" />
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-foreground">32</span>
-                </div>
-              </div>
-            </div>
-            <div className="space-y-2">
-              {["Highest", "High", "Medium", "Low", "Lowest"].map((priority, index) => (
-                <div key={priority} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className={`w-3 h-3 rounded-full ${index === 0 ? 'bg-chart-danger' :
-                        index === 1 ? 'bg-chart-warning' :
-                          index === 2 ? 'bg-chart-secondary' :
-                            index === 3 ? 'bg-chart-accent' :
-                              'bg-muted'
-                      }`} />
-                    <span className="text-sm text-muted-foreground">{priority}</span>
-                  </div>
-                  <span className="text-sm font-medium text-foreground">
-                    {index === 0 ? '12' : index === 1 ? '8' : index === 2 ? '7' : index === 3 ? '3' : '2'}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card> */}
-      {/* Emerging Issues */}
-      {/* <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)]">
-          <div className="flex flex-col gap-4 sm:gap-6 items-start justify-start p-4 sm:p-6 w-full">
-            <div className="flex flex-row items-center justify-between w-full">
-              <div className="flex flex-row gap-2 items-center justify-start">
-                <div className="w-6 h-6 sm:w-8 sm:h-8">
-                  <svg width="24" height="24" viewBox="0 0 32 32" fill="none" className="sm:w-8 sm:h-8">
-                    <rect width="32" height="32" rx="6" fill="#f0f0f0" />
-                  </svg>
-                </div>
-                <div className="text-base sm:text-lg lg:text-[20px] font-medium text-[#252525]">Emerg Issues</div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10 items-start justify-start w-full">
-              {emergingIssues.slice(0, 4).map((issue, index) => (
-                <div key={issue.id} className="flex flex-row gap-3 sm:gap-4 items-start justify-start w-full">
-                  <div className="flex flex-row items-center justify-between px-0 py-px w-12 sm:w-[62px] flex-shrink-0">
-                    <div className="bg-[#263238] w-4 h-4 sm:w-5 sm:h-5 rounded-full sm:rounded-[32px] flex items-center justify-center">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="sm:w-3 sm:h-3">
-                        <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="white" strokeWidth="1" fill="white" />
-                      </svg>
-                    </div>
-                    <div className="text-[10px] sm:text-[12px] font-normal text-[#666666] text-right tracking-[-0.072px] hidden sm:block">BG – 17</div>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 lg:gap-[91px] items-start sm:items-center justify-start flex-1 min-w-0">
-                    <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start flex-1 min-w-0">
-                      <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333]">{issue.title}</div>
-                      <div className="flex flex-row gap-1 sm:gap-2 items-start justify-start text-xs sm:text-[12px]">
-                        <div className="font-normal text-[#999999]">Projects</div>
-                        <div className="font-medium text-[#999999]">Hire-Accel Portal</div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-col gap-1 items-start justify-start w-full sm:w-20 flex-shrink-0">
-                      <div className="text-xs sm:text-sm lg:text-[14px] font-medium text-[#252525] text-center w-full">Time Left</div>
-                      <div className="bg-[#c0ced2] h-4 sm:h-5 w-full sm:w-20 rounded-lg relative">
-                        <div className="text-[10px] sm:text-[12px] font-medium text-[#445256] absolute top-[2px] sm:top-[3px] left-[8px] sm:left-[27px]">
-                          {index === 0 ? '8 hrs' : index === 1 ? '10 hrs' : index === 2 ? '1 day' : '2 days'}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div> */}
-      {/* </div> */}
-
-
-      {/* Issues Analysis Section */}
-          {/* Recent Comments */}
-   
-
-
-    {/* </div> */}
-
-    {/* Schedule and Additional Sections */}
-    {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <Card style={{
       borderRadius: '24px',
       background: '#FFF',
@@ -321,8 +205,8 @@ const Dashboard = () => {
     </Card>
   </div> */}
 
-    {/* App Integrations */}
-    {/* <Card className="shadow-[var(--shadow-card)]">
+      {/* App Integrations */}
+      {/* <Card className="shadow-[var(--shadow-card)]">
     <CardHeader>
       <CardTitle className="text-base font-semibold">App Integrations</CardTitle>
       <p className="text-sm text-muted-foreground">Connect integrations with other services in the future</p>
@@ -371,8 +255,8 @@ const Dashboard = () => {
     </CardContent>
   </Card> */}
 
-    {/* Assigned Issues Table */}
-    {/* <Card className="shadow-[var(--shadow-card)]">
+      {/* Assigned Issues Table */}
+      {/* <Card className="shadow-[var(--shadow-card)]">
     <CardHeader>
       <CardTitle className="text-base font-semibold">Assigned Issues</CardTitle>
       <p className="text-sm text-muted-foreground">Assigned issues of all projects</p>
