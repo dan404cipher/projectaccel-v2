@@ -11,6 +11,7 @@ import { useCounter } from "@/hooks/use-counter"
 import MySchedule from "@/components/dashboard/MySchedule"
 import BugOverview from "@/components/dashboard/BugOverview"
 import AppIntegration from "@/components/dashboard/AppIntegration"
+import AssignIssue from "@/components/dashboard/AssignIssue"
 
 const Dashboard = () => {
   const [date, setDate] = useState<Date | undefined>(new Date())
@@ -145,17 +146,20 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-  {/* Left side */}
-  <div className="lg:col-span-1 flex flex-col h-full">
-    <MySchedule className="h-full" />
-  </div>
+        {/* Left side */}
+        <div className="lg:col-span-1 flex flex-col h-full">
+          <MySchedule className="h-full" />
+        </div>
 
-  {/* Right side */}
-  <div className="lg:col-span-2 flex flex-col gap-4 h-full">
-    <BugOverview />
-    <AppIntegration className="flex-1" />
-  </div>
-</div>
+        {/* Right side */}
+        <div className="lg:col-span-2 flex flex-col gap-4 h-full">
+          <BugOverview />
+          <AppIntegration className="flex-1" />
+        </div>
+      </div>
+      <div className="flex">
+          <AssignIssue />
+      </div>
 
 
 
