@@ -1,3 +1,6 @@
+import EmergenceIssue from '@/components/dashboard/EmergenceIssue';
+import { PriorityBreakdown } from '@/components/dashboard/PriorityBreakdown';
+import TypeOfWork from '@/components/dashboard/TypeOfWork';
 import ProjectHeader from '@/components/ProjectHeader';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -98,7 +101,7 @@ export default function ProjectOverview() {
   return (
     <div className="bg-[#f6f6f6] h-screen w-full flex flex-col overflow-hidden">
       {/* Project Header - Fixed */}
-     <ProjectHeader projectName='Example project name' activeTab='overview' onTabChange={handleTabClick}/>
+      <ProjectHeader projectName='Example project name' activeTab='overview' onTabChange={handleTabClick} />
 
       {/* Main Content - Scrollable */}
       <div className="flex-1 overflow-y-auto p-4 pt-2 pb-20">
@@ -119,20 +122,20 @@ export default function ProjectOverview() {
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <div className="flex items-center gap-2">
-                  <img alt="calendar" className="w-3 h-3" src={imgSvg} />
-                  <span className="text-xs text-zinc-500">Start: Jan 15, 2024</span>
+                  <img alt="calendar" className="w-4 h-4" src={imgSvg} />
+                  <span className="text-sm text-zinc-500">Start: Jan 15, 2024</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <img alt="calendar" className="w-3 h-3" src={imgSvg1} />
-                  <span className="text-xs text-zinc-500">Due: Apr 30, 2024</span>
+                  <img alt="calendar" className="w-4 h-4" src={imgSvg1} />
+                  <span className="text-sm text-zinc-500">Due: Apr 30, 2024</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <img alt="users" className="w-3 h-3" src={imgSvg2} />
-                  <span className="text-xs text-zinc-500">8 members</span>
+                  <img alt="users" className="w-4 h-4" src={imgSvg2} />
+                  <span className="text-sm text-zinc-500">8 members</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <img alt="progress" className="w-3 h-3" src={imgSvg3} />
-                  <span className="text-xs text-zinc-500">68% complete</span>
+                  <img alt="progress" className="w-4 h-4" src={imgSvg3} />
+                  <span className="text-sm text-zinc-500">68% complete</span>
                 </div>
               </div>
             </div>
@@ -213,101 +216,18 @@ export default function ProjectOverview() {
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 mb-6">
           {/* Types of Work Chart */}
-          <div className="bg-white rounded-2xl p-4 shadow-sm lg:col-span-2">
-            <h3 className="text-lg font-medium text-[#252525] mb-1">Types of work</h3>
-            <p className="text-sm text-[#999999] mb-4">Issues in all projects</p>
-            <div className="flex items-center justify-center h-[168px]">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gray-200 rounded-full mb-2"></div>
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-blue-500 rounded"></div>
-                    <span className="text-xs">Epic</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-green-500 rounded"></div>
-                    <span className="text-xs">Task</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-red-500 rounded"></div>
-                    <span className="text-xs">Bug</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-yellow-500 rounded"></div>
-                    <span className="text-xs">Story</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="lg:col-span-2">
+            <TypeOfWork />
           </div>
 
           {/* Priority Breakdown */}
-          <div className="bg-white rounded-2xl p-4 shadow-sm lg:col-span-2">
-            <h3 className="text-lg font-medium text-[#252525] mb-1">Priority Breakdown</h3>
-            <p className="text-sm text-[#999999] mb-4">Priority breakdown of all projects</p>
-            <div className="flex items-center justify-center h-[168px]">
-              <div className="text-center">
-                <div className="text-2xl font-medium text-[#2a9d90] mb-2">32</div>
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-red-500 rounded"></div>
-                    <span className="text-xs">Highest</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-orange-500 rounded"></div>
-                    <span className="text-xs">High</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-yellow-500 rounded"></div>
-                    <span className="text-xs">Medium</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-green-500 rounded"></div>
-                    <span className="text-xs">Low</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-gray-500 rounded"></div>
-                    <span className="text-xs">Lowest</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="lg:col-span-2">
+            <PriorityBreakdown/>
           </div>
 
           {/* Emergency Issues */}
-          <div className="bg-white rounded-2xl p-4 shadow-sm lg:col-span-2">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <img alt="emergency" className="w-6 h-6" src={imgFrame1116606892} />
-                <h3 className="text-lg font-medium text-[#252525]">Emerg Issues</h3>
-              </div>
-              <img alt="emergency" className="w-6 h-6" src={imgFrame1116606892} />
-            </div>
-            <div className="space-y-2 max-h-[168px] overflow-y-auto">
-              {[1, 2, 3, 4].map((item) => (
-                <div key={item} className="flex items-start gap-3">
-                  <div className="bg-[#263238] w-4 h-4 rounded-full flex items-center justify-center">
-                    <img alt="bug" className="w-2.5 h-2.5" src={imgMdiBugOutline} />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs text-[#666666] mb-1">BG – 17</p>
-                    <h4 className="text-sm font-medium text-[#333333] mb-1">
-                      Login forgot password bugfix
-                    </h4>
-                    <div className="flex items-center gap-2 text-xs text-[#999999] mb-1">
-                      <span>Projects</span>
-                      <span>Hire-Accel Portal</span>
-                    </div>
-                    <div>
-                      <p className="text-xs text-[#252525] mb-1">Time Left</p>
-                      <div className="bg-[#c0ced2] h-4 rounded flex items-center px-2">
-                        <span className="text-xs text-[#445256]">{item === 1 ? '8 hrs' : item === 2 ? '10 hrs' : item === 3 ? '1 day' : '2 days'}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className=" lg:col-span-2">
+            <EmergenceIssue/>
           </div>
         </div>
 
