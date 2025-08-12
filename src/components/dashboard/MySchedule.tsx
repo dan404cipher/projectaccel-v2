@@ -6,7 +6,7 @@ const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
 const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
 const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 const img6 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
-const MySchedule = () => {
+const MySchedule = ({className}: {className: string}) => {
   const [selectedDate, setSelectedDate] = useState(1);
   const [currentMonth, setCurrentMonth] = useState('November');
   const [currentYear, setCurrentYear] = useState('2025');
@@ -106,7 +106,7 @@ const MySchedule = () => {
   };
 
   return (
-    <div className="bg-white h-full  w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col p-4 sm:p-6">
+    <div className={`bg-white h-full  w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col p-4 sm:p-6 ${className}`}>
       {/* Header */}
       <div className="flex flex-col gap-1 sm:gap-2 mb-4 sm:mb-6">
         <div className="flex items-center gap-2">
