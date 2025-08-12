@@ -48,7 +48,7 @@ const AppIntegration = ({ className }: { className: string }) => {
       ];
 
     return (
-        <div className={`flex flex-col gap-4 mt-4 bg-white w-full h-full rounded-2xl shadow-sm ${className} p-6`}>
+        <div className={`flex flex-col gap-4 mt-2 bg-white w-full h-full rounded-2xl shadow-sm ${className} p-6`}>
             <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-1">
                     <div className="text-[20px]">App Integration</div>
