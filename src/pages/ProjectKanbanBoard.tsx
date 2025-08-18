@@ -147,11 +147,31 @@ export default function ProjectKanbanBoard() {
   const [draggedFromColumn, setDraggedFromColumn] = useState(null);
   const [dragOverColumn, setDragOverColumn] = useState(null);
 
-  const handleDragStart = (taskData: any, columnIndex: any, e: any) => {
+  const handleDragStart = (taskData: any, columnIndex: number, e: React.DragEvent) => {
     setDraggedData(taskData);
     setDraggedFromColumn(columnIndex);
     e.dataTransfer.effectAllowed = "move";
-    e.dataTransfer.setDragImage(e.target, e.target.offsetWidth / 2, e.target.offsetHeight / 2);
+  
+    // clone element for drag preview
+    const crt = e.currentTarget.cloneNode(true) as HTMLElement;
+    crt.style.transform = "rotate(8deg) scale(0.95)";
+    crt.style.position = "absolute";
+    crt.style.top = "-9999px";
+    crt.style.left = "-9999px";
+    crt.style.pointerEvents = "none"; // prevent blocking
+  
+    document.body.appendChild(crt);
+  
+    e.dataTransfer.setDragImage(crt, crt.offsetWidth / 2, crt.offsetHeight / 2);
+  
+    // cleanup after drag ends
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        if (crt && crt.parentNode) {
+          crt.parentNode.removeChild(crt);
+        }
+      }, 100); // wait little before remove
+    });
   };
 
   const handleDragOver = (e: any) => {
@@ -165,7 +185,6 @@ export default function ProjectKanbanBoard() {
   };
 
   const handleDragLeave = (e: any) => {
-    // Only reset if we're leaving the column area completely
     if (!e.currentTarget.contains(e.relatedTarget)) {
       setDragOverColumn(null);
     }
@@ -278,12 +297,12 @@ export default function ProjectKanbanBoard() {
       </div>
 
       {/* Kanban Board */}
-      <div className="flex gap-8 overflow-x-auto h-full mb-2 relative  px-5">
+      <div className="flex gap-8 overflow-x-auto h-full mb-2  px-5">
         {
           data.map((task, columnIndex) => (
             <div key={columnIndex} className="flex-shrink-0 w-72 rounded-2xl" onDragOver={handleDragOver}>
               <div
-                className={`rounded-t-2xl p-4 rounded-2xl min-h-[420px]  max-h-full transition-all duration-300 ${dragOverColumn === columnIndex && draggedFromColumn !== columnIndex
+                className={`rounded-t-2xl p-4 rounded-2xl min-h-[420px] overflow-scroll max-h-full transition-all duration-300 ${dragOverColumn === columnIndex && draggedFromColumn !== columnIndex
                   ? 'bg-[rgba(103,144,155,0.15)] ring-2 ring-[#67909b] ring-opacity-50 scale-[1.02]'
                   : 'bg-[rgba(103,144,155,0.06)]'
                   }`}
@@ -307,10 +326,12 @@ export default function ProjectKanbanBoard() {
                 </div>
 
                 {/* Task Cards */}
-                <div className="space-y-4">
+                <div className="space-y-4 max-h-full">
                   {
-                    task?.data.map((taskData, taskIndex) => (
-                      <div
+                    task?.data.map((taskData, taskIndex) => {
+                      const isDragging = draggedData?.bugId === taskData.bugId;
+                      return(
+                        <div
                         key={taskData.bugId || taskIndex}
                         className={`rounded-2xl p-4 shadow-sm flex flex-col gap-1 cursor-move transition-all duration-300
                         ${draggedData?.bugId === taskData.bugId
@@ -318,14 +339,14 @@ export default function ProjectKanbanBoard() {
                             : 'bg-white hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1'
                           }`}
                         style={{
-                          transform: draggedData?.bugId === taskData.bugId ? 'scale(0.95)' : undefined,
+                          transform: draggedData?.bugId === taskData.bugId ? 'scale(0.95) rotate(5deg)' : undefined,
                           zIndex: draggedData?.bugId === taskData.bugId ? 50 : 'auto'
                         }}
                         draggable
                         onDragStart={(e) => handleDragStart(taskData, columnIndex, e)}
                         onDragEnd={(e: any) => handleDragEnd(e)}
                       >
-                        <div>
+                        <div className={`${isDragging ?'opacity-0':''}`}>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center transition-transform duration-200 hover:scale-110">
@@ -416,7 +437,10 @@ export default function ProjectKanbanBoard() {
                           </div>
                         </div>
                       </div>
-                    ))
+                      )
+                    }
+                     
+                    )
                   }
                 </div>
               </div>
@@ -424,7 +448,7 @@ export default function ProjectKanbanBoard() {
           ))
         }
         {/* Add Task Button */}
-        <div className="absolute right-5 cursor-pointer">
+        <div className="cursor-pointer">
           <div className="w-8 h-8 bg-[#67909b] rounded-lg flex items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <rect width="24" height="24" fill="#67909B" />
