@@ -56,7 +56,7 @@ function App() {
               <Route path="team" element={<ProjectTeam />} />
               <Route path="team/add-member" element={<ProjectTeamAddMember />} />
               <Route path="backlog" element={<BacklogPrototype />} />
-              <Route path="kanban" element={<ProjectKanbanBoard />} />
+              <Route path="project-kanban-board" element={<ProjectKanbanBoard />} />
               <Route path="calendar" element={<ProjectCalendarView />} />
               <Route path="active-sprint" element={<ActiveSprintListView />} />
               <Route path="add-task" element={<AddTask />} />

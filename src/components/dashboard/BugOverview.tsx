@@ -1,9 +1,9 @@
 const imgMdiBugOutline = "/icons/cb2280d66195675cdb1a349a2b097f5c140ee578.svg";
 const imgStashPlusSolid = "/icons/e28b8423897034bc83c4d67baaf1d5c49f0ddb20.svg";
 
-const BugOverview = () => {
+const BugOverview = ({className}:{className?:string}) => {
   return (
-    <div className="bg-white rounded-2xl p-[1.5rem] shadow-sm">
+    <div className={`bg-white rounded-2xl p-[1.5rem] shadow-sm ${className}`}>
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
           <h3 className="text-lg font-medium text-[#242424]">Bug overview</h3>

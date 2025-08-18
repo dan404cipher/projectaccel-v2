@@ -139,10 +139,10 @@ const Dashboard = () => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2">
-          <IssuesAnalysis />
+          <IssuesAnalysis className="h-full"/>
         </div>
         <div>
-          <RecentCommand />
+          <RecentCommand className="h-full"/>
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -153,180 +153,15 @@ const Dashboard = () => {
 
         {/* Right side */}
         <div className="lg:col-span-2 flex flex-col gap-4 h-full">
-          <BugOverview />
+          <BugOverview className="h-full"/>
           <AppIntegration className="flex-1" />
         </div>
       </div>
       <div className="flex">
           <AssignIssue />
       </div>
-
-
-
-      {/* Schedule and Additional Sections */}
-      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <Card style={{
-      borderRadius: '24px',
-      background: '#FFF',
-      boxShadow: '0 9px 20px 0 rgba(46, 35, 94, 0.07)'
-    }}>
-      <CardHeader>
-        <CardTitle className="text-base font-semibold">My Schedule</CardTitle>
-        <p className="text-sm text-muted-foreground">According to my schedule</p>
-      </CardHeader>
-      <CardContent>
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          className="rounded-md border-0"
-        />
-      </CardContent>
-    </Card>
-
-    <Card style={{
-      borderRadius: '24px',
-      background: '#FFF',
-      boxShadow: '0 9px 20px 0 rgba(46, 35, 94, 0.07)'
-    }}>
-      <CardHeader>
-        <CardTitle className="text-base font-semibold">Bug overview</CardTitle>
-        <p className="text-sm text-muted-foreground">Connect Integrations with other services in the future</p>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-3">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <div key={index} className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary"></div>
-                <span className="text-sm">Login forgot password bugfix</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <span>Open</span>
-                <span>Normal</span>
-                <span>UI Bug</span>
-                <span>P - Normal</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  </div> */}
-
-      {/* App Integrations */}
-      {/* <Card className="shadow-[var(--shadow-card)]">
-    <CardHeader>
-      <CardTitle className="text-base font-semibold">App Integrations</CardTitle>
-      <p className="text-sm text-muted-foreground">Connect integrations with other services in the future</p>
-    </CardHeader>
-    <CardContent>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">GM</span>
-            </div>
-            <div>
-              <p className="text-sm font-medium">Google Meet</p>
-              <p className="text-xs text-muted-foreground">Connect calls and meetings online</p>
-            </div>
-          </div>
-          <span className="text-xs text-muted-foreground">...</span>
-        </div>
-
-        <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-purple-500 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">F</span>
-            </div>
-            <div>
-              <p className="text-sm font-medium">Figma</p>
-              <p className="text-xs text-muted-foreground">Communicate with the team</p>
-            </div>
-          </div>
-          <span className="text-xs text-muted-foreground">...</span>
-        </div>
-
-        <div className="flex items-center justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-teal-500 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">L</span>
-            </div>
-            <div>
-              <p className="text-sm font-medium">Loom</p>
-              <p className="text-xs text-muted-foreground">Loom lorem is a dummy text to fit</p>
-            </div>
-          </div>
-          <span className="text-xs text-muted-foreground">...</span>
-        </div>
-      </div>
-    </CardContent>
-  </Card> */}
-
-      {/* Assigned Issues Table */}
-      {/* <Card className="shadow-[var(--shadow-card)]">
-    <CardHeader>
-      <CardTitle className="text-base font-semibold">Assigned Issues</CardTitle>
-      <p className="text-sm text-muted-foreground">Assigned issues of all projects</p>
-    </CardHeader>
-    <CardContent>
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Type</th>
-              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Issue Title</th>
-              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Assign to</th>
-              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Status</th>
-              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Priority</th>
-              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Due date</th>
-              <th className="text-left p-2 text-sm font-medium text-muted-foreground">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({ length: 6 }).map((_, index) => (
-              <tr key={index} className="border-b border-border hover:bg-muted/50">
-                <td className="p-2">
-                  <div className="w-6 h-6 rounded bg-muted flex items-center justify-center">
-                    <span className="text-xs font-medium">E</span>
-                  </div>
-                </td>
-                <td className="p-2">
-                  <span className="text-sm font-medium">Publish blog page</span>
-                </td>
-                <td className="p-2">
-                  <div className="flex -space-x-2">
-                    <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs border-2 border-background">
-                      J
-                    </div>
-                    <div className="w-6 h-6 rounded-full bg-accent text-accent-foreground flex items-center justify-center text-xs border-2 border-background">
-                      A
-                    </div>
-                    <span className="ml-2 text-xs text-muted-foreground">...</span>
-                  </div>
-                </td>
-                <td className="p-2">
-                  <Badge variant="outline" className="text-xs">Ready</Badge>
-                </td>
-                <td className="p-2">
-                  <Badge variant="secondary" className="text-xs bg-yellow-100 text-yellow-800">Low</Badge>
-                </td>
-                <td className="p-2">
-                  <Badge variant="destructive" className="text-xs">Dec 5</Badge>
-                </td>
-                <td className="p-2">
-                  <span className="text-xs text-muted-foreground cursor-pointer hover:text-foreground">...</span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </CardContent>
-  </Card> */}
     </div>
   )
 }
 
-export default Dashboard
+export default Dashboard;

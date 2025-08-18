@@ -41,9 +41,9 @@ const recentComments = [
     }
 ];
 
-const RecentCommand = () => {
+const RecentCommand = ({className}:{className?:string}) => {
     return (
-        <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] overflow-hidden">
+        <div className={`bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] overflow-hidden ${className}`}>
             <div className="flex flex-col gap-4 sm:gap-6 items-start justify-start p-4 sm:p-6 w-full">
                 <div className="flex flex-row items-center justify-between w-full">
                     <div className="flex flex-row gap-2 items-center justify-start w-full">

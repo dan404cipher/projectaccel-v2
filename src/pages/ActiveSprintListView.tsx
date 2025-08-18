@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProjectHeader from '@/components/ProjectHeader';
+import ProjectKanbanBoard from './ProjectKanbanBoard';
 
 // Image assets from Figma design
 const imgGroup = "/icons/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg";
@@ -51,6 +52,7 @@ const imgFluentArrowSprint20Filled = "/icons/2ec924c70b4581fb8ce85d780f89be6ca89
 
 export default function ActiveSprintListView() {
   const navigate = useNavigate();
+  const [activeSprintTab, setActiveSprintTab] = useState<'kanbanView' | 'listView' | 'sortByStatus'>('kanbanView');
 
   const handleTabClick = (tab: string) => {
     switch (tab) {
@@ -73,454 +75,46 @@ export default function ActiveSprintListView() {
         break;
     }
   };
+
+  const handleActiveSprintTabChange = (tab: string) => {
+    setActiveSprintTab(tab as 'kanbanView' | 'listView' | 'sortByStatus');
+  };
   return (
-    <div className="bg-[#f6f6f6] min-h-screen w-full">
+    <div className="h-full w-full flex flex-col overflow-hidden rounded-lg">
       {/* Project Header */}
       <ProjectHeader 
         projectName="Example project name"
         activeTab="sprint"
+        activeSprintTab={activeSprintTab}
         onTabChange={handleTabClick}
+                onActiveSprintTabChange={handleActiveSprintTabChange}
       />
 
-      {/* View Controls */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-4">
-          <h2 className="text-2xl font-medium text-[#06263d]">
-            List View / Sort by status
-          </h2>
-          <div className="flex items-center">
-            <img alt="count" className="w-7 h-7" src={imgEllipse3247} />
-            <span className="text-base font-medium text-white ml-1">22</span>
+      {/* Conditional Content Based on Active Sprint Tab */}
+      {activeSprintTab === "kanbanView" && (
+        <ProjectKanbanBoard />
+      )}
+
+      {activeSprintTab === "listView" && (
+        <div className="p-4">
+          <h2 className="text-xl font-semibold text-[#06263d] mb-4">List View</h2>
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <p className="text-gray-600">List view content will be displayed here.</p>
+            {/* Add your list view component here */}
           </div>
         </div>
+      )}
 
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-4">
-            <div className="bg-[#67909b] rounded-lg p-2.5">
-              <img alt="search" className="w-4 h-4" src={imgGroup4} />
-            </div>
-            <div className="bg-[#67909b] rounded-lg p-2.5">
-              <img alt="sort" className="w-4 h-4" src={imgLucideSortDesc} />
-            </div>
-            <div className="bg-[#67909b] rounded-lg p-2.5">
-              <img alt="group" className="w-4 h-4" src={imgFluentGroup24Regular} />
-            </div>
-            <div className="bg-[#67909b] rounded-lg p-2.5">
-              <img alt="sprint" className="w-4 h-4" src={imgFluentArrowSprint20Filled1} />
-            </div>
-          </div>
-          <button className="bg-[#67909b] text-white px-4 py-2 rounded-lg text-sm font-medium">
-            Complete Sprint
-          </button>
-        </div>
-      </div>
-
-      {/* Status Columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* To-Do Column */}
-        <div className="bg-white rounded-3xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-1">
-              <div className="rotate-180">
-                <img alt="arrow" className="w-6 h-6" src={imgIconamoonArrowUp2Fill} />
-              </div>
-              <h3 className="text-2xl font-medium text-[#06263d]">To-Do</h3>
-            </div>
-            <div className="flex items-center">
-              <img alt="count" className="w-7 h-7" src={imgEllipse3246} />
-              <span className="text-base font-medium text-white ml-1">2</span>
-            </div>
-          </div>
-
-          {/* Table Header */}
-          <div className="bg-[rgba(103,144,155,0.06)] rounded-lg p-4 mb-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-7">
-                <div className="flex items-center gap-4">
-                  <img alt="checkbox" className="w-6 h-6" src={imgCheckbox} />
-                  <div className="flex items-center gap-1">
-                    <span className="text-xl font-medium text-[#252525]">Type</span>
-                    <img alt="sort" className="w-6 h-6" src={imgSort} />
-                  </div>
-                </div>
-                <span className="text-xl font-medium text-[#252525]">Issue Title</span>
-              </div>
-              <div className="flex items-center gap-15">
-                <span className="text-xl font-medium text-[#252525]">Assign to</span>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525]">Status</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525]">Priority</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525] text-right">Due date</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <span className="text-xl font-medium text-[#252525] text-center">Action</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Task Rows */}
-          {[1, 2, 3].map((index) => (
-            <div key={index} className="flex items-start gap-4 mb-4">
-              <div className="flex items-center gap-4">
-                <img alt="drag" className="w-6 h-6" src={imgQlementineIconsDrag16} />
-                <img alt="checkbox" className="w-6 h-6" src={imgCheckbox} />
-              </div>
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-1">
-                  <div className="bg-[#263238] rounded-full p-1">
-                    <img alt="bug" className="w-4 h-4" src={imgMdiBugOutline} />
-                  </div>
-                  <span className="text-xs text-[#666666]">TA – 117</span>
-                </div>
-                <span className="text-base font-medium text-[#252525]">Publish blog page</span>
-              </div>
-              <div className="flex items-center gap-28">
-                <div className="flex items-center gap-12">
-                  <div className="flex items-center gap-12">
-                    <div className="flex items-center gap-12">
-                      <div className="flex items-center gap-1">
-                        <div className="flex -space-x-4">
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse243} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse244} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse245} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse246} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse247} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse242} />
-                        </div>
-                        <span className="text-xs font-medium text-[#333333]">24+</span>
-                      </div>
-                      <div className="bg-[rgba(138,150,247,0.2)] rounded px-3 py-1">
-                        <span className="text-sm font-medium text-[#8a96f7]">To-do</span>
-                      </div>
-                    </div>
-                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-3 py-1">
-                      <span className="text-sm font-medium text-[#d58d49]">Low</span>
-                    </div>
-                  </div>
-                  <span className="text-base font-medium text-[#e52828]">Dec 5</span>
-                </div>
-                <img alt="menu" className="w-6 h-6" src={imgSolarMenuDotsBold} />
-              </div>
-            </div>
-          ))}
-
-          {/* Add Button */}
-          <div className="flex justify-end">
-            <div className="bg-[#67909b] rounded-lg p-2">
-              <img alt="plus" className="w-6 h-6" src={imgIcRoundPlus} />
-            </div>
+      {activeSprintTab === "sortByStatus" && (
+        <div className="p-4">
+          <h2 className="text-xl font-semibold text-[#06263d] mb-4">Sort by Status</h2>
+          <div className="bg-white rounded-lg p-6 shadow-sm">
+            <p className="text-gray-600">Sort by status content will be displayed here.</p>
+            {/* Add your sort by status component here */}
           </div>
         </div>
-
-        {/* In Progress Column */}
-        <div className="bg-white rounded-3xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-1">
-              <div className="rotate-180">
-                <img alt="arrow" className="w-6 h-6" src={imgIconamoonArrowUp2Fill} />
-              </div>
-              <h3 className="text-2xl font-medium text-[#06263d]">In progress</h3>
-            </div>
-            <div className="flex items-center">
-              <img alt="count" className="w-7 h-7" src={imgEllipse3246} />
-              <span className="text-base font-medium text-white ml-1">2</span>
-            </div>
-          </div>
-
-          {/* Table Header */}
-          <div className="bg-[rgba(103,144,155,0.06)] rounded-lg p-4 mb-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-7">
-                <div className="flex items-center gap-4">
-                  <img alt="checkbox" className="w-6 h-6" src={imgCheckbox} />
-                  <div className="flex items-center gap-1">
-                    <span className="text-xl font-medium text-[#252525]">Type</span>
-                    <img alt="sort" className="w-6 h-6" src={imgSort} />
-                  </div>
-                </div>
-                <span className="text-xl font-medium text-[#252525]">Issue Title</span>
-              </div>
-              <div className="flex items-center gap-15">
-                <span className="text-xl font-medium text-[#252525]">Assign to</span>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525]">Status</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525]">Priority</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525] text-right">Due date</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <span className="text-xl font-medium text-[#252525] text-center">Action</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Task Rows */}
-          {[1, 2, 3].map((index) => (
-            <div key={index} className="flex items-start gap-4 mb-4">
-              <div className="flex items-center gap-4">
-                <img alt="drag" className="w-6 h-6" src={imgQlementineIconsDrag16} />
-                <img alt="checkbox" className="w-6 h-6" src={imgCheckbox} />
-              </div>
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-1">
-                  <div className="bg-[#263238] rounded-full p-1">
-                    <img alt="bug" className="w-4 h-4" src={imgMdiBugOutline} />
-                  </div>
-                  <span className="text-xs text-[#666666]">TA – 117</span>
-                </div>
-                <span className="text-base font-medium text-[#252525]">Publish blog page</span>
-              </div>
-              <div className="flex items-center gap-28">
-                <div className="flex items-center gap-12">
-                  <div className="flex items-center gap-12">
-                    <div className="flex items-center gap-12">
-                      <div className="flex items-center gap-1">
-                        <div className="flex -space-x-4">
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse243} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse244} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse245} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse246} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse247} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse242} />
-                        </div>
-                        <span className="text-xs font-medium text-[#333333]">24+</span>
-                      </div>
-                      <div className="bg-[rgba(138,150,247,0.2)] rounded px-3 py-1">
-                        <span className="text-sm font-medium text-[#8a96f7]">To-do</span>
-                      </div>
-                    </div>
-                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-3 py-1">
-                      <span className="text-sm font-medium text-[#d58d49]">Low</span>
-                    </div>
-                  </div>
-                  <span className="text-base font-medium text-[#e52828]">Dec 5</span>
-                </div>
-                <img alt="menu" className="w-6 h-6" src={imgSolarMenuDotsBold} />
-              </div>
-            </div>
-          ))}
-
-          {/* Add Button */}
-          <div className="flex justify-end">
-            <div className="bg-[#67909b] rounded-lg p-2">
-              <img alt="plus" className="w-6 h-6" src={imgIcRoundPlus} />
-            </div>
-          </div>
-        </div>
-
-        {/* In Review Column */}
-        <div className="bg-white rounded-3xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-1">
-              <div className="rotate-180">
-                <img alt="arrow" className="w-6 h-6" src={imgIconamoonArrowUp2Fill} />
-              </div>
-              <h3 className="text-2xl font-medium text-[#06263d]">In review</h3>
-            </div>
-            <div className="flex items-center">
-              <img alt="count" className="w-7 h-7" src={imgEllipse3246} />
-              <span className="text-base font-medium text-white ml-1">2</span>
-            </div>
-          </div>
-
-          {/* Table Header */}
-          <div className="bg-[rgba(103,144,155,0.06)] rounded-lg p-4 mb-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-7">
-                <div className="flex items-center gap-4">
-                  <img alt="checkbox" className="w-6 h-6" src={imgCheckbox} />
-                  <div className="flex items-center gap-1">
-                    <span className="text-xl font-medium text-[#252525]">Type</span>
-                    <img alt="sort" className="w-6 h-6" src={imgSort} />
-                  </div>
-                </div>
-                <span className="text-xl font-medium text-[#252525]">Issue Title</span>
-              </div>
-              <div className="flex items-center gap-15">
-                <span className="text-xl font-medium text-[#252525]">Assign to</span>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525]">Status</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525]">Priority</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525] text-right">Due date</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <span className="text-xl font-medium text-[#252525] text-center">Action</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Task Rows */}
-          {[1, 2, 3].map((index) => (
-            <div key={index} className="flex items-start gap-4 mb-4">
-              <div className="flex items-center gap-4">
-                <img alt="drag" className="w-6 h-6" src={imgQlementineIconsDrag16} />
-                <img alt="checkbox" className="w-6 h-6" src={imgCheckbox} />
-              </div>
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-1">
-                  <div className="bg-[#263238] rounded-full p-1">
-                    <img alt="bug" className="w-4 h-4" src={imgMdiBugOutline} />
-                  </div>
-                  <span className="text-xs text-[#666666]">TA – 117</span>
-                </div>
-                <span className="text-base font-medium text-[#252525]">Publish blog page</span>
-              </div>
-              <div className="flex items-center gap-28">
-                <div className="flex items-center gap-12">
-                  <div className="flex items-center gap-12">
-                    <div className="flex items-center gap-12">
-                      <div className="flex items-center gap-1">
-                        <div className="flex -space-x-4">
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse243} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse244} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse245} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse246} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse247} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse242} />
-                        </div>
-                        <span className="text-xs font-medium text-[#333333]">24+</span>
-                      </div>
-                      <div className="bg-[rgba(138,150,247,0.2)] rounded px-3 py-1">
-                        <span className="text-sm font-medium text-[#8a96f7]">To-do</span>
-                      </div>
-                    </div>
-                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-3 py-1">
-                      <span className="text-sm font-medium text-[#d58d49]">Low</span>
-                    </div>
-                  </div>
-                  <span className="text-base font-medium text-[#e52828]">Dec 5</span>
-                </div>
-                <img alt="menu" className="w-6 h-6" src={imgSolarMenuDotsBold} />
-              </div>
-            </div>
-          ))}
-
-          {/* Add Button */}
-          <div className="flex justify-end">
-            <div className="bg-[#67909b] rounded-lg p-2">
-              <img alt="plus" className="w-6 h-6" src={imgIcRoundPlus} />
-            </div>
-          </div>
-        </div>
-
-        {/* Done Column */}
-        <div className="bg-white rounded-3xl p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-1">
-              <div className="rotate-180">
-                <img alt="arrow" className="w-6 h-6" src={imgIconamoonArrowUp2Fill} />
-              </div>
-              <h3 className="text-2xl font-medium text-[#06263d]">Done</h3>
-            </div>
-            <div className="flex items-center">
-              <img alt="count" className="w-7 h-7" src={imgEllipse3246} />
-              <span className="text-base font-medium text-white ml-1">2</span>
-            </div>
-          </div>
-
-          {/* Table Header */}
-          <div className="bg-[rgba(103,144,155,0.06)] rounded-lg p-4 mb-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-7">
-                <div className="flex items-center gap-4">
-                  <img alt="checkbox" className="w-6 h-6" src={imgCheckbox} />
-                  <div className="flex items-center gap-1">
-                    <span className="text-xl font-medium text-[#252525]">Type</span>
-                    <img alt="sort" className="w-6 h-6" src={imgSort} />
-                  </div>
-                </div>
-                <span className="text-xl font-medium text-[#252525]">Issue Title</span>
-              </div>
-              <div className="flex items-center gap-15">
-                <span className="text-xl font-medium text-[#252525]">Assign to</span>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525]">Status</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525]">Priority</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <div className="flex items-center gap-1">
-                  <span className="text-xl font-medium text-[#252525] text-right">Due date</span>
-                  <img alt="sort" className="w-6 h-6" src={imgSort} />
-                </div>
-                <span className="text-xl font-medium text-[#252525] text-center">Action</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Task Rows */}
-          {[1, 2, 3].map((index) => (
-            <div key={index} className="flex items-start gap-4 mb-4">
-              <div className="flex items-center gap-4">
-                <img alt="drag" className="w-6 h-6" src={imgQlementineIconsDrag16} />
-                <img alt="checkbox" className="w-6 h-6" src={imgCheckbox} />
-              </div>
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-1">
-                  <div className="bg-[#263238] rounded-full p-1">
-                    <img alt="bug" className="w-4 h-4" src={imgMdiBugOutline} />
-                  </div>
-                  <span className="text-xs text-[#666666]">TA – 117</span>
-                </div>
-                <span className="text-base font-medium text-[#252525]">Publish blog page</span>
-              </div>
-              <div className="flex items-center gap-28">
-                <div className="flex items-center gap-12">
-                  <div className="flex items-center gap-12">
-                    <div className="flex items-center gap-12">
-                      <div className="flex items-center gap-1">
-                        <div className="flex -space-x-4">
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse243} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse244} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse245} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse246} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse247} />
-                          <img alt="member" className="w-8 h-8 rounded-full border-2 border-white" src={imgEllipse242} />
-                        </div>
-                        <span className="text-xs font-medium text-[#333333]">24+</span>
-                      </div>
-                      <div className="bg-[rgba(138,150,247,0.2)] rounded px-3 py-1">
-                        <span className="text-sm font-medium text-[#8a96f7]">To-do</span>
-                      </div>
-                    </div>
-                    <div className="bg-[rgba(223,168,116,0.2)] rounded px-3 py-1">
-                      <span className="text-sm font-medium text-[#d58d49]">Low</span>
-                    </div>
-                  </div>
-                  <span className="text-base font-medium text-[#e52828]">Dec 5</span>
-                </div>
-                <img alt="menu" className="w-6 h-6" src={imgSolarMenuDotsBold} />
-              </div>
-            </div>
-          ))}
-
-          {/* Add Button */}
-          <div className="flex justify-end">
-            <div className="bg-[#67909b] rounded-lg p-2">
-              <img alt="plus" className="w-6 h-6" src={imgIcRoundPlus} />
-            </div>
-          </div>
-        </div>
-      </div>
+      )}
+      
     </div>
   );
 } 

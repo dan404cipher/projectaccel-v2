@@ -21,44 +21,44 @@ export const PriorityBreakdown = () => {
         return () => window.removeEventListener('resize', updateHeight);
     }, []);
 
-         const [state] = useState({
-         series: [44, 55, 41, 17, 15],
-         options: {
-             chart: {
-                 type: "donut" as const,
-             },
-             plotOptions: {
-                 pie: {
-                     expandOnClick: false,
-                     borderRadius: 8,
-                     dataLabels: {
-                         offset: 0,
-                     },
-                     startAngle: 0,
-                     endAngle: 360,
-                     donut: {
-                         size: "70%",
-                         labels: {
-                             show: true,
-                             total: {
-                                 show: true,
-                                 label: "",
-                                 color: "#4B908F",
-                                 fontSize: "32px",
-                                 fontWeight: 600,
-                                 formatter: () => "32",
-                             },
-                         },
-                     },
-                 }
-             },
-             stroke: {
-                 show: true,
-                 width: 15,
-                 colors: ['#fff'],
-                 lineCap: 'round' as const,
-             },
-             colors: ["#2A9D90", "#228277", "#2A9D90", "rgba(42, 157, 144, 0.5)", "rgba(42, 157, 144, 0.2)"],
+    const [state] = useState({
+        series: [44, 55, 41, 17, 15],
+        options: {
+            chart: {
+                type: "donut" as const,
+            },
+            plotOptions: {
+                pie: {
+                    expandOnClick: false,
+                    borderRadius: 8,
+                    dataLabels: {
+                        offset: 0,
+                    },
+                    startAngle: 0,
+                    endAngle: 360,
+                    donut: {
+                        size: "70%",
+                        labels: {
+                            show: true,
+                            total: {
+                                show: true,
+                                label: "",
+                                color: "#4B908F",
+                                fontSize: "32px",
+                                fontWeight: 600,
+                                formatter: () => "32",
+                            },
+                        },
+                    },
+                }
+            },
+            stroke: {
+                show: true,
+                width: 15,
+                colors: ['#fff'],
+                lineCap: 'round' as const,
+            },
+            colors: ["#2A9D90", "#228277", "#2A9D90", "rgba(42, 157, 144, 0.5)", "rgba(42, 157, 144, 0.2)"],
             legend: {
                 position: "right" as const,
                 show: false,
@@ -76,33 +76,33 @@ export const PriorityBreakdown = () => {
         },
     });
 
-         const items = [
-         {
-             name: "Highest",
-             value: 44,
-             color: "#FBBF24",
-         },
-         {
-             name: "High",
-             value: 55,
-             color: "#3B82F6",
-         },
-         {
-             name: "Medium",
-             value: 41,
-             color: "#EF4444",
-         },
-         {
-             name: "Low",
-             value: 17,
-             color: "#22C55E",
-         },
-         {
-             name: "Lowest",
-             value: 15,
-             color: "#86EFAC",
-         },
-     ]
+    const items = [
+        {
+            name: "Highest",
+            value: 44,
+            color: "#FBBF24",
+        },
+        {
+            name: "High",
+            value: 55,
+            color: "#3B82F6",
+        },
+        {
+            name: "Medium",
+            value: 41,
+            color: "#EF4444",
+        },
+        {
+            name: "Low",
+            value: 17,
+            color: "#22C55E",
+        },
+        {
+            name: "Lowest",
+            value: 15,
+            color: "#86EFAC",
+        },
+    ]
 
     return (
         <div
@@ -127,7 +127,7 @@ export const PriorityBreakdown = () => {
                     {
                         items.map((item, index) => (
                             <div key={index} className="flex items-center gap-2">
-                               <div className="w-4 h-4 rounded-full" style={{ border: `3px solid ${item.color}` }}></div>
+                                <div className="w-4 h-4 rounded-full" style={{ border: `3px solid ${item.color}` }}></div>
                                 <span className="text-sm font-medium">{item.name}</span>
                             </div>
                         ))

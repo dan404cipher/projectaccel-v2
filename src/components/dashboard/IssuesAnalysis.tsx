@@ -12,7 +12,7 @@ const issueAnalysisData = [
     { label: "Sat", value: 5.5, color: "#648E92" },
 ];
 
-const IssuesAnalysis = () => {
+const IssuesAnalysis = ({className}:{className?:string}) => {
     const chartOptions = {
         chart: {
             type: "bar" as const,
@@ -81,7 +81,7 @@ const IssuesAnalysis = () => {
     ];
 
     return (
-        <div className="bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col gap-2 p-[1.5rem]">
+            <div className={`bg-white h-auto min-h-[300px] sm:min-h-[350px] lg:h-[395px] w-full rounded-2xl sm:rounded-3xl shadow-[0px_9px_20px_0px_rgba(46,35,94,0.07)] flex flex-col gap-2 p-[1.5rem] ${className}`}>
             <div className=" flex items-center justify-between  gap-4">
                 <div className="flex items-center gap-2 ">
                     <div className="w-6 h-6 sm:w-8 sm:h-8 bg-[#06263D] rounded-lg flex items-center justify-center">
@@ -100,7 +100,7 @@ const IssuesAnalysis = () => {
                         <span>11-18 Sep 2025</span>
                     </div>
                     <Select defaultValue="week">
-                        <SelectTrigger className="w-[80px] h-8 bg-[#06263D] text-white border-none">
+                        <SelectTrigger className="w-[80px] h-8 bg-[#67909b] text-white border-none">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
