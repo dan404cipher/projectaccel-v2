@@ -21,7 +21,7 @@ import ProjectTeamAddMember from "./pages/ProjectTeamAddMember";
 import BacklogPrototype from "./pages/BacklogPrototype";
 import ProjectKanbanBoard from "./pages/ProjectKanbanBoard";
 import ProjectCalendarView from "./pages/ProjectCalendarView";
-import ActiveSprintListView from "./pages/ActiveSprintListView";
+import ActiveSprint from "./pages/ActiveSprint";
 import AddTask from "./pages/AddTask";
 import ProjectActiveSprintCalendarViewMonthly from "./pages/ProjectActiveSprintCalendarViewMonthly";
 import ProfileScreen from "./pages/ProfileScreen";
@@ -58,7 +58,7 @@ function App() {
               <Route path="backlog" element={<BacklogPrototype />} />
               <Route path="project-kanban-board" element={<ProjectKanbanBoard />} />
               <Route path="calendar" element={<ProjectCalendarView />} />
-              <Route path="active-sprint" element={<ActiveSprintListView />} />
+              <Route path="active-sprint" element={<ActiveSprint />} />
               <Route path="add-task" element={<AddTask />} />
               <Route path="chat" element={<ProjectActiveSprintCalendarViewMonthly />} />
               <Route path="profile" element={<ProfileScreen />} />

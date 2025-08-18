@@ -3,7 +3,7 @@ import { Checkbox } from "../ui/checkbox";
 import { render } from "react-dom";
 
 
-export const CustomTable: React.FC<{ draggable?: boolean; selectable?: boolean,data:any[],columns:any[] }> = ({ draggable, selectable,data,columns }) => {
+export const CustomTable: React.FC<{ draggable?: boolean; selectable?: boolean,data:any[],columns:any[],className?:string }> = ({ draggable, selectable,data,columns,className }) => {
     const [checkbox, setCheckbox] = useState(false)
 
 
@@ -13,7 +13,7 @@ export const CustomTable: React.FC<{ draggable?: boolean; selectable?: boolean,d
         }
     ]
     return (
-        <table className="w-full text-sm  p-5">
+        <table className={`w-full h-full text-sm  p-5 ${className}`}>
             <thead className="bg-[#EEF1F2]">
                 <tr>
                     {draggable && (
@@ -51,7 +51,7 @@ export const CustomTable: React.FC<{ draggable?: boolean; selectable?: boolean,d
                     }
                 </tr>
             </thead>
-            <tbody>
+            <tbody className="pb-2">
                 {data.map((row, rowIndex) => (
                     <tr
                         key={rowIndex}
