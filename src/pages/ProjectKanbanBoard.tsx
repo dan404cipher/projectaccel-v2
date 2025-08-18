@@ -1,30 +1,9 @@
-import { title } from "process";
 import { useState } from "react";
 
 // Image assets from Figma design
-const imgEllipse12 = "/icons/8dfb37f1c44b89cb8fd0798a06c53bd80dcfc600.png";
-const imgEllipse13 = "/icons/732647e8b520de80006c6fe583f7fa220490cccf.png";
-const imgEllipse15 = "/icons/d6fe311a0f3e161a383b51f2328646aa2f1c672a.png";
 const imgEllipse248 = "/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
 const imgEllipse242 = "/icons/2c9169f96717641f0bb06a7a6be7046836bd4ada.png";
 const imgEllipse246 = "/icons/be8f7c59d45aca4f6175e23713a9d21d9742abc7.png";
-const imgGroup3 = "/icons/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg";
-const imgSiDashboardFill = "http://localhost:3845/assets/5ac3c5615fbd1cad010f0b75903f41f026f896e6.svg";
-const imgCodiconDebugStepBack = "http://localhost:3845/assets/2176357e9181f53976019d69384d18af292f2abf.svg";
-const imgFluentArrowSprint20Filled = "http://localhost:3845/assets/2ec924c70b4581fb8ce85d780f89be6ca89bd48f.svg";
-const imgPhKanbanFill = "http://localhost:3845/assets/e2ce8adfcd886987cce0123d57e63e02541a1d0d.svg";
-const imgClarityDateLine = "http://localhost:3845/assets/064b642908ce6cbe140760e38a6e00e45ce77a36.svg";
-const img1 = "http://localhost:3845/assets/32071ad77bcf9778ea9aae10b7520bd900ac8779.svg";
-const imgFluentAttach28Regular = "http://localhost:3845/assets/0b65a341c3ab47931dd25e72e72b0e139b46c905.svg";
-const imgMdiBugOutline = "http://localhost:3845/assets/cb2280d66195675cdb1a349a2b097f5c140ee578.svg";
-const imgSolarMenuDotsBold = "http://localhost:3845/assets/47e9bb51bb7dfdf67ffe9d9c86d8c6a51cf3b83b.svg";
-const imgGroup4 = "http://localhost:3845/assets/35c5b2d24ff24f1d3138f02467137d71a2b9ae93.svg";
-const imgLucideSortDesc = "http://localhost:3845/assets/9d83a8d7e9a88e769a7429c861aa53a5c092b1c5.svg";
-const imgFluentGroup24Regular = "http://localhost:3845/assets/c66d9c4f0de85cf008c34c3ad437fa008be564db.svg";
-const imgFluentArrowSprint20Filled1 = "http://localhost:3845/assets/73f802ab897d9a51d1c751ca20d91a3752bdac65.svg";
-const imgIcRoundPlus1 = "http://localhost:3845/assets/dd4dc3f173b43504e12901612a14573c7f02aef5.svg";
-const imgGroup5 = "http://localhost:3845/assets/2e309aa74b76b1ebfdfb2f41c4d8d82d5c6e1c26.svg";
-
 const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
 const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
 const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
@@ -163,6 +142,22 @@ export default function ProjectKanbanBoard() {
     },
   ]);
 
+  const [draggedData,setDraggedData]=useState<any>(null);
+
+
+  const handleDragStart = (data:any, e:any) => {
+    setDraggedData(data);
+    e.dataTransfer.effectAllowed = "move";
+    // e.dataTransfer.setData("text/html", e.target.outerHTML);
+    // const img = new Image();
+    // img.src =
+    //   "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='0' height='0'></svg>";
+    // e.dataTransfer.setDragImage(img, 0, 0);
+  };
+
+  const handleDragOver = (e:any) => {
+    e.preventDefault();
+  };
 
 
   return (
@@ -259,8 +254,8 @@ export default function ProjectKanbanBoard() {
                 <div className="space-y-4">
                   {
                     task?.data.map((data) => (
-                      < div className="bg-white rounded-2xl p-4 shadow-sm  flex flex-col gap-1" >
-                        <div className="flex items-center justify-between">
+                      < div className="bg-white rounded-2xl p-4 shadow-sm  flex flex-col gap-1" draggable onDragStart={(e) => handleDragStart(data, e)}>
+                        <div className="flex items-center justify-between" onDragOver={handleDragOver}>
                           <div className="flex items-center gap-2">
                             <div className="bg-[#263238] rounded-full w-5 h-5 flex items-center justify-center">
                               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
