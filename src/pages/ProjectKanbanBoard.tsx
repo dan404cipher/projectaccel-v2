@@ -339,7 +339,7 @@ export default function ProjectKanbanBoard() {
                             : 'bg-white hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1'
                           }`}
                         style={{
-                          transform: draggedData?.bugId === taskData.bugId ? 'scale(0.95) rotate(5deg)' : undefined,
+                          transform: draggedData?.bugId === taskData.bugId ? 'scale(0.95)' : undefined,
                           zIndex: draggedData?.bugId === taskData.bugId ? 50 : 'auto'
                         }}
                         draggable
