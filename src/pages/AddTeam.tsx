@@ -1,13 +1,11 @@
-import ProjectHeader from '@/components/ProjectHeader';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import ProjectHeader from "@/components/ProjectHeader";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CalentIcon from '/icons/Vector.svg';
 import ClockIcon from '/icons/Timer.svg';
 import TaskIcon from '/icons/Task.svg';
+import HighIcon from '/icons/Chart.svg';
 
-
-// Image assets from Figma design
-const imgIcRoundPlus = "http://localhost:3845/assets/a7c0c75d0ec0a1982d46bc19093df55b021a401c.svg";
 const imgPhKanbanFill = "http://localhost:3845/assets/fdfd6519ff8dc5acdbb6048589d6921fea71cbe8.svg";
 const imgProiconsTaskList = "http://localhost:3845/assets/935666228f191e7eff80fb57543eff5c627baebf.svg";
 const imgFontistoDate = "http://localhost:3845/assets/bce17fdf9a51ff413188a2e607f8b8803f6fae97.svg";
@@ -15,32 +13,62 @@ const imgMynauiChartGantt = "http://localhost:3845/assets/e178fe15f264f6b933e72f
 const imgEllipse7 = "http://localhost:3845/assets/4415cf6b90ae6200aee0458930211f231742cfb8.png";
 const imgEllipse248 = "/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
 
+export const ActiveTeamMember = ({ member }: { member: any }) => {
+  return (
+    <div className='w-full rounded-2xl h-fit flex gap-3 px-5 py-4 bg-white'>
+      <div className='flex items-start justify-center  w-fit '>
+        <img alt="member" className="w-10 h-10 rounded-full transition-transform duration-200 " src={imgEllipse248} />
+      </div>
+      <div className=' flex flex-col w-full'>
+        <div className='flex items-center justify-between'>
+          <div className='flex flex-col'>
+            <span className='text-base font-medium text-[#000000]'>{member.name}</span>
+            <div className='flex items-center gap-4'><span className="className='text-sm text-[#888888] font-medium'">{member.role}</span><span> 4 years</span></div>
+          </div>
+          <div className='flex items-center gap-5'>
+            <div className='flex items-center gap-2'>
+              <img src={HighIcon} alt="calendar" className='w-4 h-4' />
+              <span className='text-sm text-[#22C55D] font-medium'>High Availability</span>
+            </div>
+            <div className='flex items-center w-6 h-6 rounded-md bg-[#67909B]'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12.9961 6V11H17.9961C18.2613 11 18.5157 11.1054 18.7032 11.2929C18.8907 11.4804 18.9961 11.7348 18.9961 12C18.9961 12.2652 18.8907 12.5196 18.7032 12.7071C18.5157 12.8946 18.2613 13 17.9961 13H12.9961V18C12.9961 18.2652 12.8907 18.5196 12.7032 18.7071C12.5157 18.8946 12.2613 19 11.9961 19C11.7309 19 11.4765 18.8946 11.289 18.7071C11.1015 18.5196 10.9961 18.2652 10.9961 18V13H5.99609C5.73088 13 5.47652 12.8946 5.28899 12.7071C5.10145 12.5196 4.99609 12.2652 4.99609 12C4.99609 11.7348 5.10145 11.4804 5.28899 11.2929C5.47652 11.1054 5.73088 11 5.99609 11H10.9961V6C10.9961 5.73478 11.1015 5.48043 11.289 5.29289C11.4765 5.10536 11.7309 5 11.9961 5C12.2613 5 12.5157 5.10536 12.7032 5.29289C12.8907 5.48043 12.9961 5.73478 12.9961 6Z" fill="white" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div className="py-2">
+          <div className="flex items-center justify-between mb-2">
+            <div className="w-full bg-gray-200 rounded-full h-3 mr-4">
+              <div className="bg-teal-600 h-3 rounded-full" style={{ width: `${member.progress}%` }}></div>
+            </div>
+            <span className="text-gray-700 font-medium text-lg">{member.progress}%</span>
+          </div>
+        </div>
+        <div className='flex items-center gap-3'>
+          {
+            member.skills.map((skill) => (
+              <div className='bg-[#F0F5F8] rounded-3xl px-2 py-1 flex items-center justify-center'>
+                <span className='text-[#666666] text-sm font-medium'>{skill}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
 
-interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  avatar: string;
-  dateRange: string;
-  tasks: number;
-  timeSpent: string;
-  progress: number;
-  skills: string[];
+    </div>
+  )
 }
 
-interface ViewMode {
-  id: string;
-  icon: string;
-  isActive: boolean;
-}
-
-export default function ProjectTeam() {
+export const AddTeam = () => {
   const [activeTab, setActiveTab] = useState('team');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [openAddMemberModal, setOpenAddMemberModal] = useState(false);
   const navigate = useNavigate();
 
-  const teamMembers: TeamMember[] = [
+  const handleTabClick = (tab: string) => {
+    setActiveTab(tab);
+  };
+
+  const teamMembers = [
     {
       id: '1',
       name: 'Saranya',
@@ -109,39 +137,21 @@ export default function ProjectTeam() {
     }
   ];
 
-  const viewModes: ViewMode[] = [
-    { id: 'kanban', icon: imgPhKanbanFill, isActive: true },
-    { id: 'list', icon: imgProiconsTaskList, isActive: false },
-    { id: 'calendar', icon: imgFontistoDate, isActive: false },
-    { id: 'gantt', icon: imgMynauiChartGantt, isActive: false }
-  ];
-
-  const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
-  };
-
-  const handleViewModeClick = (viewId: string) => {
-    console.log('View mode changed to:', viewId);
-  };
-
-  const handleAddMember = () => {
-    navigate('/team/add-member');
-  };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full max-h-full">
       {/* Breadcrumb */}
       <ProjectHeader projectName="Example project name" activeTab="team" onTabChange={handleTabClick} />
 
-      {/* Content area */}
-      <div className="bg-[#f2f2f2] rounded-tl-[40px] rounded-tr-[40px] h-[802px] w-full relative">
+      {/* content Area  */}
+      <div className=" rounded-2xl max-h-full h-full w-full overflow-hidden">
         {/* Team header */}
         <div className='flex items-center justify-between px-8 py-5'>
           <div className="flex items-center gap-4  ">
-            <h2 className="font-medium text-[#06263d] text-2xl">Current team members</h2>
+            <h2 className="font-medium text-[#06263d] text-2xl">Active Member</h2>
             <div className="flex items-center gap-1">
               <div className="bg-[#438197] rounded-full w-6 h-6 flex items-center justify-center">
-                <span className="text-white text-sm font-medium">{teamMembers.length ||0}</span>
+                <span className="text-white text-sm font-medium">{0}</span>
               </div>
             </div>
           </div>
@@ -173,7 +183,7 @@ export default function ProjectTeam() {
                 </svg>
               </div>
             </div>
-            <button className="bg-[#67909b] text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-[#5a7d87] hover:scale-105 hover:shadow-lg flex items-center" onClick={()=>navigate('/add-team')}>
+            <button className="bg-[#67909b] text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-[#5a7d87] hover:scale-105 hover:shadow-lg flex items-center" onClick={() => navigate('/add-team')}>
               <span className='flex items-center justify-center'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M12.9961 6V11H17.9961C18.2613 11 18.5157 11.1054 18.7032 11.2929C18.8907 11.4804 18.9961 11.7348 18.9961 12C18.9961 12.2652 18.8907 12.5196 18.7032 12.7071C18.5157 12.8946 18.2613 13 17.9961 13H12.9961V18C12.9961 18.2652 12.8907 18.5196 12.7032 18.7071C12.5157 18.8946 12.2613 19 11.9961 19C11.7309 19 11.4765 18.8946 11.289 18.7071C11.1015 18.5196 10.9961 18.2652 10.9961 18V13H5.99609C5.73088 13 5.47652 12.8946 5.28899 12.7071C5.10145 12.5196 4.99609 12.2652 4.99609 12C4.99609 11.7348 5.10145 11.4804 5.28899 11.2929C5.47652 11.1054 5.73088 11 5.99609 11H10.9961V6C10.9961 5.73478 11.1015 5.48043 11.289 5.29289C11.4765 5.10536 11.7309 5 11.9961 5C12.2613 5 12.5157 5.10536 12.7032 5.29289C12.8907 5.48043 12.9961 5.73478 12.9961 6Z" fill="white" />
@@ -185,66 +195,15 @@ export default function ProjectTeam() {
             </button>
           </div>
         </div>
-
-        {/* Team members grid */}
-        <div className='grid grid-cols-2  gap-4 px-8'>
-          {
-            teamMembers.map((member) => (
-              <TeamMemberCard key={member.id} member={member} />
-            ))
-          }
+        <div className="grid grid-cols-2 gap-5 px-8 max-h-full w-full h-full bg-red-400">
+          <div className="w-full h-full min-h-full max-h-[calc(100%-100px)] bg-orange-500 rounded-lg overflow-y-scroll">
+            s
+          </div>
+          <div className="w-full h-full min-h-full max-h-[calc(100%-100px)] bg-yellow-400 rounded-lg overflow-y-scroll">
+            s
+          </div>
         </div>
       </div>
     </div>
   );
-}
-
-// Team Member Card Component
-export const TeamMemberCard = ({ member }: { member: TeamMember }) => {
-  return (
-    <div className='w-full rounded-2xl h-fit flex gap-3 px-5 py-4 bg-white'>
-      <div className='flex items-start justify-center  w-fit '>
-        <img alt="member" className="w-10 h-10 rounded-full transition-transform duration-200 " src={imgEllipse248} />
-      </div>
-      <div className=' flex flex-col w-full'>
-        <div className='flex items-center justify-between'>
-          <div className='flex flex-col'>
-            <span className='text-base font-medium text-[#000000]'>{member.name}</span>
-            <span className='text-sm text-[#888888] font-medium'>{member.role}</span>
-          </div>
-          <div className='flex items-start gap-5'>
-            <div className='flex items-center gap-2'>
-              <img src={CalentIcon} alt="calendar" className='w-4 h-4' />
-              <span className='text-sm text-[#888888] font-medium'>{member.dateRange || 'no'}</span>
-            </div>
-            <div className='flex items-center gap-2'>
-              <img src={TaskIcon} alt="calendar" className='w-4 h-4' />
-              <span className='text-sm text-[#888888] font-medium'>{member.tasks || 'no'} Tasks</span>
-            </div>
-            <div className='flex items-center gap-2'>
-              <img src={ClockIcon} alt="calendar" className='w-4 h-4' />
-              <span className='text-sm text-[#888888] font-medium'>{member.timeSpent}</span>
-            </div>
-          </div>
-        </div>
-        <div className="py-2">
-          <div className="flex items-center justify-between mb-2">
-            <div className="w-full bg-gray-200 rounded-full h-3 mr-4">
-              <div className="bg-teal-600 h-3 rounded-full" style={{ width: `${member.progress}%` }}></div>
-            </div>
-            <span className="text-gray-700 font-medium text-lg">{member.progress}%</span>
-          </div>
-        </div>
-        <div className='flex items-center gap-3'>
-          {
-            member.skills.map((skill) => (
-              <div className='bg-[#F0F5F8] rounded-3xl px-2 py-1 flex items-center justify-center'>
-                <span className='text-[#666666] text-sm font-medium'>{skill}</span>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  )
-}
+};

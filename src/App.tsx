@@ -27,6 +27,7 @@ import ProjectActiveSprintCalendarViewMonthly from "./pages/ProjectActiveSprintC
 import ProfileScreen from "./pages/ProfileScreen";
 import PreferenceScreen from "./pages/PreferenceScreen";
 import NotificationSettingScreen from "./pages/NotificationSettingScreen";
+import  {AddTeam}  from "./pages/AddTeam";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,7 @@ function App() {
               <Route path="profile" element={<ProfileScreen />} />
               <Route path="preference" element={<PreferenceScreen />} />
               <Route path="notification" element={<NotificationSettingScreen />} />
+              <Route path="add-team" element={<AddTeam />} />
             </Route>
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

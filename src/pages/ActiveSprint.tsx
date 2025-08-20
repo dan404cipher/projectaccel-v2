@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import ProjectHeader from '@/components/ProjectHeader';
 import ProjectKanbanBoard from './ProjectKanbanBoard';
 import ActiveSprintListView from './ActiveSprintListView';
+import ProjectCalendarView from './ProjectCalendarView';
 
 export default function ActiveSprint() {
   const navigate = useNavigate();
-  const [activeSprintTab, setActiveSprintTab] = useState<'kanbanView' | 'listView' | 'sortByStatus'>('kanbanView');
+  const [activeSprintTab, setActiveSprintTab] = useState<'kanbanView' | 'listView' | 'calenderView' | 'chartView'>('kanbanView');
 
   const handleTabClick = (tab: string) => {
     switch (tab) {
@@ -17,7 +18,7 @@ export default function ActiveSprint() {
         navigate('/backlog');
         break;
       case 'sprint':
-        navigate('/active-sprint');
+        navigate('/active-sprint'); 
         break;
       case 'team':
         navigate('/team');
@@ -31,7 +32,7 @@ export default function ActiveSprint() {
   };
 
   const handleActiveSprintTabChange = (tab: string) => {
-    setActiveSprintTab(tab as 'kanbanView' | 'listView' | 'sortByStatus');
+    setActiveSprintTab(tab as 'kanbanView' | 'listView' | 'calenderView' | 'chartView');
   };
   return (
     <div className="h-full w-full flex flex-col overflow-hidden rounded-lg">
@@ -41,7 +42,7 @@ export default function ActiveSprint() {
         activeTab="sprint"
         activeSprintTab={activeSprintTab}
         onTabChange={handleTabClick}
-                onActiveSprintTabChange={handleActiveSprintTabChange}
+        onActiveSprintTabChange={handleActiveSprintTabChange}
       />
 
       {/* Conditional Content Based on Active Sprint Tab */}
@@ -53,14 +54,8 @@ export default function ActiveSprint() {
         <ActiveSprintListView/>
       )}
 
-      {activeSprintTab === "sortByStatus" && (
-        <div className="p-4">
-          <h2 className="text-xl font-semibold text-[#06263d] mb-4">Sort by Status</h2>
-          <div className="bg-white rounded-lg p-6 shadow-sm">
-            <p className="text-gray-600">Sort by status content will be displayed here.</p>
-            {/* Add your sort by status component here */}
-          </div>
-        </div>
+      {activeSprintTab === "calenderView" && (
+        <ProjectCalendarView/>
       )}
       
     </div>

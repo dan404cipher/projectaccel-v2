@@ -18,7 +18,7 @@ const imgFluentArrowSprint20Filled = "/icons/2ec924c70b4581fb8ce85d780f89be6ca89
 interface ProjectHeaderProps {
   projectName?: string;
   activeTab?: 'overview' | 'backlog' | 'sprint' | 'team' | 'report';
-  activeSprintTab?: 'kanbanView' | 'listView' | 'sortByStatus';
+  activeSprintTab?: 'kanbanView' | 'listView' | 'calenderView' | 'chartView';
   onTabChange?: (tab: string) => void;
   onActiveSprintTabChange?: (tab: string) => void;
 }
@@ -72,10 +72,10 @@ const ProjectHeader: React.FC<ProjectHeaderProps> = ({
         tabName = 'listView';
         break;
       case 3:
-        tabName = 'sortByStatus';
+        tabName = 'calenderView';
         break;
       case 4:
-        tabName = 'sortByStatus';
+        tabName = 'chartView';
         break;
       default:
         tabName = 'listView';
@@ -99,7 +99,7 @@ const ProjectHeader: React.FC<ProjectHeaderProps> = ({
     },
     {
       id:3,
-      name: 'sortByStatus',
+      name: 'calenderView',
      icon:MdOutlineCalendarMonth
     },
   {

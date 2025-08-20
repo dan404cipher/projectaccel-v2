@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Layout } from '@/components/layout/Layout';
-import { Calendar } from '@/components/ui/calendar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Plus, Search, Filter, Calendar as CalendarIcon } from 'lucide-react';
-
+import Calendar from '@/components/Calender';
+import taskIcon from '/icons/hugeicons_task-01.svg';
 export default function ProjectCalendarView() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<'month' | 'week' | 'day'>('month');
+  const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+  const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+  const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+  const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
   // Sample project events/tasks
   const projectEvents = [
@@ -57,250 +57,331 @@ export default function ProjectCalendarView() {
   };
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { 
-      month: 'long', 
-      year: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+      month: 'long',
+      year: 'numeric'
     });
   };
 
   const getEventsForDate = (date: Date) => {
-    return projectEvents.filter(event => 
+    return projectEvents.filter(event =>
       event.date.toDateString() === date.toDateString()
     );
   };
 
+  const calendarTabs = [
+    {
+      id: 1,
+      name: 'month',
+      title: 'Month'
+    },
+    {
+      id: 2,
+      name: 'week',
+      title: 'Week'
+    },
+    {
+      id: 3,
+      name: 'day',
+      title: 'Day'
+    }
+  ];
+
   return (
-    <Layout>
-      <div className="bg-[#f6f6f6] min-h-screen w-full px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-6 sm:mb-8 lg:mb-10">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900">
-                Project Calendar
-              </h1>
-              <p className="text-gray-600 mt-1">
-                Track project milestones, deadlines, and team activities
-              </p>
+    <div className='bg-[#F2F2F2]  h-full rounded-2xl w-full flex flex-col overflow-scroll'>
+      <div className='flex items-center justify-between px-5 py-6'>
+        <div className='flex items-center gap-4'>
+          <div className='bg-white rounded-2xl flex items-center gap-2 px-4 py-2 cursor-pointer'>
+            {calendarTabs.map((tab) => (
+              <span key={tab.id} className={`${viewMode === tab.name ? "bg-[#06263D] text-white " : "text-[#06263D]"}text-sm font-medium  cursor-pointer px-2 py-1 rounded-md`} onClick={() => setViewMode(tab.name as 'month' | 'week' | 'day')}>
+                {tab.title}
+              </span>
+            ))}
+          </div>
+          <div className='flex items-center gap-4 bg-[#67909B] px-2 py-2 rounded-md'>
+            <div className='bg-[#455A6466] rounded-full text-white cursor-pointer'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-left-icon lucide-chevron-left"><path d="m15 18-6-6 6-6" /></svg>
             </div>
-            
-            <div className="flex items-center gap-4">
-              <Button variant="outline" size="sm">
-                <Search className="w-4 h-4 mr-2" />
-                Search
-              </Button>
-              <Button variant="outline" size="sm">
-                <Filter className="w-4 h-4 mr-2" />
-                Filter
-              </Button>
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                <Plus className="w-4 h-4 mr-2" />
-                Add Event
-              </Button>
+            <span className="font-medium text-white whitespace-nowrap">14 sep- 18 oct</span>
+            <div className='bg-[#455A6466] rounded-full text-white cursor-pointer'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-right-icon lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
             </div>
           </div>
 
-          {/* Calendar Controls */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => navigateMonth('prev')}
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </Button>
-                <h2 className="text-xl font-semibold text-gray-900 min-w-48 text-center">
-                  {formatDate(currentDate)}
-                </h2>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => navigateMonth('next')}
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
-              
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => setCurrentDate(new Date())}
-              >
-                Today
-              </Button>
-            </div>
-
-            {/* View Mode Toggles */}
-            <div className="flex bg-gray-100 rounded-lg p-1">
-              {(['month', 'week', 'day'] as const).map((mode) => (
-                <Button
-                  key={mode}
-                  variant={viewMode === mode ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setViewMode(mode)}
-                  className="capitalize"
-                >
-                  {mode}
-                </Button>
-              ))}
-            </div>
+          <div className='bg-[#67909B] text-white px-4 py-2 rounded-md cursor-pointer'>
+            Today
           </div>
         </div>
-
-        <div className="flex gap-6">
-          {/* Main Calendar */}
-          <div className="flex-1">
-            <Card className="shadow-sm">
-              <CardContent className="p-6">
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={setSelectedDate}
-                  month={currentDate}
-                  onMonthChange={setCurrentDate}
-                  className="w-full"
-                  components={{
-                    Day: ({ date, ...props }) => {
-                      const events = getEventsForDate(date);
-                      const isToday = date.toDateString() === new Date().toDateString();
-                      
-                      return (
-                        <div className="relative w-full h-full">
-                          <button
-                            {...props}
-                            className={`
-                              w-full h-16 p-1 border border-gray-200 text-left hover:bg-gray-50
-                              ${isToday ? 'bg-blue-50 border-blue-200' : ''}
-                              ${selectedDate?.toDateString() === date.toDateString() ? 'bg-blue-100' : ''}
-                            `}
-                          >
-                            <div className="text-sm font-medium text-gray-900 mb-1">
-                              {date.getDate()}
-                            </div>
-                            <div className="space-y-1">
-                              {events.slice(0, 2).map((event) => (
-                                <div
-                                  key={event.id}
-                                  className={`text-xs px-1 py-0.5 rounded text-white truncate ${event.color}`}
-                                >
-                                  {event.title}
-                                </div>
-                              ))}
-                              {events.length > 2 && (
-                                <div className="text-xs text-gray-500">
-                                  +{events.length - 2} more
-                                </div>
-                              )}
-                            </div>
-                          </button>
-                        </div>
-                      );
-                    }
-                  }}
-                />
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Sidebar */}
-          <div className="w-80 space-y-6">
-            {/* Selected Date Events */}
-            <Card className="shadow-sm">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CalendarIcon className="w-5 h-5" />
-                  {selectedDate ? selectedDate.toLocaleDateString('en-US', { 
-                    weekday: 'long',
-                    month: 'long', 
-                    day: 'numeric' 
-                  }) : 'Select a date'}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {selectedDate && getEventsForDate(selectedDate).length > 0 ? (
-                  <div className="space-y-3">
-                    {getEventsForDate(selectedDate).map((event) => (
-                      <div key={event.id} className="p-3 bg-gray-50 rounded-lg">
-                        <div className="flex items-center gap-2 mb-1">
-                          <div className={`w-2 h-2 rounded-full ${event.color}`} />
-                          <span className="font-medium text-sm">{event.title}</span>
-                        </div>
-                        <div className="text-xs text-gray-600 capitalize">
-                          {event.type} • {event.priority} priority
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-gray-500 text-sm">
-                    {selectedDate ? 'No events for this date' : 'Select a date to view events'}
-                  </p>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Upcoming Events */}
-            <Card className="shadow-sm">
-              <CardHeader>
-                <CardTitle>Upcoming Events</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {projectEvents
-                    .filter(event => event.date >= new Date())
-                    .sort((a, b) => a.date.getTime() - b.date.getTime())
-                    .slice(0, 5)
-                    .map((event) => (
-                      <div key={event.id} className="flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full ${event.color}`} />
-                        <div className="flex-1">
-                          <div className="text-sm font-medium">{event.title}</div>
-                          <div className="text-xs text-gray-500">
-                            {event.date.toLocaleDateString('en-US', { 
-                              month: 'short', 
-                              day: 'numeric' 
-                            })}
-                          </div>
-                        </div>
-                        <div className={`
-                          text-xs px-2 py-1 rounded-full capitalize
-                          ${event.priority === 'high' ? 'bg-red-100 text-red-700' : 
-                            event.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' : 
-                            'bg-gray-100 text-gray-700'}
-                        `}>
-                          {event.priority}
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Quick Actions */}
-            <Card className="shadow-sm">
-              <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <Button variant="outline" className="w-full justify-start">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Meeting
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <CalendarIcon className="w-4 h-4 mr-2" />
-                  Set Deadline
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <Search className="w-4 h-4 mr-2" />
-                  View All Events
-                </Button>
-              </CardContent>
-            </Card>
+        {/* Action Buttons */}
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-9 h-9 bg-[#67909b] rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-[#5a7d87] hover:scale-105 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <g clipPath="url(#clip0_5_28200)">
+                  <path d="M6.16363 10.8888C8.77168 10.8888 10.8859 8.77461 10.8859 6.16656C10.8859 3.5585 8.77168 1.44434 6.16363 1.44434C3.55557 1.44434 1.44141 3.5585 1.44141 6.16656C1.44141 8.77461 3.55557 10.8888 6.16363 10.8888Z" stroke="white" stroke-linejoin="round" />
+                  <path d="M7.73653 4.31734C7.5304 4.11068 7.28546 3.9468 7.01578 3.83511C6.74611 3.72341 6.45703 3.66612 6.16514 3.66651C5.87325 3.66612 5.58417 3.72341 5.31449 3.83511C5.04482 3.9468 4.79988 4.11068 4.59375 4.31734M9.56014 9.56151L11.9171 11.9185" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_5_28200">
+                    <rect width="13.3333" height="13.3333" fill="white" transform="translate(0.332031 0.333252)" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+            <div className="w-9 h-9 bg-[#67909b] rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-[#5a7d87] hover:scale-105 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 10.6667L4.66667 13.3334M4.66667 13.3334L7.33333 10.6667M4.66667 13.3334V2.66675M7.33333 2.66675H14M7.33333 5.33342H12M7.33333 8.00008H10" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <div className="w-9 h-9 bg-[#67909b] rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-[#5a7d87] hover:scale-105 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2.55556 4.11111C2.96811 4.11111 3.36378 3.94722 3.6555 3.6555C3.94722 3.36378 4.11111 2.96811 4.11111 2.55556C4.11111 2.143 3.94722 1.74733 3.6555 1.45561C3.36378 1.16389 2.96811 1 2.55556 1C2.143 1 1.74733 1.16389 1.45561 1.45561C1.16389 1.74733 1 2.143 1 2.55556C1 2.96811 1.16389 3.36378 1.45561 3.6555C1.74733 3.94722 2.143 4.11111 2.55556 4.11111ZM13.4444 4.11111C13.857 4.11111 14.2527 3.94722 14.5444 3.6555C14.8361 3.36378 15 2.96811 15 2.55556C15 2.143 14.8361 1.74733 14.5444 1.45561C14.2527 1.16389 13.857 1 13.4444 1C13.0319 1 12.6362 1.16389 12.3445 1.45561C12.0528 1.74733 11.8889 2.143 11.8889 2.55556C11.8889 2.96811 12.0528 3.36378 12.3445 3.6555C12.6362 3.94722 13.0319 4.11111 13.4444 4.11111ZM15 13.4444C15 13.857 14.8361 14.2527 14.5444 14.5444C14.2527 14.8361 13.857 15 13.4444 15C13.0319 15 12.6362 14.8361 12.3445 14.5444C12.0528 14.2527 11.8889 13.857 11.8889 13.4444C11.8889 13.0319 12.0528 12.6362 12.3445 12.3445C12.6362 12.0528 13.0319 11.8889 13.4444 11.8889C13.857 11.8889 14.2527 12.0528 14.5444 12.3445C14.8361 12.6362 15 13.0319 15 13.4444ZM2.55556 15C2.96811 15 3.36378 14.8361 3.6555 14.5444C3.94722 14.2527 4.11111 13.857 4.11111 13.4444C4.11111 13.0319 3.94722 12.6362 3.6555 12.3445C3.36378 12.0528 2.96811 11.8889 2.55556 11.8889C2.143 11.8889 1.74733 12.0528 1.45561 12.3445C1.16389 12.6362 1 13.0319 1 13.4444C1 13.857 1.16389 14.2527 1.45561 14.5444C1.74733 14.8361 2.143 15 2.55556 15ZM4.857 2.94444C4.92302 2.55328 4.88822 2.15175 4.75589 1.77778H8.38889C8.90459 1.77778 9.39917 1.98264 9.76382 2.34729C10.1285 2.71195 10.3333 3.20652 10.3333 3.72222V5.66667H12.2778C12.7935 5.66667 13.2881 5.87153 13.6527 6.23618C14.0174 6.60084 14.2222 7.09541 14.2222 7.61111V11.2433C13.8482 11.1113 13.4467 11.0767 13.0556 11.143V7.61111C13.0556 7.40483 12.9736 7.207 12.8278 7.06114C12.6819 6.91528 12.4841 6.83333 12.2778 6.83333H10.3333V8.38889C10.3333 8.90459 10.1285 9.39917 9.76382 9.76382C9.39917 10.1285 8.90459 10.3333 8.38889 10.3333H6.83333V12.2778C6.83333 12.4841 6.91528 12.6819 7.06114 12.8278C7.207 12.9736 7.40483 13.0556 7.61111 13.0556H11.143C11.077 13.4467 11.1118 13.8483 11.2441 14.2222H7.61111C7.09541 14.2222 6.60084 14.0174 6.23618 13.6527C5.87153 13.2881 5.66667 12.7935 5.66667 12.2778V10.3333H3.72222C3.20652 10.3333 2.71195 10.1285 2.34729 9.76382C1.98264 9.39917 1.77778 8.90459 1.77778 8.38889V4.75667C2.15182 4.88873 2.55335 4.92327 2.94444 4.857V8.38889C2.94444 8.59517 3.02639 8.793 3.17225 8.93886C3.31811 9.08472 3.51594 9.16667 3.72222 9.16667H5.66667V7.61111C5.66667 7.09541 5.87153 6.60084 6.23618 6.23618C6.60084 5.87153 7.09541 5.66667 7.61111 5.66667H9.16667V3.72222C9.16667 3.51594 9.08472 3.31811 8.93886 3.17225C8.793 3.02639 8.59517 2.94444 8.38889 2.94444H4.857ZM8.38889 9.16667C8.59517 9.16667 8.793 9.08472 8.93886 8.93886C9.08472 8.793 9.16667 8.59517 9.16667 8.38889V6.83333H7.61111C7.40483 6.83333 7.207 6.91528 7.06114 7.06114C6.91528 7.207 6.83333 7.40483 6.83333 7.61111V9.16667H8.38889Z" fill="white" />
+              </svg>
+            </div>
+            <div className="w-9 h-9 bg-[#67909b] rounded-lg flex items-center justify-center transition-all duration-300 hover:bg-[#5a7d87] hover:scale-105 cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M7.50147 4.40653C7.13205 4.40653 6.76625 4.47929 6.42496 4.62066C6.08366 4.76203 5.77356 4.96924 5.51234 5.23045C5.25112 5.49167 5.04392 5.80178 4.90255 6.14307C4.76118 6.48437 4.68842 6.85017 4.68842 7.21958C4.68842 7.589 4.76118 7.95479 4.90255 8.29609C5.04392 8.63738 5.25112 8.94749 5.51234 9.20871C5.77356 9.46992 6.08366 9.67713 6.42496 9.8185C6.76625 9.95987 7.13205 10.0326 7.50147 10.0326H13.5401L12.865 9.3575C12.7959 9.29312 12.7405 9.21548 12.7021 9.12921C12.6636 9.04294 12.643 8.94982 12.6413 8.85539C12.6396 8.76096 12.657 8.66717 12.6924 8.5796C12.7277 8.49203 12.7804 8.41248 12.8472 8.3457C12.9139 8.27892 12.9935 8.22628 13.0811 8.19091C13.1686 8.15553 13.2624 8.13816 13.3569 8.13983C13.4513 8.1415 13.5444 8.16217 13.6307 8.2006C13.7169 8.23904 13.7946 8.29446 13.859 8.36355L15.7343 10.2389C15.866 10.3708 15.94 10.5495 15.94 10.7359C15.94 10.9223 15.866 11.101 15.7343 11.2329L13.859 13.1082C13.7946 13.1773 13.7169 13.2327 13.6307 13.2712C13.5444 13.3096 13.4513 13.3303 13.3569 13.332C13.2624 13.3336 13.1686 13.3163 13.0811 13.2809C12.9935 13.2455 12.9139 13.1929 12.8472 13.1261C12.7804 13.0593 12.7277 12.9798 12.6924 12.8922C12.657 12.8046 12.6396 12.7108 12.6413 12.6164C12.643 12.522 12.6636 12.4288 12.7021 12.3426C12.7405 12.2563 12.7959 12.1787 12.865 12.1143L13.5401 11.4392H7.50147C6.58401 11.439 5.69161 11.1398 4.95946 10.5869C4.22731 10.034 3.6953 9.25758 3.44404 8.3752C3.19277 7.49282 3.23594 6.55259 3.56701 5.69695C3.89807 4.84131 4.49899 4.11688 5.27872 3.63342C6.05845 3.14995 6.97452 2.93379 7.88813 3.01768C8.80174 3.10158 9.66312 3.48095 10.3418 4.09833C11.0204 4.71572 11.4793 5.53747 11.649 6.43909C11.8187 7.34072 11.69 8.27309 11.2822 9.09495H9.59813C9.96015 8.69019 10.1973 8.18931 10.2809 7.65275C10.3645 7.1162 10.2911 6.56691 10.0694 6.07119C9.84768 5.57546 9.48725 5.1545 9.03159 4.85912C8.57592 4.56373 8.0445 4.40654 7.50147 4.40653ZM0.703263 10.0326H3.17875C3.53697 10.5836 3.99719 11.061 4.53464 11.4392H0.703263C0.516746 11.4392 0.337868 11.3651 0.205981 11.2332C0.0740934 11.1013 0 10.9224 0 10.7359C0 10.5494 0.0740934 10.3705 0.205981 10.2386C0.337868 10.1067 0.516746 10.0326 0.703263 10.0326Z" fill="white" />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
-    </Layout>
+      <div className='flex justify-between w-full max-h-full gap-5 h-full overflow-scroll px-5 py-5'>
+        <div className="w-[75%] h-full">
+          <Calendar />
+        </div>
+        <div className='flex flex-col flex-1 bg-white rounded-2xl p-4'>
+          {/* Tasks header */}
+          <div className='flex items-center justify-between'>
+            <div className='bg-[#06263D] w-7 h-7 rounded-full flex items-center justify-center'>
+              <img src={taskIcon} alt="task" className='w-4 h-4' />
+            </div>
+            <div className='font-semibold text-xl text-[#333333]'>
+              Tasks
+            </div>
+            <div className='flex items-center justify-center'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                <path d="M7.39062 12.4341C7.39062 12.9645 7.17991 13.4732 6.80484 13.8483C6.42977 14.2234 5.92106 14.4341 5.39062 14.4341C4.86019 14.4341 4.35148 14.2234 3.97641 13.8483C3.60134 13.4732 3.39063 12.9645 3.39062 12.4341C3.39062 11.9036 3.60134 11.3949 3.97641 11.0199C4.35148 10.6448 4.86019 10.4341 5.39062 10.4341C5.92106 10.4341 6.42977 10.6448 6.80484 11.0199C7.17991 11.3949 7.39062 11.9036 7.39062 12.4341ZM14.3906 12.4341C14.3906 12.9645 14.1799 13.4732 13.8048 13.8483C13.4298 14.2234 12.9211 14.4341 12.3906 14.4341C11.8602 14.4341 11.3515 14.2234 10.9764 13.8483C10.6013 13.4732 10.3906 12.9645 10.3906 12.4341C10.3906 11.9036 10.6013 11.3949 10.9764 11.0199C11.3515 10.6448 11.8602 10.4341 12.3906 10.4341C12.9211 10.4341 13.4298 10.6448 13.8048 11.0199C14.1799 11.3949 14.3906 11.9036 14.3906 12.4341ZM21.3906 12.4341C21.3906 12.9645 21.1799 13.4732 20.8048 13.8483C20.4298 14.2234 19.9211 14.4341 19.3906 14.4341C18.8602 14.4341 18.3515 14.2234 17.9764 13.8483C17.6013 13.4732 17.3906 12.9645 17.3906 12.4341C17.3906 11.9036 17.6013 11.3949 17.9764 11.0199C18.3515 10.6448 18.8602 10.4341 19.3906 10.4341C19.9211 10.4341 20.4298 10.6448 20.8048 11.0199C21.1799 11.3949 21.3906 11.9036 21.3906 12.4341Z" fill="#06263D" />
+              </svg>
+            </div>
+          </div>
+          {/* Sprint details */}
+          <div className='flex items-center justify-between py-3'>
+            <div className='flex items-center gap-3'>
+              <div className='flex items-center justify-center w-7 h-7'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="full" height="full" viewBox="0 0 16 16" fill="none">
+                  <path d="M7.50147 4.40653C7.13205 4.40653 6.76625 4.47929 6.42496 4.62066C6.08366 4.76203 5.77356 4.96924 5.51234 5.23045C5.25112 5.49167 5.04392 5.80178 4.90255 6.14307C4.76118 6.48437 4.68842 6.85017 4.68842 7.21958C4.68842 7.589 4.76118 7.95479 4.90255 8.29609C5.04392 8.63738 5.25112 8.94749 5.51234 9.20871C5.77356 9.46992 6.08366 9.67713 6.42496 9.8185C6.76625 9.95987 7.13205 10.0326 7.50147 10.0326H13.5401L12.865 9.3575C12.7959 9.29312 12.7405 9.21548 12.7021 9.12921C12.6636 9.04294 12.643 8.94982 12.6413 8.85539C12.6396 8.76096 12.657 8.66717 12.6924 8.5796C12.7277 8.49203 12.7804 8.41248 12.8472 8.3457C12.9139 8.27892 12.9935 8.22628 13.0811 8.19091C13.1686 8.15553 13.2624 8.13816 13.3569 8.13983C13.4513 8.1415 13.5444 8.16217 13.6307 8.2006C13.7169 8.23904 13.7946 8.29446 13.859 8.36355L15.7343 10.2389C15.866 10.3708 15.94 10.5495 15.94 10.7359C15.94 10.9223 15.866 11.101 15.7343 11.2329L13.859 13.1082C13.7946 13.1773 13.7169 13.2327 13.6307 13.2712C13.5444 13.3096 13.4513 13.3303 13.3569 13.332C13.2624 13.3336 13.1686 13.3163 13.0811 13.2809C12.9935 13.2455 12.9139 13.1929 12.8472 13.1261C12.7804 13.0593 12.7277 12.9798 12.6924 12.8922C12.657 12.8046 12.6396 12.7108 12.6413 12.6164C12.643 12.522 12.6636 12.4288 12.7021 12.3426C12.7405 12.2563 12.7959 12.1787 12.865 12.1143L13.5401 11.4392H7.50147C6.58401 11.439 5.69161 11.1398 4.95946 10.5869C4.22731 10.034 3.6953 9.25758 3.44404 8.3752C3.19277 7.49282 3.23594 6.55259 3.56701 5.69695C3.89807 4.84131 4.49899 4.11688 5.27872 3.63342C6.05845 3.14995 6.97452 2.93379 7.88813 3.01768C8.80174 3.10158 9.66312 3.48095 10.3418 4.09833C11.0204 4.71572 11.4793 5.53747 11.649 6.43909C11.8187 7.34072 11.69 8.27309 11.2822 9.09495H9.59813C9.96015 8.69019 10.1973 8.18931 10.2809 7.65275C10.3645 7.1162 10.2911 6.56691 10.0694 6.07119C9.84768 5.57546 9.48725 5.1545 9.03159 4.85912C8.57592 4.56373 8.0445 4.40654 7.50147 4.40653ZM0.703263 10.0326H3.17875C3.53697 10.5836 3.99719 11.061 4.53464 11.4392H0.703263C0.516746 11.4392 0.337868 11.3651 0.205981 11.2332C0.0740934 11.1013 0 10.9224 0 10.7359C0 10.5494 0.0740934 10.3705 0.205981 10.2386C0.337868 10.1067 0.516746 10.0326 0.703263 10.0326Z" fill="black" />
+                </svg>
+              </div>
+              <div className='flex flex-col'>
+                <div>
+                  Sprint I
+                </div>
+                <div>
+                  Title name
+                </div>
+              </div>
+            </div>
+            <div className='bg-orange-300 text-white px-5 py-1 rounded-lg text-sm'>
+              Active
+            </div>
+          </div>
+          {/* Sprint Duration */}
+          <div className='flex flex-col gap-1'>
+            <div className='flex items-center justify-between'>
+              <span className='text-[#666666] text-base font-medium'>Start Date</span>
+              <span className='text-[#999999] text-xs '>Aug 01</span>
+            </div>
+            <div className='flex items-center justify-between'>
+              <span className='text-[#666666] text-base font-medium'>Estimation Date</span>
+              <span className='text-[#999999] text-xs '>Aug 10</span>
+            </div>
+          </div>
+          {/*Sprint Task List */}
+          <div className='flex flex-col gap-2 py-3'>
+            <div className='flex flex-col gap-2 bg-[#F6F8F9] p-2 rounded-md'>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-2'>
+                  <span className="bg-[#263238] w-6 h-6 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M13.3346 5.33529H11.4613C11.1613 4.80195 10.748 4.33529 10.248 4.00195L11.3346 2.94195L10.3946 2.00195L8.94797 3.44862C8.32808 3.29819 7.68119 3.29819 7.0613 3.44862L5.60797 2.00195L4.66797 2.94195L5.74797 4.00195C5.24797 4.33529 4.8413 4.80862 4.5413 5.33529H2.66797V6.66862H4.0613C4.0213 6.88862 4.0013 7.10862 4.0013 7.33529V8.00195H2.66797V9.33529H4.0013V10.002C4.0013 10.2286 4.0213 10.4486 4.0613 10.6686H2.66797V12.002H4.5413C4.8042 12.4561 5.15403 12.8539 5.57078 13.1728C5.98753 13.4916 6.46303 13.7252 6.9701 13.8602C7.47718 13.9952 8.00589 14.0289 8.526 13.9594C9.04611 13.8899 9.54743 13.7186 10.0013 13.4553C10.608 13.1086 11.1146 12.602 11.4613 12.002H13.3346V10.6686H11.9413C11.9813 10.4486 12.0013 10.2286 12.0013 10.002V9.33529H13.3346V8.00195H12.0013V7.33529C12.0013 7.10862 11.9813 6.88862 11.9413 6.66862H13.3346V5.33529ZM10.668 10.002C10.668 10.7092 10.387 11.3875 9.88692 11.8876C9.38682 12.3877 8.70855 12.6686 8.0013 12.6686C7.29406 12.6686 6.61578 12.3877 6.11568 11.8876C5.61559 11.3875 5.33464 10.7092 5.33464 10.002V7.33529C5.33464 6.62804 5.61559 5.94977 6.11568 5.44967C6.61578 4.94957 7.29406 4.66862 8.0013 4.66862C8.70855 4.66862 9.38682 4.94957 9.88692 5.44967C10.387 5.94977 10.668 6.62804 10.668 7.33529V10.002ZM9.33464 6.66862V8.00195H6.66797V6.66862H9.33464ZM6.66797 9.33529H9.33464V10.6686H6.66797V9.33529Z" fill="white" />
+                    </svg>
+                  </span>
+                  <span>Bug-17</span>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <div className="flex -space-x-1.5">
+                    <img alt="member" className="w-4 h-4 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                    <img alt="member" className="w-4 h-4 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                    <img alt="member" className="w-5 h-5 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                  </div>
+                  <div className='text-[#D58D49] bg-[#DFA87433] text-xs px-2 py-1 rounded-md'>
+                    Todo
+                  </div>
+                </div>
+              </div>
+              <div className='flex items-center justify-between'>
+                <div className='font-medium text-sm'>
+                  Brainstorming
+                </div>
+                <div className='flex gap-2'>
+                  <div className='flex items-center gap-2'>
+                    <span className='flex items-center justify-center'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+                        <path d="M14.6406 10C14.6406 10.3536 14.5001 10.6928 14.2501 10.9428C14.0001 11.1929 13.6609 11.3333 13.3073 11.3333H5.30729L2.64062 14V3.33333C2.64062 2.97971 2.7811 2.64057 3.03115 2.39052C3.2812 2.14048 3.62034 2 3.97396 2H13.3073C13.6609 2 14.0001 2.14048 14.2501 2.39052C14.5001 2.64057 14.6406 2.97971 14.6406 3.33333V10Z" stroke="#06263D" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </span>
+                    <span className='text-[#787486] text-xs'> 16</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <span className='flex items-center justify-center'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
+                                                <path d="M11.2285 3.01844C10.7353 2.52549 10.0665 2.24858 9.36921 2.24858C8.67191 2.24858 8.00314 2.52549 7.50996 3.01844L1.63846 8.88744C1.56737 8.95368 1.47335 8.98975 1.3762 8.98803C1.27905 8.98632 1.18635 8.94696 1.11765 8.87825C1.04894 8.80955 1.00959 8.71686 1.00787 8.61971C1.00616 8.52255 1.04222 8.42853 1.10846 8.35744L6.97846 2.48744C7.61253 1.85371 8.47237 1.49781 9.36884 1.49805C10.2653 1.49828 11.125 1.85463 11.7587 2.48869C12.3924 3.12276 12.7483 3.98261 12.7481 4.87908C12.7479 5.77555 12.3915 6.63521 11.7575 7.26894L6.09746 12.9239C5.72865 13.2902 5.22971 13.4953 4.70996 13.4943C4.19021 13.4934 3.69203 13.2864 3.32458 12.9188C2.95712 12.5512 2.75036 12.053 2.74958 11.5332C2.74881 11.0135 2.9541 10.5146 3.32046 10.1459L8.85896 4.60744C8.89329 4.5706 8.93469 4.54105 8.98069 4.52055C9.02669 4.50006 9.07635 4.48904 9.1267 4.48815C9.17705 4.48726 9.22707 4.49652 9.27376 4.51538C9.32045 4.53424 9.36287 4.56232 9.39848 4.59793C9.43409 4.63353 9.46216 4.67595 9.48102 4.72265C9.49988 4.76934 9.50914 4.81935 9.50826 4.86971C9.50737 4.92006 9.49635 4.96971 9.47585 5.01571C9.45535 5.06171 9.4258 5.10311 9.38896 5.13744L3.85196 10.6764C3.62842 10.9049 3.50401 11.2123 3.50573 11.532C3.50746 11.8516 3.63517 12.1577 3.86116 12.3837C4.08715 12.6098 4.39318 12.7376 4.71282 12.7394C5.03246 12.7412 5.33991 12.6169 5.56846 12.3934L11.2285 6.73844C11.4728 6.49425 11.6666 6.20431 11.7989 5.88518C11.9312 5.56605 11.9993 5.224 11.9993 4.87855C11.9994 4.5331 11.9314 4.19102 11.7992 3.87186C11.667 3.5527 11.4732 3.26271 11.229 3.01844" fill="#06263D" />
+                                            </svg>
+                    </span>
+                    <span className='text-[#787486] text-xs'> 16</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='flex flex-col gap-2 bg-[#F6F8F9] p-2 rounded-md'>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-2'>
+                  <span className="bg-[#263238] w-6 h-6 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M13.3346 5.33529H11.4613C11.1613 4.80195 10.748 4.33529 10.248 4.00195L11.3346 2.94195L10.3946 2.00195L8.94797 3.44862C8.32808 3.29819 7.68119 3.29819 7.0613 3.44862L5.60797 2.00195L4.66797 2.94195L5.74797 4.00195C5.24797 4.33529 4.8413 4.80862 4.5413 5.33529H2.66797V6.66862H4.0613C4.0213 6.88862 4.0013 7.10862 4.0013 7.33529V8.00195H2.66797V9.33529H4.0013V10.002C4.0013 10.2286 4.0213 10.4486 4.0613 10.6686H2.66797V12.002H4.5413C4.8042 12.4561 5.15403 12.8539 5.57078 13.1728C5.98753 13.4916 6.46303 13.7252 6.9701 13.8602C7.47718 13.9952 8.00589 14.0289 8.526 13.9594C9.04611 13.8899 9.54743 13.7186 10.0013 13.4553C10.608 13.1086 11.1146 12.602 11.4613 12.002H13.3346V10.6686H11.9413C11.9813 10.4486 12.0013 10.2286 12.0013 10.002V9.33529H13.3346V8.00195H12.0013V7.33529C12.0013 7.10862 11.9813 6.88862 11.9413 6.66862H13.3346V5.33529ZM10.668 10.002C10.668 10.7092 10.387 11.3875 9.88692 11.8876C9.38682 12.3877 8.70855 12.6686 8.0013 12.6686C7.29406 12.6686 6.61578 12.3877 6.11568 11.8876C5.61559 11.3875 5.33464 10.7092 5.33464 10.002V7.33529C5.33464 6.62804 5.61559 5.94977 6.11568 5.44967C6.61578 4.94957 7.29406 4.66862 8.0013 4.66862C8.70855 4.66862 9.38682 4.94957 9.88692 5.44967C10.387 5.94977 10.668 6.62804 10.668 7.33529V10.002ZM9.33464 6.66862V8.00195H6.66797V6.66862H9.33464ZM6.66797 9.33529H9.33464V10.6686H6.66797V9.33529Z" fill="white" />
+                    </svg>
+                  </span>
+                  <span>Bug-17</span>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <div className="flex -space-x-1.5">
+                    <img alt="member" className="w-4 h-4 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                    <img alt="member" className="w-4 h-4 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                    <img alt="member" className="w-5 h-5 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                  </div>
+                  <div className='text-[#D58D49] bg-[#DFA87433] text-xs px-2 py-1 rounded-md'>
+                    Todo
+                  </div>
+                </div>
+              </div>
+              <div className='flex items-center justify-between'>
+                <div className='font-medium text-sm'>
+                  Brainstorming
+                </div>
+                <div className='flex gap-2'>
+                  <div className='flex items-center gap-2'>
+                    <span className='flex items-center justify-center'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+                        <path d="M14.6406 10C14.6406 10.3536 14.5001 10.6928 14.2501 10.9428C14.0001 11.1929 13.6609 11.3333 13.3073 11.3333H5.30729L2.64062 14V3.33333C2.64062 2.97971 2.7811 2.64057 3.03115 2.39052C3.2812 2.14048 3.62034 2 3.97396 2H13.3073C13.6609 2 14.0001 2.14048 14.2501 2.39052C14.5001 2.64057 14.6406 2.97971 14.6406 3.33333V10Z" stroke="#06263D" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </span>
+                    <span className='text-[#787486] text-xs'> 16</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <span className='flex items-center justify-center'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
+                                                <path d="M11.2285 3.01844C10.7353 2.52549 10.0665 2.24858 9.36921 2.24858C8.67191 2.24858 8.00314 2.52549 7.50996 3.01844L1.63846 8.88744C1.56737 8.95368 1.47335 8.98975 1.3762 8.98803C1.27905 8.98632 1.18635 8.94696 1.11765 8.87825C1.04894 8.80955 1.00959 8.71686 1.00787 8.61971C1.00616 8.52255 1.04222 8.42853 1.10846 8.35744L6.97846 2.48744C7.61253 1.85371 8.47237 1.49781 9.36884 1.49805C10.2653 1.49828 11.125 1.85463 11.7587 2.48869C12.3924 3.12276 12.7483 3.98261 12.7481 4.87908C12.7479 5.77555 12.3915 6.63521 11.7575 7.26894L6.09746 12.9239C5.72865 13.2902 5.22971 13.4953 4.70996 13.4943C4.19021 13.4934 3.69203 13.2864 3.32458 12.9188C2.95712 12.5512 2.75036 12.053 2.74958 11.5332C2.74881 11.0135 2.9541 10.5146 3.32046 10.1459L8.85896 4.60744C8.89329 4.5706 8.93469 4.54105 8.98069 4.52055C9.02669 4.50006 9.07635 4.48904 9.1267 4.48815C9.17705 4.48726 9.22707 4.49652 9.27376 4.51538C9.32045 4.53424 9.36287 4.56232 9.39848 4.59793C9.43409 4.63353 9.46216 4.67595 9.48102 4.72265C9.49988 4.76934 9.50914 4.81935 9.50826 4.86971C9.50737 4.92006 9.49635 4.96971 9.47585 5.01571C9.45535 5.06171 9.4258 5.10311 9.38896 5.13744L3.85196 10.6764C3.62842 10.9049 3.50401 11.2123 3.50573 11.532C3.50746 11.8516 3.63517 12.1577 3.86116 12.3837C4.08715 12.6098 4.39318 12.7376 4.71282 12.7394C5.03246 12.7412 5.33991 12.6169 5.56846 12.3934L11.2285 6.73844C11.4728 6.49425 11.6666 6.20431 11.7989 5.88518C11.9312 5.56605 11.9993 5.224 11.9993 4.87855C11.9994 4.5331 11.9314 4.19102 11.7992 3.87186C11.667 3.5527 11.4732 3.26271 11.229 3.01844" fill="#06263D" />
+                                            </svg>
+                    </span>
+                    <span className='text-[#787486] text-xs'> 16</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='flex flex-col gap-2 bg-[#F6F8F9] p-2 rounded-md'>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-2'>
+                  <span className="bg-[#263238] w-6 h-6 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M13.3346 5.33529H11.4613C11.1613 4.80195 10.748 4.33529 10.248 4.00195L11.3346 2.94195L10.3946 2.00195L8.94797 3.44862C8.32808 3.29819 7.68119 3.29819 7.0613 3.44862L5.60797 2.00195L4.66797 2.94195L5.74797 4.00195C5.24797 4.33529 4.8413 4.80862 4.5413 5.33529H2.66797V6.66862H4.0613C4.0213 6.88862 4.0013 7.10862 4.0013 7.33529V8.00195H2.66797V9.33529H4.0013V10.002C4.0013 10.2286 4.0213 10.4486 4.0613 10.6686H2.66797V12.002H4.5413C4.8042 12.4561 5.15403 12.8539 5.57078 13.1728C5.98753 13.4916 6.46303 13.7252 6.9701 13.8602C7.47718 13.9952 8.00589 14.0289 8.526 13.9594C9.04611 13.8899 9.54743 13.7186 10.0013 13.4553C10.608 13.1086 11.1146 12.602 11.4613 12.002H13.3346V10.6686H11.9413C11.9813 10.4486 12.0013 10.2286 12.0013 10.002V9.33529H13.3346V8.00195H12.0013V7.33529C12.0013 7.10862 11.9813 6.88862 11.9413 6.66862H13.3346V5.33529ZM10.668 10.002C10.668 10.7092 10.387 11.3875 9.88692 11.8876C9.38682 12.3877 8.70855 12.6686 8.0013 12.6686C7.29406 12.6686 6.61578 12.3877 6.11568 11.8876C5.61559 11.3875 5.33464 10.7092 5.33464 10.002V7.33529C5.33464 6.62804 5.61559 5.94977 6.11568 5.44967C6.61578 4.94957 7.29406 4.66862 8.0013 4.66862C8.70855 4.66862 9.38682 4.94957 9.88692 5.44967C10.387 5.94977 10.668 6.62804 10.668 7.33529V10.002ZM9.33464 6.66862V8.00195H6.66797V6.66862H9.33464ZM6.66797 9.33529H9.33464V10.6686H6.66797V9.33529Z" fill="white" />
+                    </svg>
+                  </span>
+                  <span>Bug-17</span>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <div className="flex -space-x-1.5">
+                    <img alt="member" className="w-4 h-4 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                    <img alt="member" className="w-4 h-4 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                    <img alt="member" className="w-5 h-5 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                  </div>
+                  <div className='text-[#D58D49] bg-[#DFA87433] text-xs px-2 py-1 rounded-md'>
+                    Todo
+                  </div>
+                </div>
+              </div>
+              <div className='flex items-center justify-between'>
+                <div className='font-medium text-sm'>
+                  Brainstorming
+                </div>
+                <div className='flex gap-2'>
+                  <div className='flex items-center gap-2'>
+                    <span className='flex items-center justify-center'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+                        <path d="M14.6406 10C14.6406 10.3536 14.5001 10.6928 14.2501 10.9428C14.0001 11.1929 13.6609 11.3333 13.3073 11.3333H5.30729L2.64062 14V3.33333C2.64062 2.97971 2.7811 2.64057 3.03115 2.39052C3.2812 2.14048 3.62034 2 3.97396 2H13.3073C13.6609 2 14.0001 2.14048 14.2501 2.39052C14.5001 2.64057 14.6406 2.97971 14.6406 3.33333V10Z" stroke="#06263D" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </span>
+                    <span className='text-[#787486] text-xs'> 16</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <span className='flex items-center justify-center'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
+                                                <path d="M11.2285 3.01844C10.7353 2.52549 10.0665 2.24858 9.36921 2.24858C8.67191 2.24858 8.00314 2.52549 7.50996 3.01844L1.63846 8.88744C1.56737 8.95368 1.47335 8.98975 1.3762 8.98803C1.27905 8.98632 1.18635 8.94696 1.11765 8.87825C1.04894 8.80955 1.00959 8.71686 1.00787 8.61971C1.00616 8.52255 1.04222 8.42853 1.10846 8.35744L6.97846 2.48744C7.61253 1.85371 8.47237 1.49781 9.36884 1.49805C10.2653 1.49828 11.125 1.85463 11.7587 2.48869C12.3924 3.12276 12.7483 3.98261 12.7481 4.87908C12.7479 5.77555 12.3915 6.63521 11.7575 7.26894L6.09746 12.9239C5.72865 13.2902 5.22971 13.4953 4.70996 13.4943C4.19021 13.4934 3.69203 13.2864 3.32458 12.9188C2.95712 12.5512 2.75036 12.053 2.74958 11.5332C2.74881 11.0135 2.9541 10.5146 3.32046 10.1459L8.85896 4.60744C8.89329 4.5706 8.93469 4.54105 8.98069 4.52055C9.02669 4.50006 9.07635 4.48904 9.1267 4.48815C9.17705 4.48726 9.22707 4.49652 9.27376 4.51538C9.32045 4.53424 9.36287 4.56232 9.39848 4.59793C9.43409 4.63353 9.46216 4.67595 9.48102 4.72265C9.49988 4.76934 9.50914 4.81935 9.50826 4.86971C9.50737 4.92006 9.49635 4.96971 9.47585 5.01571C9.45535 5.06171 9.4258 5.10311 9.38896 5.13744L3.85196 10.6764C3.62842 10.9049 3.50401 11.2123 3.50573 11.532C3.50746 11.8516 3.63517 12.1577 3.86116 12.3837C4.08715 12.6098 4.39318 12.7376 4.71282 12.7394C5.03246 12.7412 5.33991 12.6169 5.56846 12.3934L11.2285 6.73844C11.4728 6.49425 11.6666 6.20431 11.7989 5.88518C11.9312 5.56605 11.9993 5.224 11.9993 4.87855C11.9994 4.5331 11.9314 4.19102 11.7992 3.87186C11.667 3.5527 11.4732 3.26271 11.229 3.01844" fill="#06263D" />
+                                            </svg>
+                    </span>
+                    <span className='text-[#787486] text-xs'> 16</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='flex flex-col gap-2 bg-[#F6F8F9] p-2 rounded-md'>
+              <div className='flex items-center justify-between'>
+                <div className='flex items-center gap-2'>
+                  <span className="bg-[#263238] w-6 h-6 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M13.3346 5.33529H11.4613C11.1613 4.80195 10.748 4.33529 10.248 4.00195L11.3346 2.94195L10.3946 2.00195L8.94797 3.44862C8.32808 3.29819 7.68119 3.29819 7.0613 3.44862L5.60797 2.00195L4.66797 2.94195L5.74797 4.00195C5.24797 4.33529 4.8413 4.80862 4.5413 5.33529H2.66797V6.66862H4.0613C4.0213 6.88862 4.0013 7.10862 4.0013 7.33529V8.00195H2.66797V9.33529H4.0013V10.002C4.0013 10.2286 4.0213 10.4486 4.0613 10.6686H2.66797V12.002H4.5413C4.8042 12.4561 5.15403 12.8539 5.57078 13.1728C5.98753 13.4916 6.46303 13.7252 6.9701 13.8602C7.47718 13.9952 8.00589 14.0289 8.526 13.9594C9.04611 13.8899 9.54743 13.7186 10.0013 13.4553C10.608 13.1086 11.1146 12.602 11.4613 12.002H13.3346V10.6686H11.9413C11.9813 10.4486 12.0013 10.2286 12.0013 10.002V9.33529H13.3346V8.00195H12.0013V7.33529C12.0013 7.10862 11.9813 6.88862 11.9413 6.66862H13.3346V5.33529ZM10.668 10.002C10.668 10.7092 10.387 11.3875 9.88692 11.8876C9.38682 12.3877 8.70855 12.6686 8.0013 12.6686C7.29406 12.6686 6.61578 12.3877 6.11568 11.8876C5.61559 11.3875 5.33464 10.7092 5.33464 10.002V7.33529C5.33464 6.62804 5.61559 5.94977 6.11568 5.44967C6.61578 4.94957 7.29406 4.66862 8.0013 4.66862C8.70855 4.66862 9.38682 4.94957 9.88692 5.44967C10.387 5.94977 10.668 6.62804 10.668 7.33529V10.002ZM9.33464 6.66862V8.00195H6.66797V6.66862H9.33464ZM6.66797 9.33529H9.33464V10.6686H6.66797V9.33529Z" fill="white" />
+                    </svg>
+                  </span>
+                  <span>Bug-17</span>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <div className="flex -space-x-1.5">
+                    <img alt="member" className="w-4 h-4 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                    <img alt="member" className="w-4 h-4 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                    <img alt="member" className="w-5 h-5 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                  </div>
+                  <div className='text-[#D58D49] bg-[#DFA87433] text-xs px-2 py-1 rounded-md'>
+                    Todo
+                  </div>
+                </div>
+              </div>
+              <div className='flex items-center justify-between'>
+                <div className='font-medium text-sm'>
+                  Brainstorming
+                </div>
+                <div className='flex gap-2'>
+                  <div className='flex items-center gap-2'>
+                    <span className='flex items-center justify-center'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+                        <path d="M14.6406 10C14.6406 10.3536 14.5001 10.6928 14.2501 10.9428C14.0001 11.1929 13.6609 11.3333 13.3073 11.3333H5.30729L2.64062 14V3.33333C2.64062 2.97971 2.7811 2.64057 3.03115 2.39052C3.2812 2.14048 3.62034 2 3.97396 2H13.3073C13.6609 2 14.0001 2.14048 14.2501 2.39052C14.5001 2.64057 14.6406 2.97971 14.6406 3.33333V10Z" stroke="#06263D" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </span>
+                    <span className='text-[#787486] text-xs'> 16</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <span className='flex items-center justify-center'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
+                                                <path d="M11.2285 3.01844C10.7353 2.52549 10.0665 2.24858 9.36921 2.24858C8.67191 2.24858 8.00314 2.52549 7.50996 3.01844L1.63846 8.88744C1.56737 8.95368 1.47335 8.98975 1.3762 8.98803C1.27905 8.98632 1.18635 8.94696 1.11765 8.87825C1.04894 8.80955 1.00959 8.71686 1.00787 8.61971C1.00616 8.52255 1.04222 8.42853 1.10846 8.35744L6.97846 2.48744C7.61253 1.85371 8.47237 1.49781 9.36884 1.49805C10.2653 1.49828 11.125 1.85463 11.7587 2.48869C12.3924 3.12276 12.7483 3.98261 12.7481 4.87908C12.7479 5.77555 12.3915 6.63521 11.7575 7.26894L6.09746 12.9239C5.72865 13.2902 5.22971 13.4953 4.70996 13.4943C4.19021 13.4934 3.69203 13.2864 3.32458 12.9188C2.95712 12.5512 2.75036 12.053 2.74958 11.5332C2.74881 11.0135 2.9541 10.5146 3.32046 10.1459L8.85896 4.60744C8.89329 4.5706 8.93469 4.54105 8.98069 4.52055C9.02669 4.50006 9.07635 4.48904 9.1267 4.48815C9.17705 4.48726 9.22707 4.49652 9.27376 4.51538C9.32045 4.53424 9.36287 4.56232 9.39848 4.59793C9.43409 4.63353 9.46216 4.67595 9.48102 4.72265C9.49988 4.76934 9.50914 4.81935 9.50826 4.86971C9.50737 4.92006 9.49635 4.96971 9.47585 5.01571C9.45535 5.06171 9.4258 5.10311 9.38896 5.13744L3.85196 10.6764C3.62842 10.9049 3.50401 11.2123 3.50573 11.532C3.50746 11.8516 3.63517 12.1577 3.86116 12.3837C4.08715 12.6098 4.39318 12.7376 4.71282 12.7394C5.03246 12.7412 5.33991 12.6169 5.56846 12.3934L11.2285 6.73844C11.4728 6.49425 11.6666 6.20431 11.7989 5.88518C11.9312 5.56605 11.9993 5.224 11.9993 4.87855C11.9994 4.5331 11.9314 4.19102 11.7992 3.87186C11.667 3.5527 11.4732 3.26271 11.229 3.01844" fill="#06263D" />
+                                            </svg>
+                    </span>
+                    <span className='text-[#787486] text-xs'> 16</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 } 

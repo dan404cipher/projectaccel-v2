@@ -43,7 +43,7 @@ export default function ProjectOverview() {
   };
 
   return (
-    <div className="bg-[#f6f6f6] h-screen w-full flex flex-col overflow-hidden">
+    <div className="bg-[#f6f6f6] h-full w-full flex flex-col overflow-hidden">
       {/* Project Header - Fixed */}
       <ProjectHeader projectName='Example project name' activeTab='overview' onTabChange={handleTabClick} />
 

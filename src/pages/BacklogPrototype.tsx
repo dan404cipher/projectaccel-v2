@@ -178,7 +178,7 @@ const data = [
   };
 
   return (
-    <div className="bg-[#f6f6f6] h-screen w-full flex flex-col">
+    <div className="bg-[#f6f6f6] h-full w-full flex flex-col">
       {/* Project Header - Fixed */}
       <ProjectHeader projectName="Example project name" activeTab="backlog" onTabChange={handleTabClick} />
       {/* Main Content - Scrollable */}
@@ -331,7 +331,7 @@ const data = [
               {!isSprintCollapsed && (
                 <CustomTable selectable={true} draggable={true} data={data} columns={columns} />
               )}
-            </div>
+            </div> 
           </div>
         </div>
       </div>
