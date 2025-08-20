@@ -7,10 +7,10 @@ import { Layout } from "./components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import { HelpSupport } from "./pages/HelpSupport";
 import NotFound from "./pages/NotFound";
-import Login from "./pages/Login";
+import {Login} from "./pages/Login";
 import { ForgotPassword } from "./pages/ForgotPassword";
 import ForgotPasswordNew from "./pages/ForgotPasswordNew";
-import ResetPassword from "./pages/ResetPassword";
+import {ResetPassword} from "./pages/ResetPassword";
 import Error405 from "./pages/Error405";
 import Error406 from "./pages/Error406";
 import ProjectList from "./pages/ProjectList";
@@ -28,6 +28,7 @@ import ProfileScreen from "./pages/ProfileScreen";
 import PreferenceScreen from "./pages/PreferenceScreen";
 import NotificationSettingScreen from "./pages/NotificationSettingScreen";
 import  {AddTeam}  from "./pages/AddTeam";
+import {Onboard} from "./pages/Onboard";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/forgot-password-new" element={<ForgotPasswordNew />} />
+            <Route path="/onboard" element={<Onboard />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/error-405" element={<Error405 />} />
             <Route path="/error-406" element={<Error406 />} />

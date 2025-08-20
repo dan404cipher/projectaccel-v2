@@ -1,111 +1,68 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Mail, ArrowLeft } from "lucide-react"
+import React, { useState } from "react";
+import bgImage from "/icons/bg.svg"; // background svg import
+import { Copyright, Eye, EyeClosed, EyeOff } from "lucide-react";
+import logo from '/icons/Logo.svg'
+import { useNavigate } from "react-router-dom";
 
-export function ForgotPassword() {
-  const [email, setEmail] = useState("")
-  const [isSubmitted, setIsSubmitted] = useState(false)
+export const  ForgotPassword=() =>{
+  const navigate=useNavigate();
+  const [form,setForm]=useState<{email:string}>({email:""});
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle password reset logic here
-    console.log("Password reset requested for:", email)
-    setIsSubmitted(true)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {name,value}=e.target;
+    setForm({...form,[name]:value});
   }
 
-  if (isSubmitted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-        <Card className="w-full max-w-md shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-          <CardHeader className="space-y-1 text-center">
-            <div className="mx-auto w-12 h-12 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl flex items-center justify-center mb-4">
-              <span className="text-white text-xl">✓</span>
-            </div>
-            <CardTitle className="text-2xl font-bold text-gray-900">Check your email</CardTitle>
-            <CardDescription className="text-gray-600">
-              We've sent a password reset link to your email address
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-gray-600 text-center">
-              Didn't receive the email? Check your spam folder or{" "}
-              <button
-                onClick={() => setIsSubmitted(false)}
-                className="text-blue-600 hover:text-blue-700 font-medium"
-              >
-                try again
-              </button>
-            </p>
-            <Button
-              asChild
-              className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-lg transition-all duration-200"
-            >
-              <Link to="/login">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to login
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    )
+  const handleSubmit=()=>{
+    navigate('/reset-password')
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <Card className="w-full max-w-md shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-        <CardHeader className="space-y-1 text-center">
-          <div className="mx-auto w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center mb-4">
-            <span className="text-white text-xl font-bold">🔷</span>
-          </div>
-          <CardTitle className="text-2xl font-bold text-gray-900">Forgot password?</CardTitle>
-          <CardDescription className="text-gray-600">
-            Enter your email address and we'll send you a link to reset your password
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                Email address
-              </Label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
-                  required
-                />
+    <div
+      className="w-full h-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-20 pt-20 font-roboto"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+
+      {/* Login container */}
+      <div className="relative z-10 grid grid-cols-2 gap-5 w-full h-full rounded-3xl mb-16 overflow-hidden">
+        <div className=" w-full h-full flex items-center justify-center ">
+            <div className="flex flex-col gap-10 items-center">
+                <img src={logo} alt="logo" />
+                <span className="font-roboto text-[40px] font-semibold text-white text-center">
+                <span className="text-[#06263D]">Project Accel  - </span>   Accelerate Your <br></br> Project to Success
+                </span>
+            </div>
+        </div>
+        <div className="bg-[#ffffff7a] w-full h-full rounded-2xl backdrop-blur-xl p-12 flex items-end">
+          {/* login form */}
+          <div className="w-full h-[80%] flex flex-col items-center justify-end">
+            <form className="flex flex-col justify-between gap-10 text-[#06263D] w-full h-full" onClick={handleSubmit}>
+              <div className="flex flex-col gap-3">
+                <div className="text-center font-medium text-3xl">
+                Forgot your Password ?
+                </div>
               </div>
-            </div>
-
-            <Button
-              type="submit"
-              className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-lg transition-all duration-200"
-            >
-              Send reset link
-            </Button>
-
-            <div className="text-center">
-              <Link
-                to="/login"
-                className="inline-flex items-center text-sm text-blue-600 hover:text-blue-700 font-medium"
-              >
-                <ArrowLeft className="mr-1 h-4 w-4" />
-                Back to login
-              </Link>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+              <div className="flex flex-col">
+                <div className="text-xl font-medium text-center">
+                Enter your email address and we’ll send a link to reset password
+                </div>
+                <div className="flex items-center w-full h-full mt-6">
+                  <input name="email" onChange={handleChange} className=" bg-[#E4D0BB] autofill:bg-[#E4D0BB] rounded-lg px-8 py-4 border-none outline-none text-[#5A5A5A] font-medium text-xl placeholder:text-[#5A5A5A] w-full" placeholder="Enter Your E-Mail-ID" />
+                </div>
+                <div className="flex items-center justify-end pr-4 py-1 cursor-pointer">
+                  <span className="font-medium" onClick={()=>navigate('/login')}>Back to sign in </span>
+                </div>
+              </div>
+              <div className="flex items-center justify-center mt-20">
+                <button className="bg-[#06263D] text-white px-8 py-4 rounded-lg w-[50%]" type="submit">Send Reset Link</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center gap-3 px-20 py-1 w-full text-white text-base">
+      <Copyright size={16}/>2025 Project Accel. Crafted with percision
+      </div>
     </div>
-  )
-} 
+  );
+}
