@@ -1,5 +1,4 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
+import { Toaster }   from "react-hot-toast";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
@@ -74,8 +73,44 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-        <Sonner />
-        <Toaster />
+        <Toaster position="top-right" reverseOrder={false} toastOptions={{
+    duration: 4000,
+    style: {
+      background: "#363636",
+      color: "#fff",
+      borderRadius: "12px",
+      padding: "16px",
+    },
+    success: {
+      style: {
+          background: "#1BB871",
+          width:'max-content',
+          height:'50px',
+          borderRadius:'12px',
+          fontSize:'14px',
+          fontWeight:'bold',
+          textAlign:'center',
+          display:'flex',
+          alignItems:'center',
+          justifyContent:'center',
+      },
+    },
+    error: {
+      style: {
+        background: "#CD272C",
+        width:'max-content',
+        height:'50px',
+        borderRadius:'12px',
+        fontSize:'14px',
+        fontWeight:'bold',
+        textAlign:'center',
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+      },
+      
+    },
+  }} />
       </TooltipProvider>
     </QueryClientProvider>
   );

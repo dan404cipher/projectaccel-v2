@@ -58,7 +58,7 @@ export const PriorityBreakdown = () => {
                 colors: ['#fff'],
                 lineCap: 'round' as const,
             },
-            colors: ["#2A9D90", "#228277", "#2A9D90", "rgba(42, 157, 144, 0.5)", "rgba(42, 157, 144, 0.2)"],
+            colors: ["#67909B", "#95B2BA", "#67909B", "#C2D3D7", "#E1E9EB"],
             legend: {
                 position: "right" as const,
                 show: false,
@@ -79,28 +79,28 @@ export const PriorityBreakdown = () => {
     const items = [
         {
             name: "Highest",
-            value: 44,
-            color: "#FBBF24",
+            value: 50,
+            color: "#67909B",
         },
         {
             name: "High",
-            value: 55,
-            color: "#3B82F6",
+            value: 40,
+            color: "#95B2BA",
         },
         {
             name: "Medium",
-            value: 41,
-            color: "#EF4444",
+            value: 30,
+            color: "#67909B",
         },
         {
             name: "Low",
-            value: 17,
-            color: "#22C55E",
+            value: 30,
+            color: "#C2D3D7",
         },
         {
             name: "Lowest",
-            value: 15,
-            color: "#86EFAC",
+            value: 10,
+            color: "#E1E9EB",
         },
     ]
 

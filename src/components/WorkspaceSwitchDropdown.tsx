@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
+import { Avatar } from './ui/avatar';
+import { AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
+import rightArrow from '../../public/icons/rightarrow.svg';
 
 // Image assets from Figma design
-const imgEllipse242 = "http://localhost:3845/assets/5af926273c9ffbf23e40c05e69d6e90ad16fff56.png";
-const imgEllipse243 = "http://localhost:3845/assets/c7374a205af6c39cb14588865e1611624cac1281.png";
-const imgEllipse244 = "http://localhost:3845/assets/932056fe0cc72a47b303bd6b183bcc20755f5c8e.png";
-const imgEllipse245 = "http://localhost:3845/assets/1efce360d87b30ec2db1ba5e95388c3502cc66c6.png";
-const imgEllipse246 = "http://localhost:3845/assets/b94cbf9ca3ce5a6d134ced526a2197b6b290c90c.png";
-const imgEllipse247 = "http://localhost:3845/assets/5e8ebfd479625e19c8c0d4ccd07ec2ee8f85c2b1.png";
 const img = "http://localhost:3845/assets/5e6faf15b21556bf868441bffff13dcbbc899a58.svg";
 const img1 = "http://localhost:3845/assets/1fd7df02040a68d286de7dce8e8e2dbf7843506e.svg";
-const imgIconamoonArrowUp2 = "http://localhost:3845/assets/4415bab17aed0da490b9a2f1409f1adb3b3b9fb4.svg";
-const imgLine43 = "http://localhost:3845/assets/a525da146341f21b89a94d74a479fa74563111ec.svg";
 const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
 const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
 const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
@@ -39,96 +34,82 @@ export default function WorkspaceSwitchDropdown({ isOpen, onClose }: WorkspaceSw
     <div className="absolute top-full left-0 mt-2 z-50">
       <div className="relative size-full">
         <div className="absolute bg-[#ffffff] h-[423px] left-0 rounded-3xl top-0 w-[343px] shadow-lg">
-          {/* Current Workspace */}
-          <div className="flex flex-row gap-8 items-center justify-start left-4 p-0 top-6 absolute">
-            <div className="flex flex-row gap-4 items-center justify-start p-0 relative shrink-0">
-              <div className="relative rounded-[90px] shrink-0 size-14">
-                <div className="absolute inset-0">
-                  <img alt="workspace-avatar" className="block max-w-none size-full" src={img} />
-                </div>
-                <div className="absolute bottom-[22.5%] flex flex-col font-normal justify-center leading-[0] left-[17.5%] right-[17.5%] text-[#ffffff] text-[24px] text-center top-[22.5%]">
-                  <p className="block leading-[1.4]">v</p>
-                </div>
-              </div>
-              <div className="capitalize font-medium leading-[0] relative shrink-0 text-[#252525] text-[20px] text-left text-nowrap">
-                <p className="block leading-[normal] whitespace-pre">Workspace name 1</p>
+          <div className="flex flex-col px-5 py-6">
+            {/* Workspace details */}
+            <div className="flex flex-col gap-2 items-center w-full ">
+              <div className='flex items-center w-full gap-5'>
+                <Avatar className="h-10 w-10 sm:h-10 sm:w-10 lg:h-10 lg:w-10">
+                  <AvatarImage src={img2} />
+                  <AvatarFallback className="text-xs sm:text-sm lg:text-base">W</AvatarFallback>
+                </Avatar>
+                <span className="text-[#252525] text-xl font-medium">Workspace 1</span>
               </div>
             </div>
-          </div>
-
-          {/* Members Section */}
-          <div className="absolute flex flex-row gap-6 items-center justify-start left-8 p-0 top-[94px]">
-            <div className="capitalize font-medium leading-[0] relative shrink-0 text-[#252525] text-[16px] text-left text-nowrap">
-              <p className="block leading-[normal] whitespace-pre">Members</p>
-            </div>
-            <div className="flex flex-row gap-2 items-center justify-start p-0 relative shrink-0">
-              <div className="flex flex-row items-center justify-start pl-0 pr-7 py-0 relative shrink-0">
-                <div className="mr-[-28px] relative shrink-0 size-[40px]">
-                  <img alt="member-1" className="block max-w-none" height="40" src={img2} width="40" />
+            {/* workspace Memeber list */}
+            <div className="flex items-center justify-between  border-b border-gray-200 py-4">
+              <span className="text-[#252525] text-base font-medium">Members</span>
+              <div className="flex items-center gap-2">
+                <div className="flex -space-x-2">
+                  <img alt="member" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white" src={img2} />
+                  <img alt="member" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white" src={img3} />
+                  <img alt="member" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white" src={img4} />
+                  <img alt="member" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white" src={img5} />
+                  <img alt="member" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-white" src={img2} />
                 </div>
-                <div className="mr-[-28px] relative shrink-0 size-[40px]">
-                  <img alt="member-2" className="block max-w-none" height="40" src={img3} width="40" />
-                </div>
-                <div className="mr-[-28px] relative shrink-0 size-[40px]">
-                  <img alt="member-3" className="block max-w-none" height="40" src ={img4} width="40" />
-                </div>
-                <div className="mr-[-28px] relative shrink-0 size-[40px]">
-                  <img alt="member-4" className="block max-w-none" height="40" src={img5} width="40" />
-                </div>
-                <div className="mr-[-28px] relative shrink-0 size-[40px]">
-                    <img alt="member-5" className="block max-w-none" height="40" src={img5} width="40" />
-                </div>
-                <div className="mr-[-28px] relative shrink-0 size-[40px]">
-                  <img alt="member-6" className="block max-w-none" height="40" src={img2} width="40" />
-                </div>
-              </div>
-              <div className="capitalize font-medium leading-[0] relative shrink-0 text-[#333333] text-[14px] text-left text-nowrap">
-                <p className="block leading-[normal] whitespace-pre">24+</p>
+                <span className="text-sm text-[#333333] font-medium">24+</span>
               </div>
             </div>
-          </div>
-
-          {/* Divider */}
-          <div className="absolute h-0 translate-x-[-50%] translate-y-[-50%] w-[343.013px]" style={{ top: "calc(50% - 43.5px)", left: "calc(50% + 0.007px)" }}>
-            <div className="absolute bottom-0 left-0 right-0 top-[-1px]">
-              <img alt="divider" className="block max-w-none size-full" src={imgLine43} />
-            </div>
-          </div>
-
-          {/* Switch Workspaces Title */}
-          <div className="absolute font-medium leading-[0] left-8 text-[#252525] text-[16px] text-left text-nowrap top-48">
-            <p className="block leading-[normal] whitespace-pre">Switch Workspaces</p>
-          </div>
-
-          {/* Workspace List */}
-          <div className="absolute flex flex-col gap-5 items-start justify-start left-8 p-0 top-[235px] w-[287px]">
-            {workspaces.slice(1).map((workspace) => (
-              <div key={workspace.id} className="flex flex-row gap-[75px] items-center justify-start relative shrink-0 w-full hover:bg-gray-50 rounded-lg p-2 cursor-pointer">
-                <div className="flex flex-row gap-6 items-center justify-start p-0 relative shrink-0 w-[188px]">
-                  <div className="relative rounded-[90px] shrink-0 size-6">
-                    <div className="absolute inset-0">
-                      <img alt={`workspace-${workspace.id}`} className="block max-w-none size-full" src={workspace.color} />
-                    </div>
-                    <div className="absolute flex flex-col font-normal justify-center leading-[0] left-1/2 text-[#ffffff] text-[12px] text-center translate-x-[-50%] translate-y-[-50%] w-5" style={{ top: "calc(50% - 0.5px)" }}>
-                      <p className="block leading-[1.4]">{workspace.avatar}</p>
-                    </div>
+            {/* workspace project list */}
+            <div className='flex flex-col gap-4 py-5'>
+              <div className='font-medium text-base text-[#252525]'>
+                Swtich WorkSpaces
+              </div>
+              <div className='flex flex-col gap-4 overflow-y-scroll h-[300px]'>
+                {/* workspace item */}
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-5'>
+                    <img src={img2} alt="workspace" className='w-10 h-10' />
+                    <span className='text-base text-[#252525] font-medium'>Workspace 1</span>
                   </div>
-                  <div className="capitalize font-medium leading-[0] relative shrink-0 text-[#666666] text-[14px] text-left text-nowrap">
-                    <p className="block leading-[normal] whitespace-pre">{workspace.name}</p>
+                  <div className='flex items-center gap-2'>
+                    <img src={rightArrow} alt="workspace" className='w-4 h-4' />
                   </div>
                 </div>
-                <div className="flex h-[0px] items-center justify-center relative shrink-0 w-[0px]">
-                  <div className="flex-none rotate-[90deg]">
-                    <div className="relative size-6">
-                      <img alt="arrow" className="block max-w-none size-full" src={imgIconamoonArrowUp2} />
-                    </div>
+                {/* workspace item */}
+                <div className='flex items-center justify-between cursor-pointer'>
+                  <div className='flex items-center gap-5'>
+                    <img src={img2} alt="workspace" className='w-10 h-10' />
+                    <span className='text-base text-[#252525] font-medium'>Workspace 1</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <img src={rightArrow} alt="workspace" className='w-4 h-4' />
+                  </div>
+                </div>
+                {/* workspace item */}
+                <div className='flex items-center justify-between cursor-pointer'>
+                  <div className='flex items-center gap-5'>
+                    <img src={img2} alt="workspace" className='w-10 h-10' />
+                    <span className='text-base text-[#252525] font-medium'>Workspace 1</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <img src={rightArrow} alt="workspace" className='w-4 h-4' />
+                  </div>
+                </div>
+                {/* workspace item */}
+                <div className='flex items-center justify-between cursor-pointer'>
+                  <div className='flex items-center gap-5'>
+                    <img src={img2} alt="workspace" className='w-10 h-10' />
+                    <span className='text-base text-[#252525] font-medium'>Workspace 1</span>
+                  </div>
+                  <div className='flex items-center gap-2'>
+                    <img src={rightArrow} alt="workspace" className='w-4 h-4' />
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-} 
+}

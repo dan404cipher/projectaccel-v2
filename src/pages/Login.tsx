@@ -4,15 +4,32 @@ import { Copyright, Eye, EyeClosed, EyeOff } from "lucide-react";
 import logo from '/icons/Logo.svg'
 import { useNavigate } from "react-router-dom";
 import { loginApi } from "@/services/auth";
+import toast from "react-hot-toast";
+import { validateEmail, validatePassword } from "@/lib/validator";
 
 export const  Login=() =>{
   const navigate=useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [form,setForm]=useState<{email:string,password:string}>({email:"",password:""});
+  const [error,setError]=useState<{email:string|null,password:string|null}>({email:null,password:null});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name,value}=e.target;
-    setForm({...form,[name]:value});
+    const {name, value} = e.target;
+    setForm({...form, [name]: value});
+    
+    setError({...error, [name]: null});
+    
+    if (name === 'email') {
+      const emailError = validateEmail(value);
+      if (emailError) {
+        setError({...error, [name]: emailError});
+      }
+    } else if (name === 'password') {
+      const passwordError = validatePassword(value);
+      if (passwordError) {
+        setError({...error, [name]: passwordError});
+      }
+      }
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -20,11 +37,10 @@ export const  Login=() =>{
     try{
       const response=loginApi(form);
       if(response.success){
-        alert(response.message)
-        navigate('/');
+        toast.success(response.message);
       }
       else{
-        alert(response.message)
+        toast.error(response.message);
       }
     }
     catch(err:any){
@@ -62,8 +78,12 @@ export const  Login=() =>{
                 <div className="text-xl font-medium text-center">
                   Please enter your details below to access your account
                 </div>
-                <div className="flex items-center w-full h-full mt-6">
-                  <input name="email" onChange={handleChange} className=" bg-[#E4D0BB] autofill:bg-[#E4D0BB] rounded-lg px-8 py-4 border-none outline-none text-[#5A5A5A] font-medium text-xl placeholder:text-[#5A5A5A] w-full" placeholder="Enter Your E-Mail-ID" />
+                <div className="flex flex-col items-center w-full h-full mt-6">
+                  <input name="email" onChange={handleChange} className=" lowercase bg-[#E4D0BB] autofill:bg-[#E4D0BB] rounded-lg px-8 py-4 border-none outline-none text-[#5A5A5A] font-medium text-xl placeholder:text-[#5A5A5A] w-full" placeholder="Enter Your E-Mail-ID" />
+                  {error.email && 
+                  <div className="flex items-center w-full justify-start text-[#BC3939] py-1 px-2 text-base font-medium">
+                  {error.email}
+                  </div>}
                 </div>
                 <div className="flex items-center w-full h-full bg-[#E4D0BB] rounded-lg pr-4 mt-6">
                   <input name="password" onChange={handleChange} type={showPassword ?"text": "password"} className=" bg-[#E4D0BB] rounded-lg px-8 py-4 border-none outline-none text-[#5A5A5A] font-medium text-xl placeholder:text-[#5A5A5A] w-full" placeholder="Enter Your Password" />
@@ -71,12 +91,16 @@ export const  Login=() =>{
                     {showPassword ? <Eye className="w-6 h-6 cursor-pointer" /> : <EyeOff className="w-6 h-6 cursor-pointer" />}
                   </div>
                 </div>
+                {error.password &&
+                 <div className="flex items-center w-full justify-start text-[#BC3939] py-1 px-2 text-base font-medium">
+                  {error.password}
+                </div>}
                 <div className="flex items-center justify-end pr-6 py-1 cursor-pointer">
                   <span className="font-medium" onClick={()=>navigate('/forgot-password')}>Forget Password</span>
                 </div>
               </div>
               <div className="flex items-center justify-center">
-                <button className="bg-[#06263D] text-white px-8 py-4 rounded-lg w-[50%]" type="submit">Sign In</button>
+                  <button className="bg-[#06263D] text-white px-8 py-4 rounded-lg w-[50%]" type="submit" disabled={!form.email || !form.password || !!error.email || !!error.password}>Sign In</button>
               </div>
             </form>
           </div>

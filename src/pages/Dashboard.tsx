@@ -85,7 +85,7 @@ const Dashboard = () => {
   ]
 
   return (
-    <div className="space-y-4 sm:space-y-6 lg:space-y-10 px-2 sm:px-4 lg:px-6 w-full pt-2">
+    <div className="space-y-4 sm:space-y-6 lg:space-y-10 px-2 sm:px-4 lg:px-6 w-full pt-2 h-full overflow-y-scroll">
       {/* Welcome Section */}
       <div className="space-y-1 sm:space-y-2">
         <h1 className="text-xl sm:text-2xl lg:text-[32px] font-medium text-[#438197]">Welcome Back !!</h1>
@@ -146,12 +146,10 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {/* Left side */}
         <div className="lg:col-span-1 flex flex-col h-full">
           <MySchedule className="h-full" />
         </div>
 
-        {/* Right side */}
         <div className="lg:col-span-2 flex flex-col gap-4 h-full">
           <BugOverview className="h-full"/>
           <AppIntegration className="flex-1" />
