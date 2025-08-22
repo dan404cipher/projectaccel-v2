@@ -62,7 +62,12 @@ const RecentCommand = ({className}:{className?:string}) => {
                 <div className="flex flex-col gap-3 sm:gap-4 h-48 sm:h-64 lg:h-[291px] items-start justify-start overflow-y-auto w-full">
                     {recentComments.map((comment, index) => (
                         <div key={index} className="bg-[#f9f9f9] flex flex-row gap-3 sm:gap-4 items-start justify-start px-3 sm:px-4 py-2 rounded-xl sm:rounded-2xl w-full">
-                            <div className="flex flex-row items-center justify-between px-0 py-px w-12 sm:w-[62px] flex-shrink-0">
+                          
+
+                            <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start flex-1 min-w-0">
+                                <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start w-full">
+                               <div className="flex items-center gap-4">
+                               <div className="flex flex-row items-center justify-between px-0 py-px w-12 sm:w-[62px] flex-shrink-0">
                                 <div className="bg-[#263238] w-4 h-4 sm:w-5 sm:h-5 rounded-full sm:rounded-[32px] flex items-center justify-center">
                                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" className="sm:w-3 sm:h-3">
                                         <path d="M12 2L15.09 8.26L22 9L17 14L18.18 21L12 17.77L5.82 21L7 14L2 9L8.91 8.26L12 2Z" stroke="white" strokeWidth="1" fill="white" />
@@ -70,10 +75,8 @@ const RecentCommand = ({className}:{className?:string}) => {
                                 </div>
                                 <div className="text-[10px] sm:text-[12px] font-normal text-[#666666] text-right tracking-[-0.072px] hidden sm:block">{comment.id}</div>
                             </div>
-
-                            <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start flex-1 min-w-0">
-                                <div className="flex flex-col gap-1 sm:gap-2 items-start justify-start w-full">
                                     <div className="text-sm sm:text-base lg:text-[16px] font-medium text-[#333333]">{comment.title}</div>
+                               </div>
                                     <div className="text-xs sm:text-sm lg:text-[12px] font-normal text-[#999999] w-full">{comment.description}</div>
                                 </div>
 

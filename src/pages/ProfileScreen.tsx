@@ -1,421 +1,346 @@
-import React from 'react';
+import React, { act, useState } from 'react';
+import { FaUser, FaBell, FaCog, FaCheck, FaQuestion, FaPencilAlt, FaEye, FaEyeSlash } from "react-icons/fa";
+import profile from '/icons/profile.avif'
+import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { ThemeSwitch } from '@/components/ThemeSwitch';
+import { BiSupport } from "react-icons/bi";
+import { BiSolidNotepad } from "react-icons/bi";
+import { FaRocket } from "react-icons/fa";
+import { RiUserSettingsFill } from "react-icons/ri";
+import { FaUsers } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 
-// Image assets from Figma design
-const imgEllipse3226 = "http://localhost:3845/assets/afcdad76e6a54041bae78e7f511725140b74e504.png";
-const imgEllipse7 = "http://localhost:3845/assets/50f8b17184fca272963c626c32761b37aac820b2.png";
-const imgLogo = "http://localhost:3845/assets/b84b5d40d2b309aeb74557c18f9c8aee107bb331.svg";
-const imgIconamoonArrowUp2Light = "http://localhost:3845/assets/6da921a9801912b57d27cdefe8385059e7ddd31a.svg";
-const imgEllipse10 = "http://localhost:3845/assets/88364341615089b24b27f35494b0b95acb2276c1.svg";
-const imgGroup = "http://localhost:3845/assets/93765e3060a5e02b5efd9ef1791db8c21fc953ef.svg";
-const imgGroup1 = "http://localhost:3845/assets/fe5ff0a6cc4ccdea2f38da4d6baf3716def90e5c.svg";
-const imgMessageIconBackground = "http://localhost:3845/assets/c1b6d222986627b36f13ba42ac2e73da7b39c04a.svg";
-const imgGroup2 = "http://localhost:3845/assets/e56e056d80f3538d5ece29278399adf7a83f00f8.svg";
-const imgMageFilter = "http://localhost:3845/assets/eb541e44da29796a676123f07dd6a6b02f8f359b.svg";
-const imgSubtract = "http://localhost:3845/assets/1dbd1f8e058554c0de78294c5b16c7d70ee9bbd8.svg";
-const imgPajamasCollapseLeft = "http://localhost:3845/assets/28a69ae95d5ba66094af1375314dbb52a710a84e.svg";
-const img = "http://localhost:3845/assets/ebf941e488128d66d349845b389b3ee78ee00cf9.svg";
-const imgLine27 = "http://localhost:3845/assets/5c5ae86a41b21741dd2c43b19c33de528f79bde9.svg";
-const imgGroup3 = "http://localhost:3845/assets/c1ea5885faa1c48f0a7a339a1e769d839e95a97c.svg";
-const imgMdiEyeOff = "http://localhost:3845/assets/51ba4a949894b271d0cbc4b065a262f9b956e3f5.svg";
-const imgIconamoonProfileFill = "http://localhost:3845/assets/362ea8712774fd984d13d6a83388b333127ad1df.svg";
-const imgGroup4 = "http://localhost:3845/assets/8c1e0a738a8e77ba75afd06a20e28703c82d36f4.svg";
-const imgIcBaselineNotifications = "http://localhost:3845/assets/e2e3efe3ce7eb16f1c1a95c14e44ad3e15eff503.svg";
-const imgMaterialSymbolsSupport = "http://localhost:3845/assets/6eeaabc1c5661897f4eb499490df41cad8c72684.svg";
+
+
+
 
 export default function ProfileScreen() {
+  const [activeTab, setActiveTab] = useState('profile');
+  const [showPassword, setShowPassword] = useState(false);
+  const tabs = [
+    {
+      label: 'Profile',
+      value: 'profile',
+      icon: FaUser,
+    },
+
+    {
+      label: 'Preference',
+      value: 'preference',
+      icon: FaCog,
+    },
+
+    {
+      label: 'Notification',
+      value: 'notification',
+      icon: FaBell,
+    }, {
+      label: 'Help & Support',
+      value: 'help-support',
+      icon: FaQuestion,
+    }
+  ];
+
+  const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+  const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+  const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+  const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
   return (
-    <div className="bg-[#f6f6f6] relative size-full min-h-screen">
-      {/* Top Bar */}
-      <div className="absolute backdrop-blur-[50px] backdrop-filter bg-[#c0ced2] flex flex-row gap-[425px] h-[88px] items-center justify-start left-1/2 px-10 py-4 rounded-[100px] top-6 translate-x-[-50%] w-[1680px]">
-        {/* Logo and Workspace */}
-        <div className="flex flex-row gap-10 items-center justify-start p-0 relative shrink-0 w-[414px]">
-          <div className="h-5 relative shrink-0 w-[110px]">
-            <img alt="logo" className="block max-w-none size-full" src={imgLogo} />
-          </div>
-          <div className="inline-grid leading-[0] place-items-start relative shrink-0">
-            <div className="bg-[rgba(255,255,255,0.07)] h-12 ml-0 mt-0 relative rounded-[100px] w-[264px]">
-              <div className="absolute flex flex-row gap-[42px] items-center justify-start left-6 p-0 top-3">
-                <div className="capitalize font-medium leading-[0] relative shrink-0 text-[#06263d] text-[20px] text-left text-nowrap">
-                  <p className="block leading-[normal] whitespace-pre">Workspace name</p>
-                </div>
-                <div className="flex items-center justify-center relative shrink-0">
-                  <div className="flex-none rotate-[180deg]">
-                    <div className="relative size-6">
-                      <img alt="arrow" className="block max-w-none size-full" src={imgIconamoonArrowUp2Light} />
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <div className='w-full h-full py-10 flex font-roboto'>
+      <div className=' w-1/4 h-full border-r border-gray-400 flex flex-col gap-5'>
+        {
+          tabs.map((tab) => (
+            <div key={tab.value} className={`flex items-center gap-3 cursor-pointer p-2 px-4 relative${activeTab === tab.value ? '' : ''}`} onClick={() => setActiveTab(tab.value)}>
+              {activeTab === tab.value && (
+                <div className="w-2 h-[70%] flex items-center justify-center bg-[#06263D] absolute left-0 top-2 rounded-full py-2"></div>
+              )}
+              <tab.icon className={`w-5 h-5 ${activeTab === tab.value ? 'text-[#06263D]' : 'text-[#8A9DA2]'}`} />
+              <span className={`text-2xl font-medium ${activeTab === tab.value ? 'text-[#06263D]' : 'text-[#8A9DA2]'}`}>{tab.label}</span>
             </div>
-          </div>
-        </div>
-
-        {/* User Actions */}
-        <div className="absolute flex flex-row gap-6 items-start justify-center left-[1275px] p-0 top-1/2 translate-y-[-50%]">
-          <div className="flex flex-row gap-4 items-center justify-start p-0 relative shrink-0">
-            {/* AI Icon */}
-            <div className="relative shrink-0 size-12">
-              <div className="absolute contents left-0 top-0">
-                <div className="absolute left-0 size-12 top-0">
-                  <div className="absolute bottom-[-25%] left-[-16.67%] right-[-16.67%] top-[-8.33%]">
-                    <img alt="ai-bg" className="block max-w-none size-full" src={imgEllipse10} />
-                  </div>
-                </div>
-                <div className="absolute left-1/2 overflow-clip size-6 top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                  <div className="absolute bottom-[0.77%] left-[8.73%] right-[8.33%] top-[8.33%]">
-                    <img alt="ai-icon" className="block max-w-none size-full" src={imgGroup} />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Notification Icon */}
-            <div className="relative shrink-0 size-12">
-              <div className="absolute contents left-0 top-0">
-                <div className="absolute left-0 size-12 top-0">
-                  <div className="absolute bottom-[-25%] left-[-16.67%] right-[-16.67%] top-[-8.33%]">
-                    <img alt="notification-bg" className="block max-w-none size-full" src={imgEllipse10} />
-                  </div>
-                </div>
-                <div className="absolute left-1/2 overflow-clip size-6 top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                  <div className="absolute bottom-[5.22%] left-[9.38%] right-[5.2%] top-[5.21%]">
-                    <img alt="notification-icon" className="block max-w-none size-full" src={imgGroup1} />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Message Icon */}
-            <div className="relative shrink-0 size-12">
-              <div className="absolute left-0 size-12 top-0">
-                <div className="absolute bottom-[-25%] left-[-16.67%] right-[-16.67%] top-[-8.33%]">
-                  <img alt="message-bg" className="block max-w-none size-full" src={imgMessageIconBackground} />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* User Profile */}
-          <div className="bg-[#ffffff] flex flex-row gap-2.5 items-center justify-start pl-2 pr-4 py-[5px] relative rounded-3xl shrink-0">
-            <div className="relative shrink-0 size-[38px]">
-              <div className="absolute bottom-[-26.32%] left-[-15.79%] right-[-15.79%] top-[-5.26%]">
-                <img alt="user-avatar" className="block max-w-none size-full" height="50" src={imgEllipse3226} width="50" />
-              </div>
-            </div>
-            <div className="flex flex-row gap-3.5 items-center justify-start p-0 relative shrink-0">
-              <div className="flex flex-col gap-1 items-start justify-center leading-[0] p-0 relative shrink-0 text-left text-nowrap">
-                <div className="relative shrink-0 text-[#292d32] text-[14px]">
-                  <p className="block leading-[normal] text-nowrap whitespace-pre">Lisa</p>
-                </div>
-                <div className="relative shrink-0 text-[12px] text-[rgba(41,45,50,0.44)]">
-                  <p className="block leading-[normal] text-nowrap whitespace-pre">Prodcut manager</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Search and Filter */}
-        <div className="bg-[#ffffff] h-12 relative rounded-[100px] shrink-0 w-[356px]">
-          <div className="absolute flex flex-row gap-4 items-center justify-center left-6 p-0 top-3">
-            <div className="overflow-clip relative shrink-0 size-6">
-              <div className="absolute bottom-[13.11%] left-[8.33%] right-[13.11%] top-[8.33%]">
-                <div className="absolute inset-[-7.07%]">
-                  <img alt="search-icon" className="block max-w-none size-full" src={imgGroup2} />
-                </div>
-              </div>
-            </div>
-            <div className="font-normal leading-[0] lowercase relative shrink-0 text-[#999999] text-[16px] text-left text-nowrap">
-              <p className="block leading-[normal] whitespace-pre">search for anything...</p>
-            </div>
-          </div>
-          <div className="absolute left-[308px] size-6 top-3">
-            <img alt="filter-icon" className="block max-w-none size-full" src={imgMageFilter} />
-          </div>
-        </div>
+          ))
+        }
       </div>
-
-      {/* Side Navigation */}
-      <div className="absolute h-[957px] left-6 top-[136px] w-60">
-        <div className="absolute h-[957px] left-0 top-0 w-60">
-          <img alt="sidebar-bg" className="block max-w-none size-full" src={imgSubtract} />
-        </div>
-        
-        {/* Collapse Icon */}
-        <div className="absolute bg-[#c0ced2] flex flex-row gap-2.5 items-center justify-center left-[218px] p-[8px] rounded-[20px] size-10 top-[477px]">
-          <div className="relative shrink-0 size-4">
-            <img alt="collapse" className="block max-w-none size-full" loading="lazy" src={imgPajamasCollapseLeft} />
-          </div>
-        </div>
-
-        {/* Dashboard */}
-        <div className="absolute flex flex-row gap-4 items-center justify-start left-7 px-2 py-0.5 rounded-lg top-[98px]">
-          <div className="relative shrink-0 size-6">
-            <div className="absolute inset-0 overflow-clip">
-              <div className="absolute left-1/2 size-[14.4px] top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                <div className="absolute inset-[-6.25%]">
-                  <img alt="dashboard-icon" className="block max-w-none size-full" src={img} />
+      <div className='flex flex-1'>
+        {
+          activeTab === 'profile' && (
+            <div className='px-20 flex flex-col gap-5 font-roboto flex-1'>
+              <div className='text-[#438197] text-2xl font-medium'>Personal Information</div>
+              {/* profile details */}
+              <div className='flex gap-10'>
+                {/* profile image */}
+                <div className='w-[100px] h-[100px] relative'>
+                  <img src={profile} alt="profile" className='w-full h-full object-cover rounded-full' />
+                  <div className='absolute bottom-0 right-0 bg-[#67909B] rounded-md p-2 cursor-pointer'>
+                    <FaPencilAlt className='text-white' />
+                  </div>
                 </div>
+                {/* Profile details */}
+                <div className='flex flex-col gap-3'>
+                  <div className='text-[#06263D] text-2xl font-medium'>Develper Name</div>
+                  <div className='text-[#333333] text-base font-medium'>Front End Developer</div>
+                  <div className='text-[#666666] text-sm font-medium'>+1234567890</div>
+                </div>
+                {/* Employee ID */}
+                <div className='font-medium text-[#666666] text-base'>EMPID-VA1087</div>
+              </div>
+              {/* Password Change  */}
+              <div className='flex flex-col flex-1'>
+                <div className='text-[#333333] text-xl font-medium'>Change Password</div>
+                <div className='text-[#999999] text-base font-medium'>Select your preferred language for a personalized experience</div>
+                <form className='w-full flex flex-col gap-8 mt-5'>
+                  <div className='flex items-center gap-2 bg-white py-3 px-5 rounded-lg w-full'>
+                    <input type={showPassword ? 'text' : 'password'} className='w-full h-10 border outline-none border-none border-[#999999] rounded-md p-2 font-medium text-base' placeholder='Current Password' />
+                    {showPassword ? <FaEye className='text-2xl cursor-pointer text-[#5A5A5A]' onClick={() => setShowPassword(!showPassword)} /> : <FaEyeSlash className='text-2xl cursor-pointer text-[#5A5A5A]' onClick={() => setShowPassword(!showPassword)} />}
+                  </div>
+                  <div className='flex items-center gap-2 bg-white py-3 px-5 rounded-lg w-full'>
+                    <input type={showPassword ? 'text' : 'password'} className='w-full h-10 border outline-none border-none border-[#999999] rounded-md p-2 font-medium text-base' placeholder='New Password' />
+                    {showPassword ? <FaEye className='text-2xl cursor-pointer text-[#5A5A5A]' onClick={() => setShowPassword(!showPassword)} /> : <FaEyeSlash className='text-2xl cursor-pointer text-[#5A5A5A]' onClick={() => setShowPassword(!showPassword)} />}
+                  </div>
+                  <div className='flex items-center gap-2 bg-white py-3 px-5 rounded-lg w-full'>
+                    <input type={showPassword ? 'text' : 'password'} className='w-full h-10 border outline-none border-none border-[#999999] rounded-md p-2 font-medium text-base' placeholder='Confirm Password' />
+                    {showPassword ? <FaEye className='text-2xl cursor-pointer text-[#5A5A5A]' onClick={() => setShowPassword(!showPassword)} /> : <FaEyeSlash className='text-2xl cursor-pointer text-[#5A5A5A]' onClick={() => setShowPassword(!showPassword)} />}
+                  </div>
+                  <div className='flex items-center justify-center'>
+                    <button className='bg-[#67909B] text-white py-3 px-5 rounded-lg'>Change Password</button>
+                  </div>
+                </form>
               </div>
             </div>
-          </div>
-          <div className="flex flex-row items-center justify-start p-0 relative shrink-0">
-            <div className="font-semibold leading-[0] relative shrink-0 text-[#06263d] text-[18px] text-left w-[165px]">
-              <p className="block leading-[normal]">Dash Board</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Projects */}
-        <div className="absolute flex flex-row gap-4 items-center justify-center left-7 px-2 py-0.5 rounded-lg top-[174px]">
-          <div className="relative shrink-0 size-6">
-            <div className="absolute inset-0 overflow-clip">
-              <div className="absolute left-1/2 size-[14.4px] top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                <div className="absolute inset-[-6.25%]">
-                  <img alt="projects-icon" className="block max-w-none size-full" src={img} />
+          )
+        }
+        {
+          activeTab === 'preference' && (
+            <div className='px-20 flex flex-col gap-5 font-roboto flex-1'>
+              <div className='text-[#438197] text-2xl font-medium'>Preference</div>
+              {/* Prefernce content */}
+              <div className='flex flex-col gap-5'>
+                <div className='flex flex-col'>
+                  <div className='text-[#333333] text-xl font-medium'>Language & Region</div>
+                  <div className='text-[#999999]'>Select your preferred language & region for a personalized experience</div>
+                  <form className='flex flex-col gap-4 mt-4'>
+                    <Select>
+                      <SelectTrigger className='w-full h-10 px-4 py-3'>
+                        <SelectValue placeholder='Select Language' className='px-3 py-3' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='en'>English</SelectItem>
+                        <SelectItem value='es'>Spanish</SelectItem>
+                        <SelectItem value='fr'>French</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Select>
+                      <SelectTrigger className='w-full h-10 px-4 py-3'>
+                        <SelectValue placeholder='Select Timezone' className='px-3 py-3' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value='in'>India</SelectItem>
+                        <SelectItem value='us'>United States</SelectItem>
+                        <SelectItem value='uk'>United Kingdom</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </form>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="flex flex-row items-center justify-start p-0 relative shrink-0">
-            <div className="font-semibold leading-[0] relative shrink-0 text-[#06263d] text-[18px] text-left text-nowrap">
-              <p className="block leading-[normal] whitespace-pre">Projects</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Projects */}
-        <div className="absolute flex flex-col gap-4 items-start justify-start left-7 p-0 top-[325px] w-[171px]">
-          <div className="flex flex-row gap-4 items-center justify-center px-2 py-0.5 relative rounded-lg shrink-0">
-            <div className="relative shrink-0 size-6">
-              <div className="absolute inset-0 overflow-clip">
-                <div className="absolute left-1/2 size-[14.4px] top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                  <div className="absolute inset-[-6.25%]">
-                    <img alt="project-icon" className="block max-w-none size-full" src={img} />
+              <div className='flex flex-col gap-4'>
+                <div className='flex flex-col'>
+                  <div className=' text-[#333333] text-xl font-medium'>
+                    Themes
+                  </div>
+                  <div className='text-[#999999]'>Select your preferred theme for a personalized experience</div>
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Light mode</div>
+                  <ThemeSwitch />
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Customize your theme</div>
+                  <div className="flex -space-x-1.5">
+                    <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
+                    <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
+                    <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
+                    <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
+                    <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="flex flex-row items-center justify-start p-0 relative shrink-0">
-              <div className="font-medium leading-[0] relative shrink-0 text-[#06263d] text-[16px] text-left text-nowrap">
-                <p className="block leading-[normal] whitespace-pre">Ricemill Portal</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-row gap-4 items-center justify-center px-2 py-0.5 relative rounded-lg shrink-0 w-full">
-            <div className="relative shrink-0 size-6">
-              <div className="absolute inset-0 overflow-clip">
-                <div className="absolute left-1/2 size-[14.4px] top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                  <div className="absolute inset-[-6.25%]">
-                    <img alt="project-icon" className="block max-w-none size-full" src={img} />
+              <div className='flex flex-col gap-5'>
+                <div className='flex flex-col'>
+                  <div className='text-[#333333] text-xl font-medium'>
+                    Accessibility
                   </div>
+                  <div className='text-[#999999]'>Select your preferred Font size & contrast for your accessibility</div>
+                </div>
+                <div className='flex items-center justify-between gap-2'>
+                  <div className='text-[#666666] text-xl font-medium'>Font size</div>
+                </div>
+                <div className='flex items-center justify-between gap-2'>
+                  <div className='text-[#666666] text-xl font-medium'>Increase contrast</div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-row items-center justify-start p-0 relative shrink-0">
-              <div className="font-medium leading-[0] relative shrink-0 text-[#06263d] text-[16px] text-left text-nowrap">
-                <p className="block leading-[normal] whitespace-pre">V-accel Website</p>
+          )
+        }
+        {
+          activeTab === 'notification' && (
+            <div className='px-20 flex flex-col gap-5 font-roboto flex-1'>
+              <div className='text-[#438197] text-2xl font-medium'>Notifications</div>
+              {/* Notification content */}
+              <div className='flex flex-col gap-5'>
+                <div className='flex flex-col'>
+                  <span className='text-[#333333] text-xl font-medium'>Gerenal</span>
+                  <span className='text-[#999999]'>Select your preferred Font size & contrast for your accessibility</span>
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Mute Notifications</div>
+                  <Switch
+                  />
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Email Notifications</div>
+                  <Switch
+                  />
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Email Notifications</div>
+                  <Switch
+                  />
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Push Notifications</div>
+                  <Switch
+                  />
+                </div>
+
               </div>
-            </div>
-          </div>
-          <div className="flex flex-row gap-4 items-center justify-center px-2 py-0.5 relative rounded-lg shrink-0">
-            <div className="relative shrink-0 size-6">
-              <div className="absolute inset-0 overflow-clip">
-                <div className="absolute left-1/2 size-[14.4px] top-1/2 translate-x-[-50%] translate-y-[-50%]">
-                  <div className="absolute inset-[-6.25%]">
-                    <img alt="project-icon" className="block max-w-none size-full" src={img} />
-                  </div>
+              {/* Project & Task Activity */}
+              <div className='flex flex-col gap-5'>
+                <div className='flex flex-col'>
+                  <span className='text-[#333333] text-xl font-medium'>Project & Task Activity</span>
+                  <span className='text-[#999999]'>Select your preferred Font size & contrast for your accessibility</span>
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Task assigned</div>
+                  <Switch
+                  />
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Project status changes</div>
+                  <Switch
+                  />
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Task Comment</div>
+                  <Switch
+                  />
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Task deadline Alert</div>
+                  <Switch
+                  />
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Overdue task alerts</div>
+                  <Switch
+                  />
+                </div>
+              </div>
+              {/* Communication */}
+              <div className='flex flex-col gap-3'>
+                <div className='flex flex-col'>
+                  <span className='text-[#333333] text-xl font-medium'> Communication</span>
+                  <span className='text-[#999999]'>Select your preferred Font size & contrast for your accessibility</span>
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Message</div>
+                  <Switch
+                  />
+                </div>
+                <div className='flex items-center justify-between'>
+                  <div className='text-[#666666] text-xl font-medium'>Mention</div>
+                  <Switch
+                  />
                 </div>
               </div>
             </div>
-            <div className="flex flex-row items-center justify-start p-0 relative shrink-0">
-              <div className="font-medium leading-[0] relative shrink-0 text-[#06263d] text-[16px] text-left text-nowrap">
-                <p className="block leading-[normal] whitespace-pre">Hire-accel</p>
+          )
+        }
+        {
+          activeTab === 'help-support' && (
+            <div className='px-20 flex flex-col gap-5 font-roboto flex-1'>
+              <div className='flex items-center justify-between'>
+                <div className='text-[#438197] text-2xl font-medium'>Help & Support</div>
+                <div className='bg-[#67909B] flex items-center justify-center p-2 rounded-full cursor-pointer'>
+                  <BiSupport className='text-xl text-white' />
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Section Labels */}
-        <div className="absolute font-medium leading-[0] left-[29px] text-[#5a5a5a] text-[14px] text-left text-nowrap top-10">
-          <p className="block leading-[normal] whitespace-pre">MANAGE</p>
-        </div>
-        <div className="absolute font-medium leading-[0] left-7 text-[#5a5a5a] text-[14px] text-left text-nowrap top-[282px]">
-          <p className="block leading-[normal] whitespace-pre">RECENT</p>
-        </div>
-      </div>
-
-      {/* Vertical Divider */}
-      <div className="absolute flex h-[0px] items-center justify-center translate-x-[-50%] translate-y-[-50%] w-[0px]" style={{ top: "calc(50% + 55px)", left: "calc(50% - 167px)" }}>
-        <div className="flex-none rotate-[270deg]">
-          <div className="h-0 relative w-[955px]">
-            <div className="absolute bottom-0 left-0 right-0 top-[-3px]">
-              <img alt="divider" className="block max-w-none size-full" src={imgLine27} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="absolute flex flex-col gap-14 items-center justify-start left-[785px] p-0 top-[200px] w-[800px]">
-        <div className="flex flex-col gap-12 items-start justify-start p-0 relative shrink-0 w-full">
-          {/* Personal Information Section */}
-          <div className="flex flex-col gap-8 items-start justify-start p-0 relative shrink-0 w-full">
-            <div className="flex flex-col font-medium justify-center leading-[0] relative shrink-0 text-[#438197] text-[32px] text-left w-full">
-              <p className="block leading-[1.4]">Personal Information</p>
-            </div>
-            <div className="flex flex-row gap-[139px] items-center justify-start p-0 relative shrink-0 w-full">
-              <div className="flex flex-row gap-10 items-start justify-start p-0 relative shrink-0">
-                <div className="relative shrink-0 size-[100px]">
-                  <div className="absolute left-0 size-[100px] top-0">
-                    <img alt="profile-avatar" className="block max-w-none size-full" height="100" src={imgEllipse7} width="100" />
+              {/* help-support content  */}
+              <div className='flex flex-col gap-5 mt-4'>
+                <input placeholder=' How can i help you ?' className='px-10 py-5 rounded-md' />
+                {/* support grid */}
+                <div className=' grid grid-cols-5 gap-3 h-[150px]'>
+                  <div className='flex flex-col gap-4 items-center justify-center bg-[#8A9DA229] rounded-lg p-5'>
+                    <FaRocket className='text-3xl text-[#06263D]' />
+                    <span className='text-[#333333] text-xl font-medium text-center'>Get Started</span>
+                  </div>
+                  <div className='flex flex-col gap-4 items-center justify-center bg-[#8A9DA229] rounded-lg p-5'>
+                    <BiSolidNotepad className='text-3xl text-[#06263D]' />
+                    <span className='text-[#333333] text-xl font-medium text-center'>Project Management</span>
+                  </div>
+                  <div className='flex flex-col gap-4 items-center justify-center bg-[#8A9DA229] rounded-lg p-5'>
+                    <FaUsers className='text-3xl text-[#06263D]' />
+                    <span className='text-[#333333] text-xl font-medium text-center'>Team
+                      Collaboration</span>
+                  </div>
+                  <div className='flex flex-col gap-4 items-center justify-center bg-[#8A9DA229] rounded-lg p-5'>
+                    <FaRocket className='text-3xl text-[#06263D]' />
+                    <span className='text-[#333333] text-xl font-medium text-center'>Integrations</span>
+                  </div>
+                  <div className='flex flex-col gap-4 items-center justify-center bg-[#8A9DA229] rounded-lg p-5'>
+                    <RiUserSettingsFill className='text-3xl text-[#06263D]' />
+                    <span className='text-[#333333] text-xl font-medium text-center'>Account
+                      Settings</span>
                   </div>
                 </div>
-                <div className="flex flex-col gap-2 items-start justify-start p-0 relative shrink-0 w-[321px]">
-                  <div className="flex flex-row font-medium gap-8 items-center justify-start leading-[0] p-0 relative shrink-0 text-nowrap w-full">
-                    <div className="flex flex-col justify-center relative shrink-0 text-[#252525] text-[24px] text-left">
-                      <p className="block leading-[1.4] text-nowrap whitespace-pre">Developer Name </p>
+                {/* contact us */}
+                <div className='flex flex-col gap-5'>
+                  <span className='text-[#438197] text-base font-medium'>Contact Us</span>
+                  <div className='flex items-center justify-between border-b border-gray-200 pt-10 pb-10'>
+                    <div className='flex flex-col gap-2'>
+                      <span className='text-[#333333] text-base font-medium'>Support Email</span>
+                      <span className='text-[#999999] text-sm font-medium'>example@v-accel.ai</span>
                     </div>
-                    <div className="flex flex-col justify-center relative shrink-0 text-[#666666] text-[16px] text-center">
-                      <p className="block leading-[1.4] text-nowrap whitespace-pre">EMPID-VA1087</p>
+                    <div className='flex flex-col gap-2'>
+                      <span className='text-[#333333] text-base font-medium'>Helpline</span>
+                      <span className='text-[#999999] text-sm font-medium'>91-8976542435</span>
                     </div>
-                  </div>
-                  <div className="flex flex-col font-medium gap-2 items-start justify-start leading-[0] p-0 relative shrink-0 text-center w-36">
-                    <div className="flex flex-col justify-center min-w-full relative shrink-0 text-[#333333] text-[16px]" style={{ width: "min-content" }}>
-                      <p className="block leading-[1.4]">Front end Developer</p>
-                    </div>
-                    <div className="flex flex-col justify-center relative shrink-0 text-[#666666] text-[14px] text-nowrap">
-                      <p className="block leading-[1.4] whitespace-pre">example@v-accel.ai</p>
+                    <div className='flex flex-col gap-2'>
+                      <span className='text-[#333333] text-base font-medium'>Toll-free number</span>
+                      <span className='text-[#999999] text-sm font-medium'>1800 7654 3345</span>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex flex-row gap-2.5 h-[60px] items-center justify-center px-[200px] py-4 relative rounded-lg shrink-0 w-[200px]">
-                <div className="absolute border border-[#06263d] border-solid inset-0 pointer-events-none rounded-lg" aria-hidden="true" />
-                <div className="flex flex-row gap-4 items-center justify-start p-0 relative shrink-0">
-                  <div className="overflow-clip relative shrink-0 size-8">
-                    <div className="absolute bottom-[16.67%] left-[16.67%] right-[12.5%] top-[15.95%]">
-                      <div className="absolute bottom-[-2.32%] left-[-2.21%] right-[-2.21%] top-[-2.32%]">
-                        <img alt="edit-icon" className="block max-w-none size-full" src={imgGroup3} />
+                <div className='flex flex-col gap-3'>
+                  <span className='text-[#438197] text-base font-medium'>FAQs</span>
+                  <div className='flex items-center justify-between'>
+
+                    <div className='flex flex-col gap-5'>
+                      <div className='flex items-center justify-between text-[#333333] text-base font-medium'>
+                        How do I reset my password?
+                      </div>
+                      <div className='text-[#999999] text-sm font-medium' >
+                        consectetur adipiscing elit, sed do eiusmod tempor incididunt utabore et dolore magna aliqua ed do eiusmodeiusmodconsectetur adipiscing elit, sed do eiusmod tempor incididunt utabore et dolore magna
+                        eiusmod ed do eiusmod
                       </div>
                     </div>
-                  </div>
-                  <div className="font-medium leading-[0] relative shrink-0 text-[#06263d] text-[20px] text-center text-nowrap">
-                    <p className="block leading-[normal] whitespace-pre">Edit Avatar</p>
+                    <IoIosArrowDown className='text-2xl text-[#06263D]' />
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Change Password Section */}
-          <div className="flex flex-col gap-6 items-start justify-start p-0 relative shrink-0 w-full">
-            <div className="flex flex-col font-medium gap-2 items-start justify-start leading-[0] p-0 relative shrink-0 text-left w-full">
-              <div className="flex flex-col justify-center relative shrink-0 text-[#333333] text-[24px] w-full">
-                <p className="block leading-[1.4]">Change Password</p>
-              </div>
-              <div className="flex flex-col justify-center relative shrink-0 text-[#999999] text-[16px] w-full">
-                <p className="block leading-[1.4]">Select your preferred language for a personalized experience</p>
-              </div>
-            </div>
-            
-            {/* Password Fields */}
-            <div className="bg-[#ffffff] flex flex-row gap-[322px] h-20 items-center justify-start px-12 py-2 relative rounded-lg shrink-0 w-[800px]">
-              <div className="capitalize font-medium h-6 leading-[0] opacity-90 relative shrink-0 text-[#5a5a5a] text-[20px] text-left w-[358px]">
-                <p className="block leading-[normal]">Current Password</p>
-              </div>
-              <div className="relative shrink-0 size-6">
-                <img alt="eye-off" className="block max-w-none size-full" src={imgMdiEyeOff} />
-              </div>
-            </div>
-            
-            <div className="bg-[#ffffff] flex flex-row gap-[322px] h-20 items-center justify-start px-12 py-2 relative rounded-lg shrink-0 w-full">
-              <div className="capitalize font-medium h-6 leading-[0] opacity-90 relative shrink-0 text-[#5a5a5a] text-[20px] text-left w-[358px]">
-                <p className="block leading-[normal]">Change Password</p>
-              </div>
-              <div className="relative shrink-0 size-6">
-                <img alt="eye-off" className="block max-w-none size-full" loading="lazy" src={imgMdiEyeOff} />
-              </div>
-            </div>
-            
-            <div className="bg-[#ffffff] flex flex-row gap-[322px] h-20 items-center justify-start px-12 py-2 relative rounded-lg shrink-0 w-full">
-              <div className="capitalize font-medium h-6 leading-[0] opacity-90 relative shrink-0 text-[#5a5a5a] text-[20px] text-left w-[358px]">
-                <p className="block leading-[normal]">Confirm Password</p>
-              </div>
-              <div className="relative shrink-0 size-6">
-                <img alt="eye-off" className="block max-w-none size-full" loading="lazy" src={imgMdiEyeOff} />
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Save Button */}
-        <div className="bg-[#06263d] flex flex-row gap-2.5 h-[60px] items-center justify-center px-[200px] py-4 relative rounded-lg shrink-0 w-[200px]">
-          <div className="flex flex-row gap-4 items-center justify-start p-0 relative shrink-0">
-            <div className="font-medium leading-[0] relative shrink-0 text-[#ffffff] text-[24px] text-center text-nowrap">
-              <p className="block leading-[normal] whitespace-pre">Save changes</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Settings Navigation */}
-      <div className="absolute contents left-[344px] top-[228px]">
-        <div className="absolute flex h-[0px] items-center justify-center left-[344px] top-[228px] w-[0px]">
-          <div className="flex-none rotate-[90deg]">
-            <div className="bg-[#06263d] h-2 rounded-[40px] w-8" />
-          </div>
-        </div>
-        <div className="absolute flex flex-col gap-[63px] items-start justify-start left-[368px] p-0 top-[228px] w-[241px]">
-          {/* Profile */}
-          <div className="flex flex-row gap-[37px] items-center justify-start p-0 relative shrink-0">
-            <div className="relative shrink-0 size-8">
-              <img alt="profile-icon" className="block max-w-none size-full" src={imgIconamoonProfileFill} />
-            </div>
-            <div className="font-medium leading-[0] relative shrink-0 text-[#06263d] text-[24px] text-left text-nowrap">
-              <p className="block leading-[normal] whitespace-pre">Profile </p>
-            </div>
-          </div>
-          
-          {/* Preference */}
-          <div className="flex flex-row gap-10 items-center justify-start p-0 relative shrink-0">
-            <div className="flex items-center justify-center relative shrink-0">
-              <div className="flex-none rotate-[180deg]">
-                <div className="overflow-clip relative size-8">
-                  <div className="absolute inset-[11.458%]">
-                    <div className="absolute inset-[-5.068%]">
-                      <img alt="theme-icon" className="block max-w-none size-full" src={imgGroup4} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="font-medium leading-[0] relative shrink-0 text-[#8a9da2] text-[24px] text-left text-nowrap">
-              <p className="block leading-[normal] whitespace-pre">Preference</p>
-            </div>
-          </div>
-          
-          {/* Notification */}
-          <div className="flex flex-row gap-10 items-center justify-start p-0 relative shrink-0">
-            <div className="relative shrink-0 size-8">
-              <img alt="notification-icon" className="block max-w-none size-full" src={imgIcBaselineNotifications} />
-            </div>
-            <div className="font-medium leading-[0] relative shrink-0 text-[#8a9da2] text-[24px] text-left text-nowrap">
-              <p className="block leading-[normal] whitespace-pre">Notification</p>
-            </div>
-          </div>
-          
-          {/* Help & Support */}
-          <div className="flex flex-row gap-10 items-center justify-start p-0 relative shrink-0 w-full">
-            <div className="relative shrink-0 size-8">
-              <img alt="support-icon" className="block max-w-none size-full" src={imgMaterialSymbolsSupport} />
-            </div>
-            <div className="font-medium leading-[0] relative shrink-0 text-[#8a9da2] text-[24px] text-left text-nowrap">
-              <p className="block leading-[normal] whitespace-pre">Help & support</p>
-            </div>
-          </div>
-        </div>
+          )
+        }
       </div>
     </div>
   );
-} 
+}
