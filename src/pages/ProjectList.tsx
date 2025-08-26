@@ -1,5 +1,8 @@
 import { Select, SelectItem, SelectValue, SelectContent, SelectTrigger } from '@/components/ui/select';
-import React from 'react';
+import { Projects } from '@/lib/MockData';
+import { getRemainingLabel } from '@/lib/utils';
+import { Plus } from 'lucide-react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Icon assets from public/icons directory
@@ -50,6 +53,7 @@ const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 const img6 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
 export default function ProjectList() {
+  const [projects, setProjects] = useState(Projects);
   const navigate = useNavigate();
 
   const handleCardClick = (projectId: string) => {
@@ -57,7 +61,7 @@ export default function ProjectList() {
   };
 
   return (
-    <div className="bg-[#f6f6f6] min-h-screen w-full p-6">
+    <div className="bg-[#f6f6f6] h-screen w-full p-6 flex flex-col">
       {/* Page Header */}
       <div className="mb-4 sm:mb-6 lg:mb-8 flex justify-between items-start">
         <div>
@@ -65,22 +69,22 @@ export default function ProjectList() {
             Active Projects
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-[#999999]">
-            18 projects
+            {projects.length || 0} {projects.length > 1 ? "Projects" : "Project"}
           </p>
         </div>
-        
+
         {/* Action Buttons */}
         <div className="flex gap-2">
           {/* Search Button */}
           <div className="bg-[#67909b] rounded-lg p-1.5 w-8 h-8 flex items-center justify-center cursor-pointer">
             <img alt="search" className="w-3 h-3" src={searchIcon} />
           </div>
-          
+
           {/* Sort Button */}
           <div className="bg-[#67909b] rounded-lg p-1.5 w-8 h-8 flex items-center justify-center cursor-pointer">
             <img alt="sort" className="w-3 h-3" src={sortIcon} />
           </div>
-          
+
           {/* Group Button */}
           <div className="bg-[#67909b] rounded-lg p-1.5 w-8 h-8 flex items-center justify-center cursor-pointer">
             <img alt="group" className="w-3 h-3" src={groupIcon} />
@@ -95,310 +99,83 @@ export default function ProjectList() {
               <SelectItem value="project-3">Project 3</SelectItem>
             </SelectContent>
           </Select>
+          <div className='flex items-center gap-2 bg-[#67909b] text-white px-3 rounded-lg cursor-pointer text-sm font-medium' onClick={()=>navigate('/create-project')}>
+            Create Project
+          </div>
         </div>
       </div>
 
       {/* Project Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-        {/* Project Card 1 */}
-        <div 
-          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
-          onClick={() => handleCardClick('project-1')}
-        >
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
-              Example Project Title
-            </h3>
-            <div className="flex items-center gap-1">
-              <div className="bg-[#263238] rounded-full p-0.5">
-                <img alt="bug" className="w-2.5 h-2.5" src={bugIcon} />
-              </div>
-              <span className="text-xs text-[#666666] font-medium">PV – 117</span>
-            </div>
-          </div>
-          
-          <p className="text-xs sm:text-sm text-[#999999] mb-3 line-clamp-2">
-            consectetur adipiscing elit, sed do consectetur
-          </p>
-          
-          {/* Progress Bar */}
-          <div className="mb-3">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-[#666666] font-medium">Progress</span>
-              <span className="text-xs text-[#666666] font-medium">89%</span>
-            </div>
-            <div className="w-full bg-[rgba(67,129,151,0.16)] rounded-full h-1.5">
-              <div className="bg-[#438197] h-1.5 rounded-full" style={{ width: '89%' }}></div>
-            </div>
-          </div>
-          
-          {/* Team Members and Deadline */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-              </div>
-              <span className="text-xs text-[#999999] font-medium">24+</span>
-            </div>
-            <div className="bg-[rgba(203,102,102,0.16)] rounded-md px-2 py-1">
-              <span className="text-xs text-[#cb6666] font-medium">1 Day left</span>
-            </div>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 overflow-y-auto">
+        {
+          projects.length > 0 ? (
+            projects?.map((project) => (
+              <div
+                className="bg-white h-fit rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
+                onClick={() => handleCardClick('project-1')}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
+                    {project?.title || "Untitle"}
+                  </h3>
+                  <div className="flex items-center gap-1">
+                    <div className="bg-[#263238] rounded-full p-0.5">
+                      <img alt="bug" className="w-2.5 h-2.5" src={bugIcon} />
+                    </div>
+                    <span className="text-xs text-[#666666] font-medium">{project?.ProjectId || "PJ-01"}</span>
+                  </div>
+                </div>
 
-        {/* Project Card 2 */}
-        <div 
-          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
-          onClick={() => handleCardClick('project-2')}
-        >
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
-              Example Project Title
-            </h3>
-            <div className="flex items-center gap-1">
-              <div className="bg-[#263238] rounded-full p-0.5">
-                <img alt="bug" className="w-2.5 h-2.5" src={bugIcon} />
-              </div>
-              <span className="text-xs text-[#666666] font-medium">PV – 117</span>
-            </div>
-          </div>
-          
-          <p className="text-xs sm:text-sm text-[#999999] mb-3 line-clamp-2">
-            consectetur adipiscing elit, sed do consectetur
-          </p>
-          
-          {/* Progress Bar */}
-          <div className="mb-3">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-[#666666] font-medium">Progress</span>
-              <span className="text-xs text-[#666666] font-medium">89%</span>
-            </div>
-            <div className="w-full bg-[rgba(67,129,151,0.16)] rounded-full h-1.5">
-              <div className="bg-[#438197] h-1.5 rounded-full" style={{ width: '89%' }}></div>
-            </div>
-          </div>
-          
-          {/* Team Members and Deadline */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-              </div>
-              <span className="text-xs text-[#999999] font-medium">24+</span>
-            </div>
-            <div className="bg-[rgba(203,102,102,0.16)] rounded-md px-2 py-1">
-              <span className="text-xs text-[#cb6666] font-medium">1 Day left</span>
-            </div>
-          </div>
-        </div>
+                <p className="text-xs sm:text-sm text-[#999999] mb-3 line-clamp-2">
+                  {project?.description || "untitle"}
+                </p>
 
-        {/* Project Card 3 */}
-        <div 
-          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
-          onClick={() => handleCardClick('project-3')}
-        >
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
-              Example Project Title
-            </h3>
-            <div className="flex items-center gap-1">
-              <div className="bg-[#263238] rounded-full p-0.5">
-                <img alt="bug" className="w-2.5 h-2.5" src={bugIcon} />
-              </div>
-              <span className="text-xs text-[#666666] font-medium">PV – 117</span>
-            </div>
-          </div>
-          
-          <p className="text-xs sm:text-sm text-[#999999] mb-3 line-clamp-2">
-            consectetur adipiscing elit, sed do consectetur
-          </p>
-          
-          {/* Progress Bar */}
-          <div className="mb-3">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-[#666666] font-medium">Progress</span>
-              <span className="text-xs text-[#666666] font-medium">89%</span>
-            </div>
-            <div className="w-full bg-[rgba(67,129,151,0.16)] rounded-full h-1.5">
-              <div className="bg-[#438197] h-1.5 rounded-full" style={{ width: '89%' }}></div>
-            </div>
-          </div>
-          
-          {/* Team Members and Deadline */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-              </div>
-              <span className="text-xs text-[#999999] font-medium">24+</span>
-            </div>
-            <div className="bg-[rgba(203,102,102,0.16)] rounded-md px-2 py-1">
-              <span className="text-xs text-[#cb6666] font-medium">1 Day left</span>
-            </div>
-          </div>
-        </div>
+                {/* Progress Bar */}
+                <div className="mb-3">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-xs text-[#666666] font-medium">Progress</span>
+                    <span className="text-xs text-[#666666] font-medium">{project?.process || 0} %</span>
+                  </div>
+                  <div className="w-full bg-[rgba(67,129,151,0.16)] rounded-full h-1.5">
+                    <div className="bg-[#438197] h-1.5 rounded-full" style={{ width: `${project?.process || 0}%` }}></div>
+                  </div>
+                </div>
 
-        {/* Project Card 4 */}
-        <div 
-          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
-          onClick={() => handleCardClick('project-4')}
-        >
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
-              Example Project Title
-            </h3>
-            <div className="flex items-center gap-1">
-              <div className="bg-[#263238] rounded-full p-0.5">
-                <img alt="bug" className="w-2.5 h-2.5" src={bugIcon} />
+                {/* Team Members and Deadline */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-1.5">
+                      {
+                        project?.assignee && project.assignee.length > 0 ? (
+                          project.assignee.slice(0, 5).map((assign, idx) => (
+                            <img
+                              key={`${assign.name}-${idx}`}
+                              alt={assign.name}
+                              className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white"
+                              src={assign.profile}
+                            />
+                          ))
+                        ) : (
+                          <span className="text-xs text-[#999999]">No assignees</span>
+                        )
+                      }
+                    </div>
+                    <span className="text-xs text-[#999999] font-medium">
+                      {project?.assignee && project.assignee.length > 5 ? `+${project.assignee.length - 5}` : ""}
+                    </span>
+                  </div>
+                  <div className="bg-[rgba(203,102,102,0.16)] rounded-md px-2 py-1">
+                    <span className="text-xs text-[#cb6666] font-medium">{getRemainingLabel(project.endDate)}</span>
+                  </div>
+                </div>
               </div>
-              <span className="text-xs text-[#666666] font-medium">PV – 117</span>
+            ))
+          ) : (
+            <div className='flex items-center justify-center w-full h-full'>
+              No project
             </div>
-          </div>
-          
-          <p className="text-xs sm:text-sm text-[#999999] mb-3 line-clamp-2">
-            consectetur adipiscing elit, sed do consectetur
-          </p>
-          
-          {/* Progress Bar */}
-          <div className="mb-3">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-[#666666] font-medium">Progress</span>
-              <span className="text-xs text-[#666666] font-medium">89%</span>
-            </div>
-            <div className="w-full bg-[rgba(67,129,151,0.16)] rounded-full h-1.5">
-              <div className="bg-[#438197] h-1.5 rounded-full" style={{ width: '89%' }}></div>
-            </div>
-          </div>
-          
-          {/* Team Members and Deadline */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-              </div>
-              <span className="text-xs text-[#999999] font-medium">24+</span>
-            </div>
-            <div className="bg-[rgba(203,102,102,0.16)] rounded-md px-2 py-1">
-              <span className="text-xs text-[#cb6666] font-medium">1 Day left</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Project Card 5 */}
-        <div 
-          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
-          onClick={() => handleCardClick('project-5')}
-        >
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
-              Example Project Title
-            </h3>
-            <div className="flex items-center gap-1">
-              <div className="bg-[#263238] rounded-full p-0.5">
-                <img alt="bug" className="w-2.5 h-2.5" src={bugIcon} />
-              </div>
-              <span className="text-xs text-[#666666] font-medium">PV – 117</span>
-            </div>
-          </div>
-          
-          <p className="text-xs sm:text-sm text-[#999999] mb-3 line-clamp-2">
-            consectetur adipiscing elit, sed do consectetur
-          </p>
-          
-          {/* Progress Bar */}
-          <div className="mb-3">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-[#666666] font-medium">Progress</span>
-              <span className="text-xs text-[#666666] font-medium">89%</span>
-            </div>
-            <div className="w-full bg-[rgba(67,129,151,0.16)] rounded-full h-1.5">
-              <div className="bg-[#438197] h-1.5 rounded-full" style={{ width: '89%' }}></div>
-            </div>
-          </div>
-          
-          {/* Team Members and Deadline */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-              </div>
-              <span className="text-xs text-[#999999] font-medium">24+</span>
-            </div>
-            <div className="bg-[rgba(203,102,102,0.16)] rounded-md px-2 py-1">
-              <span className="text-xs text-[#cb6666] font-medium">1 Day left</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Project Card 6 */}
-        <div 
-          className="bg-white rounded-xl p-3 sm:p-4 shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer"
-          onClick={() => handleCardClick('project-6')}
-        >
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-base sm:text-lg font-medium text-[#252525] capitalize line-clamp-2">
-              Example Project Title
-            </h3>
-            <div className="flex items-center gap-1">
-              <div className="bg-[#263238] rounded-full p-0.5">
-                <img alt="bug" className="w-2.5 h-2.5" src={bugIcon} />
-              </div>
-              <span className="text-xs text-[#666666] font-medium">PV – 117</span>
-            </div>
-          </div>
-          
-          <p className="text-xs sm:text-sm text-[#999999] mb-3 line-clamp-2">
-            consectetur adipiscing elit, sed do consectetur
-          </p>
-          
-          {/* Progress Bar */}
-          <div className="mb-3">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-[#666666] font-medium">Progress</span>
-              <span className="text-xs text-[#666666] font-medium">89%</span>
-            </div>
-            <div className="w-full bg-[rgba(67,129,151,0.16)] rounded-full h-1.5">
-              <div className="bg-[#438197] h-1.5 rounded-full" style={{ width: '89%' }}></div>
-            </div>
-          </div>
-          
-          {/* Team Members and Deadline */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex -space-x-1.5">
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img3} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img4} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img5} />
-                <img alt="member" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border-2 border-white" src={img2} />
-              </div>
-              <span className="text-xs text-[#999999] font-medium">24+</span>
-            </div>
-            <div className="bg-[rgba(203,102,102,0.16)] rounded-md px-2 py-1">
-              <span className="text-xs text-[#cb6666] font-medium">1 Day left</span>
-            </div>
-          </div>
-        </div>
+          )
+        }
       </div>
     </div>
   );

@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
 import Calendar from '@/components/Calender';
 import taskIcon from '/icons/hugeicons_task-01.svg';
+import ActiveSprint from './ActiveSprint';
+import ActiveSprintCalender from '@/components/AciveSprintCalender';
+import dayjs from 'dayjs';
+
+
 export default function ProjectCalendarView() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState<'month' | 'week' | 'day'>('month');
+  const today=dayjs();
+  const startOfMonth=today.startOf('month');
+  const endOfMonth=today.endOf('month');
+  const monthDays = Array.from({ length: endOfMonth.diff(startOfMonth, "day") + 1 }, (_, i) =>
+    startOfMonth.add(i, "day")
+  );
+  console.log(monthDays);
   const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
   const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
   const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
@@ -102,7 +114,7 @@ export default function ProjectCalendarView() {
             <div className='bg-[#455A6466] rounded-full text-white cursor-pointer'>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-left-icon lucide-chevron-left"><path d="m15 18-6-6 6-6" /></svg>
             </div>
-            <span className="font-medium text-white whitespace-nowrap">14 sep- 18 oct</span>
+            <span className="font-medium text-white whitespace-nowrap">{startOfMonth.format('MMM DD') || ""}- {endOfMonth.format('MMM DD') || ""}</span>
             <div className='bg-[#455A6466] rounded-full text-white cursor-pointer'>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-right-icon lucide-chevron-right"><path d="m9 18 6-6-6-6" /></svg>
             </div>
@@ -148,7 +160,7 @@ export default function ProjectCalendarView() {
       </div>
       <div className='flex justify-between w-full max-h-full gap-5 h-full overflow-scroll px-5 py-5'>
         <div className="w-[75%] h-full">
-          <Calendar />
+          <ActiveSprintCalender viewMode={viewMode as "month" | "week" | "day"} />
         </div>
         <div className='flex flex-col flex-1 bg-white rounded-2xl p-4'>
           {/* Tasks header */}
@@ -190,11 +202,11 @@ export default function ProjectCalendarView() {
           <div className='flex flex-col gap-1'>
             <div className='flex items-center justify-between'>
               <span className='text-[#666666] text-base font-medium'>Start Date</span>
-              <span className='text-[#999999] text-xs '>Aug 01</span>
+              <span className='text-[#999999] text-xs '>{startOfMonth.format('MMM DD, YYYY') || ""}</span>
             </div>
             <div className='flex items-center justify-between'>
               <span className='text-[#666666] text-base font-medium'>Estimation Date</span>
-              <span className='text-[#999999] text-xs '>Aug 10</span>
+              <span className='text-[#999999] text-xs '>{endOfMonth.format('MMM DD, YYYY') ||""}</span>
             </div>
           </div>
           {/*Sprint Task List */}

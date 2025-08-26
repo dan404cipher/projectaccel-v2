@@ -30,6 +30,7 @@
         options: {
         chart: {
             type: "bar" as const,
+            width: "100%",
             height: "100%",
             toolbar: { show: false },
         },
@@ -79,17 +80,17 @@
     });
 
     return (
-        <div ref={containerRef} className="w-full max-h-[350px] bg-card text-card-foreground shadow-sm pt-4 px-4 rounded-[1.5rem]">
+        <div ref={containerRef} className="w-full h-full bg-card text-card-foreground shadow-sm pt-4 px-4 rounded-[1.5rem] flex flex-col">
         <div className="flex flex-col">
             <div className="text-lg font-medium">Type Of Work</div>
             <span className=" text-base text-[#999]">Issues in all projects</span>
         </div>
-        <div>
+        <div className="flex-1">   
             <ReactApexChart
             options={state.options}
             series={state.series}
             type="bar"
-            height={chartHeight}
+            height={'100%'}
             />
         </div>
         </div>

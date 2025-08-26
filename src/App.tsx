@@ -22,12 +22,13 @@ import ProjectKanbanBoard from "./pages/ProjectKanbanBoard";
 import ProjectCalendarView from "./pages/ProjectCalendarView";
 import ActiveSprint from "./pages/ActiveSprint";
 import AddTask from "./pages/AddTask";
-import ProjectActiveSprintCalendarViewMonthly from "./pages/ProjectActiveSprintCalendarViewMonthly";
 import ProfileScreen from "./pages/ProfileScreen";
 import PreferenceScreen from "./pages/PreferenceScreen";
 import NotificationSettingScreen from "./pages/NotificationSettingScreen";
 import  {AddTeam}  from "./pages/AddTeam";
 import {Onboard} from "./pages/Onboard";
+import Message from "./pages/Chat";
+import { CreateProject } from "./pages/CreateProject";
 
 const queryClient = new QueryClient();
 
@@ -62,11 +63,12 @@ function App() {
               <Route path="calendar" element={<ProjectCalendarView />} />
               <Route path="active-sprint" element={<ActiveSprint />} />
               <Route path="add-task" element={<AddTask />} />
-              <Route path="chat" element={<ProjectActiveSprintCalendarViewMonthly />} />
+              <Route path="chat" element={<Message />} />
               <Route path="profile" element={<ProfileScreen />} />
               <Route path="preference" element={<PreferenceScreen />} />
               <Route path="notification" element={<NotificationSettingScreen />} />
               <Route path="add-team" element={<AddTeam />} />
+              <Route path="create-project" element={<CreateProject/>}/>
             </Route>
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -12,10 +12,12 @@ import messageIcon from '../../../public/icons/message.svg';
 import notificationIcon from '../../../public/icons/bell.svg';
 import settingsIcon from '../../../public/icons/filter.svg';
 import searchIcon from '../../../public/icons/headerSearch.svg';
+import { useNavigate } from "react-router-dom"
 
 export function Header() {
   const [isWorkspaceDropdownOpen, setIsWorkspaceDropdownOpen] = useState(false);
   const [isNotificationsDropdownOpen, setIsNotificationsDropdownOpen] = useState(false);
+  const navigate=useNavigate();
 
   return (
     <header 
@@ -101,7 +103,7 @@ export function Header() {
             />
           </div>
           
-          <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full bg-white hover:bg-white/30">
+          <Button variant="ghost" size="sm" className="h-10 w-10 p-0 rounded-full bg-white hover:bg-white/30" onClick={()=>navigate('/chat')}>
             <img src={messageIcon} className="h-5 w-5 text-gray-700" />
           </Button>
         </div>

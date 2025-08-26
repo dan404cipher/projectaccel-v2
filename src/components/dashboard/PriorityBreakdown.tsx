@@ -26,6 +26,8 @@ export const PriorityBreakdown = () => {
         options: {
             chart: {
                 type: "donut" as const,
+                width: '100%',
+                height: '100%',
             },
             plotOptions: {
                 pie: {
@@ -106,8 +108,7 @@ export const PriorityBreakdown = () => {
 
     return (
         <div
-            ref={containerRef}
-            className="w-full min-h-[325px] bg-card text-card-foreground shadow-sm pt-4 px-4 rounded-[1.5rem] flex flex-col justify-start items-start overflow-hidden"
+            className="w-full h-full bg-card text-card-foreground shadow-sm p-4 rounded-[1.5rem] flex flex-col justify-start items-start overflow-hidden"
         >
             <div className="flex flex-col">
                 <div className="text-lg font-medium">Priority Breakdown</div>
@@ -115,15 +116,17 @@ export const PriorityBreakdown = () => {
                     Priority breakdown of all projects
                 </span>
             </div>
-            <div className=" flex items-center">
-                <ReactApexChart
-                    options={state.options}
-                    series={state.series}
-                    type="donut"
-                    height={chartHeight}
-                    width={"89%"}
-                />
-                <div className="flex flex-col gap-4">
+            <div className="flex-1 w-full flex ">
+                <div className="w-[70%]">
+                    <ReactApexChart
+                        options={state.options}
+                        series={state.series}
+                        type="donut"
+                        height={'100%'}
+                        width={'100%'}
+                    />
+                </div>
+                <div className="flex flex-col justify-center gap-4 w-[30%]">
                     {
                         items.map((item, index) => (
                             <div key={index} className="flex items-center gap-2">
@@ -134,6 +137,23 @@ export const PriorityBreakdown = () => {
                     }
                 </div>
             </div>
+            {/*
+            <div className=" flex flex-1 bg-red-500 overflow-hidden">
+                <div className=" bg-pink-500 w-[50%]">
+              
+                </div>
+               
+                <div className="flex flex-col gap-4 bg-violet-500">
+                    {
+                        items.map((item, index) => (
+                            <div key={index} className="flex items-center gap-2">
+                                <div className="w-4 h-4 rounded-full" style={{ border: `3px solid ${item.color}` }}></div>
+                                <span className="text-sm font-medium">{item.name}</span>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div> */}
         </div>
     );
 };
