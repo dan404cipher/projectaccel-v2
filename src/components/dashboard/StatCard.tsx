@@ -35,7 +35,9 @@ export function StatCard({ title, value, subtitle, variant = "default" }: StatCa
       <CardContent className="p-6 h-full flex flex-col justify-center">
         <div className="space-y-2">
           <p className="text-sm font-medium text-muted-foreground">{title}</p>
-          <p className="text-3xl font-bold text-foreground">{value}</p>
+          <p className="text-3xl font-bold text-foreground">
+            {typeof value === 'number' ? value.toLocaleString() : value}
+          </p>
           {subtitle && (
             <p className="text-xs text-muted-foreground">{subtitle}</p>
           )}

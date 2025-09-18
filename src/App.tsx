@@ -3,7 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 import { HelpSupport } from "./pages/HelpSupport";
 import NotFound from "./pages/NotFound";
 import {Login} from "./pages/Login";

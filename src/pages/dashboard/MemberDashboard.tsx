@@ -13,7 +13,7 @@ import BugOverview from "@/components/dashboard/BugOverview"
 import AppIntegration from "@/components/dashboard/AppIntegration"
 import AssignIssue from "@/components/dashboard/AssignIssue"
 
-const Dashboard = () => {
+const MemberDashboard = () => {
   const [date, setDate] = useState<Date | undefined>(new Date())
 
   // Counter hooks for stats animation
@@ -162,4 +162,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard;
+export default MemberDashboard;

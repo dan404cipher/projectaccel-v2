@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import CalentIcon from '/icons/Vector.svg';
 import ClockIcon from '/icons/Timer.svg';
 import TaskIcon from '/icons/Task.svg';
+import AddMemember from '@/components/model/AddMemember';
 
 
 // Image assets from Figma design
@@ -16,7 +17,7 @@ const imgEllipse7 = "http://localhost:3845/assets/4415cf6b90ae6200aee0458930211f
 const imgEllipse248 = "/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
 
 
-interface TeamMember {
+export interface TeamMember {
   id: string;
   name: string;
   role: string;
@@ -28,7 +29,7 @@ interface TeamMember {
   skills: string[];
 }
 
-interface ViewMode {
+export interface ViewMode {
   id: string;
   icon: string;
   isActive: boolean;
@@ -173,7 +174,7 @@ export default function ProjectTeam() {
                 </svg>
               </div>
             </div>
-            <button className="bg-[#67909b] text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-[#5a7d87] hover:scale-105 hover:shadow-lg flex items-center" onClick={()=>navigate('/add-team')}>
+            <button className="bg-[#67909b] text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-[#5a7d87] hover:scale-105 hover:shadow-lg flex items-center" onClick={()=>setOpenAddMemberModal(true)}>
               <span className='flex items-center justify-center'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M12.9961 6V11H17.9961C18.2613 11 18.5157 11.1054 18.7032 11.2929C18.8907 11.4804 18.9961 11.7348 18.9961 12C18.9961 12.2652 18.8907 12.5196 18.7032 12.7071C18.5157 12.8946 18.2613 13 17.9961 13H12.9961V18C12.9961 18.2652 12.8907 18.5196 12.7032 18.7071C12.5157 18.8946 12.2613 19 11.9961 19C11.7309 19 11.4765 18.8946 11.289 18.7071C11.1015 18.5196 10.9961 18.2652 10.9961 18V13H5.99609C5.73088 13 5.47652 12.8946 5.28899 12.7071C5.10145 12.5196 4.99609 12.2652 4.99609 12C4.99609 11.7348 5.10145 11.4804 5.28899 11.2929C5.47652 11.1054 5.73088 11 5.99609 11H10.9961V6C10.9961 5.73478 11.1015 5.48043 11.289 5.29289C11.4765 5.10536 11.7309 5 11.9961 5C12.2613 5 12.5157 5.10536 12.7032 5.29289C12.8907 5.48043 12.9961 5.73478 12.9961 6Z" fill="white" />
@@ -194,6 +195,9 @@ export default function ProjectTeam() {
             ))
           }
         </div>
+        {
+          <AddMemember isOpen={openAddMemberModal} onClose={()=>setOpenAddMemberModal(false)}/>
+        }
       </div>
     </div>
   );

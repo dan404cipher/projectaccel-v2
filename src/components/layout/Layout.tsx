@@ -15,7 +15,7 @@ export function Layout({ children }: LayoutProps) {
           <Header/>
           <div className="flex h-[calc(100vh-130px)] gap-10">
             <AppSidebar/>
-            <main className="flex-1 min-h-full max-h-full h-full rounded-2xl overflow-hidden">
+            <main className="flex-1 min-h-full max-h-full h-full overflow-hidden">
               {children}
             </main>
           </div>

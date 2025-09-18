@@ -195,13 +195,9 @@ export const AddTeam = () => {
             </button>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-5 px-8 max-h-full w-full h-full bg-red-400">
-          <div className="w-full h-full min-h-full max-h-[calc(100%-100px)] bg-orange-500 rounded-lg overflow-y-scroll">
-            s
-          </div>
-          <div className="w-full h-full min-h-full max-h-[calc(100%-100px)] bg-yellow-400 rounded-lg overflow-y-scroll">
-            s
-          </div>
+        {/* add team content */}
+        <div>
+          sldkjfalks
         </div>
       </div>
     </div>

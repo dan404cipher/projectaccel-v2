@@ -57,7 +57,7 @@ export const PriorityBreakdown = () => {
             stroke: {
                 show: true,
                 width: 15,
-                colors: ['#fff'],
+                colors: ['#fffff'],
                 lineCap: 'round' as const,
             },
             colors: ["#67909B", "#95B2BA", "#67909B", "#C2D3D7", "#E1E9EB"],
