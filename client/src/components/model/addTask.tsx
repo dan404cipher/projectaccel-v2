@@ -251,7 +251,7 @@ export const AddTask = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => v
                         <div className="space-y-6">
                             <h3 className="text-[#565860] text-lg font-medium">Assignment *</h3>
                             
-                            <div className="relative">
+                            <div className="relative" ref={dropdownRef}>
                                 {/* Selected Members Display */}
                                 {selectedMembers.length > 0 && (
                                     <div className="mb-3 flex flex-wrap gap-2">
