@@ -1,5 +1,5 @@
-const imgMdiBugOutline = "/icons/cb2280d66195675cdb1a349a2b097f5c140ee578.svg";
-const imgStashPlusSolid = "/icons/e28b8423897034bc83c4d67baaf1d5c49f0ddb20.svg";
+const imgMdiBugOutline = "/src/assets/icons/cb2280d66195675cdb1a349a2b097f5c140ee578.svg";
+const imgStashPlusSolid = "/src/assets/icons/e28b8423897034bc83c4d67baaf1d5c49f0ddb20.svg";
 
 const BugOverview = ({className}:{className?:string}) => {
   return (

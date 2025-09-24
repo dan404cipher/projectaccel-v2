@@ -2,14 +2,14 @@
 import { useState } from "react";
 
 // Image assets from Figma design
-const imgEllipse248 = "/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
-const imgEllipse242 = "/icons/2c9169f96717641f0bb06a7a6be7046836bd4ada.png";
-const imgEllipse246 = "/icons/be8f7c59d45aca4f6175e23713a9d21d9742abc7.png";
-const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
-const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
-const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
-const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
-const img6 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const imgEllipse248 = "/src/assets/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
+const imgEllipse242 = "/src/assets/icons/2c9169f96717641f0bb06a7a6be7046836bd4ada.png";
+const imgEllipse246 = "/src/assets/icons/be8f7c59d45aca4f6175e23713a9d21d9742abc7.png";
+const img2 = "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+const img3 = "/src/assets/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+const img4 = "/src/assets/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+const img5 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const img6 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
 export default function ProjectKanbanBoard() {
 

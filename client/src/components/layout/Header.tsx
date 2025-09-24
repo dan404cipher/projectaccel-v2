@@ -6,12 +6,12 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import WorkspaceSwitchDropdown from "@/components/WorkspaceSwitchDropdown"
 import NotificationsDropdown from "@/components/NotificationsDropdown"
 import { useState } from "react";
-import profile from "../../../public/icons/profile.png";
-import starIcon from '../../../public/icons/star.svg';
-import messageIcon from '../../../public/icons/message.svg';
-import notificationIcon from '../../../public/icons/bell.svg';
-import settingsIcon from '../../../public/icons/filter.svg';
-import searchIcon from '../../../public/icons/headerSearch.svg';
+import profile from "../../assets/icons/profile.png";
+import starIcon from '../../assets/icons/star.svg';
+import messageIcon from '../../assets/icons/message.svg';
+import notificationIcon from '../../assets/icons/bell.svg';
+import settingsIcon from '../../assets/icons/filter.svg';
+import searchIcon from '../../assets/icons/headerSearch.svg';
 import { useNavigate } from "react-router-dom"
 
 export function Header() {

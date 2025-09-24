@@ -1,5 +1,5 @@
-const imgStashPlusSolid = "/icons/e28b8423897034bc83c4d67baaf1d5c49f0ddb20.svg";
-const threeDots = "/icons/Group.svg";
+const imgStashPlusSolid = "/src/assets/icons/e28b8423897034bc83c4d67baaf1d5c49f0ddb20.svg";
+const threeDots = "/src/assets/icons/Group.svg";
 const AppIntegration = ({ className }: { className: string }) => {
     const integrations = [
         {

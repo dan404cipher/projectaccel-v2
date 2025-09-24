@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import bgImage from "/icons/bg.svg"; // background svg import
+import bgImage from "/src/assets/icons/bg.svg"; // background svg import
 import { Copyright, Eye, EyeClosed, EyeOff } from "lucide-react";
-import logo from '/icons/Logo.svg'
+import logo from '/src/assets/icons/Logo.svg'
 import { useNavigate } from "react-router-dom";
 
 export const  ForgotPassword=() =>{

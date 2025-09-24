@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import notificationIcon from '../../public/icons/bell.svg';
+import notificationIcon from '../assets/icons/bell.svg';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 
 interface NotificationsDropdownProps {

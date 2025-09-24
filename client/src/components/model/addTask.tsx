@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Select, SelectTrigger } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 
-const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+const img2 = "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
 
 export const AddTask = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
     const [activeTab, setActiveTab] = useState<'comments' | 'attachment'>('comments');

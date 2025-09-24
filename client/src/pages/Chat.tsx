@@ -5,7 +5,7 @@ import { TiPin } from "react-icons/ti";
 import { IoIosMore } from "react-icons/io";
 import { Input } from '@/components/ui/input';
 
-const profile5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const profile5 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
 export default function Message() {
   const [activeTap, setActiveTab] = useState<'chennal' | 'chat' | 'unread'>('chat');

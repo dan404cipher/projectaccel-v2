@@ -1,19 +1,19 @@
 import { Input } from "@/components/ui/input";
 import { ArrowDownNarrowWide, ArrowLeft, Check, Earth, EarthLock, Minus, Plus, Search, TrendingUp } from "lucide-react"
 import { useNavigate } from "react-router-dom";
-import gridIcon from '../../public/icons/gridexpend.svg';
+import gridIcon from '../assets/icons/gridexpend.svg';
 import { TeamMember, TeamMemberCard } from "./ProjectTeam";
 const imgPhKanbanFill = "http://localhost:3845/assets/fdfd6519ff8dc5acdbb6048589d6921fea71cbe8.svg";
 const imgProiconsTaskList = "http://localhost:3845/assets/935666228f191e7eff80fb57543eff5c627baebf.svg";
 const imgFontistoDate = "http://localhost:3845/assets/bce17fdf9a51ff413188a2e607f8b8803f6fae97.svg";
 const imgMynauiChartGantt = "http://localhost:3845/assets/e178fe15f264f6b933e72ff0d92acfdb728a5346.svg";
 const imgEllipse7 = "http://localhost:3845/assets/4415cf6b90ae6200aee0458930211f231742cfb8.png";
-const imgEllipse248 = "/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
-const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
-import CalentIcon from '/icons/Vector.svg';
-import ClockIcon from '/icons/Timer.svg';
-import TaskIcon from '/icons/Task.svg';
-import WarningIcon from '/icons/warning.svg'
+const imgEllipse248 = "/src/assets/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
+const img2 = "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+import CalentIcon from '/src/assets/icons/Vector.svg';
+import ClockIcon from '/src/assets/icons/Timer.svg';
+import TaskIcon from '/src/assets/icons/Task.svg';
+import WarningIcon from '/src/assets/icons/warning.svg'
 
 export const CreateProject = () => {
     const navigate = useNavigate();

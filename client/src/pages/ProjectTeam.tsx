@@ -1,9 +1,9 @@
 import ProjectHeader from '@/components/ProjectHeader';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CalentIcon from '/icons/Vector.svg';
-import ClockIcon from '/icons/Timer.svg';
-import TaskIcon from '/icons/Task.svg';
+import CalentIcon from '/src/assets/icons/Vector.svg';
+import ClockIcon from '/src/assets/icons/Timer.svg';
+import TaskIcon from '/src/assets/icons/Task.svg';
 import AddMemember from '@/components/model/AddMemember';
 
 
@@ -14,7 +14,7 @@ const imgProiconsTaskList = "http://localhost:3845/assets/935666228f191e7eff80fb
 const imgFontistoDate = "http://localhost:3845/assets/bce17fdf9a51ff413188a2e607f8b8803f6fae97.svg";
 const imgMynauiChartGantt = "http://localhost:3845/assets/e178fe15f264f6b933e72ff0d92acfdb728a5346.svg";
 const imgEllipse7 = "http://localhost:3845/assets/4415cf6b90ae6200aee0458930211f231742cfb8.png";
-const imgEllipse248 = "/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
+const imgEllipse248 = "/src/assets/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
 
 
 export interface TeamMember {

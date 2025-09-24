@@ -8,12 +8,12 @@ import { BsListCheck } from "react-icons/bs";
 
 
 // Import icons (you'll need to add these to your public/icons folder)
-const imgGroup = '/icons/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg';
-const imgStreamlineFlexDashboard3 = '/icons/19558319ea945b979494611aee69f1a69fdd5ed5.svg';
-const imgCodiconDebugStepBack = '/icons/25d9978e6ee520adcae953bb81971ba680eb074e.svg';
-const imgFluentPeopleTeam16Regular = '/icons/f626b26b7a59007334b99699a973c47adb5c30df.svg';
-const imgMdiReportBoxMultipleOutline = '/icons/70cdbc2f90478290385b72c771b5e2f1049efd9d.svg';
-const imgFluentArrowSprint20Filled = "/icons/2ec924c70b4581fb8ce85d780f89be6ca89bd48f.svg";
+const imgGroup = '/src/assets/icons/e42dd001ef5e496375d00f9bd9f064301a8b9ab3.svg';
+const imgStreamlineFlexDashboard3 = '/src/assets/icons/19558319ea945b979494611aee69f1a69fdd5ed5.svg';
+const imgCodiconDebugStepBack = '/src/assets/icons/25d9978e6ee520adcae953bb81971ba680eb074e.svg';
+const imgFluentPeopleTeam16Regular = '/src/assets/icons/f626b26b7a59007334b99699a973c47adb5c30df.svg';
+const imgMdiReportBoxMultipleOutline = '/src/assets/icons/70cdbc2f90478290385b72c771b5e2f1049efd9d.svg';
+const imgFluentArrowSprint20Filled = "/src/assets/icons/2ec924c70b4581fb8ce85d780f89be6ca89bd48f.svg";
 
 interface ProjectHeaderProps {
   projectName?: string;

@@ -1,6 +1,6 @@
 import React, { act, useState } from 'react';
 import { FaUser, FaBell, FaCog, FaCheck, FaQuestion, FaPencilAlt, FaEye, FaEyeSlash } from "react-icons/fa";
-import profile from '/icons/profile.avif'
+import profile from '/src/assets/icons/profile.avif'
 import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { ThemeSwitch } from '@/components/ThemeSwitch';
@@ -42,10 +42,10 @@ export default function ProfileScreen() {
     }
   ];
 
-  const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
-  const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
-  const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
-  const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+  const img2 = "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+  const img3 = "/src/assets/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+  const img4 = "/src/assets/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+  const img5 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
   return (
     <div className='w-full h-full py-10 flex font-roboto'>
       <div className=' w-1/4 h-full border-r border-gray-400 flex flex-col gap-5'>

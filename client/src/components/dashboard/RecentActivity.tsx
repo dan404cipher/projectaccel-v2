@@ -1,5 +1,5 @@
-const imgSvg5 = "/icons/8195f6590487dccda43e1e1714733a9cd7d8479e.svg";
-const imgSvg6 = "/icons/a28adb31099ee707512b5c31ffcc447b465cb104.svg";
+const imgSvg5 = "/src/assets/icons/8195f6590487dccda43e1e1714733a9cd7d8479e.svg";
+const imgSvg6 = "/src/assets/icons/a28adb31099ee707512b5c31ffcc447b465cb104.svg";
 
 export const RecentActivity=({className}:{className:string})=>{
     return(

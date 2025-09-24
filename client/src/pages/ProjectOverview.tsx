@@ -13,10 +13,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Image assets from Figma design
-const imgSvg = "/icons/c2a1e586581c82bed930644fd4eaca8c9130d64e.svg";
-const imgSvg1 = "/icons/5ba67feb4e6393f83f45a6c3927d037c8ff64d47.svg";
-const imgSvg2 = "/icons/c7ac791e9ae2e4e80e98ae2787bc34c7734cc7c3.svg";
-const imgSvg3 = "/icons/bbb66184b2a69291b2550dcfdc611cf2bfde48c1.svg";
+const imgSvg = "/src/assets/icons/c2a1e586581c82bed930644fd4eaca8c9130d64e.svg";
+const imgSvg1 = "/src/assets/icons/5ba67feb4e6393f83f45a6c3927d037c8ff64d47.svg";
+const imgSvg2 = "/src/assets/icons/c7ac791e9ae2e4e80e98ae2787bc34c7734cc7c3.svg";
+const imgSvg3 = "/src/assets/icons/bbb66184b2a69291b2550dcfdc611cf2bfde48c1.svg";
 export default function ProjectOverview() {
   const navigate = useNavigate();
 

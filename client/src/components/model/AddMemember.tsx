@@ -2,9 +2,9 @@ import { AddTeamMemberCard } from "@/pages/CreateProject";
 import { TeamMember } from "@/pages/ProjectTeam";
 import { ArrowDownNarrowWide, Minus, Plus, Search, X } from "lucide-react";
 const imgEllipse7 = "http://localhost:3845/assets/4415cf6b90ae6200aee0458930211f231742cfb8.png";
-const imgEllipse248 = "/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
-const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
-import WarningIcon from '/icons/warning.svg'
+const imgEllipse248 = "/src/assets/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
+const img2 = "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+import WarningIcon from '/src/assets/icons/warning.svg'
 const AddMemember = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
     const teamMembers: TeamMember[] = [
         {

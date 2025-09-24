@@ -1,6 +1,6 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import imgIconamoonArrowUp2Light1 from "../../../public/icons/008bfc8c1a6860f58a85fd842ae8dba028cd6272.svg";
+import imgIconamoonArrowUp2Light1 from "../../assets/icons/008bfc8c1a6860f58a85fd842ae8dba028cd6272.svg";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 const issueAnalysisData = [

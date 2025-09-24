@@ -1,8 +1,8 @@
-const profile1 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
-const profile2 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
-const profile3 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
-const profile4 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
-const profile5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const profile1 = "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+const profile2 = "/src/assets/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+const profile3 = "/src/assets/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+const profile4 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const profile5 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
 export const Projects = [
   {

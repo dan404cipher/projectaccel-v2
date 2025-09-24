@@ -1,6 +1,6 @@
-const imgWpfFuture = "/icons/01a06071bb00def338f2533eed5ebf44a16d3045.svg";
-const imgCarbonInProgress = "/icons/3b16109919bcae82cf9ff5f486a76d077ae275f0.svg";
-const imgSvg5 = "/icons/8195f6590487dccda43e1e1714733a9cd7d8479e.svg";
+const imgWpfFuture = "/src/assets/icons/01a06071bb00def338f2533eed5ebf44a16d3045.svg";
+const imgCarbonInProgress = "/src/assets/icons/3b16109919bcae82cf9ff5f486a76d077ae275f0.svg";
+const imgSvg5 = "/src/assets/icons/8195f6590487dccda43e1e1714733a9cd7d8479e.svg";
 
 export const SprintOverview:React.FC=()=>{
     return(

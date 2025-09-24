@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Clock } from 'lucide-react';
-const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
-const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
-const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
-const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
-const img6 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const img2 = "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+const img3 = "/src/assets/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+const img4 = "/src/assets/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+const img5 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const img6 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 const MySchedule = ({className}: {className: string}) => {
   const [selectedDate, setSelectedDate] = useState(1);
   const [currentMonth, setCurrentMonth] = useState('November');
@@ -45,10 +45,10 @@ const MySchedule = ({className}: {className: string}) => {
       platform: "Google Meet",
       duration: "1 Hour 45 Mins",
       avatars: [
-        "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png",
-        "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png",
-        "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png",
-        "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png"
+        "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png",
+        "/src/assets/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png",
+        "/src/assets/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png",
+        "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png"
       ]
     },
     {
@@ -59,10 +59,10 @@ const MySchedule = ({className}: {className: string}) => {
       platform: "Google Meet",
       duration: "1 Hour 45 Mins",
       avatars: [
-        "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png",
-        "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png",
-        "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png",
-        "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png"
+        "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png",
+        "/src/assets/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png",
+        "/src/assets/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png",
+        "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png"
       ]
     }
   ];

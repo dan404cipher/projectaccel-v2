@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Calendar from '@/components/Calender';
-import taskIcon from '/icons/hugeicons_task-01.svg';
+import taskIcon from '/src/assets/icons/hugeicons_task-01.svg';
 import ActiveSprint from './ActiveSprint';
 import ActiveSprintCalender from '@/components/AciveSprintCalender';
 import dayjs from 'dayjs';
@@ -17,10 +17,10 @@ export default function ProjectCalendarView() {
     startOfMonth.add(i, "day")
   );
   console.log(monthDays);
-  const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
-  const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
-  const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
-  const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+  const img2 = "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+  const img3 = "/src/assets/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+  const img4 = "/src/assets/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+  const img5 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
   // Sample project events/tasks
   const projectEvents = [

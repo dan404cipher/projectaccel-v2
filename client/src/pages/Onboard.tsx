@@ -1,9 +1,9 @@
 import  { useState } from "react";
-import bgImage from "/icons/bg.svg"; // background svg import
+import bgImage from "/src/assets/icons/bg.svg"; // background svg import
 import { Copyright } from "lucide-react";
-import logo from '/icons/Logo.svg'
-import onboardImage from '/icons/Onboard1.svg';
-import onboardImage2 from '/icons/Onboard2.svg';
+import logo from '/src/assets/icons/Logo.svg'
+import onboardImage from '/src/assets/icons/Onboard1.svg';
+import onboardImage2 from '/src/assets/icons/Onboard2.svg';
 
 
 export const Onboard = () => {

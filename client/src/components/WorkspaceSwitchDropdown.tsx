@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Avatar } from './ui/avatar';
 import { AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
-import rightArrow from '../../public/icons/rightarrow.svg';
+import rightArrow from '../assets/icons/rightarrow.svg';
 
 // Image assets from Figma design
 const img = "http://localhost:3845/assets/5e6faf15b21556bf868441bffff13dcbbc899a58.svg";
 const img1 = "http://localhost:3845/assets/1fd7df02040a68d286de7dce8e8e2dbf7843506e.svg";
-const img2 = "/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
-const img3 = "/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
-const img4 = "/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
-const img5 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
-const img6 = "/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const img2 = "/src/assets/icons/7e72a7998be770ff0cd3794fba26c10791f7cb58.png";
+const img3 = "/src/assets/icons/70956c3e4bf1aab578cf67e015bc27eb5d8014a7.png";
+const img4 = "/src/assets/icons/27329e3b78d83b20619fddee55560c05c2cd1469.png";
+const img5 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
+const img6 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
 interface WorkspaceSwitchDropdownProps {
   isOpen: boolean;
