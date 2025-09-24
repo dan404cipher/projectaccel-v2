@@ -204,14 +204,6 @@ export const CreateProject = () => {
                             <div className="bg-[#67909B] text-white rounded-md p-2 cursor-pointer">
                                 <ArrowDownNarrowWide size={18} />
                             </div>
-                            <div className="bg-[#67909B] text-white rounded-md p-2 cursor-pointer">
-                                <img src={gridIcon} />
-                            </div>
-                            <div className="bg-[#67909B] text-white rounded-md p-2 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M7.50147 4.40653C7.13205 4.40653 6.76625 4.47929 6.42496 4.62066C6.08366 4.76203 5.77356 4.96924 5.51234 5.23045C5.25112 5.49167 5.04392 5.80178 4.90255 6.14307C4.76118 6.48437 4.68842 6.85017 4.68842 7.21958C4.68842 7.589 4.76118 7.95479 4.90255 8.29609C5.04392 8.63738 5.25112 8.94749 5.51234 9.20871C5.77356 9.46992 6.08366 9.67713 6.42496 9.8185C6.76625 9.95987 7.13205 10.0326 7.50147 10.0326H13.5401L12.865 9.3575C12.7959 9.29312 12.7405 9.21548 12.7021 9.12921C12.6636 9.04294 12.643 8.94982 12.6413 8.85539C12.6396 8.76096 12.657 8.66717 12.6924 8.5796C12.7277 8.49203 12.7804 8.41248 12.8472 8.3457C12.9139 8.27892 12.9935 8.22628 13.0811 8.19091C13.1686 8.15553 13.2624 8.13816 13.3569 8.13983C13.4513 8.1415 13.5444 8.16217 13.6307 8.2006C13.7169 8.23904 13.7946 8.29446 13.859 8.36355L15.7343 10.2389C15.866 10.3708 15.94 10.5495 15.94 10.7359C15.94 10.9223 15.866 11.101 15.7343 11.2329L13.859 13.1082C13.7946 13.1773 13.7169 13.2327 13.6307 13.2712C13.5444 13.3096 13.4513 13.3303 13.3569 13.332C13.2624 13.3336 13.1686 13.3163 13.0811 13.2809C12.9935 13.2455 12.9139 13.1929 12.8472 13.1261C12.7804 13.0593 12.7277 12.9798 12.6924 12.8922C12.657 12.8046 12.6396 12.7108 12.6413 12.6164C12.643 12.522 12.6636 12.4288 12.7021 12.3426C12.7405 12.2563 12.7959 12.1787 12.865 12.1143L13.5401 11.4392H7.50147C6.58401 11.439 5.69161 11.1398 4.95946 10.5869C4.22731 10.034 3.6953 9.25758 3.44404 8.3752C3.19277 7.49282 3.23594 6.55259 3.56701 5.69695C3.89807 4.84131 4.49899 4.11688 5.27872 3.63342C6.05845 3.14995 6.97452 2.93379 7.88813 3.01768C8.80174 3.10158 9.66312 3.48095 10.3418 4.09833C11.0204 4.71572 11.4793 5.53747 11.649 6.43909C11.8187 7.34072 11.69 8.27309 11.2822 9.09495H9.59813C9.96015 8.69019 10.1973 8.18931 10.2809 7.65275C10.3645 7.1162 10.2911 6.56691 10.0694 6.07119C9.84768 5.57546 9.48725 5.1545 9.03159 4.85912C8.57592 4.56373 8.0445 4.40654 7.50147 4.40653ZM0.703263 10.0326H3.17875C3.53697 10.5836 3.99719 11.061 4.53464 11.4392H0.703263C0.516746 11.4392 0.337868 11.3651 0.205981 11.2332C0.0740934 11.1013 0 10.9224 0 10.7359C0 10.5494 0.0740934 10.3705 0.205981 10.2386C0.337868 10.1067 0.516746 10.0326 0.703263 10.0326Z" fill="white" />
-                                </svg>
-                            </div>
                         </div>
                     </div>
                     <div className="grid grid-cols-2 gap-5">
@@ -241,8 +233,8 @@ export const CreateProject = () => {
                                     <div className="text-[#06263D] font-medium text-xl">Draft Team Members</div>
                                     <div className="bg-[#455A64] p-2 overflow-hidden w-7 h-7 text-base font-medium flex items-center justify-center text-white rounded-full">22</div>
                                 </div>
-                                <div className="flex flex-col gap-3">
-                                    <div className="bg-[#F9F9F9] p-5 rounded-lg flex flex-col gap-2">
+                                <div className="flex flex-col gap-3 py-5">
+                                    <div className="bg-[#F9F9F9] p-5 rounded-xl flex flex-col gap-2 shadow-lg">
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-5">
                                                 <img src={img2} className="w-10 h-10" />
@@ -301,7 +293,7 @@ export const CreateProject = () => {
                                                     </div>
                                                     <span className="text-gray-700 font-medium text-lg">80%</span>
                                                 </div>
-                                                <div className="w-full text-center">Project Allowcation</div>
+                                                <div className="w-full text-center text-sm text-[#999999]">Project Allowcation</div>
                                             </div>
                                             {/* <div className="flex items-center justify-between gap-3">
                                                 <div className="flex items-center gap-2">
