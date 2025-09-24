@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import ViewIssue from "../components/model/ViewIssue";
 
 // Image assets from Figma design
 const imgEllipse248 = "/src/assets/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
@@ -146,6 +147,8 @@ export default function ProjectKanbanBoard() {
   const [draggedData, setDraggedData] = useState(null);
   const [draggedFromColumn, setDraggedFromColumn] = useState(null);
   const [dragOverColumn, setDragOverColumn] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [isViewIssueOpen, setIsViewIssueOpen] = useState(false);
 
   const handleDragStart = (taskData: any, columnIndex: number, e: React.DragEvent) => {
     setDraggedData(taskData);
@@ -220,6 +223,16 @@ export default function ProjectKanbanBoard() {
     setDraggedData(null);
     setDraggedFromColumn(null);
     setDragOverColumn(null);
+  };
+
+  const handleTaskClick = (taskData: any) => {
+    setSelectedTask(taskData);
+    setIsViewIssueOpen(true);
+  };
+
+  const handleCloseViewIssue = () => {
+    setIsViewIssueOpen(false);
+    setSelectedTask(null);
   };
 
   return (
@@ -333,7 +346,7 @@ export default function ProjectKanbanBoard() {
                       return(
                         <div
                         key={taskData.bugId || taskIndex}
-                        className={`rounded-2xl p-4 shadow-sm flex flex-col gap-1 cursor-move transition-all duration-300
+                        className={`rounded-2xl p-4 shadow-sm flex flex-col gap-1 cursor-pointer transition-all duration-300
                         ${draggedData?.bugId === taskData.bugId
                             ? 'border-2 border-dashed border-[#67909b] bg-gray-100 opacity-70'
                             : 'bg-white hover:shadow-lg hover:scale-[1.02] hover:-translate-y-1'
@@ -345,6 +358,7 @@ export default function ProjectKanbanBoard() {
                         draggable
                         onDragStart={(e) => handleDragStart(taskData, columnIndex, e)}
                         onDragEnd={(e: any) => handleDragEnd(e)}
+                        onClick={() => handleTaskClick(taskData)}
                       >
                         <div className={`${isDragging ?'opacity-0':''}`}>
                           <div className="flex items-center justify-between">
@@ -457,6 +471,12 @@ export default function ProjectKanbanBoard() {
           </div>
         </div>
       </div>
+
+      {/* View Issue Modal */}
+      <ViewIssue 
+        isOpen={isViewIssueOpen} 
+        onClose={handleCloseViewIssue}
+      />
     </div>
   );
 }
