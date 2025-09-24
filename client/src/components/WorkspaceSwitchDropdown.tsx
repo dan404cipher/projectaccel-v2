@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Avatar } from './ui/avatar';
 import { AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import rightArrow from '../assets/icons/rightarrow.svg';
+import CreateWorkspace from './model/CreateWorkspace';
 
 // Image assets from Figma design
 const img = "http://localhost:3845/assets/5e6faf15b21556bf868441bffff13dcbbc899a58.svg";
@@ -15,9 +16,10 @@ const img6 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 interface WorkspaceSwitchDropdownProps {
   isOpen: boolean;
   onClose: () => void;
+  onCreateWorkspace: () => void;
 }
 
-export default function WorkspaceSwitchDropdown({ isOpen, onClose }: WorkspaceSwitchDropdownProps) {
+export default function WorkspaceSwitchDropdown({ isOpen, onClose, onCreateWorkspace }: WorkspaceSwitchDropdownProps) {
   const [selectedWorkspace, setSelectedWorkspace] = useState('Workspace name 1');
 
   const workspaces = [
@@ -33,7 +35,7 @@ export default function WorkspaceSwitchDropdown({ isOpen, onClose }: WorkspaceSw
   return (
     <div className="absolute top-full left-0 mt-2 z-50">
       <div className="relative size-full">
-        <div className="absolute bg-[#ffffff] h-[423px] left-0 rounded-3xl top-0 w-[343px] shadow-lg">
+        <div className="absolute bg-[#ffffff] h-fit left-0 rounded-3xl top-0 w-[343px] shadow-lg">
           <div className="flex flex-col px-5 py-6">
             {/* Workspace details */}
             <div className="flex flex-col gap-2 items-center w-full ">
@@ -60,7 +62,7 @@ export default function WorkspaceSwitchDropdown({ isOpen, onClose }: WorkspaceSw
               </div>
             </div>
             {/* workspace project list */}
-            <div className='flex flex-col gap-4 py-5'>
+            <div className='flex flex-col gap-4 pt-5'>
               <div className='font-medium text-base text-[#252525]'>
                 Swtich WorkSpaces
               </div>
@@ -105,10 +107,36 @@ export default function WorkspaceSwitchDropdown({ isOpen, onClose }: WorkspaceSw
                     <img src={rightArrow} alt="workspace" className='w-4 h-4' />
                   </div>
                 </div>
+                
+                {/* Create Workspace Button */}
+                <div className='flex justify-center mt-4'>
+                  <button 
+                    className='bg-[#67909b] hover:bg-[#5a7a85] text-white text-sm font-medium px-6 py-3 rounded-lg transition-colors w-[150px] h-[40px] flex items-center justify-center'
+                    onClick={onCreateWorkspace}
+                  >
+                    Create workspace
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// Create Workspace Modal - Rendered separately to avoid z-index issues
+export function CreateWorkspaceModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9999] p-4">
+      <div className="bg-white rounded-3xl w-full max-w-[632px] max-h-[90vh] overflow-y-auto shadow-2xl">
+        <CreateWorkspace 
+          isOpen={isOpen}
+          onClose={onClose}
+        />
       </div>
     </div>
   );

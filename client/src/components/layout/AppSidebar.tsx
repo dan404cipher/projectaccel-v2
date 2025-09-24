@@ -1,4 +1,4 @@
-import { Grid, BarChart3, Settings, HelpCircle, Home, Folder, ChevronLeft, List, File, FileText  } from "lucide-react"
+import { Grid, BarChart3, Settings, HelpCircle, Home, Folder, ChevronLeft, List, File, FileText, Users, CreditCard  } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui/button" 
 import {
@@ -15,6 +15,11 @@ const recentItems = [
   { title: "Ricemill Portal", url: "/ricemill", icon: Grid },
   { title: "V-accel Website", url: "/v-accel", icon: Grid },
   { title: "Hire-accel", url: "/hire-accel", icon: Grid },
+]
+
+const administratorItems = [
+  { title: "User Management", url: "/user-management", icon: Users },
+  { title: "Subscription", url: "/subscription", icon: CreditCard },
 ]
 
 export function AppSidebar() {
@@ -74,6 +79,30 @@ export function AppSidebar() {
                   key={item.title}
                   to={item.url} 
                   className={`flex items-center ${collapsed ? 'justify-center' : 'gap-2 sm:gap-3 lg:gap-4'} px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 lg:py-2.5 text-xs sm:text-sm lg:text-[14px] font-medium transition-all duration-200 ${getNavClass(false)}`}
+                  title={collapsed ? item.title : undefined}
+                >
+                  <div className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 overflow-hidden flex-shrink-0 bg-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                    <div className="h-full w-full flex items-center justify-center">
+                      <item.icon className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-[#06263D] font-bold" />
+                    </div>
+                  </div>
+                  {!collapsed && <span className="truncate">{item.title}</span>}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+
+          {/* ADMINISTRATOR Section */}
+          <div className="flex-shrink-0 mt-3 sm:mt-4 lg:mt-5">
+            <div className={`text-xs sm:text-[12px] text-[#4A5568] uppercase tracking-wider font-semibold mb-2 sm:mb-3 lg:mb-4 px-2 sm:px-3 ${collapsed ? 'hidden' : 'block'} flex items-center gap-2`}>
+              ADMINISTRATOR
+            </div>
+            <div className="space-y-0.5 sm:space-y-1">
+              {administratorItems.map((item) => (
+                <NavLink 
+                  key={item.title}
+                  to={item.url} 
+                  className={`flex items-center ${collapsed ? 'justify-center' : 'gap-2 sm:gap-3 lg:gap-4'} px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 lg:py-2.5 text-xs sm:text-sm lg:text-[14px] font-medium transition-all duration-200 ${getNavClass(isActive(item.url))}`}
                   title={collapsed ? item.title : undefined}
                 >
                   <div className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 overflow-hidden flex-shrink-0 bg-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm">

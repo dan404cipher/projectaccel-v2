@@ -14,7 +14,11 @@ import settingsIcon from '../../assets/icons/filter.svg';
 import searchIcon from '../../assets/icons/headerSearch.svg';
 import { useNavigate } from "react-router-dom"
 
-export function Header() {
+interface HeaderProps {
+  onCreateWorkspace: () => void;
+}
+
+export function Header({ onCreateWorkspace }: HeaderProps) {
   const [isWorkspaceDropdownOpen, setIsWorkspaceDropdownOpen] = useState(false);
   const [isNotificationsDropdownOpen, setIsNotificationsDropdownOpen] = useState(false);
   const navigate=useNavigate();
@@ -61,7 +65,8 @@ export function Header() {
           
           <WorkspaceSwitchDropdown 
             isOpen={isWorkspaceDropdownOpen} 
-            onClose={() => setIsWorkspaceDropdownOpen(false)} 
+            onClose={() => setIsWorkspaceDropdownOpen(false)}
+            onCreateWorkspace={onCreateWorkspace}
           />
         </div>
       </div>

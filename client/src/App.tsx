@@ -31,6 +31,7 @@ import Message from "./pages/Chat";
 import { CreateProject } from "./pages/CreateProject";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import UserManagement from "./pages/Usermangment";
 
 const queryClient = new QueryClient();
 
@@ -55,6 +56,7 @@ function App() {
               <Route path="/" element={<Layout><Outlet /></Layout>}>
                 <Route index element={<Dashboard />} />
                 <Route path="dashboard" element={<Dashboard />} />
+                <Route path="user-management" element={<UserManagement />} />
                 <Route path="help-support" element={<HelpSupport />} />
                 <Route path="project-list" element={<ProjectList />} />
                 <Route path="project-list-table" element={<ProjectListTable />} />
