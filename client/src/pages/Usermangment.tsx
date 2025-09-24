@@ -120,15 +120,6 @@ const UserManagement: React.FC = () => {
                 <span className="text-sm text-[#666666]">{value}</span>
             )
         },
-        {
-            accessor: "action",
-            header: "Action",
-            render: () => (
-                <Button variant="ghost" size="sm">
-                    <MoreHorizontal className="w-4 h-4" />
-                </Button>
-            )
-        }
     ];
 
     return (
@@ -168,7 +159,7 @@ const UserManagement: React.FC = () => {
             </div>
 
             {/* User Table */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 ">
                 {/* Table Header */}
                 <div className="p-6 border-b border-gray-200">
                     <div className="flex justify-between items-start">
