@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import StatsCard from "@/components/dashboard/StatsCard";
 import { CustomTable } from "@/components/dashboard/CustomTable";
+import AddNewUser from "@/components/model/AddNewUser";
+import RolesPermissions from "@/components/RolesPermissions";
 
 // Mock data
 const userStats = {
@@ -51,6 +53,8 @@ const users = [
 
 const UserManagement: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState("");
+    const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState<'users' | 'roles'>('users');
 
     const getStatusColor = (status: string) => {
         switch (status) {
@@ -127,72 +131,113 @@ const UserManagement: React.FC = () => {
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center gap-4 mb-2">
-                    <Button className="bg-[#67909b] hover:bg-[#5a7a85] text-white px-4 py-2 rounded-lg">
+                    <Button 
+                        className={`px-4 py-2 rounded-lg ${
+                            activeTab === 'users' 
+                                ? 'bg-[#67909b] hover:bg-[#5a7a85] text-white' 
+                                : 'bg-transparent text-[#666666] hover:bg-gray-200'
+                        }`}
+                        onClick={() => setActiveTab('users')}
+                    >
                         User management
                     </Button>
-                    <span className="text-[#666666] text-base">Roles & permissions</span>
+                    <Button 
+                        className={`px-4 py-2 rounded-lg ${
+                            activeTab === 'roles' 
+                                ? 'bg-[#67909b] hover:bg-[#5a7a85] text-white' 
+                                : 'bg-transparent text-[#666666] hover:bg-gray-200'
+                        }`}
+                        onClick={() => setActiveTab('roles')}
+                    >
+                        Roles & permissions
+                    </Button>
                 </div>
             </div>
 
-            {/* Statistics Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <StatsCard 
-                    title="Total Users" 
-                    value={userStats.totalUsers} 
-                    subtitle="lorem ipsum" 
-                />
-                <StatsCard 
-                    title="Invited" 
-                    value={userStats.invited} 
-                    subtitle="lorem ipsum" 
-                />
-                <StatsCard 
-                    title="Deactivated" 
-                    value={userStats.deactivated} 
-                    subtitle="lorem ipsum" 
-                />
-                <StatsCard 
-                    title="Active" 
-                    value={userStats.active} 
-                    subtitle="lorem ipsum" 
-                />
-            </div>
-
-            {/* User Table */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 ">
-                {/* Table Header */}
-                <div className="p-6 border-b border-gray-200">
-                    <div className="flex justify-between items-start">
-                        <div>
-                            <h2 className="text-xl font-semibold text-[#252525]">User management</h2>
-                            <p className="text-[#666666] text-sm">Manage user accounts and permissions</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <div className="relative">
-                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                                <Input
-                                    placeholder="Search users..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="pl-10 w-64"
-                                />
-                            </div>
-                            <Button className="bg-[#67909b] hover:bg-[#5a7a85] text-white">
-                                <Plus className="w-4 h-4 mr-2" />
-                                Add user
-                            </Button>
-                        </div>
+            {/* Content based on active tab */}
+            {activeTab === 'users' && (
+                <>
+                    {/* Statistics Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <StatsCard 
+                            title="Total Users" 
+                            value={userStats.totalUsers} 
+                            subtitle="lorem ipsum" 
+                        />
+                        <StatsCard 
+                            title="Invited" 
+                            value={userStats.invited} 
+                            subtitle="lorem ipsum" 
+                        />
+                        <StatsCard 
+                            title="Deactivated" 
+                            value={userStats.deactivated} 
+                            subtitle="lorem ipsum" 
+                        />
+                        <StatsCard 
+                            title="Active" 
+                            value={userStats.active} 
+                            subtitle="lorem ipsum" 
+                        />
                     </div>
-                </div>
 
-                {/* Table */}
-                <CustomTable 
-                    data={users} 
-                    columns={columns} 
-                    selectable={true}
-                    className="bg-white"
-                />
-            </div>
+                    {/* User Table */}
+                    <div className="bg-white rounded-lg shadow-sm border border-gray-200 ">
+                        {/* Table Header */}
+                        <div className="p-6 border-b border-gray-200">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <h2 className="text-xl font-semibold text-[#252525]">User management</h2>
+                                    <p className="text-[#666666] text-sm">Manage user accounts and permissions</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <div className="relative">
+                                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                        <Input
+                                            placeholder="Search users..."
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
+                                            className="pl-10 w-64"
+                                        />
+                                    </div>
+                                    <Button 
+                                        className="bg-[#67909b] hover:bg-[#5a7a85] text-white"
+                                        onClick={() => setIsAddUserModalOpen(true)}
+                                    >
+                                        <Plus className="w-4 h-4 mr-2" />
+                                        Add user
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Table */}
+                        <CustomTable 
+                            data={users} 
+                            columns={columns} 
+                            selectable={true}
+                            className="bg-white"
+                        />
+                    </div>
+                </>
+            )}
+
+            {/* Roles & Permissions Tab */}
+            {activeTab === 'roles' && (
+                <RolesPermissions />
+            )}
+
+            {/* Add New User Modal */}
+            <AddNewUser
+                isOpen={isAddUserModalOpen}
+                onClose={() => setIsAddUserModalOpen(false)}
+                onSubmit={(userData) => {
+                    console.log('New user data:', userData);
+                    // Here you would typically make an API call to create the user
+                    // For now, we'll just close the modal
+                    setIsAddUserModalOpen(false);
+                }}
+            />
         </div>
     );
 };
