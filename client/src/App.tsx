@@ -1,12 +1,13 @@
 import { Toaster } from "react-hot-toast";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { HelpSupport } from "./pages/HelpSupport";
 import NotFound from "./pages/NotFound";
 import { Login } from "./pages/Login";
+import { Signup } from "./pages/Signup";
 import { ForgotPassword } from "./pages/ForgotPassword";
 import ForgotPasswordNew from "./pages/ForgotPasswordNew";
 import { ResetPassword } from "./pages/ResetPassword";
@@ -32,6 +33,8 @@ import { CreateProject } from "./pages/CreateProject";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import UserManagement from "./pages/Usermangment";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
 
 const queryClient = new QueryClient();
 
@@ -42,20 +45,23 @@ function App() {
         <TooltipProvider>
           <BrowserRouter>
             <Routes>
+              {/* Root redirect */}
+              <Route path="/" element={<Navigate to="/login" replace />} />
+
               {/* Auth routes - outside Layout */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/forgot-password-new" element={<ForgotPasswordNew />} />
-              <Route path="/onboard" element={<Onboard />} />
-              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+              <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
+              <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+              <Route path="/forgot-password-new" element={<PublicRoute><ForgotPasswordNew /></PublicRoute>} />
+              <Route path="/onboard" element={<PublicRoute><Onboard /></PublicRoute>} />
+              <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
               <Route path="/error-405" element={<Error405 />} />
               <Route path="/error-406" element={<Error406 />} />
               <Route path="/not-found" element={<NotFound />} />
 
               {/* Main app routes - inside Layout */}
-              <Route path="/" element={<Layout><Outlet /></Layout>}>
+              <Route path="/dashboard" element={<ProtectedRoute><Layout><Outlet /></Layout></ProtectedRoute>}>
                 <Route index element={<Dashboard />} />
-                <Route path="dashboard" element={<Dashboard />} />
                 <Route path="user-management" element={<UserManagement />} />
                 <Route path="help-support" element={<HelpSupport />} />
                 <Route path="project-list" element={<ProjectList />} />
@@ -74,6 +80,7 @@ function App() {
                 <Route path="notification" element={<NotificationSettingScreen />} />
                 <Route path="add-team" element={<AddTeam />} />
                 <Route path="create-project" element={<CreateProject />} />
+                <Route path="subscription" element={<div>Subscription Page - Coming Soon</div>} />
               </Route>
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

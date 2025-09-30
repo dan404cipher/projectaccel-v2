@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { UserService } from '@/services';
-import { IAuthRequest, IApiResponse, PERMISSION_MODULES } from '@/types';
+import { IAuthRequest, IApiResponse } from '@/types';
 import { ApiError } from '@/utils/apiError';
 import { Types } from 'mongoose';
 
@@ -25,12 +25,14 @@ export class UserController {
         designation,
         yearsOfExperience,
         roleId,
-        sendInvite = false
+        sendInvite = false,
       } = req.body;
 
       // Validate required fields
       if (!name || !email || !password || !roleId) {
-        throw ApiError.badRequest('Name, email, password, and role are required');
+        throw ApiError.badRequest(
+          'Name, email, password, and role are required'
+        );
       }
 
       if (!req.user.workspaceId) {
@@ -46,7 +48,7 @@ export class UserController {
           yearsOfExperience,
           roleId: new Types.ObjectId(roleId),
           workspaceId: req.user.workspaceId,
-          sendInvite
+          sendInvite,
         },
         req.user.id
       );
@@ -54,20 +56,21 @@ export class UserController {
       const response: IApiResponse = {
         success: true,
         message: 'User created successfully',
-        data: { user }
+        data: { user },
       };
 
       res.status(201).json(response);
     } catch (error) {
+      console.error('User creation error:', error);
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -97,7 +100,7 @@ export class UserController {
       const response: IApiResponse = {
         success: true,
         message: 'User retrieved successfully',
-        data: { user }
+        data: { user },
       };
 
       res.status(200).json(response);
@@ -105,12 +108,12 @@ export class UserController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -127,7 +130,8 @@ export class UserController {
       }
 
       const { id } = req.params;
-      const { name, designation, yearsOfExperience, isActive, profilePicture } = req.body;
+      const { name, designation, yearsOfExperience, isActive, profilePicture, empId } =
+        req.body;
 
       if (!Types.ObjectId.isValid(id)) {
         throw ApiError.badRequest('Invalid user ID');
@@ -135,7 +139,7 @@ export class UserController {
 
       const user = await UserService.update(
         new Types.ObjectId(id),
-        { name, designation, yearsOfExperience, isActive, profilePicture },
+        { name, designation, yearsOfExperience, isActive, profilePicture, empId },
         req.user.id,
         req.user.workspaceId
       );
@@ -143,7 +147,7 @@ export class UserController {
       const response: IApiResponse = {
         success: true,
         message: 'User updated successfully',
-        data: { user }
+        data: { user },
       };
 
       res.status(200).json(response);
@@ -151,12 +155,12 @@ export class UserController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -193,7 +197,7 @@ export class UserController {
       const response: IApiResponse = {
         success: true,
         message: 'User role updated successfully',
-        data: { user }
+        data: { user },
       };
 
       res.status(200).json(response);
@@ -201,12 +205,12 @@ export class UserController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -236,7 +240,7 @@ export class UserController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'User deactivated successfully'
+        message: 'User deactivated successfully',
       };
 
       res.status(200).json(response);
@@ -244,12 +248,12 @@ export class UserController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -279,7 +283,7 @@ export class UserController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'User reactivated successfully'
+        message: 'User reactivated successfully',
       };
 
       res.status(200).json(response);
@@ -287,12 +291,12 @@ export class UserController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -302,7 +306,10 @@ export class UserController {
    * Remove user from workspace
    * DELETE /api/v1/users/:id/workspace
    */
-  static async removeFromWorkspace(req: IAuthRequest, res: Response): Promise<void> {
+  static async removeFromWorkspace(
+    req: IAuthRequest,
+    res: Response
+  ): Promise<void> {
     try {
       if (!req.user) {
         throw ApiError.unauthorized('Authentication required');
@@ -326,7 +333,7 @@ export class UserController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'User removed from workspace successfully'
+        message: 'User removed from workspace successfully',
       };
 
       res.status(200).json(response);
@@ -334,12 +341,12 @@ export class UserController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -349,7 +356,10 @@ export class UserController {
    * Get workspace users with pagination
    * GET /api/v1/users
    */
-  static async getWorkspaceUsers(req: IAuthRequest, res: Response): Promise<void> {
+  static async getWorkspaceUsers(
+    req: IAuthRequest,
+    res: Response
+  ): Promise<void> {
     try {
       if (!req.user) {
         throw ApiError.unauthorized('Authentication required');
@@ -366,29 +376,26 @@ export class UserController {
         sortBy = 'createdAt',
         sortOrder = 'desc',
         status,
-        roleId
+        roleId,
       } = req.query;
 
-      const result = await UserService.getWorkspaceUsers(
-        req.user.workspaceId,
-        {
-          page: Number(page),
-          limit: Number(limit),
-          search: String(search),
-          sortBy: String(sortBy),
-          sortOrder: sortOrder as 'asc' | 'desc',
-          status: status as any,
-          roleId: roleId as string
-        }
-      );
+      const result = await UserService.getWorkspaceUsers(req.user.workspaceId, {
+        page: Number(page),
+        limit: Number(limit),
+        search: String(search),
+        sortBy: String(sortBy),
+        sortOrder: sortOrder as 'asc' | 'desc',
+        status: status as any,
+        roleId: roleId as string,
+      });
 
       const response: IApiResponse = {
         success: true,
         message: 'Users retrieved successfully',
         data: result.users,
         meta: {
-          pagination: result.pagination
-        }
+          pagination: result.pagination,
+        },
       };
 
       res.status(200).json(response);
@@ -396,12 +403,12 @@ export class UserController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -429,7 +436,7 @@ export class UserController {
         sortOrder = 'desc',
         workspaceId,
         isSuperAdmin,
-        isActive
+        isActive,
       } = req.query;
 
       const result = await UserService.searchAll({
@@ -440,7 +447,7 @@ export class UserController {
         sortOrder: sortOrder as 'asc' | 'desc',
         workspaceId: workspaceId as string,
         isSuperAdmin: isSuperAdmin === 'true',
-        isActive: isActive === 'true'
+        isActive: isActive === 'true',
       });
 
       const response: IApiResponse = {
@@ -448,8 +455,8 @@ export class UserController {
         message: 'Users retrieved successfully',
         data: result.users,
         meta: {
-          pagination: result.pagination
-        }
+          pagination: result.pagination,
+        },
       };
 
       res.status(200).json(response);
@@ -457,12 +464,12 @@ export class UserController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -487,7 +494,7 @@ export class UserController {
       const response: IApiResponse = {
         success: true,
         message: 'User statistics retrieved successfully',
-        data: { stats }
+        data: { stats },
       };
 
       res.status(200).json(response);
@@ -495,12 +502,55 @@ export class UserController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
+        });
+      }
+    }
+  }
+
+  /**
+   * Test endpoint to manually assign employee ID
+   */
+  static async testAssignEmpId(req: IAuthRequest, res: Response): Promise<void> {
+    try {
+      const { userId } = req.params;
+      const { workspaceId } = req.body;
+
+      console.log('Debug - userId:', userId);
+      console.log('Debug - workspaceId:', workspaceId);
+      console.log('Debug - req.body:', req.body);
+
+      if (!userId || !workspaceId) {
+        throw ApiError.badRequest('User ID and Workspace ID are required');
+      }
+
+      const empId = await UserService.assignEmployeeId(
+        new Types.ObjectId(userId),
+        new Types.ObjectId(workspaceId)
+      );
+
+      const response: IApiResponse = {
+        success: true,
+        message: 'Employee ID assigned successfully',
+        data: { empId },
+      };
+
+      res.json(response);
+    } catch (error) {
+      if (error instanceof ApiError) {
+        res.status(error.statusCode).json({
+          success: false,
+          message: error.message,
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: 'Internal server error',
         });
       }
     }

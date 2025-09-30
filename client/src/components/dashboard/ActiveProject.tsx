@@ -63,8 +63,8 @@ const ActiveProject = () => {
             <div className="flex flex-col gap-2">
                 {
                     activeProjects.length > 0 ? (
-                        activeProjects?.map((project) => (
-                            <div className="bg-[#F9F9F9] rounded-2xl flex flex-col p-5 gap-3">
+                        activeProjects?.map((project, index) => (
+                            <div key={`project-${index}`} className="bg-[#F9F9F9] rounded-2xl flex flex-col p-5 gap-3">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <History size={18} className="text-[#4E84B4]" />

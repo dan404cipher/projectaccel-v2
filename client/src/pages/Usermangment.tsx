@@ -1,60 +1,98 @@
-import { useState } from "react";
-import { Search, Plus, MoreHorizontal, ArrowUpDown } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Search, Plus, MoreHorizontal, ArrowUpDown, Edit, Trash2, UserX, UserCheck, Eye, Copy, MessageCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import StatsCard from "@/components/dashboard/StatsCard";
 import { CustomTable } from "@/components/dashboard/CustomTable";
 import AddNewUser from "@/components/model/AddNewUser";
 import RolesPermissions from "@/components/RolesPermissions";
+import ActionOptions from "@/components/ActionOptions";
+import api from "@/api/axios";
+import toast from "react-hot-toast";
 
-// Mock data
-const userStats = {
-    totalUsers: 4,
-    invited: 32,
-    deactivated: 5,
-    active: 32,
-    inactive: 10
-};
-
-const users = [
-    {
-        id: "VA1087",
-        name: "Sarah Chen",
-        email: "sarah.chen@accel.com",
-        designation: "UX designer",
-        status: "Active",
-        permissionLevel: "Admin",
-        lastActive: "2 hours ago",
-        avatar: "/src/assets/icons/0b27a87a0c0e1b7084e0ba7d7ddb5036f96f3853.png"
-    },
-    {
-        id: "VA1088",
-        name: "Sarah Chen",
-        email: "sarah.chen@accel.com",
-        designation: "UX designer",
-        status: "Invited",
-        permissionLevel: "Manager",
-        lastActive: "2 hours ago",
-        avatar: "/src/assets/icons/93b944d3ca02967067616476681ede013184432a.png"
-    },
-    {
-        id: "VA1089",
-        name: "Sarah Chen",
-        email: "sarah.chen@accel.com",
-        designation: "UX designer",
-        status: "Active",
-        permissionLevel: "Manager",
-        lastActive: "2 hours ago",
-        avatar: "/src/assets/icons/83b47bff1213d888c75e6013ef23c6956943fff7.png"
-    }
-];
+// User management component
 
 const UserManagement: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<'users' | 'roles'>('users');
+    const [users, setUsers] = useState<any[]>([]);
+    const [userStats, setUserStats] = useState({
+        totalUsers: 0,
+        invited: 0,
+        deactivated: 0,
+        active: 0,
+        inactive: 0
+    });
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    // Fetch users and stats on component mount
+    useEffect(() => {
+        fetchUsers();
+        fetchUserStats();
+    }, []);
+
+    const fetchUsers = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            
+            // Use the workspace users endpoint
+            const response = await api.get('/users', {
+                params: {
+                    limit: 100
+                }
+            });
+
+            if (response.data.success) {
+                const userData = response.data.data.users || response.data.data;
+                setUsers(userData);
+            } else {
+                setError('Failed to fetch users');
+            }
+        } catch (err: any) {
+            console.error('Error fetching users:', err);
+            setError(err.response?.data?.message || 'Failed to fetch users');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchUserStats = async () => {
+        try {
+            const response = await api.get('/users/stats');
+            console.log('User stats API response:', response.data);
+            
+            if (response.data.success) {
+                const stats = response.data.data.stats;
+                console.log('Stats data:', stats);
+                setUserStats({
+                    totalUsers: stats.totalUsers || 0,
+                    active: stats.usersByStatus?.active || 0,
+                    inactive: 0, // Not provided by API, will be calculated
+                    invited: stats.usersByStatus?.invited || 0,
+                    deactivated: stats.usersByStatus?.suspended || 0
+                });
+            }
+        } catch (err: any) {
+            console.error('Error fetching user stats:', err);
+            // Fallback to calculating from user data if stats endpoint fails
+            const stats = {
+                totalUsers: users.length,
+                active: users.filter((user: any) => user.isActive).length,
+                inactive: users.filter((user: any) => !user.isActive).length,
+                invited: users.filter((user: any) => user.workspaces?.some((ws: any) => ws.status === 'invited')).length,
+                deactivated: 0
+            };
+            setUserStats(stats);
+        }
+    };
 
     const getStatusColor = (status: string) => {
         switch (status) {
@@ -69,18 +107,100 @@ const UserManagement: React.FC = () => {
         }
     };
 
+    // Handler functions for dropdown actions
+    const handleViewUser = (user: any) => {
+        toast.success(`Viewing details for ${user.name}`);
+        // TODO: Implement view user modal or navigation
+    };
+
+    const handleEditUser = (user: any) => {
+        toast.success(`Editing user ${user.name}`);
+        // TODO: Implement edit user modal
+    };
+
+    const handleToggleUserStatus = async (user: any) => {
+        try {
+            const newStatus = !user.isActive;
+            await api.put(`/users/${user.id}`, {
+                isActive: newStatus
+            });
+            
+            // Update local state
+            setUsers(prevUsers => 
+                prevUsers.map(u => 
+                    u.id === user.id ? { ...u, isActive: newStatus } : u
+                )
+            );
+            
+            toast.success(`User ${newStatus ? 'activated' : 'deactivated'} successfully`);
+        } catch (error) {
+            console.error('Error toggling user status:', error);
+            toast.error('Failed to update user status');
+        }
+    };
+
+    const handleDeleteUser = async (user: any) => {
+        if (window.confirm(`Are you sure you want to delete ${user.name}? This action cannot be undone.`)) {
+            try {
+                await api.delete(`/users/${user.id}`);
+                
+                // Update local state
+                setUsers(prevUsers => prevUsers.filter(u => u.id !== user.id));
+                
+                toast.success('User deleted successfully');
+            } catch (error) {
+                console.error('Error deleting user:', error);
+                toast.error('Failed to delete user');
+            }
+        }
+    };
+
+    // New handler functions for ActionOptions dropdown
+    const handleCopyEmail = async (user: any) => {
+        try {
+            await navigator.clipboard.writeText(user.email);
+            toast.success('Email copied to clipboard');
+        } catch (error) {
+            console.error('Error copying email:', error);
+            toast.error('Failed to copy email');
+        }
+    };
+
+    const handleMessage = (user: any) => {
+        // For now, just show a toast - you can implement actual messaging later
+        toast.success(`Opening message to ${user.name}`);
+    };
+
+    const toggleDropdown = (userId: string) => {
+        setOpenDropdownId(openDropdownId === userId ? null : userId);
+    };
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setOpenDropdownId(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     // Define columns for CustomTable
     const columns = [
         {
-            accessor: "id",
+            accessor: "empId",
             header: "EMP-ID",
             render: (value: string, row: any) => (
                 <div className="flex items-center gap-3">
                     <Avatar className="w-6 h-6">
-                        <AvatarImage src={row.avatar} alt={row.name} />
+                        <AvatarImage src={row.profilePicture} alt={row.name} />
                         <AvatarFallback className="text-xs">{row.name.split(' ').map((n: string) => n[0]).join('')}</AvatarFallback>
                     </Avatar>
-                    <span className="text-sm font-medium text-[#252525]">{value}</span>
+                    <span className="text-sm font-medium text-[#252525]">{row.empId || 'N/A'}</span>
                 </div>
             )
         },
@@ -89,7 +209,7 @@ const UserManagement: React.FC = () => {
             header: "Emp name",
             render: (value: string, row: any) => (
                 <div>
-                    <div className="text-sm font-medium text-[#252525]">{value}</div>
+                    <div className="text-sm font-medium text-[#252525]">{row.name}</div>
                     <div className="text-xs text-[#666666]">{row.email}</div>
                 </div>
             )
@@ -97,37 +217,79 @@ const UserManagement: React.FC = () => {
         {
             accessor: "designation",
             header: "Designation",
-            render: (value: string) => (
-                <span className="text-sm text-[#252525]">{value}</span>
+            render: (value: string, row: any) => (
+                <span className="text-sm text-[#252525]">{row.designation || 'N/A'}</span>
             )
         },
         {
             accessor: "status",
             header: "Status",
-            render: (value: string) => (
-                <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(value)}`}>
-                    {value}
+            render: (value: string, row: any) => (
+                <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(row.isActive ? 'Active' : 'Inactive')}`}>
+                    {row.isActive ? 'Active' : 'Inactive'}
                 </span>
             )
         },
         {
             accessor: "permissionLevel",
-            header: "Permission level",
-            render: (value: string) => (
-                <span className="text-sm text-[#252525]">{value}</span>
+            header: "Permission Level",
+            render: (value: string, row: any) => (
+                <span className="text-sm text-[#252525]">
+                    {row.role ? row.role.name : 'N/A'}
+                </span>
             )
         },
         {
             accessor: "lastActive",
             header: "Last Active",
-            render: (value: string) => (
-                <span className="text-sm text-[#666666]">{value}</span>
+            render: (value: string, row: any) => (
+                <span className="text-sm text-[#666666]">
+                    {row.lastLogin ? new Date(row.lastLogin).toLocaleDateString() : 'Never'}
+                </span>
             )
         },
+        {
+            accessor: "actions",
+            header: "Actions",
+            render: (value: string, row: any) => (
+                <div className="flex items-center justify-end relative" ref={dropdownRef}>
+                    <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-8 w-8 p-0"
+                        onClick={() => toggleDropdown(row.id)}
+                    >
+                        <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                    {openDropdownId === row.id && (
+                        <div className="absolute top-8 right-0 z-50">
+                            <ActionOptions
+                                onEdit={() => {
+                                    handleEditUser(row);
+                                    setOpenDropdownId(null);
+                                }}
+                                onCopyEmail={() => {
+                                    handleCopyEmail(row);
+                                    setOpenDropdownId(null);
+                                }}
+                                onMessage={() => {
+                                    handleMessage(row);
+                                    setOpenDropdownId(null);
+                                }}
+                                onDelete={() => {
+                                    handleDeleteUser(row);
+                                    setOpenDropdownId(null);
+                                }}
+                            />
+                        </div>
+                    )}
+                </div>
+            )
+        }
     ];
 
     return (
-        <div className="p-6 bg-gray-50 min-h-screen">
+        <div className="p-6 bg-gray-50">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center gap-4 mb-2">
@@ -212,12 +374,33 @@ const UserManagement: React.FC = () => {
                         </div>
 
                         {/* Table */}
-                        <CustomTable 
-                            data={users} 
-                            columns={columns} 
-                            selectable={true}
-                            className="bg-white"
-                        />
+                        {loading ? (
+                            <div className="p-8 text-center">
+                                <div className="text-gray-500">Loading users...</div>
+                            </div>
+                        ) : error ? (
+                            <div className="p-8 text-center">
+                                <div className="text-red-500 mb-4">Error: {error}</div>
+                                <Button onClick={fetchUsers} variant="outline">
+                                    Retry
+                                </Button>
+                            </div>
+                        ) : users.length === 0 ? (
+                            <div className="p-8 text-center">
+                                <div className="text-gray-500 mb-4">No users found</div>
+                                <Button onClick={() => setIsAddUserModalOpen(true)} className="bg-[#67909b] hover:bg-[#5a7a85] text-white">
+                                    <Plus className="w-4 h-4 mr-2" />
+                                    Add First User
+                                </Button>
+                            </div>
+                        ) : (
+                            <CustomTable 
+                                data={users} 
+                                columns={columns} 
+                                selectable={true}
+                                className="bg-white"
+                            />
+                        )}
                     </div>
                 </>
             )}
@@ -231,11 +414,34 @@ const UserManagement: React.FC = () => {
             <AddNewUser
                 isOpen={isAddUserModalOpen}
                 onClose={() => setIsAddUserModalOpen(false)}
-                onSubmit={(userData) => {
-                    console.log('New user data:', userData);
-                    // Here you would typically make an API call to create the user
-                    // For now, we'll just close the modal
-                    setIsAddUserModalOpen(false);
+                onSubmit={async (userData) => {
+                    try {
+                        setLoading(true);
+                        const response = await api.post('/users', {
+                            name: userData.name,
+                            email: userData.email,
+                            password: userData.password,
+                            designation: userData.designation,
+                            yearsOfExperience: userData.yearsOfExperience,
+                            roleId: userData.roleId,
+                            sendInvite: false
+                        });
+
+                        if (response.data.success) {
+                            // Refresh the user list
+                            await fetchUsers();
+                            setIsAddUserModalOpen(false);
+                            toast.success('User created successfully!');
+                        } else {
+                            toast.error(response.data.message || 'Failed to create user');
+                        }
+                    } catch (error: any) {
+                        console.error('Error creating user:', error);
+                        const errorMessage = error.response?.data?.message || 'An error occurred while creating the user';
+                        toast.error(errorMessage);
+                    } finally {
+                        setLoading(false);
+                    }
                 }}
             />
         </div>

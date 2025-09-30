@@ -1,0 +1,15 @@
+{
+  "watch": ["src"],
+  "ext": "ts,js,json",
+  "ignore": ["src/**/*.spec.ts", "src/**/*.test.ts"],
+  "exec": "ts-node -r tsconfig-paths/register src/server.ts",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "delay": 50,
+  "verbose": true,
+  "restartable": "rs",
+  "events": {
+    "restart": "echo '🔄 Restarting server...' && lsof -ti:3001 | xargs kill -9 2>/dev/null || echo '✅ Port 3001 cleared'"
+  }
+}

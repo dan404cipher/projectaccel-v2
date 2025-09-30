@@ -1,7 +1,6 @@
 import { database } from '@/config/database';
 import { User, Workspace, Role, Counter } from '@/models';
-import { AuthService, WorkspaceService } from '@/services';
-import { PERMISSION_MODULES } from '@/types';
+import { AuthService } from '@/services';
 
 /**
  * Database seeding script for development and testing
@@ -45,7 +44,6 @@ class DatabaseSeeder {
 
       DatabaseSeeder.isSeeded = true;
       console.log('✅ Database seeding completed successfully');
-
     } catch (error) {
       console.error('❌ Database seeding failed:', error);
       throw error;
@@ -57,16 +55,18 @@ class DatabaseSeeder {
    */
   private static async clearDatabase(): Promise<void> {
     if (process.env.NODE_ENV !== 'development') {
-      throw new Error('Database clearing is only allowed in development environment');
+      throw new Error(
+        'Database clearing is only allowed in development environment'
+      );
     }
 
     console.log('🧹 Clearing existing data...');
-    
+
     await User.deleteMany({});
     await Workspace.deleteMany({});
     await Role.deleteMany({});
     await Counter.deleteMany({});
-    
+
     console.log('✅ Database cleared');
   }
 
@@ -80,7 +80,7 @@ class DatabaseSeeder {
       password: 'SuperAdmin123!',
       isEmailVerified: true,
       isActive: true,
-      isSuperAdmin: true
+      isSuperAdmin: true,
     };
 
     const superAdmin = new User(superAdminData);
@@ -90,7 +90,7 @@ class DatabaseSeeder {
       id: superAdmin._id,
       name: superAdmin.name,
       email: superAdmin.email,
-      isSuperAdmin: superAdmin.isSuperAdmin
+      isSuperAdmin: superAdmin.isSuperAdmin,
     };
   }
 
@@ -105,7 +105,7 @@ class DatabaseSeeder {
       email: 'admin@acme.com',
       password: 'Admin123!',
       designation: 'CEO',
-      yearsOfExperience: '10+'
+      yearsOfExperience: '10+',
     };
 
     const result = await AuthService.signup(ownerData);
@@ -119,7 +119,7 @@ class DatabaseSeeder {
         password: 'User123!',
         designation: 'UX Designer',
         yearsOfExperience: '3-5',
-        roleName: 'Manager'
+        roleName: 'Manager',
       },
       {
         name: 'Mike Johnson',
@@ -127,7 +127,7 @@ class DatabaseSeeder {
         password: 'User123!',
         designation: 'Frontend Developer',
         yearsOfExperience: '1-3',
-        roleName: 'Member'
+        roleName: 'Member',
       },
       {
         name: 'Emily Davis',
@@ -135,7 +135,7 @@ class DatabaseSeeder {
         password: 'User123!',
         designation: 'Product Manager',
         yearsOfExperience: '5-10',
-        roleName: 'Manager'
+        roleName: 'Manager',
       },
       {
         name: 'John Guest',
@@ -143,8 +143,8 @@ class DatabaseSeeder {
         password: 'User123!',
         designation: 'Consultant',
         yearsOfExperience: '10+',
-        roleName: 'Guest'
-      }
+        roleName: 'Guest',
+      },
     ];
 
     // Get workspace object
@@ -161,7 +161,7 @@ class DatabaseSeeder {
         yearsOfExperience: userData.yearsOfExperience,
         isEmailVerified: true,
         isActive: true,
-        createdBy: result.user.id
+        createdBy: result.user.id,
       });
 
       await user.save();
@@ -170,13 +170,26 @@ class DatabaseSeeder {
       const role = await Role.findOne({
         workspaceId: workspaceObj._id,
         name: userData.roleName,
-        isSystemRole: true
+        isSystemRole: true,
       });
 
       if (role) {
-        // Add to workspace
-        await user.addWorkspace(workspaceObj._id, role._id);
-        await workspaceObj.addMember(user._id, role._id, result.user.id);
+        // Add to workspace - using direct assignment for now
+        user.workspaces.push({
+          workspaceId: workspaceObj._id,
+          roleId: role._id,
+          status: 'active',
+          joinedAt: new Date(),
+        });
+        await user.save();
+        
+        workspaceObj.members.push({
+          userId: user._id,
+          roleId: role._id,
+          status: 'active',
+          joinedAt: new Date(),
+        });
+        await workspaceObj.save();
       }
     }
 
@@ -184,7 +197,7 @@ class DatabaseSeeder {
       id: workspace.id,
       workspaceId: workspace.workspaceId,
       name: workspace.name,
-      memberCount: sampleUsers.length + 1 // +1 for owner
+      memberCount: sampleUsers.length + 1, // +1 for owner
     };
   }
 
@@ -198,7 +211,7 @@ class DatabaseSeeder {
       email: 'owner@agency.com',
       password: 'Owner123!',
       designation: 'Agency Owner',
-      yearsOfExperience: '10+'
+      yearsOfExperience: '10+',
     };
 
     const result = await AuthService.signup(ownerData);
@@ -212,7 +225,7 @@ class DatabaseSeeder {
         password: 'User123!',
         designation: 'Creative Director',
         yearsOfExperience: '5-10',
-        roleName: 'Manager'
+        roleName: 'Manager',
       },
       {
         name: 'Lisa Wong',
@@ -220,8 +233,8 @@ class DatabaseSeeder {
         password: 'User123!',
         designation: 'Graphic Designer',
         yearsOfExperience: '1-3',
-        roleName: 'Member'
-      }
+        roleName: 'Member',
+      },
     ];
 
     const workspaceObj = await Workspace.findById(result.workspace.id);
@@ -236,7 +249,7 @@ class DatabaseSeeder {
         yearsOfExperience: userData.yearsOfExperience,
         isEmailVerified: true,
         isActive: true,
-        createdBy: result.user.id
+        createdBy: result.user.id,
       });
 
       await user.save();
@@ -244,12 +257,26 @@ class DatabaseSeeder {
       const role = await Role.findOne({
         workspaceId: workspaceObj._id,
         name: userData.roleName,
-        isSystemRole: true
+        isSystemRole: true,
       });
 
       if (role) {
-        await user.addWorkspace(workspaceObj._id, role._id);
-        await workspaceObj.addMember(user._id, role._id, result.user.id);
+        // Add to workspace - using direct assignment for now
+        user.workspaces.push({
+          workspaceId: workspaceObj._id,
+          roleId: role._id,
+          status: 'active',
+          joinedAt: new Date(),
+        });
+        await user.save();
+        
+        workspaceObj.members.push({
+          userId: user._id,
+          roleId: role._id,
+          status: 'active',
+          joinedAt: new Date(),
+        });
+        await workspaceObj.save();
       }
     }
 
@@ -257,7 +284,7 @@ class DatabaseSeeder {
       id: workspace.id,
       workspaceId: workspace.workspaceId,
       name: workspace.name,
-      memberCount: sampleUsers.length + 1
+      memberCount: sampleUsers.length + 1,
     };
   }
 
@@ -267,7 +294,9 @@ class DatabaseSeeder {
   static getStatus(): { isSeeded: boolean; message: string } {
     return {
       isSeeded: DatabaseSeeder.isSeeded,
-      message: DatabaseSeeder.isSeeded ? 'Database has been seeded' : 'Database not seeded'
+      message: DatabaseSeeder.isSeeded
+        ? 'Database has been seeded'
+        : 'Database not seeded',
     };
   }
 }
@@ -281,7 +310,7 @@ if (require.main === module) {
       console.log('🎉 Seeding completed successfully');
       process.exit(0);
     })
-    .catch((error) => {
+    .catch(error => {
       console.error('💥 Seeding failed:', error);
       process.exit(1);
     });

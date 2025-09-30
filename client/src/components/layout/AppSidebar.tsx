@@ -6,9 +6,9 @@ import {
 } from "@/components/ui/sidebar"
 
 const navigationItems = [
-  { title: "Dash Board", url: "/", icon: Home },
-  { title: "Projects", url: "/project-list", icon: Folder },
-  {title:'My Tasks', url:'/my-tasks', icon: FileText },
+  { title: "Dash Board", url: "/dashboard", icon: Home },
+  { title: "Projects", url: "/dashboard/project-list", icon: Folder },
+  {title:'My Tasks', url:'/dashboard/my-tasks', icon: FileText },
 ]
 
 const recentItems = [
@@ -18,8 +18,8 @@ const recentItems = [
 ]
 
 const administratorItems = [
-  { title: "User Management", url: "/user-management", icon: Users },
-  { title: "Subscription", url: "/subscription", icon: CreditCard },
+  { title: "User Management", url: "/dashboard/user-management", icon: Users },
+  { title: "Subscription", url: "/dashboard/subscription", icon: CreditCard },
 ]
 
 export function AppSidebar() {

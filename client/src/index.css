@@ -6,6 +6,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom scrollbar for signup page */
+.signup-scroll::-webkit-scrollbar {
+  width: 8px;
+  position: absolute;
+  right: -8px;
+}
+
+.signup-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  margin-right: 0;
+}
+
+.signup-scroll::-webkit-scrollbar-thumb {
+  background: #06263D;
+  border-radius: 4px;
+}
+
+.signup-scroll::-webkit-scrollbar-thumb:hover {
+  background: #0a3a5a;
+}
+
+.signup-scroll {
+  position: relative;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */

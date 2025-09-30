@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { AuthController } from '@/controllers/authController';
 import { authenticate, authenticateRefreshToken } from '@/middleware/auth';
 import { rateLimitAuth } from '@/middleware/rateLimiting';
+import { config } from '@/config/env';
 
 const router = Router();
 
@@ -11,8 +12,8 @@ const router = Router();
  */
 
 // Public routes
-router.post('/signup', rateLimitAuth, AuthController.signup);
-router.post('/login', rateLimitAuth, AuthController.login);
+router.post('/signup', config.NODE_ENV !== 'development' ? rateLimitAuth : [], AuthController.signup);
+router.post('/login', config.NODE_ENV !== 'development' ? rateLimitAuth : [], AuthController.login);
 router.post('/refresh', authenticateRefreshToken, AuthController.refreshToken);
 // Note: Invite validation will be handled by invite routes
 

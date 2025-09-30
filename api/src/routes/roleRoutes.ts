@@ -13,55 +13,73 @@ const router = Router();
 // Public routes for role templates
 router.get('/permission-template', RoleController.getPermissionTemplate);
 router.get('/permission-modules', RoleController.getPermissionModules);
-router.get('/default-permissions/:roleName', RoleController.getDefaultPermissions);
+router.get(
+  '/default-permissions/:roleName',
+  RoleController.getDefaultPermissions
+);
 
 // All routes below require authentication
 router.use(authenticate);
 
 // Get role statistics for workspace
-router.get('/stats', 
+router.get(
+  '/stats',
   requirePermission(PERMISSION_MODULES.ROLES, 'view'),
   RoleController.getStats
 );
 
 // Get workspace roles
-router.get('/', 
+router.get(
+  '/',
   requirePermission(PERMISSION_MODULES.ROLES, 'view'),
   RoleController.getWorkspaceRoles
 );
 
+// Get roles in frontend format
+router.get(
+  '/frontend-format',
+  requirePermission(PERMISSION_MODULES.ROLES, 'view'),
+  RoleController.getRolesFrontendFormat
+);
+
 // Create new role
-router.post('/', 
+router.post(
+  '/',
   requirePermission(PERMISSION_MODULES.ROLES, 'create'),
   RoleController.create
 );
 
 // Get role by ID
-router.get('/:id', 
+router.get(
+  '/:id',
   requirePermission(PERMISSION_MODULES.ROLES, 'view'),
   RoleController.getById
 );
 
 // Get role with user count
-router.get('/:id/details', 
+router.get(
+  '/:id/details',
   requirePermission(PERMISSION_MODULES.ROLES, 'view'),
   RoleController.getRoleWithUserCount
 );
 
 // Update role
-router.put('/:id', 
+router.put(
+  '/:id',
   requirePermission(PERMISSION_MODULES.ROLES, 'edit'),
   RoleController.update
 );
 
 // Delete role
-router.delete('/:id', 
+router.delete(
+  '/:id',
   requirePermission(PERMISSION_MODULES.ROLES, 'delete'),
   RoleController.delete
 );
 
 // Duplicate role
-router.post('/:id/duplicate', 
+router.post(
+  '/:id/duplicate',
   requirePermission(PERMISSION_MODULES.ROLES, 'create'),
   RoleController.duplicate
 );

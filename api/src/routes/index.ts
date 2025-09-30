@@ -14,29 +14,29 @@ const router = Router();
  */
 
 // Health check endpoints
-router.get('/health', async (req, res) => {
+router.get('/health', async (_req, res) => {
   try {
     const healthStatus = await HealthCheck.runAll();
     const statusCode = healthStatus.status === 'healthy' ? 200 : 503;
-    
+
     res.status(statusCode).json({
       success: healthStatus.status === 'healthy',
       message: `API is ${healthStatus.status}`,
       ...healthStatus,
-      version: process.env.npm_package_version || '1.0.0'
+      version: process.env['npm_package_version'] || '1.0.0',
     });
   } catch (error) {
     res.status(503).json({
       success: false,
       message: 'Health check failed',
       status: 'unhealthy',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 });
 
 // Quick health check for load balancer
-router.get('/health/quick', async (req, res) => {
+router.get('/health/quick', async (_req, res) => {
   const quickStatus = await HealthCheck.quickCheck();
   const statusCode = quickStatus.status === 'ok' ? 200 : 503;
   res.status(statusCode).json(quickStatus);

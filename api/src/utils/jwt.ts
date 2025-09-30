@@ -11,15 +11,11 @@ export class JWTUtil {
    * Generate access token
    */
   static generateAccessToken(payload: Omit<IJWTPayload, 'type'>): string {
-    return jwt.sign(
-      { ...payload, type: 'access' },
-      config.JWT_ACCESS_SECRET,
-      { 
-        expiresIn: config.JWT_ACCESS_EXPIRES_IN,
-        issuer: 'projectaccel-api',
-        audience: 'projectaccel-app'
-      }
-    );
+    return jwt.sign({ ...payload, type: 'access' }, config.JWT_ACCESS_SECRET, {
+      expiresIn: config.JWT_ACCESS_EXPIRES_IN,
+      issuer: 'projectaccel-api',
+      audience: 'projectaccel-app',
+    } as any);
   }
 
   /**
@@ -29,11 +25,11 @@ export class JWTUtil {
     return jwt.sign(
       { ...payload, type: 'refresh' },
       config.JWT_REFRESH_SECRET,
-      { 
+      {
         expiresIn: config.JWT_REFRESH_EXPIRES_IN,
         issuer: 'projectaccel-api',
-        audience: 'projectaccel-app'
-      }
+        audience: 'projectaccel-app',
+      } as any
     );
   }
 
@@ -52,12 +48,12 @@ export class JWTUtil {
     const payload = {
       userId,
       email,
-      ...options
+      ...options,
     };
 
     return {
       accessToken: this.generateAccessToken(payload),
-      refreshToken: this.generateRefreshToken(payload)
+      refreshToken: this.generateRefreshToken(payload),
     };
   }
 
@@ -68,7 +64,7 @@ export class JWTUtil {
     try {
       const decoded = jwt.verify(token, config.JWT_ACCESS_SECRET, {
         issuer: 'projectaccel-api',
-        audience: 'projectaccel-app'
+        audience: 'projectaccel-app',
       }) as IJWTPayload;
 
       if (decoded.type !== 'access') {
@@ -94,7 +90,7 @@ export class JWTUtil {
     try {
       const decoded = jwt.verify(token, config.JWT_REFRESH_SECRET, {
         issuer: 'projectaccel-api',
-        audience: 'projectaccel-app'
+        audience: 'projectaccel-app',
       }) as IJWTPayload;
 
       if (decoded.type !== 'refresh') {
@@ -129,9 +125,9 @@ export class JWTUtil {
    */
   static isTokenExpired(token: string): boolean {
     try {
-      const decoded = this.decodeToken(token);
+      const decoded = this.decodeToken(token) as any;
       if (!decoded || !decoded.exp) return true;
-      
+
       return Date.now() >= decoded.exp * 1000;
     } catch (error) {
       return true;
@@ -143,9 +139,9 @@ export class JWTUtil {
    */
   static getTokenExpiry(token: string): Date | null {
     try {
-      const decoded = this.decodeToken(token);
+      const decoded = this.decodeToken(token) as any;
       if (!decoded || !decoded.exp) return null;
-      
+
       return new Date(decoded.exp * 1000);
     } catch (error) {
       return null;
@@ -157,10 +153,10 @@ export class JWTUtil {
    */
   static extractTokenFromHeader(authHeader?: string): string | null {
     if (!authHeader) return null;
-    
+
     const parts = authHeader.split(' ');
     if (parts.length !== 2 || parts[0] !== 'Bearer') return null;
-    
+
     return parts[1];
   }
 
@@ -177,7 +173,7 @@ export class JWTUtil {
     return this.generateTokenPair(userId, email, {
       workspaceId,
       roleId,
-      isSuperAdmin
+      isSuperAdmin,
     });
   }
 
@@ -189,7 +185,7 @@ export class JWTUtil {
     email: string
   ): { accessToken: string; refreshToken: string } {
     return this.generateTokenPair(userId, email, {
-      isSuperAdmin: true
+      isSuperAdmin: true,
     });
   }
 }

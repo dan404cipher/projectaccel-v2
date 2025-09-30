@@ -56,7 +56,7 @@ export class InviteService {
       email: email.toLowerCase(),
       workspaceId,
       status: 'pending',
-      expiresAt: { $gt: new Date() }
+      expiresAt: { $gt: new Date() },
     });
 
     if (existingInvite) {
@@ -68,7 +68,7 @@ export class InviteService {
       email: email.toLowerCase().trim(),
       workspaceId,
       roleId,
-      invitedBy
+      invitedBy,
     });
 
     await invite.save();
@@ -84,20 +84,14 @@ export class InviteService {
     }
 
     // Log invite creation
-    await AuditLog.logAction(
-      invitedBy,
-      'invite',
-      'user',
-      invite._id,
-      {
-        workspaceId,
-        details: {
-          email,
-          role: role.name,
-          workspace: workspace.name
-        }
-      }
-    );
+    await AuditLog.logAction(invitedBy, 'invite', 'user', invite._id, {
+      workspaceId,
+      details: {
+        email,
+        role: role.name,
+        workspace: workspace.name,
+      },
+    });
 
     return {
       id: invite._id,
@@ -105,18 +99,18 @@ export class InviteService {
       workspace: {
         id: workspace._id,
         workspaceId: workspace.workspaceId,
-        name: workspace.name
+        name: workspace.name,
       },
       role: {
         id: role._id,
         name: role.name,
-        description: role.description
+        description: role.description,
       },
       token: invite.token,
       expiresAt: invite.expiresAt,
-      inviteUrl: invite.getInviteUrl(config.FRONTEND_URL),
+      inviteUrl: (invite as any).getInviteUrl(config.FRONTEND_URL),
       status: invite.status,
-      createdAt: invite.createdAt
+      createdAt: invite.createdAt,
     };
   }
 
@@ -127,7 +121,8 @@ export class InviteService {
     const { token, password, name } = acceptData;
 
     // Find and validate invite
-    const invite = await Invite.findByToken(token)
+    const invite = await (Invite as any)
+      .findByToken(token)
       .populate('workspaceId', 'name workspaceId isActive')
       .populate('roleId', 'name description')
       .populate('invitedBy', 'name email');
@@ -136,7 +131,7 @@ export class InviteService {
       throw ApiError.badRequest('Invalid or expired invite token');
     }
 
-    if (!invite.isValid()) {
+    if (!(invite as any).isValid()) {
       throw ApiError.badRequest('Invite has expired');
     }
 
@@ -153,7 +148,9 @@ export class InviteService {
     if (!user) {
       // Create new user
       if (!password || !name) {
-        throw ApiError.badRequest('Name and password are required for new users');
+        throw ApiError.badRequest(
+          'Name and password are required for new users'
+        );
       }
 
       user = new User({
@@ -161,7 +158,7 @@ export class InviteService {
         email: invite.email,
         password,
         isEmailVerified: true, // Auto-verify invited users
-        isActive: true
+        isActive: true,
       });
 
       await user.save();
@@ -177,46 +174,40 @@ export class InviteService {
     }
 
     // Add user to workspace
-    await user.addWorkspace(workspace._id, role._id, invite.invitedBy);
-    await workspace.addMember(user._id, role._id, invite.invitedBy);
+    await (user as any).addWorkspace(workspace._id, role._id, invite.invitedBy);
+    await (workspace as any).addMember(user._id, role._id, invite.invitedBy);
 
     // Accept the invite
     await invite.accept();
 
     // Log acceptance
-    await AuditLog.logAction(
-      user._id,
-      'accept_invite',
-      'user',
-      user._id,
-      {
-        workspaceId: workspace._id,
-        details: {
-          inviteId: invite._id,
-          role: role.name,
-          workspace: workspace.name
-        }
-      }
-    );
+    await AuditLog.logAction(user._id, 'accept_invite', 'user', user._id, {
+      workspaceId: workspace._id,
+      details: {
+        inviteId: invite._id,
+        role: role.name,
+        workspace: workspace.name,
+      },
+    });
 
     return {
       user: {
         id: user._id,
         name: user.name,
         email: user.email,
-        isEmailVerified: user.isEmailVerified
+        isEmailVerified: user.isEmailVerified,
       },
       workspace: {
         id: workspace._id,
         workspaceId: workspace.workspaceId,
-        name: workspace.name
+        name: workspace.name,
       },
       role: {
         id: role._id,
         name: role.name,
-        description: role.description
+        description: role.description,
       },
-      message: 'Invite accepted successfully'
+      message: 'Invite accepted successfully',
     };
   }
 
@@ -232,22 +223,16 @@ export class InviteService {
       throw ApiError.notFound('Invite not found');
     }
 
-    await invite.revoke();
+    await (invite as any).revoke();
 
     // Log revocation
-    await AuditLog.logAction(
-      revokedBy,
-      'update',
-      'invite',
-      invite._id,
-      {
-        workspaceId: invite.workspaceId,
-        details: {
-          action: 'revoke',
-          email: invite.email
-        }
-      }
-    );
+    await AuditLog.logAction(revokedBy, 'update', 'invite', invite._id, {
+      workspaceId: invite.workspaceId,
+      details: {
+        action: 'revoke',
+        email: invite.email,
+      },
+    });
   }
 
   /**
@@ -269,7 +254,7 @@ export class InviteService {
       throw ApiError.badRequest('Can only resend pending invites');
     }
 
-    if (!invite.isValid()) {
+    if (!(invite as any).isValid()) {
       throw ApiError.badRequest('Invite has expired');
     }
 
@@ -288,24 +273,18 @@ export class InviteService {
     }
 
     // Log resend
-    await AuditLog.logAction(
-      resentBy,
-      'update',
-      'invite',
-      invite._id,
-      {
-        workspaceId: invite.workspaceId,
-        details: {
-          action: 'resend',
-          email: invite.email
-        }
-      }
-    );
+    await AuditLog.logAction(resentBy, 'update', 'invite', invite._id, {
+      workspaceId: invite.workspaceId,
+      details: {
+        action: 'resend',
+        email: invite.email,
+      },
+    });
 
     return {
       id: invite._id,
       email: invite.email,
-      message: 'Invitation resent successfully'
+      message: 'Invitation resent successfully',
     };
   }
 
@@ -313,7 +292,8 @@ export class InviteService {
    * Get invite by token (for validation)
    */
   static async getByToken(token: string): Promise<any> {
-    const invite = await Invite.findByToken(token)
+    const invite = await (Invite as any)
+      .findByToken(token)
       .populate('workspaceId', 'name workspaceId description')
       .populate('roleId', 'name description')
       .populate('invitedBy', 'name email');
@@ -329,20 +309,20 @@ export class InviteService {
         id: (invite.workspaceId as any)._id,
         workspaceId: (invite.workspaceId as any).workspaceId,
         name: (invite.workspaceId as any).name,
-        description: (invite.workspaceId as any).description
+        description: (invite.workspaceId as any).description,
       },
       role: {
         id: (invite.roleId as any)._id,
         name: (invite.roleId as any).name,
-        description: (invite.roleId as any).description
+        description: (invite.roleId as any).description,
       },
       invitedBy: {
         name: (invite.invitedBy as any).name,
-        email: (invite.invitedBy as any).email
+        email: (invite.invitedBy as any).email,
       },
       expiresAt: invite.expiresAt,
       createdAt: invite.createdAt,
-      isValid: invite.isValid()
+      isValid: (invite as any).isValid(),
     };
   }
 
@@ -359,7 +339,7 @@ export class InviteService {
       search = '',
       sortBy = 'createdAt',
       sortOrder = 'desc',
-      status
+      status,
     } = queryParams;
 
     // Build search query
@@ -394,18 +374,18 @@ export class InviteService {
       role: {
         id: (invite.roleId as any)._id,
         name: (invite.roleId as any).name,
-        description: (invite.roleId as any).description
+        description: (invite.roleId as any).description,
       },
       invitedBy: {
         id: (invite.invitedBy as any)._id,
         name: (invite.invitedBy as any).name,
-        email: (invite.invitedBy as any).email
+        email: (invite.invitedBy as any).email,
       },
       status: invite.status,
       expiresAt: invite.expiresAt,
       acceptedAt: invite.acceptedAt,
       createdAt: invite.createdAt,
-      isValid: invite.isValid()
+      isValid: (invite as any).isValid(),
     }));
 
     const totalPages = Math.ceil(total / limit);
@@ -418,8 +398,8 @@ export class InviteService {
         limit,
         totalPages,
         hasNext: page < totalPages,
-        hasPrev: page > 1
-      }
+        hasPrev: page > 1,
+      },
     };
   }
 
@@ -427,29 +407,29 @@ export class InviteService {
    * Get user's pending invites
    */
   static async getUserInvites(email: string): Promise<any[]> {
-    const invites = await Invite.findPendingInvites(email);
+    const invites = await (Invite as any).findPendingInvites(email);
 
-    return invites.map(invite => ({
+    return invites.map((invite: any) => ({
       id: invite._id,
       workspace: {
         id: (invite.workspaceId as any)._id,
         workspaceId: (invite.workspaceId as any).workspaceId,
         name: (invite.workspaceId as any).name,
-        description: (invite.workspaceId as any).description
+        description: (invite.workspaceId as any).description,
       },
       role: {
         id: (invite.roleId as any)._id,
         name: (invite.roleId as any).name,
-        description: (invite.roleId as any).description
+        description: (invite.roleId as any).description,
       },
       invitedBy: {
         name: (invite.invitedBy as any).name,
-        email: (invite.invitedBy as any).email
+        email: (invite.invitedBy as any).email,
       },
       token: invite.token,
       expiresAt: invite.expiresAt,
       createdAt: invite.createdAt,
-      inviteUrl: invite.getInviteUrl(config.FRONTEND_URL)
+      inviteUrl: invite.getInviteUrl(config.FRONTEND_URL),
     }));
   }
 
@@ -457,15 +437,18 @@ export class InviteService {
    * Get invite statistics for workspace
    */
   static async getWorkspaceStats(workspaceId: Types.ObjectId): Promise<any> {
-    const stats = await Invite.getWorkspaceStats(workspaceId);
+    const stats = await (Invite as any).getWorkspaceStats(workspaceId);
 
     return {
-      total: Object.values(stats).reduce((sum, count) => sum + count, 0),
+      total: Object.values(stats).reduce(
+        (sum: any, count: any) => sum + count,
+        0
+      ),
       byStatus: stats,
       pending: stats.pending || 0,
       accepted: stats.accepted || 0,
       expired: stats.expired || 0,
-      revoked: stats.revoked || 0
+      revoked: stats.revoked || 0,
     };
   }
 
@@ -473,7 +456,7 @@ export class InviteService {
    * Cleanup expired invites (scheduled job)
    */
   static async cleanupExpired(): Promise<void> {
-    await Invite.cleanupExpired();
+    await (Invite as any).cleanupExpired();
   }
 
   /**
@@ -489,17 +472,17 @@ export class InviteService {
     }
 
     // Create transporter
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       host: config.SMTP_HOST,
       port: config.SMTP_PORT,
       secure: config.SMTP_PORT === 465,
       auth: {
         user: config.SMTP_USER,
-        pass: config.SMTP_PASS
-      }
+        pass: config.SMTP_PASS,
+      },
     });
 
-    const inviteUrl = invite.getInviteUrl(config.FRONTEND_URL);
+    const inviteUrl = (invite as any).getInviteUrl(config.FRONTEND_URL);
 
     // Email template
     const htmlContent = `
@@ -560,7 +543,7 @@ export class InviteService {
       to: invite.email,
       subject: `Invitation to join ${workspace.name} workspace`,
       text: textContent,
-      html: htmlContent
+      html: htmlContent,
     });
   }
 }

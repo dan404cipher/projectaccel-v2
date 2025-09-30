@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { User, Workspace, Role, Invite, AuditLog } from '@/models';
+import { User, Workspace, Role, AuditLog } from '@/models';
 import { ApiError } from '@/utils/apiError';
 import { IQueryParams } from '@/types';
 import { InviteService } from './inviteService';
@@ -21,6 +21,7 @@ export interface UpdateUserData {
   yearsOfExperience?: string;
   isActive?: boolean;
   profilePicture?: string;
+  empId?: string;
 }
 
 export interface UpdateUserRoleData {
@@ -46,7 +47,7 @@ export class UserService {
       yearsOfExperience,
       roleId,
       workspaceId,
-      sendInvite = false
+      sendInvite = false,
     } = userData;
 
     // Check if user already exists
@@ -76,7 +77,7 @@ export class UserService {
       yearsOfExperience,
       isEmailVerified: false,
       isActive: true,
-      createdBy
+      createdBy,
     });
 
     await user.save();
@@ -88,7 +89,7 @@ export class UserService {
           email: user.email,
           workspaceId,
           roleId,
-          invitedBy: createdBy
+          invitedBy: createdBy,
         });
 
         // Add user to workspace with invited status
@@ -97,7 +98,7 @@ export class UserService {
           roleId,
           joinedAt: new Date(),
           invitedBy: createdBy,
-          status: 'invited'
+          status: 'invited',
         });
 
         workspace.members.push({
@@ -105,32 +106,28 @@ export class UserService {
           roleId,
           joinedAt: new Date(),
           invitedBy: createdBy,
-          status: 'invited'
+          status: 'invited',
         });
       } else {
         // Add user directly to workspace
-        await user.addWorkspace(workspaceId, roleId, createdBy);
-        await workspace.addMember(user._id, roleId, createdBy);
+        try {
+          await (user as any).addWorkspace(workspaceId, roleId, createdBy);
+          await (workspace as any).addMember(user._id, roleId, createdBy);
+        } catch (error) {
+          console.error('Error adding user to workspace:', error);
+          throw error;
+        }
       }
 
-      await user.save();
-      await workspace.save();
-
       // Log creation
-      await AuditLog.logAction(
-        createdBy,
-        'create',
-        'user',
-        user._id,
-        {
-          workspaceId,
-          details: {
-            action: sendInvite ? 'create_user_with_invite' : 'create_user_direct',
-            role: role.name,
-            email: user.email
-          }
-        }
-      );
+      await AuditLog.logAction(createdBy, 'create', 'user', user._id, {
+        workspaceId,
+        details: {
+          action: sendInvite ? 'create_user_with_invite' : 'create_user_direct',
+          role: role.name,
+          email: user.email,
+        },
+      });
 
       return {
         id: user._id,
@@ -142,12 +139,11 @@ export class UserService {
         isEmailVerified: user.isEmailVerified,
         role: {
           id: role._id,
-          name: role.name
+          name: role.name,
         },
         status: sendInvite ? 'invited' : 'active',
-        createdAt: user.createdAt
+        createdAt: user.createdAt,
       };
-
     } catch (error) {
       // Cleanup user if workspace operations fail
       await User.findByIdAndDelete(user._id);
@@ -197,13 +193,13 @@ export class UserService {
           role: {
             id: workspaceMembership.roleId._id,
             name: (workspaceMembership.roleId as any).name,
-            description: (workspaceMembership.roleId as any).description
+            description: (workspaceMembership.roleId as any).description,
           },
           joinedAt: workspaceMembership.joinedAt,
-          status: workspaceMembership.status
+          status: workspaceMembership.status,
         },
         createdAt: user.createdAt,
-        createdBy: user.createdBy
+        createdBy: user.createdBy,
       };
     }
 
@@ -225,13 +221,13 @@ export class UserService {
         role: {
           id: (ws.roleId as any)._id,
           name: (ws.roleId as any).name,
-          description: (ws.roleId as any).description
+          description: (ws.roleId as any).description,
         },
         joinedAt: ws.joinedAt,
-        status: ws.status
+        status: ws.status,
       })),
       createdAt: user.createdAt,
-      createdBy: user.createdBy
+      createdBy: user.createdBy,
     };
   }
 
@@ -251,24 +247,22 @@ export class UserService {
 
     // Update allowed fields
     if (updateData.name) user.name = updateData.name.trim();
-    if (updateData.designation !== undefined) user.designation = updateData.designation?.trim();
-    if (updateData.yearsOfExperience) user.yearsOfExperience = updateData.yearsOfExperience;
-    if (updateData.profilePicture !== undefined) user.profilePicture = updateData.profilePicture;
+    if (updateData.designation !== undefined)
+      user.designation = updateData.designation?.trim();
+    if (updateData.yearsOfExperience)
+      user.yearsOfExperience = updateData.yearsOfExperience;
+    if (updateData.profilePicture !== undefined)
+      user.profilePicture = updateData.profilePicture;
     if (updateData.isActive !== undefined) user.isActive = updateData.isActive;
+    if (updateData.empId !== undefined) user.empId = updateData.empId;
 
     await user.save();
 
     // Log update
-    await AuditLog.logAction(
-      updatedBy,
-      'update',
-      'user',
-      user._id,
-      {
-        workspaceId,
-        details: { updated_fields: Object.keys(updateData) }
-      }
-    );
+    await AuditLog.logAction(updatedBy, 'update', 'user', user._id, {
+      workspaceId,
+      details: { updated_fields: Object.keys(updateData) },
+    });
 
     return UserService.getById(userId, workspaceId);
   }
@@ -298,20 +292,14 @@ export class UserService {
     }
 
     // Update role in both user and workspace
-    await user.updateWorkspaceRole(workspaceId, roleData.roleId);
-    await workspace.updateMemberRole(userId, roleData.roleId);
+    await (user as any).updateWorkspaceRole(workspaceId, roleData.roleId);
+    await (workspace as any).updateMemberRole(userId, roleData.roleId);
 
     // Log update
-    await AuditLog.logAction(
-      updatedBy,
-      'update',
-      'user',
-      user._id,
-      {
-        workspaceId,
-        details: { action: 'update_role', newRole: role.name }
-      }
-    );
+    await AuditLog.logAction(updatedBy, 'update', 'user', user._id, {
+      workspaceId,
+      details: { action: 'update_role', newRole: role.name },
+    });
 
     return UserService.getById(userId, workspaceId);
   }
@@ -338,19 +326,13 @@ export class UserService {
     await user.save();
 
     // Clear all refresh tokens to force logout
-    await user.clearRefreshTokens();
+    await (user as any).clearRefreshTokens();
 
     // Log deactivation
-    await AuditLog.logAction(
-      deactivatedBy,
-      'update',
-      'user',
-      user._id,
-      {
-        workspaceId,
-        details: { action: 'deactivate' }
-      }
-    );
+    await AuditLog.logAction(deactivatedBy, 'update', 'user', user._id, {
+      workspaceId,
+      details: { action: 'deactivate' },
+    });
   }
 
   /**
@@ -370,16 +352,10 @@ export class UserService {
     await user.save();
 
     // Log reactivation
-    await AuditLog.logAction(
-      reactivatedBy,
-      'update',
-      'user',
-      user._id,
-      {
-        workspaceId,
-        details: { action: 'reactivate' }
-      }
-    );
+    await AuditLog.logAction(reactivatedBy, 'update', 'user', user._id, {
+      workspaceId,
+      details: { action: 'reactivate' },
+    });
   }
 
   /**
@@ -406,20 +382,14 @@ export class UserService {
     }
 
     // Remove from workspace and user
-    await workspace.removeMember(userId);
-    await user.removeWorkspace(workspaceId);
+    await (workspace as any).removeMember(userId);
+    await (user as any).removeWorkspace(workspaceId);
 
     // Log removal
-    await AuditLog.logAction(
-      removedBy,
-      'delete',
-      'user',
-      user._id,
-      {
-        workspaceId,
-        details: { action: 'remove_from_workspace' }
-      }
-    );
+    await AuditLog.logAction(removedBy, 'delete', 'user', user._id, {
+      workspaceId,
+      details: { action: 'remove_from_workspace' },
+    });
   }
 
   /**
@@ -427,7 +397,7 @@ export class UserService {
    */
   static async getWorkspaceUsers(
     workspaceId: Types.ObjectId,
-    queryParams: IQueryParams & { 
+    queryParams: IQueryParams & {
       status?: 'active' | 'invited' | 'suspended';
       roleId?: string;
     } = {}
@@ -439,7 +409,7 @@ export class UserService {
       sortBy = 'createdAt',
       sortOrder = 'desc',
       status,
-      roleId
+      roleId,
     } = queryParams;
 
     const workspace = await Workspace.findById(workspaceId);
@@ -451,7 +421,9 @@ export class UserService {
     let filteredMembers = workspace.members;
 
     if (status) {
-      filteredMembers = filteredMembers.filter(member => member.status === status);
+      filteredMembers = filteredMembers.filter(
+        member => member.status === status
+      );
     }
 
     if (roleId) {
@@ -464,14 +436,14 @@ export class UserService {
 
     // Build search query
     const searchQuery: any = {
-      _id: { $in: memberIds }
+      _id: { $in: memberIds },
     };
 
     if (search) {
       searchQuery.$or = [
         { name: { $regex: search, $options: 'i' } },
         { email: { $regex: search, $options: 'i' } },
-        { designation: { $regex: search, $options: 'i' } }
+        { designation: { $regex: search, $options: 'i' } },
       ];
     }
 
@@ -484,7 +456,9 @@ export class UserService {
 
     // Get users
     const users = await User.find(searchQuery)
-      .select('name email designation profilePicture isActive isEmailVerified lastLogin createdAt')
+      .select(
+        'name email designation profilePicture isActive isEmailVerified lastLogin createdAt empId'
+      )
       .sort({ [sortBy]: sortDirection })
       .skip(skip)
       .limit(limit)
@@ -492,7 +466,7 @@ export class UserService {
 
     // Enrich with workspace-specific data
     const enrichedUsers = await Promise.all(
-      users.map(async (user) => {
+      users.map(async user => {
         const memberData = workspace.members.find(
           member => member.userId.toString() === user._id.toString()
         );
@@ -508,16 +482,19 @@ export class UserService {
           isActive: user.isActive,
           isEmailVerified: user.isEmailVerified,
           lastLogin: user.lastLogin,
-          role: role ? {
-            id: role._id,
-            name: role.name,
-            description: role.description
-          } : null,
+          empId: user.empId,
+          role: role
+            ? {
+                id: role._id,
+                name: role.name,
+                description: role.description,
+              }
+            : null,
           workspaceStatus: memberData?.status,
           joinedAt: memberData?.joinedAt,
           invitedBy: memberData?.invitedBy,
           createdAt: user.createdAt,
-          createdBy: user.createdBy
+          createdBy: user.createdBy,
         };
       })
     );
@@ -532,8 +509,8 @@ export class UserService {
         limit,
         totalPages,
         hasNext: page < totalPages,
-        hasPrev: page > 1
-      }
+        hasPrev: page > 1,
+      },
     };
   }
 
@@ -541,7 +518,7 @@ export class UserService {
    * Search all users (Super Admin only)
    */
   static async searchAll(
-    queryParams: IQueryParams & { 
+    queryParams: IQueryParams & {
       workspaceId?: string;
       isSuperAdmin?: boolean;
       isActive?: boolean;
@@ -555,7 +532,7 @@ export class UserService {
       sortOrder = 'desc',
       workspaceId,
       isSuperAdmin,
-      isActive
+      isActive,
     } = queryParams;
 
     // Build search query
@@ -565,7 +542,7 @@ export class UserService {
       searchQuery.$or = [
         { name: { $regex: search, $options: 'i' } },
         { email: { $regex: search, $options: 'i' } },
-        { designation: { $regex: search, $options: 'i' } }
+        { designation: { $regex: search, $options: 'i' } },
       ];
     }
 
@@ -590,7 +567,9 @@ export class UserService {
 
     // Get users
     const users = await User.find(searchQuery)
-      .select('name email designation profilePicture isActive isSuperAdmin isEmailVerified lastLogin workspaces createdAt')
+      .select(
+        'name email designation profilePicture isActive isSuperAdmin isEmailVerified lastLogin workspaces createdAt'
+      )
       .sort({ [sortBy]: sortDirection })
       .skip(skip)
       .limit(limit)
@@ -614,10 +593,10 @@ export class UserService {
         name: (ws.workspaceId as any).name,
         workspaceId: (ws.workspaceId as any).workspaceId,
         role: (ws.roleId as any).name,
-        status: ws.status
+        status: ws.status,
       })),
       createdAt: user.createdAt,
-      createdBy: user.createdBy
+      createdBy: user.createdBy,
     }));
 
     const totalPages = Math.ceil(total / limit);
@@ -630,8 +609,8 @@ export class UserService {
         limit,
         totalPages,
         hasNext: page < totalPages,
-        hasPrev: page > 1
-      }
+        hasPrev: page > 1,
+      },
     };
   }
 
@@ -645,9 +624,13 @@ export class UserService {
     }
 
     const totalUsers = workspace.members.length;
-    const activeUsers = workspace.getMembersByStatus('active').length;
-    const invitedUsers = workspace.getMembersByStatus('invited').length;
-    const suspendedUsers = workspace.getMembersByStatus('suspended').length;
+    const activeUsers = (workspace as any).getMembersByStatus('active').length;
+    const invitedUsers = (workspace as any).getMembersByStatus(
+      'invited'
+    ).length;
+    const suspendedUsers = (workspace as any).getMembersByStatus(
+      'suspended'
+    ).length;
 
     // Get role distribution
     const roleStats = await Role.aggregate([
@@ -660,42 +643,113 @@ export class UserService {
             { $match: { _id: workspaceId } },
             { $unwind: '$members' },
             { $match: { $expr: { $eq: ['$members.roleId', '$$roleId'] } } },
-            { $group: { _id: null, count: { $sum: 1 } } }
+            { $group: { _id: null, count: { $sum: 1 } } },
           ],
-          as: 'memberCount'
-        }
+          as: 'memberCount',
+        },
       },
       {
         $project: {
           name: 1,
-          memberCount: { $ifNull: [{ $arrayElemAt: ['$memberCount.count', 0] }, 0] }
-        }
-      }
+          memberCount: {
+            $ifNull: [{ $arrayElemAt: ['$memberCount.count', 0] }, 0],
+          },
+        },
+      },
     ]);
 
     // Get recent activity
     const recentUsers = await User.find({
-      _id: { $in: workspace.members.map(m => m.userId) }
+      _id: { $in: workspace.members.map(m => m.userId) },
     })
-    .sort({ lastLogin: -1 })
-    .limit(5)
-    .select('name email lastLogin');
+      .sort({ lastLogin: -1 })
+      .limit(5)
+      .select('name email lastLogin');
 
     return {
       totalUsers,
       usersByStatus: {
         active: activeUsers,
         invited: invitedUsers,
-        suspended: suspendedUsers
+        suspended: suspendedUsers,
       },
       roleDistribution: roleStats,
       recentActivity: recentUsers.map(user => ({
         id: user._id,
         name: user.name,
         email: user.email,
-        lastLogin: user.lastLogin
-      }))
+        lastLogin: user.lastLogin,
+      })),
     };
+  }
+
+  /**
+   * Generate a unique Employee ID for a user in a workspace
+   */
+  static async generateEmployeeId(workspaceId: Types.ObjectId): Promise<string> {
+    const workspace = await Workspace.findById(workspaceId);
+    if (!workspace) {
+      throw ApiError.notFound('Workspace not found');
+    }
+
+    // Get the prefix from workspace settings
+    const prefix = workspace.settings.empIdPrefix || 'WS';
+    
+    // Get the current counter
+    let counter = workspace.settings.empIdCounter || 1000;
+    
+    // Generate unique empId
+    let empId: string;
+    let isUnique = false;
+    let attempts = 0;
+    const maxAttempts = 100; // Prevent infinite loop
+    
+    while (!isUnique && attempts < maxAttempts) {
+      empId = `${prefix}${counter}`;
+      
+      // Check if this empId already exists
+      const existingUser = await User.findOne({ empId });
+      if (!existingUser) {
+        isUnique = true;
+      } else {
+        counter++;
+        attempts++;
+      }
+    }
+    
+    if (!isUnique) {
+      throw new ApiError(500, 'Unable to generate unique Employee ID');
+    }
+    
+    // Update the workspace counter
+    workspace.settings.empIdCounter = counter + 1;
+    await workspace.save();
+    
+    return empId!;
+  }
+
+  /**
+   * Assign Employee ID to a user
+   */
+  static async assignEmployeeId(userId: Types.ObjectId, workspaceId: Types.ObjectId): Promise<string> {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw ApiError.notFound('User not found');
+    }
+
+    // Check if user already has an empId
+    if (user.empId) {
+      return user.empId;
+    }
+
+    // Generate new empId
+    const empId = await this.generateEmployeeId(workspaceId);
+    
+    // Assign to user
+    user.empId = empId;
+    await user.save();
+    
+    return empId;
   }
 }
 

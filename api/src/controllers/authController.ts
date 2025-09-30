@@ -13,39 +13,70 @@ export class AuthController {
    */
   static async signup(req: Request, res: Response): Promise<void> {
     try {
-      const { name, email, password, workspaceName, designation, yearsOfExperience } = req.body;
-
-      // Validate required fields
-      if (!name || !email || !password || !workspaceName) {
-        throw ApiError.badRequest('Name, email, password, and workspace name are required');
-      }
-
-      const result = await AuthService.signup({
+      const {
         name,
         email,
         password,
         workspaceName,
         designation,
-        yearsOfExperience
+        yearsOfExperience,
+      } = req.body;
+
+      // Validate required fields
+      if (!name || !email || !password || !workspaceName) {
+        throw ApiError.badRequest(
+          'Name, email, password, and workspace name are required'
+        );
+      }
+
+      // Convert yearsOfExperience number to enum string
+      let experienceLevel = '0-1';
+      if (yearsOfExperience >= 1 && yearsOfExperience < 3) {
+        experienceLevel = '1-3';
+      } else if (yearsOfExperience >= 3 && yearsOfExperience < 5) {
+        experienceLevel = '3-5';
+      } else if (yearsOfExperience >= 5 && yearsOfExperience < 10) {
+        experienceLevel = '5-10';
+      } else if (yearsOfExperience >= 10) {
+        experienceLevel = '10+';
+      }
+
+      // Use the proper signup service
+      const result = await AuthService.signup({
+        name: name.trim(),
+        email: email.toLowerCase().trim(),
+        password,
+        workspaceName: workspaceName.trim(),
+        designation: designation?.trim(),
+        yearsOfExperience: experienceLevel,
       });
 
       const response: IApiResponse = {
         success: true,
         message: 'User registered successfully',
-        data: result
+        data: {
+          user: result.user,
+          workspace: result.workspace,
+          tokens: result.tokens,
+        },
       };
 
       res.status(201).json(response);
     } catch (error) {
+      console.error('Signup error:', error);
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
+          error:
+            process.env.NODE_ENV === 'development'
+              ? (error as Error).message
+              : undefined,
         });
       }
     }
@@ -78,7 +109,7 @@ export class AuthController {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
       const response: IApiResponse = {
@@ -87,8 +118,8 @@ export class AuthController {
         data: {
           user: result.user,
           workspace: result.workspace,
-          accessToken: result.tokens.accessToken
-        }
+          accessToken: result.tokens.accessToken,
+        },
       };
 
       res.status(200).json(response);
@@ -96,12 +127,12 @@ export class AuthController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -126,15 +157,15 @@ export class AuthController {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
       const response: IApiResponse = {
         success: true,
         message: 'Token refreshed successfully',
         data: {
-          accessToken: tokens.accessToken
-        }
+          accessToken: tokens.accessToken,
+        },
       };
 
       res.status(200).json(response);
@@ -142,12 +173,12 @@ export class AuthController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -174,7 +205,7 @@ export class AuthController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'Logout successful'
+        message: 'Logout successful',
       };
 
       res.status(200).json(response);
@@ -182,12 +213,12 @@ export class AuthController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -210,7 +241,7 @@ export class AuthController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'Logged out from all devices successfully'
+        message: 'Logged out from all devices successfully',
       };
 
       res.status(200).json(response);
@@ -218,12 +249,12 @@ export class AuthController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -233,7 +264,10 @@ export class AuthController {
    * Switch workspace
    * POST /api/v1/auth/switch-workspace
    */
-  static async switchWorkspace(req: IAuthRequest, res: Response): Promise<void> {
+  static async switchWorkspace(
+    req: IAuthRequest,
+    res: Response
+  ): Promise<void> {
     try {
       if (!req.user) {
         throw ApiError.unauthorized('Authentication required');
@@ -245,14 +279,17 @@ export class AuthController {
         throw ApiError.badRequest('Workspace ID is required');
       }
 
-      const result = await AuthService.switchWorkspace(req.user.id, workspaceId);
+      const result = await AuthService.switchWorkspace(
+        req.user.id,
+        workspaceId
+      );
 
       // Set new refresh token as httpOnly cookie
       res.cookie('refreshToken', result.tokens.refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
       const response: IApiResponse = {
@@ -261,8 +298,8 @@ export class AuthController {
         data: {
           user: result.user,
           workspace: result.workspace,
-          accessToken: result.tokens.accessToken
-        }
+          accessToken: result.tokens.accessToken,
+        },
       };
 
       res.status(200).json(response);
@@ -270,12 +307,12 @@ export class AuthController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -285,7 +322,10 @@ export class AuthController {
    * Get user's accessible workspaces
    * GET /api/v1/auth/workspaces
    */
-  static async getUserWorkspaces(req: IAuthRequest, res: Response): Promise<void> {
+  static async getUserWorkspaces(
+    req: IAuthRequest,
+    res: Response
+  ): Promise<void> {
     try {
       if (!req.user) {
         throw ApiError.unauthorized('Authentication required');
@@ -296,7 +336,7 @@ export class AuthController {
       const response: IApiResponse = {
         success: true,
         message: 'Workspaces retrieved successfully',
-        data: { workspaces }
+        data: { workspaces },
       };
 
       res.status(200).json(response);
@@ -304,12 +344,12 @@ export class AuthController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -337,10 +377,10 @@ export class AuthController {
             currentWorkspace: req.user.workspaceId,
             currentRole: req.user.roleId,
             isSuperAdmin: req.user.isSuperAdmin,
-            permissions: req.user.permissions
+            permissions: req.user.permissions,
           },
-          workspaces
-        }
+          workspaces,
+        },
       };
 
       res.status(200).json(response);
@@ -348,12 +388,12 @@ export class AuthController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -373,7 +413,7 @@ export class AuthController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'Email verified successfully'
+        message: 'Email verified successfully',
       };
 
       res.status(200).json(response);
@@ -381,12 +421,12 @@ export class AuthController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }

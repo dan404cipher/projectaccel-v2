@@ -20,7 +20,7 @@ class Server {
   constructor() {
     this.app = express();
     this.port = config.PORT;
-    
+
     this.initializeMiddlewares();
     this.initializeRoutes();
     this.initializeErrorHandling();
@@ -31,20 +31,30 @@ class Server {
    */
   private initializeMiddlewares(): void {
     // Security middleware
-    this.app.use(helmet({
-      crossOriginResourcePolicy: { policy: "cross-origin" }
-    }));
+    this.app.use(
+      helmet({
+        crossOriginResourcePolicy: { policy: 'cross-origin' },
+      })
+    );
 
     // CORS configuration
-    this.app.use(cors({
-      origin: config.CORS_ORIGIN,
-      credentials: true,
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-    }));
+    this.app.use(
+      cors({
+        origin: [
+          config.CORS_ORIGIN,
+          'http://localhost:8080', // Frontend development server
+          'http://localhost:3000', // Alternative frontend port
+        ],
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Workspace-ID'],
+      })
+    );
 
-    // Rate limiting
-    this.app.use(rateLimitGeneral);
+    // Rate limiting (skip in development)
+    if (config.NODE_ENV !== 'development') {
+      this.app.use(rateLimitGeneral);
+    }
 
     // Body parsing middleware
     this.app.use(express.json({ limit: '10mb' }));
@@ -72,13 +82,13 @@ class Server {
    */
   private initializeRoutes(): void {
     // Root endpoint
-    this.app.get('/', (req, res) => {
+    this.app.get('/', (_req, res) => {
       res.status(200).json({
         success: true,
         message: 'Project Accel API',
         version: '1.0.0',
         environment: config.NODE_ENV,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     });
 
@@ -109,19 +119,32 @@ class Server {
       this.app.listen(this.port, () => {
         console.log(`🚀 Server running on port ${this.port}`);
         console.log(`📍 Environment: ${config.NODE_ENV}`);
-        console.log(`🌐 API Endpoint: http://localhost:${this.port}/api/${config.API_VERSION}`);
-        console.log(`🏥 Health Check: http://localhost:${this.port}/api/${config.API_VERSION}/health`);
-        
+        console.log(
+          `🌐 API Endpoint: http://localhost:${this.port}/api/${config.API_VERSION}`
+        );
+        console.log(
+          `🏥 Health Check: http://localhost:${this.port}/api/${config.API_VERSION}/health`
+        );
+
         if (config.isDevelopment()) {
           console.log('\n📋 Available Endpoints:');
-          console.log(`   • Auth: http://localhost:${this.port}/api/${config.API_VERSION}/auth`);
-          console.log(`   • Users: http://localhost:${this.port}/api/${config.API_VERSION}/users`);
-          console.log(`   • Workspaces: http://localhost:${this.port}/api/${config.API_VERSION}/workspaces`);
-          console.log(`   • Roles: http://localhost:${this.port}/api/${config.API_VERSION}/roles`);
-          console.log(`   • Invites: http://localhost:${this.port}/api/${config.API_VERSION}/invites`);
+          console.log(
+            `   • Auth: http://localhost:${this.port}/api/${config.API_VERSION}/auth`
+          );
+          console.log(
+            `   • Users: http://localhost:${this.port}/api/${config.API_VERSION}/users`
+          );
+          console.log(
+            `   • Workspaces: http://localhost:${this.port}/api/${config.API_VERSION}/workspaces`
+          );
+          console.log(
+            `   • Roles: http://localhost:${this.port}/api/${config.API_VERSION}/roles`
+          );
+          console.log(
+            `   • Invites: http://localhost:${this.port}/api/${config.API_VERSION}/invites`
+          );
         }
       });
-
     } catch (error) {
       console.error('❌ Failed to start server:', error);
       process.exit(1);
@@ -133,11 +156,11 @@ class Server {
    */
   public async shutdown(): Promise<void> {
     console.log('\n🛑 Shutting down server...');
-    
+
     try {
       await database.disconnect();
       console.log('✅ Database disconnected');
-      
+
       process.exit(0);
     } catch (error) {
       console.error('❌ Error during shutdown:', error);
@@ -154,7 +177,7 @@ process.on('SIGTERM', () => server.shutdown());
 process.on('SIGINT', () => server.shutdown());
 
 // Handle uncaught exceptions
-process.on('uncaughtException', (error) => {
+process.on('uncaughtException', error => {
   console.error('💥 Uncaught Exception:', error);
   server.shutdown();
 });

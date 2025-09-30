@@ -7,7 +7,7 @@ import { config } from '@/config/env';
  */
 export const errorHandler = (
   error: Error,
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction
 ): void => {
@@ -24,7 +24,7 @@ export const errorHandler = (
   if (error instanceof ApiError) {
     statusCode = error.statusCode;
     message = error.message;
-    
+
     // Include stack trace in development
     if (config.isDevelopment()) {
       details = { stack: error.stack };
@@ -35,12 +35,10 @@ export const errorHandler = (
     statusCode = 400;
     message = 'Validation error';
     details = error.message;
-  }
-  else if (error.name === 'CastError') {
+  } else if (error.name === 'CastError') {
     statusCode = 400;
     message = 'Invalid ID format';
-  }
-  else if (error.name === 'MongoError' || error.name === 'MongoServerError') {
+  } else if (error.name === 'MongoError' || error.name === 'MongoServerError') {
     const mongoError = error as any;
     if (mongoError.code === 11000) {
       statusCode = 409;
@@ -56,8 +54,7 @@ export const errorHandler = (
   else if (error.name === 'JsonWebTokenError') {
     statusCode = 401;
     message = 'Invalid token';
-  }
-  else if (error.name === 'TokenExpiredError') {
+  } else if (error.name === 'TokenExpiredError') {
     statusCode = 401;
     message = 'Token expired';
   }
@@ -65,11 +62,10 @@ export const errorHandler = (
   else if (error.name === 'SyntaxError' && 'body' in error) {
     statusCode = 400;
     message = 'Invalid JSON format';
-  }
-  else {
+  } else {
     // Log unexpected errors
     console.error('Unexpected error:', error);
-    
+
     // Include error details in development
     if (config.isDevelopment()) {
       message = error.message;
@@ -82,7 +78,7 @@ export const errorHandler = (
     success: false,
     message,
     error: config.isDevelopment() ? error.name : undefined,
-    details
+    details,
   });
 };
 
@@ -92,7 +88,7 @@ export const errorHandler = (
 export const notFoundHandler = (req: Request, res: Response): void => {
   res.status(404).json({
     success: false,
-    message: `Route ${req.method} ${req.originalUrl} not found`
+    message: `Route ${req.method} ${req.originalUrl} not found`,
   });
 };
 
@@ -108,5 +104,5 @@ export const asyncHandler = (fn: Function) => {
 export default {
   errorHandler,
   notFoundHandler,
-  asyncHandler
+  asyncHandler,
 };

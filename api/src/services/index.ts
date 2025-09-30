@@ -19,7 +19,7 @@ export const services = {
   WorkspaceService,
   UserService,
   InviteService,
-  RoleService
+  RoleService,
 };
 
 export default services;

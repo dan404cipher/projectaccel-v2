@@ -19,7 +19,7 @@ export function Layout({ children }: LayoutProps) {
           <Header onCreateWorkspace={() => setIsCreateWorkspaceOpen(true)}/>
           <div className="flex h-[calc(100vh-130px)] gap-10">
             <AppSidebar/>
-            <main className="flex-1 min-h-full max-h-full h-full overflow-hidden">
+            <main className="flex-1 min-h-full max-h-full h-full overflow-y-auto">
               {children}
             </main>
           </div>

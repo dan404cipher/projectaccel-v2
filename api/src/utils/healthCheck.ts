@@ -35,9 +35,8 @@ export class HealthCheck {
       return {
         status: overallStatus,
         checks,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
-
     } catch (error) {
       return {
         status: 'unhealthy',
@@ -45,10 +44,10 @@ export class HealthCheck {
           error: {
             status: 'unhealthy',
             message: 'Health check failed',
-            error: error instanceof Error ? error.message : 'Unknown error'
-          }
+            error: error instanceof Error ? error.message : 'Unknown error',
+          },
         },
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
     }
   }
@@ -67,7 +66,7 @@ export class HealthCheck {
       if (!connectionStatus) {
         return {
           status: 'unhealthy',
-          message: 'Database not connected'
+          message: 'Database not connected',
         };
       }
 
@@ -76,7 +75,7 @@ export class HealthCheck {
       if (dbHealth.status !== 'healthy') {
         return {
           status: 'unhealthy',
-          message: dbHealth.message
+          message: dbHealth.message,
         };
       }
 
@@ -91,15 +90,14 @@ export class HealthCheck {
         details: {
           users: userCount,
           workspaces: workspaceCount,
-          roles: roleCount
-        }
+          roles: roleCount,
+        },
       };
-
     } catch (error) {
       return {
         status: 'unhealthy',
         message: 'Database health check failed',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        details: error instanceof Error ? error.message : 'Unknown error',
       };
     }
   }
@@ -113,7 +111,14 @@ export class HealthCheck {
     details?: any;
   }> {
     try {
-      const models = ['User', 'Workspace', 'Role', 'Invite', 'Counter', 'AuditLog'];
+      const models = [
+        'User',
+        'Workspace',
+        'Role',
+        'Invite',
+        'Counter',
+        'AuditLog',
+      ];
       const modelStatus: Record<string, boolean> = {};
 
       for (const modelName of models) {
@@ -131,15 +136,16 @@ export class HealthCheck {
 
       return {
         status: allHealthy ? 'healthy' : 'unhealthy',
-        message: allHealthy ? 'All models are accessible' : 'Some models have issues',
-        details: modelStatus
+        message: allHealthy
+          ? 'All models are accessible'
+          : 'Some models have issues',
+        details: modelStatus,
       };
-
     } catch (error) {
       return {
         status: 'unhealthy',
         message: 'Model health check failed',
-        details: error instanceof Error ? error.message : 'Unknown error'
+        details: error instanceof Error ? error.message : 'Unknown error',
       };
     }
   }
@@ -157,7 +163,7 @@ export class HealthCheck {
       'PORT',
       'MONGODB_URI',
       'JWT_ACCESS_SECRET',
-      'JWT_REFRESH_SECRET'
+      'JWT_REFRESH_SECRET',
     ];
 
     const missingVars = requiredVars.filter(varName => !process.env[varName]);
@@ -165,14 +171,16 @@ export class HealthCheck {
 
     // Check for missing variables
     if (missingVars.length > 0) {
-      issues.push(`Missing required environment variables: ${missingVars.join(', ')}`);
+      issues.push(
+        `Missing required environment variables: ${missingVars.join(', ')}`
+      );
     }
 
     // Check for default/insecure values in production
     if (process.env.NODE_ENV === 'production') {
       const defaultSecrets = [
         'your-super-secret-jwt-access-key',
-        'your-super-secret-jwt-refresh-key'
+        'your-super-secret-jwt-refresh-key',
       ];
 
       if (defaultSecrets.includes(process.env.JWT_ACCESS_SECRET || '')) {
@@ -186,8 +194,11 @@ export class HealthCheck {
 
     return {
       status: issues.length === 0 ? 'healthy' : 'unhealthy',
-      message: issues.length === 0 ? 'Environment configuration is valid' : 'Environment issues detected',
-      details: issues.length > 0 ? { issues } : undefined
+      message:
+        issues.length === 0
+          ? 'Environment configuration is valid'
+          : 'Environment issues detected',
+      details: issues.length > 0 ? { issues } : undefined,
     };
   }
 
@@ -204,7 +215,7 @@ export class HealthCheck {
       rss: Math.round(memoryUsage.rss / 1024 / 1024),
       heapTotal: Math.round(memoryUsage.heapTotal / 1024 / 1024),
       heapUsed: Math.round(memoryUsage.heapUsed / 1024 / 1024),
-      external: Math.round(memoryUsage.external / 1024 / 1024)
+      external: Math.round(memoryUsage.external / 1024 / 1024),
     };
 
     // Warning if heap usage is above 80% of total
@@ -213,28 +224,34 @@ export class HealthCheck {
 
     return {
       status,
-      message: status === 'healthy' ? 'Memory usage is normal' : 'High memory usage detected',
+      message:
+        status === 'healthy'
+          ? 'Memory usage is normal'
+          : 'High memory usage detected',
       details: {
         ...memoryInMB,
-        heapUsagePercent: Math.round(heapUsagePercent)
-      }
+        heapUsagePercent: Math.round(heapUsagePercent),
+      },
     };
   }
 
   /**
    * Quick health check for load balancer
    */
-  static async quickCheck(): Promise<{ status: 'ok' | 'error'; timestamp: string }> {
+  static async quickCheck(): Promise<{
+    status: 'ok' | 'error';
+    timestamp: string;
+  }> {
     try {
       const isConnected = database.getConnectionStatus();
       return {
         status: isConnected ? 'ok' : 'error',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
     } catch (error) {
       return {
         status: 'error',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
     }
   }

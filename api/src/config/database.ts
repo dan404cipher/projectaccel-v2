@@ -27,9 +27,10 @@ class Database {
     }
 
     try {
-      const mongoUri = config.NODE_ENV === 'test' 
-        ? config.MONGODB_TEST_URI 
-        : config.MONGODB_URI;
+      const mongoUri =
+        config.NODE_ENV === 'test'
+          ? config.MONGODB_TEST_URI
+          : config.MONGODB_URI;
 
       await mongoose.connect(mongoUri, {
         // Remove deprecated options - mongoose 6+ handles these automatically
@@ -37,14 +38,13 @@ class Database {
         serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
         socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
         bufferCommands: false, // Disable mongoose buffering
-        bufferMaxEntries: 0 // Disable mongoose buffering
       });
 
       this.isConnected = true;
       console.log(`✅ Connected to MongoDB: ${mongoUri}`);
 
       // Handle connection events
-      mongoose.connection.on('error', (error) => {
+      mongoose.connection.on('error', error => {
         console.error('❌ MongoDB connection error:', error);
         this.isConnected = false;
       });
@@ -62,7 +62,6 @@ class Database {
       // Graceful shutdown
       process.on('SIGINT', this.disconnect.bind(this));
       process.on('SIGTERM', this.disconnect.bind(this));
-
     } catch (error) {
       console.error('❌ Failed to connect to MongoDB:', error);
       process.exit(1);
@@ -100,7 +99,7 @@ class Database {
     if (config.NODE_ENV !== 'test') {
       throw new Error('Database can only be dropped in test environment');
     }
-    
+
     try {
       await mongoose.connection.dropDatabase();
       console.log('✅ Test database dropped');
@@ -120,7 +119,7 @@ class Database {
 
     try {
       const collections = mongoose.connection.collections;
-      const clearPromises = Object.values(collections).map(collection => 
+      const clearPromises = Object.values(collections).map(collection =>
         collection.deleteMany({})
       );
       await Promise.all(clearPromises);
@@ -141,26 +140,28 @@ class Database {
         0: 'disconnected',
         1: 'connected',
         2: 'connecting',
-        3: 'disconnecting'
+        3: 'disconnecting',
       };
 
       if (state === 1) {
         // Test the connection with a simple ping
-        await mongoose.connection.db.admin().ping();
+        if (mongoose.connection.db) {
+          await mongoose.connection.db.admin().ping();
+        }
         return {
           status: 'healthy',
-          message: 'Database connection is healthy'
+          message: 'Database connection is healthy',
         };
       } else {
         return {
           status: 'unhealthy',
-          message: `Database is ${states[state as keyof typeof states]}`
+          message: `Database is ${states[state as keyof typeof states]}`,
         };
       }
     } catch (error) {
       return {
         status: 'unhealthy',
-        message: `Database health check failed: ${error}`
+        message: `Database health check failed: ${error}`,
       };
     }
   }

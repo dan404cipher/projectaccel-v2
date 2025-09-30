@@ -1,0 +1,21 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const workspaceController_1 = require("@/controllers/workspaceController");
+const auth_1 = require("@/middleware/auth");
+const types_1 = require("@/types");
+const router = (0, express_1.Router)();
+router.use(auth_1.authenticate);
+router.get('/search', auth_1.requireSuperAdmin, workspaceController_1.WorkspaceController.search);
+router.post('/', workspaceController_1.WorkspaceController.create);
+router.get('/:id', (0, auth_1.requireSpecificWorkspace)('id'), (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.WORKSPACE, 'view'), workspaceController_1.WorkspaceController.getById);
+router.put('/:id', (0, auth_1.requireSpecificWorkspace)('id'), (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.WORKSPACE, 'edit'), workspaceController_1.WorkspaceController.update);
+router.delete('/:id', (0, auth_1.requireSpecificWorkspace)('id'), (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.WORKSPACE, 'delete'), workspaceController_1.WorkspaceController.delete);
+router.get('/:id/stats', (0, auth_1.requireSpecificWorkspace)('id'), (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.WORKSPACE, 'view'), workspaceController_1.WorkspaceController.getStats);
+router.get('/:id/members', (0, auth_1.requireSpecificWorkspace)('id'), (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'view'), workspaceController_1.WorkspaceController.getMembers);
+router.post('/:id/members', (0, auth_1.requireSpecificWorkspace)('id'), (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'create'), workspaceController_1.WorkspaceController.addMember);
+router.delete('/:id/members/:userId', (0, auth_1.requireSpecificWorkspace)('id'), (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'delete'), workspaceController_1.WorkspaceController.removeMember);
+router.put('/:id/members/:userId/role', (0, auth_1.requireSpecificWorkspace)('id'), (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'edit'), workspaceController_1.WorkspaceController.updateMemberRole);
+router.post('/:id/transfer-ownership', (0, auth_1.requireSpecificWorkspace)('id'), (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.WORKSPACE, 'delete'), workspaceController_1.WorkspaceController.transferOwnership);
+exports.default = router;
+//# sourceMappingURL=workspaceRoutes.js.map

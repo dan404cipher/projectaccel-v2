@@ -13,6 +13,10 @@ import notificationIcon from '../../assets/icons/bell.svg';
 import settingsIcon from '../../assets/icons/filter.svg';
 import searchIcon from '../../assets/icons/headerSearch.svg';
 import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "@/store/auth/authSlice";
+import type { AppDispatch, RootState } from "@/store/store";
+import toast from "react-hot-toast";
 
 interface HeaderProps {
   onCreateWorkspace: () => void;
@@ -21,7 +25,19 @@ interface HeaderProps {
 export function Header({ onCreateWorkspace }: HeaderProps) {
   const [isWorkspaceDropdownOpen, setIsWorkspaceDropdownOpen] = useState(false);
   const [isNotificationsDropdownOpen, setIsNotificationsDropdownOpen] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser());
+      toast.success("Logged out successfully");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Logout failed");
+    }
+  };
 
   return (
     <header 
@@ -145,15 +161,15 @@ export function Header({ onCreateWorkspace }: HeaderProps) {
                 <AvatarFallback className="text-xs sm:text-sm lg:text-base">JD</AvatarFallback>
               </Avatar>
               <div className="flex flex-col justify-center items-start">
-              <span className="hidden lg:inline text-sm font-medium text-[#292D32]">John Doe</span>
-              <span className="hidden lg:inline text-sm font-medium text-[#292D3270]">Project Manager</span>
+              <span className="hidden lg:inline text-sm font-medium text-[#292D32]">{user?.name || "User"}</span>
+              <span className="hidden lg:inline text-sm font-medium text-[#292D3270]">{user?.designation || "Member"}</span>
               </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate('/profile')}>Profile</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => navigate('/preference')}>Settings</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

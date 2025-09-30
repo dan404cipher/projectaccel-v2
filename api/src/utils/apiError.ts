@@ -5,7 +5,11 @@ export class ApiError extends Error {
   public statusCode: number;
   public isOperational: boolean;
 
-  constructor(statusCode: number, message: string, isOperational: boolean = true) {
+  constructor(
+    statusCode: number,
+    message: string,
+    isOperational: boolean = true
+  ) {
     super(message);
     this.statusCode = statusCode;
     this.isOperational = isOperational;
@@ -52,7 +56,9 @@ export class ApiError extends Error {
   /**
    * Create an Unprocessable Entity error (422)
    */
-  static unprocessableEntity(message: string = 'Unprocessable Entity'): ApiError {
+  static unprocessableEntity(
+    message: string = 'Unprocessable Entity'
+  ): ApiError {
     return new ApiError(422, message);
   }
 

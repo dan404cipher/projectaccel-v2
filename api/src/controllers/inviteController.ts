@@ -33,13 +33,13 @@ export class InviteController {
         email,
         workspaceId: req.user.workspaceId,
         roleId: new Types.ObjectId(roleId),
-        invitedBy: req.user.id
+        invitedBy: req.user.id,
       });
 
       const response: IApiResponse = {
         success: true,
         message: 'Invitation sent successfully',
-        data: { invite }
+        data: { invite },
       };
 
       res.status(201).json(response);
@@ -47,12 +47,12 @@ export class InviteController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -74,13 +74,13 @@ export class InviteController {
       const result = await InviteService.accept({
         token,
         password,
-        name
+        name,
       });
 
       const response: IApiResponse = {
         success: true,
         message: 'Invitation accepted successfully',
-        data: result
+        data: result,
       };
 
       res.status(200).json(response);
@@ -88,12 +88,12 @@ export class InviteController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -119,7 +119,7 @@ export class InviteController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'Invitation revoked successfully'
+        message: 'Invitation revoked successfully',
       };
 
       res.status(200).json(response);
@@ -127,12 +127,12 @@ export class InviteController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -154,12 +154,15 @@ export class InviteController {
         throw ApiError.badRequest('Invalid invite ID');
       }
 
-      const result = await InviteService.resend(new Types.ObjectId(id), req.user.id);
+      const result = await InviteService.resend(
+        new Types.ObjectId(id),
+        req.user.id
+      );
 
       const response: IApiResponse = {
         success: true,
         message: 'Invitation resent successfully',
-        data: result
+        data: result,
       };
 
       res.status(200).json(response);
@@ -167,12 +170,12 @@ export class InviteController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -195,7 +198,7 @@ export class InviteController {
       const response: IApiResponse = {
         success: true,
         message: 'Invitation details retrieved successfully',
-        data: { invite }
+        data: { invite },
       };
 
       res.status(200).json(response);
@@ -203,12 +206,12 @@ export class InviteController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -218,7 +221,10 @@ export class InviteController {
    * Get workspace invites with pagination
    * GET /api/v1/invites
    */
-  static async getWorkspaceInvites(req: IAuthRequest, res: Response): Promise<void> {
+  static async getWorkspaceInvites(
+    req: IAuthRequest,
+    res: Response
+  ): Promise<void> {
     try {
       if (!req.user) {
         throw ApiError.unauthorized('Authentication required');
@@ -234,7 +240,7 @@ export class InviteController {
         search = '',
         sortBy = 'createdAt',
         sortOrder = 'desc',
-        status
+        status,
       } = req.query;
 
       const result = await InviteService.getWorkspaceInvites(
@@ -245,7 +251,7 @@ export class InviteController {
           search: String(search),
           sortBy: String(sortBy),
           sortOrder: sortOrder as 'asc' | 'desc',
-          status: status as string
+          status: status as string,
         }
       );
 
@@ -254,8 +260,8 @@ export class InviteController {
         message: 'Invitations retrieved successfully',
         data: result.invites,
         meta: {
-          pagination: result.pagination
-        }
+          pagination: result.pagination,
+        },
       };
 
       res.status(200).json(response);
@@ -263,12 +269,12 @@ export class InviteController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -291,7 +297,7 @@ export class InviteController {
       const response: IApiResponse = {
         success: true,
         message: 'User invitations retrieved successfully',
-        data: { invites }
+        data: { invites },
       };
 
       res.status(200).json(response);
@@ -299,12 +305,12 @@ export class InviteController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -329,7 +335,7 @@ export class InviteController {
       const response: IApiResponse = {
         success: true,
         message: 'Invite statistics retrieved successfully',
-        data: { stats }
+        data: { stats },
       };
 
       res.status(200).json(response);
@@ -337,12 +343,12 @@ export class InviteController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }

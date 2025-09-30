@@ -1,52 +1,64 @@
 import mongoose, { Schema } from 'mongoose';
 import { IAuditLog } from '@/types';
+import { IAuditLogModel } from '@/types/models';
 
 /**
  * Audit Log schema for tracking all system changes
  */
-const auditLogSchema = new Schema<IAuditLog>({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-    index: true
+const auditLogSchema = new Schema<IAuditLog>(
+  {
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+      index: true,
+    },
+    workspaceId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Workspace',
+      index: true,
+    },
+    action: {
+      type: String,
+      required: true,
+      enum: [
+        'create',
+        'update',
+        'delete',
+        'login',
+        'logout',
+        'invite',
+        'accept_invite',
+      ],
+      index: true,
+    },
+    resource: {
+      type: String,
+      required: true,
+      enum: ['user', 'workspace', 'role', 'invite', 'auth'],
+      index: true,
+    },
+    resourceId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      index: true,
+    },
+    details: {
+      type: Schema.Types.Mixed,
+      default: {},
+    },
+    ipAddress: {
+      type: String,
+    },
+    userAgent: {
+      type: String,
+    },
   },
-  workspaceId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Workspace',
-    index: true
-  },
-  action: {
-    type: String,
-    required: true,
-    enum: ['create', 'update', 'delete', 'login', 'logout', 'invite', 'accept_invite'],
-    index: true
-  },
-  resource: {
-    type: String,
-    required: true,
-    enum: ['user', 'workspace', 'role', 'invite', 'auth'],
-    index: true
-  },
-  resourceId: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    index: true
-  },
-  details: {
-    type: Schema.Types.Mixed,
-    default: {}
-  },
-  ipAddress: {
-    type: String
-  },
-  userAgent: {
-    type: String
+  {
+    timestamps: true,
+    collection: 'audit_logs',
   }
-}, {
-  timestamps: true,
-  collection: 'audit_logs'
-});
+);
 
 // Indexes for efficient querying
 auditLogSchema.index({ createdAt: -1 });
@@ -55,7 +67,7 @@ auditLogSchema.index({ workspaceId: 1, createdAt: -1 });
 auditLogSchema.index({ resource: 1, resourceId: 1 });
 
 // Static method to log an action
-auditLogSchema.statics.logAction = async function(
+auditLogSchema.statics.logAction = async function (
   userId: mongoose.Types.ObjectId,
   action: string,
   resource: string,
@@ -73,18 +85,19 @@ auditLogSchema.statics.logAction = async function(
       action,
       resource,
       resourceId,
-      ...options
+      ...options,
     });
     await log.save();
     return log;
   } catch (error) {
     console.error('Failed to create audit log:', error);
     // Don't throw error to avoid breaking the main operation
+    return null;
   }
 };
 
 // Instance method to format log for display
-auditLogSchema.methods.format = function() {
+auditLogSchema.methods.format = function () {
   return {
     id: this._id,
     action: this.action,
@@ -93,10 +106,13 @@ auditLogSchema.methods.format = function() {
     details: this.details,
     timestamp: this.createdAt,
     user: this.userId,
-    workspace: this.workspaceId
+    workspace: this.workspaceId,
   };
 };
 
-const AuditLog = mongoose.model<IAuditLog>('AuditLog', auditLogSchema);
+const AuditLog = mongoose.model<IAuditLog, IAuditLogModel>(
+  'AuditLog',
+  auditLogSchema
+);
 
 export default AuditLog;

@@ -23,6 +23,7 @@ export interface IUser extends Document, ITimestamps {
   workspaces: IUserWorkspace[];
   isSuperAdmin: boolean;
   createdBy?: Types.ObjectId;
+  empId?: string; // Custom Employee ID like VA1000
 }
 
 export interface IUserWorkspace {
@@ -52,6 +53,8 @@ export interface IWorkspaceSettings {
   defaultRole: Types.ObjectId;
   timezone: string;
   language: string;
+  empIdPrefix?: string; // Custom prefix for Employee IDs (default: first 2 letters of workspace name)
+  empIdCounter?: number; // Current counter for Employee IDs (starts at 1000)
 }
 
 export interface IWorkspaceMember {
@@ -97,24 +100,61 @@ export const PERMISSION_MODULES = {
   FILES: 'files',
   REPORTS: 'reports',
   WORKSPACE: 'workspace',
-  
+
   // Team & User management
   MEMBERS: 'members',
   ROLES: 'roles',
-  
-  // Communication
+
+  // Communication & Collaboration
   COMMENTS: 'comments',
   NOTIFICATIONS: 'notifications',
   CHAT: 'chat',
   MESSAGES: 'messages',
-  
-  // Administration
+
+  // Administration / Advanced
   BILLING: 'billing',
   INTEGRATIONS: 'integrations',
-  SETTINGS: 'settings'
+  SETTINGS: 'settings',
 } as const;
 
-export type PermissionModule = typeof PERMISSION_MODULES[keyof typeof PERMISSION_MODULES];
+// Permission categories for frontend grouping
+export const PERMISSION_CATEGORIES = {
+  CORE: 'core',
+  TEAM_MANAGEMENT: 'team_management',
+  COMMUNICATION: 'communication',
+  ADMINISTRATION: 'administration',
+} as const;
+
+// Permission category mappings
+export const PERMISSION_CATEGORY_MAPPING = {
+  [PERMISSION_CATEGORIES.CORE]: [
+    PERMISSION_MODULES.PROJECTS,
+    PERMISSION_MODULES.TASKS,
+    PERMISSION_MODULES.SPRINTS,
+    PERMISSION_MODULES.TEAM,
+    PERMISSION_MODULES.FILES,
+    PERMISSION_MODULES.REPORTS,
+    PERMISSION_MODULES.WORKSPACE,
+  ],
+  [PERMISSION_CATEGORIES.TEAM_MANAGEMENT]: [
+    PERMISSION_MODULES.MEMBERS,
+    PERMISSION_MODULES.ROLES,
+  ],
+  [PERMISSION_CATEGORIES.COMMUNICATION]: [
+    PERMISSION_MODULES.COMMENTS,
+    PERMISSION_MODULES.NOTIFICATIONS,
+    PERMISSION_MODULES.CHAT,
+    PERMISSION_MODULES.MESSAGES,
+  ],
+  [PERMISSION_CATEGORIES.ADMINISTRATION]: [
+    PERMISSION_MODULES.BILLING,
+    PERMISSION_MODULES.INTEGRATIONS,
+    PERMISSION_MODULES.SETTINGS,
+  ],
+} as const;
+
+export type PermissionModule =
+  (typeof PERMISSION_MODULES)[keyof typeof PERMISSION_MODULES];
 
 // Invite related types
 export interface IInvite extends Document, ITimestamps {
@@ -208,7 +248,7 @@ export enum SystemRoles {
   ADMIN = 'admin',
   MANAGER = 'manager',
   MEMBER = 'member',
-  GUEST = 'guest'
+  GUEST = 'guest',
 }
 
 // Permission action types
@@ -216,21 +256,21 @@ export enum PermissionActions {
   VIEW = 'view',
   CREATE = 'create',
   EDIT = 'edit',
-  DELETE = 'delete'
+  DELETE = 'delete',
 }
 
 // Workspace status
 export enum WorkspaceStatus {
   ACTIVE = 'active',
   SUSPENDED = 'suspended',
-  DELETED = 'deleted'
+  DELETED = 'deleted',
 }
 
 // User status in workspace
 export enum UserWorkspaceStatus {
   ACTIVE = 'active',
   INVITED = 'invited',
-  SUSPENDED = 'suspended'
+  SUSPENDED = 'suspended',
 }
 
 // Invite status
@@ -238,25 +278,14 @@ export enum InviteStatus {
   PENDING = 'pending',
   ACCEPTED = 'accepted',
   EXPIRED = 'expired',
-  REVOKED = 'revoked'
+  REVOKED = 'revoked',
 }
 
 export default {
-  IUser,
-  IWorkspace,
-  IRole,
-  IInvite,
-  ICounter,
-  IAuditLog,
-  IApiResponse,
-  IApiError,
-  IAuthRequest,
-  IJWTPayload,
-  IQueryParams,
   PERMISSION_MODULES,
   SystemRoles,
   PermissionActions,
   WorkspaceStatus,
   UserWorkspaceStatus,
-  InviteStatus
+  InviteStatus,
 };

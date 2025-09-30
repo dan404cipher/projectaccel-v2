@@ -11,14 +11,14 @@ export const rateLimitGeneral = rateLimit({
   max: config.RATE_LIMIT_MAX_REQUESTS, // limit each IP to 100 requests per windowMs
   message: {
     success: false,
-    message: 'Too many requests from this IP, please try again later.'
+    message: 'Too many requests from this IP, please try again later.',
   },
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  skip: (req) => {
+  skip: req => {
     // Skip rate limiting for health checks
     return req.path === '/health' || req.path === '/api/health';
-  }
+  },
 });
 
 // Stricter rate limiting for authentication endpoints
@@ -27,11 +27,11 @@ export const rateLimitAuth = rateLimit({
   max: 10, // limit each IP to 10 auth requests per windowMs
   message: {
     success: false,
-    message: 'Too many authentication attempts, please try again later.'
+    message: 'Too many authentication attempts, please try again later.',
   },
   standardHeaders: true,
   legacyHeaders: false,
-  skipSuccessfulRequests: true // Don't count successful requests
+  skipSuccessfulRequests: true, // Don't count successful requests
 });
 
 // Rate limiting for password reset endpoints
@@ -40,10 +40,10 @@ export const rateLimitPasswordReset = rateLimit({
   max: 3, // limit each IP to 3 password reset requests per hour
   message: {
     success: false,
-    message: 'Too many password reset attempts, please try again later.'
+    message: 'Too many password reset attempts, please try again later.',
   },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
 });
 
 // Rate limiting for invite creation
@@ -52,10 +52,10 @@ export const rateLimitInvites = rateLimit({
   max: 20, // limit each IP to 20 invite requests per windowMs
   message: {
     success: false,
-    message: 'Too many invite requests, please try again later.'
+    message: 'Too many invite requests, please try again later.',
   },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
 });
 
 // Rate limiting for user creation
@@ -64,10 +64,10 @@ export const rateLimitUserCreation = rateLimit({
   max: 10, // limit each IP to 10 user creation requests per windowMs
   message: {
     success: false,
-    message: 'Too many user creation requests, please try again later.'
+    message: 'Too many user creation requests, please try again later.',
   },
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
 });
 
 export default {
@@ -75,5 +75,5 @@ export default {
   rateLimitAuth,
   rateLimitPasswordReset,
   rateLimitInvites,
-  rateLimitUserCreation
+  rateLimitUserCreation,
 };

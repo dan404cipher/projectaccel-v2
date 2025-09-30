@@ -1,0 +1,22 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const userController_1 = require("@/controllers/userController");
+const auth_1 = require("@/middleware/auth");
+const rateLimiting_1 = require("@/middleware/rateLimiting");
+const types_1 = require("@/types");
+const router = (0, express_1.Router)();
+router.use(auth_1.authenticate);
+router.get('/search', userController_1.UserController.searchAll);
+router.get('/stats', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'view'), userController_1.UserController.getStats);
+router.get('/', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'view'), userController_1.UserController.getWorkspaceUsers);
+router.post('/', rateLimiting_1.rateLimitUserCreation, (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'create'), userController_1.UserController.create);
+router.get('/:id', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'view'), userController_1.UserController.getById);
+router.put('/:id', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'edit'), userController_1.UserController.update);
+router.put('/:id/role', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'edit'), userController_1.UserController.updateRole);
+router.delete('/:id', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'delete'), userController_1.UserController.deactivate);
+router.post('/:id/reactivate', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'edit'), userController_1.UserController.reactivate);
+router.delete('/:id/workspace', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.MEMBERS, 'delete'), userController_1.UserController.removeFromWorkspace);
+router.post('/:id/test-assign-emp-id', (req, res) => userController_1.UserController.testAssignEmpId(req, res));
+exports.default = router;
+//# sourceMappingURL=userRoutes.js.map

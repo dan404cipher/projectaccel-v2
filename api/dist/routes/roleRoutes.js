@@ -1,0 +1,22 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const roleController_1 = require("@/controllers/roleController");
+const auth_1 = require("@/middleware/auth");
+const types_1 = require("@/types");
+const router = (0, express_1.Router)();
+router.get('/permission-template', roleController_1.RoleController.getPermissionTemplate);
+router.get('/permission-modules', roleController_1.RoleController.getPermissionModules);
+router.get('/default-permissions/:roleName', roleController_1.RoleController.getDefaultPermissions);
+router.use(auth_1.authenticate);
+router.get('/stats', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.ROLES, 'view'), roleController_1.RoleController.getStats);
+router.get('/', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.ROLES, 'view'), roleController_1.RoleController.getWorkspaceRoles);
+router.get('/frontend-format', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.ROLES, 'view'), roleController_1.RoleController.getRolesFrontendFormat);
+router.post('/', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.ROLES, 'create'), roleController_1.RoleController.create);
+router.get('/:id', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.ROLES, 'view'), roleController_1.RoleController.getById);
+router.get('/:id/details', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.ROLES, 'view'), roleController_1.RoleController.getRoleWithUserCount);
+router.put('/:id', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.ROLES, 'edit'), roleController_1.RoleController.update);
+router.delete('/:id', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.ROLES, 'delete'), roleController_1.RoleController.delete);
+router.post('/:id/duplicate', (0, auth_1.requirePermission)(types_1.PERMISSION_MODULES.ROLES, 'create'), roleController_1.RoleController.duplicate);
+exports.default = router;
+//# sourceMappingURL=roleRoutes.js.map

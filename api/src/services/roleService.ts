@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 import { Role, Workspace, User, AuditLog } from '@/models';
 import { ApiError } from '@/utils/apiError';
-import { IPermissionSet, PERMISSION_MODULES, IQueryParams } from '@/types';
+import { IPermissionSet, PERMISSION_MODULES, IQueryParams, PERMISSION_CATEGORY_MAPPING } from '@/types';
 
 export interface CreateRoleData {
   name: string;
@@ -31,7 +31,8 @@ export class RoleService {
     roleData: CreateRoleData,
     createdBy: Types.ObjectId
   ): Promise<any> {
-    const { name, description, permissions, inheritFrom, defaultAccessScope } = roleData;
+    const { name, description, permissions, inheritFrom, defaultAccessScope } =
+      roleData;
 
     // Verify workspace exists
     const workspace = await Workspace.findById(workspaceId);
@@ -43,18 +44,23 @@ export class RoleService {
     const existingRole = await Role.findOne({
       workspaceId,
       name: name.trim(),
-      isActive: true
+      isActive: true,
     });
 
     if (existingRole) {
-      throw ApiError.conflict('Role with this name already exists in workspace');
+      throw ApiError.conflict(
+        'Role with this name already exists in workspace'
+      );
     }
 
     // Validate inherit from role if provided
     let parentRole = null;
     if (inheritFrom) {
       parentRole = await Role.findById(inheritFrom);
-      if (!parentRole || parentRole.workspaceId.toString() !== workspaceId.toString()) {
+      if (
+        !parentRole ||
+        parentRole.workspaceId.toString() !== workspaceId.toString()
+      ) {
         throw ApiError.badRequest('Invalid parent role for this workspace');
       }
     }
@@ -72,26 +78,20 @@ export class RoleService {
       permissions: validatedPermissions,
       defaultAccessScope: defaultAccessScope || 'workspace',
       isActive: true,
-      createdBy
+      createdBy,
     });
 
     await role.save();
 
     // Log creation
-    await AuditLog.logAction(
-      createdBy,
-      'create',
-      'role',
-      role._id,
-      {
-        workspaceId,
-        details: {
-          roleName: role.name,
-          permissionCount: role.permissions.length,
-          inheritFrom: parentRole?.name
-        }
-      }
-    );
+    await AuditLog.logAction(createdBy, 'create', 'role', role._id, {
+      workspaceId,
+      details: {
+        roleName: role.name,
+        permissionCount: role.permissions.length,
+        inheritFrom: parentRole?.name,
+      },
+    });
 
     return RoleService.formatRole(role);
   }
@@ -137,11 +137,13 @@ export class RoleService {
         workspaceId: role.workspaceId,
         name: updateData.name.trim(),
         _id: { $ne: roleId },
-        isActive: true
+        isActive: true,
       });
 
       if (existingRole) {
-        throw ApiError.conflict('Role with this name already exists in workspace');
+        throw ApiError.conflict(
+          'Role with this name already exists in workspace'
+        );
       }
 
       role.name = updateData.name.trim();
@@ -152,7 +154,9 @@ export class RoleService {
     }
 
     if (updateData.permissions) {
-      role.permissions = RoleService.validatePermissions(updateData.permissions);
+      role.permissions = RoleService.validatePermissions(
+        updateData.permissions
+      );
     }
 
     if (updateData.defaultAccessScope) {
@@ -166,19 +170,13 @@ export class RoleService {
     await role.save();
 
     // Log update
-    await AuditLog.logAction(
-      updatedBy,
-      'update',
-      'role',
-      role._id,
-      {
-        workspaceId: role.workspaceId,
-        details: {
-          roleName: role.name,
-          updated_fields: Object.keys(updateData)
-        }
-      }
-    );
+    await AuditLog.logAction(updatedBy, 'update', 'role', role._id, {
+      workspaceId: role.workspaceId,
+      details: {
+        roleName: role.name,
+        updated_fields: Object.keys(updateData),
+      },
+    });
 
     return RoleService.formatRole(role);
   }
@@ -202,27 +200,23 @@ export class RoleService {
 
     // Check if role is in use
     const usersWithRole = await User.countDocuments({
-      'workspaces.roleId': roleId
+      'workspaces.roleId': roleId,
     });
 
     if (usersWithRole > 0) {
-      throw ApiError.conflict(`Role is assigned to ${usersWithRole} user(s) and cannot be deleted`);
+      throw ApiError.conflict(
+        `Role is assigned to ${usersWithRole} user(s) and cannot be deleted`
+      );
     }
 
     role.isActive = false;
     await role.save();
 
     // Log deletion
-    await AuditLog.logAction(
-      deletedBy,
-      'delete',
-      'role',
-      role._id,
-      {
-        workspaceId: role.workspaceId,
-        details: { roleName: role.name }
-      }
-    );
+    await AuditLog.logAction(deletedBy, 'delete', 'role', role._id, {
+      workspaceId: role.workspaceId,
+      details: { roleName: role.name },
+    });
   }
 
   /**
@@ -230,7 +224,7 @@ export class RoleService {
    */
   static async getWorkspaceRoles(
     workspaceId: Types.ObjectId,
-    queryParams: IQueryParams & { 
+    queryParams: IQueryParams & {
       includeInactive?: boolean;
       isSystemRole?: boolean;
     } = {}
@@ -242,7 +236,7 @@ export class RoleService {
       sortBy = 'name',
       sortOrder = 'asc',
       includeInactive = false,
-      isSystemRole
+      isSystemRole,
     } = queryParams;
 
     // Build search query
@@ -259,7 +253,7 @@ export class RoleService {
     if (search) {
       searchQuery.$or = [
         { name: { $regex: search, $options: 'i' } },
-        { description: { $regex: search, $options: 'i' } }
+        { description: { $regex: search, $options: 'i' } },
       ];
     }
 
@@ -278,20 +272,32 @@ export class RoleService {
       .skip(skip)
       .limit(limit);
 
-    const formattedRoles = roles.map(role => RoleService.formatRole(role));
+    // Get user counts for each role
+    const rolesWithUserCounts = await Promise.all(
+      roles.map(async (role) => {
+        const userCount = await User.countDocuments({
+          'workspaces.roleId': role._id,
+          'workspaces.status': 'active',
+        });
+        
+        const formattedRole = RoleService.formatRole(role);
+        formattedRole.userCount = userCount;
+        return formattedRole;
+      })
+    );
 
     const totalPages = Math.ceil(total / limit);
 
     return {
-      roles: formattedRoles,
+      roles: rolesWithUserCounts,
       total,
       pagination: {
         page,
         limit,
         totalPages,
         hasNext: page < totalPages,
-        hasPrev: page > 1
-      }
+        hasPrev: page > 1,
+      },
     };
   }
 
@@ -311,7 +317,7 @@ export class RoleService {
     // Count users with this role
     const userCount = await User.countDocuments({
       'workspaces.roleId': roleId,
-      'workspaces.status': 'active'
+      'workspaces.status': 'active',
     });
 
     const formattedRole = RoleService.formatRole(role);
@@ -337,42 +343,40 @@ export class RoleService {
     const existingRole = await Role.findOne({
       workspaceId: originalRole.workspaceId,
       name: newName.trim(),
-      isActive: true
+      isActive: true,
     });
 
     if (existingRole) {
-      throw ApiError.conflict('Role with this name already exists in workspace');
+      throw ApiError.conflict(
+        'Role with this name already exists in workspace'
+      );
     }
 
     // Create duplicate
     const duplicatedRole = new Role({
       name: newName.trim(),
-      description: originalRole.description ? `Copy of ${originalRole.description}` : undefined,
+      description: originalRole.description
+        ? `Copy of ${originalRole.description}`
+        : undefined,
       workspaceId: originalRole.workspaceId,
       isSystemRole: false,
       permissions: [...originalRole.permissions],
       defaultAccessScope: originalRole.defaultAccessScope,
       isActive: true,
-      createdBy
+      createdBy,
     });
 
     await duplicatedRole.save();
 
     // Log duplication
-    await AuditLog.logAction(
-      createdBy,
-      'create',
-      'role',
-      duplicatedRole._id,
-      {
-        workspaceId: originalRole.workspaceId,
-        details: {
-          action: 'duplicate',
-          originalRole: originalRole.name,
-          newRole: duplicatedRole.name
-        }
-      }
-    );
+    await AuditLog.logAction(createdBy, 'create', 'role', duplicatedRole._id, {
+      workspaceId: originalRole.workspaceId,
+      details: {
+        action: 'duplicate',
+        originalRole: originalRole.name,
+        newRole: duplicatedRole.name,
+      },
+    });
 
     return RoleService.formatRole(duplicatedRole);
   }
@@ -389,23 +393,23 @@ export class RoleService {
         PERMISSION_MODULES.TEAM,
         PERMISSION_MODULES.FILES,
         PERMISSION_MODULES.REPORTS,
-        PERMISSION_MODULES.WORKSPACE
+        PERMISSION_MODULES.WORKSPACE,
       ],
       'Team & User Management': [
         PERMISSION_MODULES.MEMBERS,
-        PERMISSION_MODULES.ROLES
+        PERMISSION_MODULES.ROLES,
       ],
       'Communication & Collaboration': [
         PERMISSION_MODULES.COMMENTS,
         PERMISSION_MODULES.NOTIFICATIONS,
         PERMISSION_MODULES.CHAT,
-        PERMISSION_MODULES.MESSAGES
+        PERMISSION_MODULES.MESSAGES,
       ],
       'Administration / Advanced': [
         PERMISSION_MODULES.BILLING,
         PERMISSION_MODULES.INTEGRATIONS,
-        PERMISSION_MODULES.SETTINGS
-      ]
+        PERMISSION_MODULES.SETTINGS,
+      ],
     };
 
     const template: Record<string, any> = {};
@@ -417,9 +421,9 @@ export class RoleService {
           view: false,
           create: false,
           edit: false,
-          delete: false
+          delete: false,
         },
-        scope: 'all'
+        scope: 'all',
       }));
     });
 
@@ -431,42 +435,170 @@ export class RoleService {
    */
   static getDefaultRolePermissions(roleName: string): IPermissionSet[] {
     const defaults: Record<string, IPermissionSet[]> = {
-      'Admin': Object.values(PERMISSION_MODULES).map(module => ({
+      Admin: Object.values(PERMISSION_MODULES).map(module => ({
         module,
         permissions: { view: true, create: true, edit: true, delete: true },
-        scope: 'all'
+        scope: 'all',
       })),
-      
-      'Manager': [
-        { module: PERMISSION_MODULES.PROJECTS, permissions: { view: true, create: true, edit: true, delete: true }, scope: 'all' },
-        { module: PERMISSION_MODULES.TASKS, permissions: { view: true, create: true, edit: true, delete: true }, scope: 'all' },
-        { module: PERMISSION_MODULES.SPRINTS, permissions: { view: true, create: true, edit: true, delete: true }, scope: 'all' },
-        { module: PERMISSION_MODULES.TEAM, permissions: { view: true, create: false, edit: true, delete: false }, scope: 'all' },
-        { module: PERMISSION_MODULES.FILES, permissions: { view: true, create: true, edit: true, delete: true }, scope: 'all' },
-        { module: PERMISSION_MODULES.REPORTS, permissions: { view: true, create: true, edit: true, delete: false }, scope: 'all' },
-        { module: PERMISSION_MODULES.MEMBERS, permissions: { view: true, create: true, edit: true, delete: false }, scope: 'all' },
-        { module: PERMISSION_MODULES.COMMENTS, permissions: { view: true, create: true, edit: true, delete: true }, scope: 'all' },
-        { module: PERMISSION_MODULES.NOTIFICATIONS, permissions: { view: true, create: true, edit: true, delete: true }, scope: 'all' }
+
+      Manager: [
+        {
+          module: PERMISSION_MODULES.PROJECTS,
+          permissions: { view: true, create: true, edit: true, delete: true },
+          scope: 'all',
+        },
+        {
+          module: PERMISSION_MODULES.TASKS,
+          permissions: { view: true, create: true, edit: true, delete: true },
+          scope: 'all',
+        },
+        {
+          module: PERMISSION_MODULES.SPRINTS,
+          permissions: { view: true, create: true, edit: true, delete: true },
+          scope: 'all',
+        },
+        {
+          module: PERMISSION_MODULES.TEAM,
+          permissions: { view: true, create: false, edit: true, delete: false },
+          scope: 'all',
+        },
+        {
+          module: PERMISSION_MODULES.FILES,
+          permissions: { view: true, create: true, edit: true, delete: true },
+          scope: 'all',
+        },
+        {
+          module: PERMISSION_MODULES.REPORTS,
+          permissions: { view: true, create: true, edit: true, delete: false },
+          scope: 'all',
+        },
+        {
+          module: PERMISSION_MODULES.MEMBERS,
+          permissions: { view: true, create: true, edit: true, delete: false },
+          scope: 'all',
+        },
+        {
+          module: PERMISSION_MODULES.COMMENTS,
+          permissions: { view: true, create: true, edit: true, delete: true },
+          scope: 'all',
+        },
+        {
+          module: PERMISSION_MODULES.NOTIFICATIONS,
+          permissions: { view: true, create: true, edit: true, delete: true },
+          scope: 'all',
+        },
       ],
-      
-      'Member': [
-        { module: PERMISSION_MODULES.PROJECTS, permissions: { view: true, create: false, edit: false, delete: false }, scope: 'assigned' },
-        { module: PERMISSION_MODULES.TASKS, permissions: { view: true, create: true, edit: true, delete: false }, scope: 'assigned' },
-        { module: PERMISSION_MODULES.SPRINTS, permissions: { view: true, create: false, edit: false, delete: false }, scope: 'assigned' },
-        { module: PERMISSION_MODULES.TEAM, permissions: { view: true, create: false, edit: false, delete: false }, scope: 'all' },
-        { module: PERMISSION_MODULES.FILES, permissions: { view: true, create: true, edit: true, delete: false }, scope: 'assigned' },
-        { module: PERMISSION_MODULES.REPORTS, permissions: { view: true, create: false, edit: false, delete: false }, scope: 'assigned' },
-        { module: PERMISSION_MODULES.COMMENTS, permissions: { view: true, create: true, edit: true, delete: false }, scope: 'own' },
-        { module: PERMISSION_MODULES.NOTIFICATIONS, permissions: { view: true, create: false, edit: true, delete: false }, scope: 'own' }
+
+      Member: [
+        {
+          module: PERMISSION_MODULES.PROJECTS,
+          permissions: {
+            view: true,
+            create: false,
+            edit: false,
+            delete: false,
+          },
+          scope: 'assigned',
+        },
+        {
+          module: PERMISSION_MODULES.TASKS,
+          permissions: { view: true, create: true, edit: true, delete: false },
+          scope: 'assigned',
+        },
+        {
+          module: PERMISSION_MODULES.SPRINTS,
+          permissions: {
+            view: true,
+            create: false,
+            edit: false,
+            delete: false,
+          },
+          scope: 'assigned',
+        },
+        {
+          module: PERMISSION_MODULES.TEAM,
+          permissions: {
+            view: true,
+            create: false,
+            edit: false,
+            delete: false,
+          },
+          scope: 'all',
+        },
+        {
+          module: PERMISSION_MODULES.FILES,
+          permissions: { view: true, create: true, edit: true, delete: false },
+          scope: 'assigned',
+        },
+        {
+          module: PERMISSION_MODULES.REPORTS,
+          permissions: {
+            view: true,
+            create: false,
+            edit: false,
+            delete: false,
+          },
+          scope: 'assigned',
+        },
+        {
+          module: PERMISSION_MODULES.COMMENTS,
+          permissions: { view: true, create: true, edit: true, delete: false },
+          scope: 'own',
+        },
+        {
+          module: PERMISSION_MODULES.NOTIFICATIONS,
+          permissions: { view: true, create: false, edit: true, delete: false },
+          scope: 'own',
+        },
       ],
-      
-      'Guest': [
-        { module: PERMISSION_MODULES.PROJECTS, permissions: { view: true, create: false, edit: false, delete: false }, scope: 'assigned' },
-        { module: PERMISSION_MODULES.TASKS, permissions: { view: true, create: false, edit: false, delete: false }, scope: 'assigned' },
-        { module: PERMISSION_MODULES.TEAM, permissions: { view: true, create: false, edit: false, delete: false }, scope: 'all' },
-        { module: PERMISSION_MODULES.FILES, permissions: { view: true, create: false, edit: false, delete: false }, scope: 'assigned' },
-        { module: PERMISSION_MODULES.COMMENTS, permissions: { view: true, create: true, edit: false, delete: false }, scope: 'own' }
-      ]
+
+      Guest: [
+        {
+          module: PERMISSION_MODULES.PROJECTS,
+          permissions: {
+            view: true,
+            create: false,
+            edit: false,
+            delete: false,
+          },
+          scope: 'assigned',
+        },
+        {
+          module: PERMISSION_MODULES.TASKS,
+          permissions: {
+            view: true,
+            create: false,
+            edit: false,
+            delete: false,
+          },
+          scope: 'assigned',
+        },
+        {
+          module: PERMISSION_MODULES.TEAM,
+          permissions: {
+            view: true,
+            create: false,
+            edit: false,
+            delete: false,
+          },
+          scope: 'all',
+        },
+        {
+          module: PERMISSION_MODULES.FILES,
+          permissions: {
+            view: true,
+            create: false,
+            edit: false,
+            delete: false,
+          },
+          scope: 'assigned',
+        },
+        {
+          module: PERMISSION_MODULES.COMMENTS,
+          permissions: { view: true, create: true, edit: false, delete: false },
+          scope: 'own',
+        },
+      ],
     };
 
     return defaults[roleName] || [];
@@ -475,14 +607,18 @@ export class RoleService {
   /**
    * Validate permissions array
    */
-  private static validatePermissions(permissions: IPermissionSet[]): IPermissionSet[] {
+  private static validatePermissions(
+    permissions: IPermissionSet[]
+  ): IPermissionSet[] {
     const validModules = Object.values(PERMISSION_MODULES);
     const validatedPermissions: IPermissionSet[] = [];
 
     for (const permission of permissions) {
       // Validate module
-      if (!validModules.includes(permission.module)) {
-        throw ApiError.badRequest(`Invalid permission module: ${permission.module}`);
+      if (!validModules.includes(permission.module as any)) {
+        throw ApiError.badRequest(
+          `Invalid permission module: ${permission.module}`
+        );
       }
 
       // Validate permissions object
@@ -496,7 +632,7 @@ export class RoleService {
         view: Boolean(perms.view),
         create: Boolean(perms.create),
         edit: Boolean(perms.edit),
-        delete: Boolean(perms.delete)
+        delete: Boolean(perms.delete),
       };
 
       // Validate scope
@@ -509,7 +645,7 @@ export class RoleService {
       validatedPermissions.push({
         module: permission.module,
         permissions: validatedPerms,
-        scope
+        scope,
       });
     }
 
@@ -529,55 +665,132 @@ export class RoleService {
       defaultAccessScope: role.defaultAccessScope,
       permissions: role.permissions,
       permissionMatrix: role.getPermissionMatrix(),
-      workspace: role.workspaceId ? {
-        id: role.workspaceId._id || role.workspaceId,
-        name: (role.workspaceId as any).name,
-        workspaceId: (role.workspaceId as any).workspaceId
-      } : undefined,
-      inheritFrom: role.inheritFrom ? {
-        id: role.inheritFrom._id || role.inheritFrom,
-        name: (role.inheritFrom as any).name,
-        description: (role.inheritFrom as any).description
-      } : undefined,
-      createdBy: role.createdBy ? {
-        id: role.createdBy._id || role.createdBy,
-        name: (role.createdBy as any).name,
-        email: (role.createdBy as any).email
-      } : undefined,
+      workspace: role.workspaceId
+        ? {
+            id: role.workspaceId._id || role.workspaceId,
+            name: (role.workspaceId as any).name,
+            workspaceId: (role.workspaceId as any).workspaceId,
+          }
+        : undefined,
+      inheritFrom: role.inheritFrom
+        ? {
+            id: role.inheritFrom._id || role.inheritFrom,
+            name: (role.inheritFrom as any).name,
+            description: (role.inheritFrom as any).description,
+          }
+        : undefined,
+      createdBy: role.createdBy
+        ? {
+            id: role.createdBy._id || role.createdBy,
+            name: (role.createdBy as any).name,
+            email: (role.createdBy as any).email,
+          }
+        : undefined,
       createdAt: role.createdAt,
-      updatedAt: role.updatedAt
+      updatedAt: role.updatedAt,
     };
   }
 
   /**
    * Get role statistics for workspace
    */
-  static async getWorkspaceRoleStats(workspaceId: Types.ObjectId): Promise<any> {
+  static async getWorkspaceRoleStats(
+    workspaceId: Types.ObjectId
+  ): Promise<any> {
     const roles = await Role.find({ workspaceId, isActive: true });
-    
+
     const stats = {
       totalRoles: roles.length,
       systemRoles: roles.filter(r => r.isSystemRole).length,
       customRoles: roles.filter(r => !r.isSystemRole).length,
-      roleDistribution: [] as any[]
+      roleDistribution: [] as any[],
     };
 
     // Get user count for each role
     for (const role of roles) {
       const userCount = await User.countDocuments({
         'workspaces.roleId': role._id,
-        'workspaces.status': 'active'
+        'workspaces.status': 'active',
       });
 
       stats.roleDistribution.push({
         id: role._id,
         name: role.name,
         isSystemRole: role.isSystemRole,
-        userCount
+        userCount,
       });
     }
 
     return stats;
+  }
+
+  /**
+   * Convert frontend permission format to backend format
+   * Frontend format: { [categoryId]: { view: boolean, create: boolean, edit: boolean, delete: boolean } }
+   * Backend format: [{ module: string, permissions: { view: boolean, create: boolean, edit: boolean, delete: boolean } }]
+   */
+  static convertFrontendPermissionsToBackend(frontendPermissions: Record<string, any>): IPermissionSet[] {
+    const backendPermissions: IPermissionSet[] = [];
+
+    // Iterate through each category in frontend permissions
+    Object.entries(frontendPermissions).forEach(([categoryId, permissionSet]) => {
+      // Get modules for this category
+      const modules = PERMISSION_CATEGORY_MAPPING[categoryId as keyof typeof PERMISSION_CATEGORY_MAPPING];
+      
+      if (modules && permissionSet) {
+        // Create permission set for each module in this category
+        modules.forEach(module => {
+          backendPermissions.push({
+            module,
+            permissions: {
+              view: permissionSet.view || false,
+              create: permissionSet.create || false,
+              edit: permissionSet.edit || false,
+              delete: permissionSet.delete || false,
+            },
+          });
+        });
+      }
+    });
+
+    return backendPermissions;
+  }
+
+  /**
+   * Convert backend permission format to frontend format
+   * Backend format: [{ module: string, permissions: { view: boolean, create: boolean, edit: boolean, delete: boolean } }]
+   * Frontend format: { [categoryId]: { view: boolean, create: boolean, edit: boolean, delete: boolean } }
+   */
+  static convertBackendPermissionsToFrontend(backendPermissions: IPermissionSet[]): Record<string, any> {
+    const frontendPermissions: Record<string, any> = {};
+
+    // Initialize all categories with default permissions
+    Object.keys(PERMISSION_CATEGORY_MAPPING).forEach(categoryId => {
+      frontendPermissions[categoryId] = {
+        view: false,
+        create: false,
+        edit: false,
+        delete: false,
+      };
+    });
+
+    // Process backend permissions
+    backendPermissions.forEach(permission => {
+      // Find which category this module belongs to
+      Object.entries(PERMISSION_CATEGORY_MAPPING).forEach(([categoryId, modules]) => {
+        if (Array.from(modules).includes(permission.module as any)) {
+          // Update the category permissions (use OR logic for multiple modules in same category)
+          frontendPermissions[categoryId] = {
+            view: frontendPermissions[categoryId].view || permission.permissions.view,
+            create: frontendPermissions[categoryId].create || permission.permissions.create,
+            edit: frontendPermissions[categoryId].edit || permission.permissions.edit,
+            delete: frontendPermissions[categoryId].delete || permission.permissions.delete,
+          };
+        }
+      });
+    });
+
+    return frontendPermissions;
   }
 }
 

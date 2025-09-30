@@ -5,15 +5,9 @@ import { render } from "react-dom";
 
 export const CustomTable: React.FC<{ draggable?: boolean; selectable?: boolean,data:any[],columns:any[],className?:string }> = ({ draggable, selectable,data,columns,className }) => {
     const [checkbox, setCheckbox] = useState(false)
-
-
-    const actions = [
-        {
-            title: 'sdfjlsk'
-        }
-    ]
     return (
-        <table className={`w-full h-full text-sm  p-5 ${className}`}>
+        <div className="border border-gray-200 rounded-lg min-w-0">
+            <table className={`w-full text-sm ${className}`}>
             <thead className="bg-[#EEF1F2]">
                 <tr>
                     {draggable && (
@@ -42,21 +36,14 @@ export const CustomTable: React.FC<{ draggable?: boolean; selectable?: boolean,d
                             </div>
                         </th>
                     ))}
-                    {
-                        actions && (
-                            <th className="">
-                                Actions
-                            </th>
-                        )
-                    }
                 </tr>
             </thead>
-            <tbody className="pb-2">
+            <tbody className="divide-y divide-gray-200">
                 {data.map((row, rowIndex) => (
                     <tr
                         key={rowIndex}
                         draggable
-                        className=" hover:bg-gray-50 ">
+                        className="hover:bg-gray-50 transition-colors duration-150">
                         {
                             draggable && (
                                 <td className="pl-5 w-[40px]">
@@ -81,18 +68,10 @@ export const CustomTable: React.FC<{ draggable?: boolean; selectable?: boolean,d
                                 {col.render ? col.render(row[col.accessor], row) : row[col.accessor]}
                             </td>
                         ))}
-                        {
-                            actions && (
-                                <td className="flex items-center justify-center p-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
-                                        <path d="M7.39062 12.4341C7.39062 12.9645 7.17991 13.4732 6.80484 13.8483C6.42977 14.2234 5.92106 14.4341 5.39062 14.4341C4.86019 14.4341 4.35148 14.2234 3.97641 13.8483C3.60134 13.4732 3.39063 12.9645 3.39062 12.4341C3.39062 11.9036 3.60134 11.3949 3.97641 11.0199C4.35148 10.6448 4.86019 10.4341 5.39062 10.4341C5.92106 10.4341 6.42977 10.6448 6.80484 11.0199C7.17991 11.3949 7.39062 11.9036 7.39062 12.4341ZM14.3906 12.4341C14.3906 12.9645 14.1799 13.4732 13.8048 13.8483C13.4298 14.2234 12.9211 14.4341 12.3906 14.4341C11.8602 14.4341 11.3515 14.2234 10.9764 13.8483C10.6013 13.4732 10.3906 12.9645 10.3906 12.4341C10.3906 11.9036 10.6013 11.3949 10.9764 11.0199C11.3515 10.6448 11.8602 10.4341 12.3906 10.4341C12.9211 10.4341 13.4298 10.6448 13.8048 11.0199C14.1799 11.3949 14.3906 11.9036 14.3906 12.4341ZM21.3906 12.4341C21.3906 12.9645 21.1799 13.4732 20.8048 13.8483C20.4298 14.2234 19.9211 14.4341 19.3906 14.4341C18.8602 14.4341 18.3515 14.2234 17.9764 13.8483C17.6013 13.4732 17.3906 12.9645 17.3906 12.4341C17.3906 11.9036 17.6013 11.3949 17.9764 11.0199C18.3515 10.6448 18.8602 10.4341 19.3906 10.4341C19.9211 10.4341 20.4298 10.6448 20.8048 11.0199C21.1799 11.3949 21.3906 11.9036 21.3906 12.4341Z" fill="#06263D" />
-                                    </svg>
-                                </td>
-                            )
-                        }
                     </tr>
                 ))}
             </tbody>
         </table>
+        </div>
     )
 }

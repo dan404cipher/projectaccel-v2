@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ShieldCheck, UserPlus } from 'lucide-react';
+import { ShieldCheck, UserPlus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -228,31 +228,23 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[900px] max-h-[90vh] p-0 bg-white rounded-[24px] border-0 overflow-hidden">
+      <DialogContent className="max-w-[96vw] sm:max-w-[1000px] lg:max-w-[1200px] max-h-[95vh] h-[95vh] p-0 bg-white rounded-[24px] border-0 overflow-hidden [&>button]:hidden">
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="bg-white h-[80px] border-b border-gray-200 px-6 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-[#67909b] rounded-lg flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5 text-white" />
+          <div className="bg-white h-[60px] border-b border-gray-200 px-4 flex items-center justify-between flex-shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-[#67909b] rounded-lg flex items-center justify-center">
+                <ShieldCheck className="w-4 h-4 text-white" />
               </div>
-              <h2 className="text-xl font-semibold text-[#252525]">Create New Role</h2>
+              <h2 className="text-lg font-semibold text-[#252525]">Create New Role</h2>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="h-8 w-8 p-0 hover:bg-gray-100"
-            >
-              <X className="h-5 w-5 text-[#252525]" />
-            </Button>
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto">
-            <div className="grid grid-cols-2 gap-8 p-6">
+          <div className="flex-1 flex min-h-0 overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 p-4 sm:p-6 w-full h-full">
               {/* Left Column - Form Fields */}
-              <div className="space-y-6">
+              <div className="space-y-6 overflow-y-auto pr-2" style={{ maxHeight: 'calc(95vh - 120px)' }}>
                 {/* Role Name */}
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-[#252525]">Role name</label>
@@ -346,19 +338,19 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
 
                   {/* Assigned Users Display */}
                   {getAssignedUsers().length > 0 && (
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="flex flex-wrap items-center gap-2 mt-2">
                       {getAssignedUsers().map((user) => (
-                        <div key={user.id} className="flex items-center gap-1 bg-gray-100 rounded-full px-2 py-1">
-                          <Avatar className="w-6 h-6">
+                        <div key={user.id} className="flex items-center gap-1 bg-gray-100 rounded-full px-2 py-1 max-w-full">
+                          <Avatar className="w-5 h-5 sm:w-6 sm:h-6">
                             <AvatarImage src={user.avatar} />
                             <AvatarFallback className="text-xs">{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                           </Avatar>
-                          <span className="text-sm">{user.email}</span>
+                          <span className="text-xs sm:text-sm truncate max-w-[120px] sm:max-w-none">{user.email}</span>
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => toggleUserAssignment(user.id)}
-                            className="h-4 w-4 p-0 hover:bg-gray-200 rounded-full"
+                            className="h-4 w-4 p-0 hover:bg-gray-200 rounded-full flex-shrink-0"
                           >
                             <X className="h-3 w-3" />
                           </Button>
@@ -367,13 +359,32 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                     </div>
                   )}
                 </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleCancel}
+                    className="px-6 py-2 border-[#67909b] text-[#67909b] hover:bg-[#67909b] hover:text-white w-full sm:w-auto"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleSubmit}
+                    className="px-6 py-2 bg-[#67909b] hover:bg-[#5a7a85] text-white w-full sm:w-auto"
+                  >
+                    Create new role
+                  </Button>
+                </div>
               </div>
 
               {/* Right Column - Permissions Matrix */}
-              <div className="space-y-4">
-                <div className="space-y-4">
+              <div className="space-y-3 overflow-y-auto" style={{ maxHeight: 'calc(95vh - 120px)' }}>
+                <div className="space-y-3">
                   {/* Permissions Header */}
-                  <div className="grid grid-cols-5 gap-2 text-sm font-medium text-[#666666] border-b pb-2">
+                  <div className="grid grid-cols-5 gap-1 sm:gap-2 text-xs sm:text-sm font-medium text-[#666666] border-b pb-2">
                     <div></div>
                     <div className="text-center">View</div>
                     <div className="text-center">Create</div>
@@ -382,11 +393,11 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                   </div>
 
                   {/* Core Permissions */}
-                  <div className="space-y-1">
-                    <h3 className="text-sm font-medium text-[#666666] mb-2">Core Permissions</h3>
+                  <div className="space-y-0.5">
+                    <h3 className="text-sm font-medium text-[#666666] mb-1">Core Permissions</h3>
                     {permissionCategories.slice(1, 8).map((category) => (
-                      <div key={category.id} className="grid grid-cols-5 gap-2 items-center py-1">
-                        <div className="text-sm text-[#252525]">{category.name}</div>
+                      <div key={category.id} className="grid grid-cols-5 gap-1 sm:gap-2 items-center py-1">
+                        <div className="text-xs sm:text-sm text-[#252525] truncate">{category.name}</div>
                         {(['view', 'create', 'edit', 'delete'] as const).map((permType) => (
                           <div key={permType} className="flex justify-center">
                             <Checkbox
@@ -394,7 +405,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                               onCheckedChange={(checked) => 
                                 handlePermissionChange(category.id, permType, checked as boolean)
                               }
-                              className="data-[state=checked]:bg-[#67909b] data-[state=checked]:border-[#67909b]"
+                              className="data-[state=checked]:bg-[#67909b] data-[state=checked]:border-[#67909b] w-4 h-4"
                             />
                           </div>
                         ))}
@@ -403,11 +414,11 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                   </div>
 
                   {/* Team & User Management */}
-                  <div className="space-y-1">
-                    <h3 className="text-sm font-medium text-[#666666] mb-2">Team & User management</h3>
+                  <div className="space-y-0.5">
+                    <h3 className="text-sm font-medium text-[#666666] mb-1">Team & User management</h3>
                     {permissionCategories.slice(8, 10).map((category) => (
-                      <div key={category.id} className="grid grid-cols-5 gap-2 items-center py-1">
-                        <div className="text-sm text-[#252525]">{category.name}</div>
+                      <div key={category.id} className="grid grid-cols-5 gap-1 sm:gap-2 items-center py-1">
+                        <div className="text-xs sm:text-sm text-[#252525] truncate">{category.name}</div>
                         {(['view', 'create', 'edit', 'delete'] as const).map((permType) => (
                           <div key={permType} className="flex justify-center">
                             <Checkbox
@@ -415,7 +426,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                               onCheckedChange={(checked) => 
                                 handlePermissionChange(category.id, permType, checked as boolean)
                               }
-                              className="data-[state=checked]:bg-[#67909b] data-[state=checked]:border-[#67909b]"
+                              className="data-[state=checked]:bg-[#67909b] data-[state=checked]:border-[#67909b] w-4 h-4"
                             />
                           </div>
                         ))}
@@ -424,11 +435,11 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                   </div>
 
                   {/* Communication & Collaboration */}
-                  <div className="space-y-1">
-                    <h3 className="text-sm font-medium text-[#666666] mb-2">Communication & Collaboration</h3>
+                  <div className="space-y-0.5">
+                    <h3 className="text-sm font-medium text-[#666666] mb-1">Communication & Collaboration</h3>
                     {permissionCategories.slice(10, 14).map((category) => (
-                      <div key={category.id} className="grid grid-cols-5 gap-2 items-center py-1">
-                        <div className="text-sm text-[#252525]">{category.name}</div>
+                      <div key={category.id} className="grid grid-cols-5 gap-1 sm:gap-2 items-center py-1">
+                        <div className="text-xs sm:text-sm text-[#252525] truncate">{category.name}</div>
                         {(['view', 'create', 'edit', 'delete'] as const).map((permType) => (
                           <div key={permType} className="flex justify-center">
                             <Checkbox
@@ -436,7 +447,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                               onCheckedChange={(checked) => 
                                 handlePermissionChange(category.id, permType, checked as boolean)
                               }
-                              className="data-[state=checked]:bg-[#67909b] data-[state=checked]:border-[#67909b]"
+                              className="data-[state=checked]:bg-[#67909b] data-[state=checked]:border-[#67909b] w-4 h-4"
                             />
                           </div>
                         ))}
@@ -445,11 +456,11 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                   </div>
 
                   {/* Administration / Advanced */}
-                  <div className="space-y-1">
-                    <h3 className="text-sm font-medium text-[#666666] mb-2">Administration / Advanced</h3>
+                  <div className="space-y-0.5">
+                    <h3 className="text-sm font-medium text-[#666666] mb-1">Administration / Advanced</h3>
                     {permissionCategories.slice(14).map((category) => (
-                      <div key={category.id} className="grid grid-cols-5 gap-2 items-center py-1">
-                        <div className="text-sm text-[#252525]">{category.name}</div>
+                      <div key={category.id} className="grid grid-cols-5 gap-1 sm:gap-2 items-center py-1">
+                        <div className="text-xs sm:text-sm text-[#252525] truncate">{category.name}</div>
                         {(['view', 'create', 'edit', 'delete'] as const).map((permType) => (
                           <div key={permType} className="flex justify-center">
                             <Checkbox
@@ -457,7 +468,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                               onCheckedChange={(checked) => 
                                 handlePermissionChange(category.id, permType, checked as boolean)
                               }
-                              className="data-[state=checked]:bg-[#67909b] data-[state=checked]:border-[#67909b]"
+                              className="data-[state=checked]:bg-[#67909b] data-[state=checked]:border-[#67909b] w-4 h-4"
                             />
                           </div>
                         ))}
@@ -469,24 +480,6 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="border-t border-gray-200 p-6 flex justify-center gap-4">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleCancel}
-              className="px-8 py-2 border-[#67909b] text-[#67909b] hover:bg-[#67909b] hover:text-white"
-            >
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              onClick={handleSubmit}
-              className="px-8 py-2 bg-[#67909b] hover:bg-[#5a7a85] text-white"
-            >
-              Create new role
-            </Button>
-          </div>
         </div>
       </DialogContent>
     </Dialog>

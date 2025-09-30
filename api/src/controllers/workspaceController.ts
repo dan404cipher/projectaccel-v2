@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { WorkspaceService } from '@/services';
 import { IAuthRequest, IApiResponse } from '@/types';
 import { ApiError } from '@/utils/apiError';
@@ -29,13 +29,13 @@ export class WorkspaceController {
         name,
         description,
         ownerId: req.user.id,
-        settings
+        settings,
       });
 
       const response: IApiResponse = {
         success: true,
         message: 'Workspace created successfully',
-        data: { workspace }
+        data: { workspace },
       };
 
       res.status(201).json(response);
@@ -43,12 +43,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -70,7 +70,7 @@ export class WorkspaceController {
       const response: IApiResponse = {
         success: true,
         message: 'Workspace retrieved successfully',
-        data: { workspace }
+        data: { workspace },
       };
 
       res.status(200).json(response);
@@ -78,12 +78,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -115,7 +115,7 @@ export class WorkspaceController {
       const response: IApiResponse = {
         success: true,
         message: 'Workspace updated successfully',
-        data: { workspace }
+        data: { workspace },
       };
 
       res.status(200).json(response);
@@ -123,12 +123,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -154,7 +154,7 @@ export class WorkspaceController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'Workspace deleted successfully'
+        message: 'Workspace deleted successfully',
       };
 
       res.status(200).json(response);
@@ -162,12 +162,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -186,7 +186,11 @@ export class WorkspaceController {
       const { id } = req.params;
       const { userId, roleId } = req.body;
 
-      if (!Types.ObjectId.isValid(id) || !Types.ObjectId.isValid(userId) || !Types.ObjectId.isValid(roleId)) {
+      if (
+        !Types.ObjectId.isValid(id) ||
+        !Types.ObjectId.isValid(userId) ||
+        !Types.ObjectId.isValid(roleId)
+      ) {
         throw ApiError.badRequest('Invalid workspace ID, user ID, or role ID');
       }
 
@@ -199,7 +203,7 @@ export class WorkspaceController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'Member added to workspace successfully'
+        message: 'Member added to workspace successfully',
       };
 
       res.status(200).json(response);
@@ -207,12 +211,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -242,7 +246,7 @@ export class WorkspaceController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'Member removed from workspace successfully'
+        message: 'Member removed from workspace successfully',
       };
 
       res.status(200).json(response);
@@ -250,12 +254,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -265,7 +269,10 @@ export class WorkspaceController {
    * Update member role
    * PUT /api/v1/workspaces/:id/members/:userId/role
    */
-  static async updateMemberRole(req: IAuthRequest, res: Response): Promise<void> {
+  static async updateMemberRole(
+    req: IAuthRequest,
+    res: Response
+  ): Promise<void> {
     try {
       if (!req.user) {
         throw ApiError.unauthorized('Authentication required');
@@ -274,7 +281,11 @@ export class WorkspaceController {
       const { id, userId } = req.params;
       const { roleId } = req.body;
 
-      if (!Types.ObjectId.isValid(id) || !Types.ObjectId.isValid(userId) || !Types.ObjectId.isValid(roleId)) {
+      if (
+        !Types.ObjectId.isValid(id) ||
+        !Types.ObjectId.isValid(userId) ||
+        !Types.ObjectId.isValid(roleId)
+      ) {
         throw ApiError.badRequest('Invalid workspace ID, user ID, or role ID');
       }
 
@@ -287,7 +298,7 @@ export class WorkspaceController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'Member role updated successfully'
+        message: 'Member role updated successfully',
       };
 
       res.status(200).json(response);
@@ -295,12 +306,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -310,7 +321,10 @@ export class WorkspaceController {
    * Transfer workspace ownership
    * POST /api/v1/workspaces/:id/transfer-ownership
    */
-  static async transferOwnership(req: IAuthRequest, res: Response): Promise<void> {
+  static async transferOwnership(
+    req: IAuthRequest,
+    res: Response
+  ): Promise<void> {
     try {
       if (!req.user) {
         throw ApiError.unauthorized('Authentication required');
@@ -331,7 +345,7 @@ export class WorkspaceController {
 
       const response: IApiResponse = {
         success: true,
-        message: 'Workspace ownership transferred successfully'
+        message: 'Workspace ownership transferred successfully',
       };
 
       res.status(200).json(response);
@@ -339,12 +353,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -366,31 +380,28 @@ export class WorkspaceController {
         limit = 20,
         search = '',
         sortBy = 'joinedAt',
-        sortOrder = 'desc'
+        sortOrder = 'desc',
       } = req.query;
 
       if (!Types.ObjectId.isValid(id)) {
         throw ApiError.badRequest('Invalid workspace ID');
       }
 
-      const result = await WorkspaceService.getMembers(
-        new Types.ObjectId(id),
-        {
-          page: Number(page),
-          limit: Number(limit),
-          search: String(search),
-          sortBy: String(sortBy),
-          sortOrder: sortOrder as 'asc' | 'desc'
-        }
-      );
+      const result = await WorkspaceService.getMembers(new Types.ObjectId(id), {
+        page: Number(page),
+        limit: Number(limit),
+        search: String(search),
+        sortBy: String(sortBy),
+        sortOrder: sortOrder as 'asc' | 'desc',
+      });
 
       const response: IApiResponse = {
         success: true,
         message: 'Workspace members retrieved successfully',
         data: result.members,
         meta: {
-          pagination: result.pagination
-        }
+          pagination: result.pagination,
+        },
       };
 
       res.status(200).json(response);
@@ -398,12 +409,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -430,7 +441,7 @@ export class WorkspaceController {
       const response: IApiResponse = {
         success: true,
         message: 'Workspace statistics retrieved successfully',
-        data: { stats }
+        data: { stats },
       };
 
       res.status(200).json(response);
@@ -438,12 +449,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }
@@ -469,7 +480,7 @@ export class WorkspaceController {
         search = '',
         sortBy = 'createdAt',
         sortOrder = 'desc',
-        ownerId
+        ownerId,
       } = req.query;
 
       const result = await WorkspaceService.search({
@@ -478,7 +489,7 @@ export class WorkspaceController {
         search: String(search),
         sortBy: String(sortBy),
         sortOrder: sortOrder as 'asc' | 'desc',
-        ownerId: ownerId as string
+        ownerId: ownerId as string,
       });
 
       const response: IApiResponse = {
@@ -486,8 +497,8 @@ export class WorkspaceController {
         message: 'Workspaces retrieved successfully',
         data: result.workspaces,
         meta: {
-          pagination: result.pagination
-        }
+          pagination: result.pagination,
+        },
       };
 
       res.status(200).json(response);
@@ -495,12 +506,12 @@ export class WorkspaceController {
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
-          message: error.message
+          message: error.message,
         });
       } else {
         res.status(500).json({
           success: false,
-          message: 'Internal server error'
+          message: 'Internal server error',
         });
       }
     }

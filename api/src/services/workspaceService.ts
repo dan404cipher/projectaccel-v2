@@ -52,20 +52,18 @@ export class WorkspaceService {
         allowPublicInvites: settings?.allowPublicInvites || false,
         requireAdminApproval: settings?.requireAdminApproval || true,
         timezone: settings?.timezone || 'UTC',
-        language: settings?.language || 'en'
-      }
+        language: settings?.language || 'en',
+        empIdPrefix: null, // Will be set by pre-save middleware
+        empIdCounter: 1000, // Start from 1000
+      },
     });
 
     await workspace.save();
 
     // Log creation
-    await AuditLog.logAction(
-      ownerId,
-      'create',
-      'workspace',
-      workspace._id,
-      { details: { name, workspaceId: workspace.workspaceId } }
-    );
+    await AuditLog.logAction(ownerId, 'create', 'workspace', workspace._id, {
+      details: { name, workspaceId: workspace.workspaceId },
+    });
 
     return workspace;
   }
@@ -84,7 +82,8 @@ export class WorkspaceService {
         .populate('members.roleId', 'name description')
         .populate('settings.defaultRole', 'name description');
     } else {
-      workspace = await Workspace.findByWorkspaceId(id)
+      workspace = await (Workspace as any)
+        .findByWorkspaceId(id)
         .populate('ownerId', 'name email')
         .populate('members.userId', 'name email designation')
         .populate('members.roleId', 'name description')
@@ -113,15 +112,18 @@ export class WorkspaceService {
 
     // Update basic fields
     if (data.name) workspace.name = data.name.trim();
-    if (data.description !== undefined) workspace.description = data.description?.trim();
+    if (data.description !== undefined)
+      workspace.description = data.description?.trim();
 
     // Update settings
     if (data.settings) {
       if (data.settings.allowPublicInvites !== undefined) {
-        workspace.settings.allowPublicInvites = data.settings.allowPublicInvites;
+        workspace.settings.allowPublicInvites =
+          data.settings.allowPublicInvites;
       }
       if (data.settings.requireAdminApproval !== undefined) {
-        workspace.settings.requireAdminApproval = data.settings.requireAdminApproval;
+        workspace.settings.requireAdminApproval =
+          data.settings.requireAdminApproval;
       }
       if (data.settings.defaultRole) {
         workspace.settings.defaultRole = data.settings.defaultRole;
@@ -137,16 +139,10 @@ export class WorkspaceService {
     await workspace.save();
 
     // Log update
-    await AuditLog.logAction(
-      updatedBy,
-      'update',
-      'workspace',
-      workspace._id,
-      {
-        workspaceId: workspace._id,
-        details: { updated_fields: Object.keys(data) }
-      }
-    );
+    await AuditLog.logAction(updatedBy, 'update', 'workspace', workspace._id, {
+      workspaceId: workspace._id,
+      details: { updated_fields: Object.keys(data) },
+    });
 
     return workspace;
   }
@@ -154,7 +150,10 @@ export class WorkspaceService {
   /**
    * Delete workspace (soft delete)
    */
-  static async delete(workspaceId: Types.ObjectId, deletedBy: Types.ObjectId): Promise<void> {
+  static async delete(
+    workspaceId: Types.ObjectId,
+    deletedBy: Types.ObjectId
+  ): Promise<void> {
     const workspace = await Workspace.findById(workspaceId);
     if (!workspace) {
       throw ApiError.notFound('Workspace not found');
@@ -177,16 +176,10 @@ export class WorkspaceService {
     );
 
     // Log deletion
-    await AuditLog.logAction(
-      deletedBy,
-      'delete',
-      'workspace',
-      workspace._id,
-      {
-        workspaceId: workspace._id,
-        details: { workspaceId: workspace.workspaceId, name: workspace.name }
-      }
-    );
+    await AuditLog.logAction(deletedBy, 'delete', 'workspace', workspace._id, {
+      workspaceId: workspace._id,
+      details: { workspaceId: workspace.workspaceId, name: workspace.name },
+    });
   }
 
   /**
@@ -214,22 +207,16 @@ export class WorkspaceService {
     }
 
     // Add to workspace
-    await workspace.addMember(userId, roleId, addedBy);
-    
+    await (workspace as any).addMember(userId, roleId, addedBy);
+
     // Add to user's workspaces
-    await user.addWorkspace(workspaceId, roleId, addedBy);
+    await (user as any).addWorkspace(workspaceId, roleId, addedBy);
 
     // Log action
-    await AuditLog.logAction(
-      addedBy,
-      'create',
-      'user',
-      userId,
-      {
-        workspaceId,
-        details: { action: 'add_member', role: role.name }
-      }
-    );
+    await AuditLog.logAction(addedBy, 'create', 'user', userId, {
+      workspaceId,
+      details: { action: 'add_member', role: role.name },
+    });
   }
 
   /**
@@ -256,22 +243,16 @@ export class WorkspaceService {
     }
 
     // Remove from workspace
-    await workspace.removeMember(userId);
-    
+    await (workspace as any).removeMember(userId);
+
     // Remove from user's workspaces
-    await user.removeWorkspace(workspaceId);
+    await (user as any).removeWorkspace(workspaceId);
 
     // Log action
-    await AuditLog.logAction(
-      removedBy,
-      'delete',
-      'user',
-      userId,
-      {
-        workspaceId,
-        details: { action: 'remove_member' }
-      }
-    );
+    await AuditLog.logAction(removedBy, 'delete', 'user', userId, {
+      workspaceId,
+      details: { action: 'remove_member' },
+    });
   }
 
   /**
@@ -299,22 +280,16 @@ export class WorkspaceService {
     }
 
     // Update in workspace
-    await workspace.updateMemberRole(userId, newRoleId);
-    
+    await (workspace as any).updateMemberRole(userId, newRoleId);
+
     // Update in user's workspaces
-    await user.updateWorkspaceRole(workspaceId, newRoleId);
+    await (user as any).updateWorkspaceRole(workspaceId, newRoleId);
 
     // Log action
-    await AuditLog.logAction(
-      updatedBy,
-      'update',
-      'user',
-      userId,
-      {
-        workspaceId,
-        details: { action: 'update_role', newRole: role.name }
-      }
-    );
+    await AuditLog.logAction(updatedBy, 'update', 'user', userId, {
+      workspaceId,
+      details: { action: 'update_role', newRole: role.name },
+    });
   }
 
   /**
@@ -341,18 +316,18 @@ export class WorkspaceService {
     }
 
     // Transfer ownership
-    await workspace.transferOwnership(newOwnerId);
+    await (workspace as any).transferOwnership(newOwnerId);
 
     // Ensure new owner has admin role
-    const adminRole = await Role.findOne({ 
-      workspaceId, 
-      name: 'Admin', 
-      isSystemRole: true 
+    const adminRole = await Role.findOne({
+      workspaceId,
+      name: 'Admin',
+      isSystemRole: true,
     });
 
     if (adminRole) {
-      await workspace.updateMemberRole(newOwnerId, adminRole._id);
-      await newOwner.updateWorkspaceRole(workspaceId, adminRole._id);
+      await (workspace as any).updateMemberRole(newOwnerId, adminRole._id);
+      await (newOwner as any).updateWorkspaceRole(workspaceId, adminRole._id);
     }
 
     // Log action
@@ -363,10 +338,10 @@ export class WorkspaceService {
       workspace._id,
       {
         workspaceId,
-        details: { 
-          action: 'transfer_ownership', 
-          newOwner: newOwner.email 
-        }
+        details: {
+          action: 'transfer_ownership',
+          newOwner: newOwner.email,
+        },
       }
     );
   }
@@ -383,7 +358,7 @@ export class WorkspaceService {
       limit = 20,
       search = '',
       sortBy = 'joinedAt',
-      sortOrder = 'desc'
+      sortOrder = 'desc',
     } = queryParams;
 
     const workspace = await Workspace.findById(workspaceId);
@@ -398,14 +373,14 @@ export class WorkspaceService {
     // Build search query
     const searchQuery: any = {
       _id: { $in: memberIds },
-      isActive: true
+      isActive: true,
     };
 
     if (search) {
       searchQuery.$or = [
         { name: { $regex: search, $options: 'i' } },
         { email: { $regex: search, $options: 'i' } },
-        { designation: { $regex: search, $options: 'i' } }
+        { designation: { $regex: search, $options: 'i' } },
       ];
     }
 
@@ -439,7 +414,7 @@ export class WorkspaceService {
         joinedAt: memberData?.joinedAt,
         roleId: memberData?.roleId,
         status: memberData?.status,
-        invitedBy: memberData?.invitedBy
+        invitedBy: memberData?.invitedBy,
       };
     });
 
@@ -453,8 +428,8 @@ export class WorkspaceService {
         limit,
         totalPages,
         hasNext: page < totalPages,
-        hasPrev: page > 1
-      }
+        hasPrev: page > 1,
+      },
     };
   }
 
@@ -467,11 +442,11 @@ export class WorkspaceService {
       throw ApiError.notFound('Workspace not found');
     }
 
-    const totalMembers = workspace.getActiveMembersCount();
+    const totalMembers = (workspace as any).getActiveMembersCount();
     const membersByStatus = {
-      active: workspace.getMembersByStatus('active').length,
-      invited: workspace.getMembersByStatus('invited').length,
-      suspended: workspace.getMembersByStatus('suspended').length
+      active: (workspace as any).getMembersByStatus('active').length,
+      invited: (workspace as any).getMembersByStatus('invited').length,
+      suspended: (workspace as any).getMembersByStatus('suspended').length,
     };
 
     // Get role distribution
@@ -485,17 +460,19 @@ export class WorkspaceService {
             { $match: { _id: workspaceId } },
             { $unwind: '$members' },
             { $match: { $expr: { $eq: ['$members.roleId', '$$roleId'] } } },
-            { $group: { _id: null, count: { $sum: 1 } } }
+            { $group: { _id: null, count: { $sum: 1 } } },
           ],
-          as: 'memberCount'
-        }
+          as: 'memberCount',
+        },
       },
       {
         $project: {
           name: 1,
-          memberCount: { $ifNull: [{ $arrayElemAt: ['$memberCount.count', 0] }, 0] }
-        }
-      }
+          memberCount: {
+            $ifNull: [{ $arrayElemAt: ['$memberCount.count', 0] }, 0],
+          },
+        },
+      },
     ]);
 
     return {
@@ -507,8 +484,8 @@ export class WorkspaceService {
         workspaceId: workspace.workspaceId,
         name: workspace.name,
         createdAt: workspace.createdAt,
-        subscriptionPlan: workspace.subscriptionPlan
-      }
+        subscriptionPlan: workspace.subscriptionPlan,
+      },
     };
   }
 
@@ -524,7 +501,7 @@ export class WorkspaceService {
       search = '',
       sortBy = 'createdAt',
       sortOrder = 'desc',
-      ownerId
+      ownerId,
     } = queryParams;
 
     // Build search query
@@ -534,7 +511,7 @@ export class WorkspaceService {
       searchQuery.$or = [
         { name: { $regex: search, $options: 'i' } },
         { workspaceId: { $regex: search, $options: 'i' } },
-        { description: { $regex: search, $options: 'i' } }
+        { description: { $regex: search, $options: 'i' } },
       ];
     }
 
@@ -562,10 +539,10 @@ export class WorkspaceService {
       name: workspace.name,
       description: workspace.description,
       owner: workspace.ownerId,
-      memberCount: workspace.getActiveMembersCount(),
+      memberCount: (workspace as any).getActiveMembersCount(),
       subscriptionPlan: workspace.subscriptionPlan,
       createdAt: workspace.createdAt,
-      updatedAt: workspace.updatedAt
+      updatedAt: workspace.updatedAt,
     }));
 
     const totalPages = Math.ceil(total / limit);
@@ -578,8 +555,8 @@ export class WorkspaceService {
         limit,
         totalPages,
         hasNext: page < totalPages,
-        hasPrev: page > 1
-      }
+        hasPrev: page > 1,
+      },
     };
   }
 }

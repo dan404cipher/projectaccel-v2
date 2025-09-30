@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import { IAuthRequest, PERMISSION_MODULES, IPermissionSet } from '@/types';
 import { User, Role, Workspace } from '@/models';
 import { Types } from 'mongoose';
@@ -36,9 +36,13 @@ export class RBACMiddleware {
           throw ApiError.forbidden('No permissions assigned');
         }
 
-        const permission = req.user.permissions.find((p: IPermissionSet) => p.module === module);
+        const permission = req.user.permissions.find(
+          (p: IPermissionSet) => p.module === module
+        );
         if (!permission || !permission.permissions[action]) {
-          throw ApiError.forbidden(`Permission denied: ${action} access to ${module} required`);
+          throw ApiError.forbidden(
+            `Permission denied: ${action} access to ${module} required`
+          );
         }
 
         // Check scope-based permissions
@@ -59,13 +63,13 @@ export class RBACMiddleware {
         if (error instanceof ApiError) {
           return res.status(error.statusCode).json({
             success: false,
-            message: error.message
+            message: error.message,
           });
         }
 
         return res.status(500).json({
           success: false,
-          message: 'Permission check failed'
+          message: 'Permission check failed',
         });
       }
     };
@@ -94,11 +98,10 @@ export class RBACMiddleware {
         }
 
         // Get user's role in the workspace
-        const user = await User.findById(req.user.id)
-          .populate({
-            path: 'workspaces.roleId',
-            match: { workspaceId: req.user.workspaceId }
-          });
+        const user = await User.findById(req.user.id).populate({
+          path: 'workspaces.roleId',
+          match: { workspaceId: req.user.workspaceId },
+        });
 
         if (!user) {
           throw ApiError.notFound('User not found');
@@ -118,9 +121,13 @@ export class RBACMiddleware {
         }
 
         // Check permission
-        const permission = role.permissions.find((p: IPermissionSet) => p.module === module);
+        const permission = role.permissions.find(
+          (p: IPermissionSet) => p.module === module
+        );
         if (!permission || !permission.permissions[action]) {
-          throw ApiError.forbidden(`Permission denied: ${action} access to ${module} required`);
+          throw ApiError.forbidden(
+            `Permission denied: ${action} access to ${module} required`
+          );
         }
 
         // Store role permissions in request for further use
@@ -131,13 +138,13 @@ export class RBACMiddleware {
         if (error instanceof ApiError) {
           return res.status(error.statusCode).json({
             success: false,
-            message: error.message
+            message: error.message,
           });
         }
 
         return res.status(500).json({
           success: false,
-          message: 'Workspace permission check failed'
+          message: 'Workspace permission check failed',
         });
       }
     };
@@ -153,7 +160,8 @@ export class RBACMiddleware {
           throw ApiError.unauthorized('Authentication required');
         }
 
-        const workspaceId = req.params[workspaceParam] || req.body[workspaceParam];
+        const workspaceId =
+          req.params[workspaceParam] || req.body[workspaceParam];
         if (!workspaceId) {
           throw ApiError.badRequest('Workspace ID required');
         }
@@ -188,13 +196,13 @@ export class RBACMiddleware {
         if (error instanceof ApiError) {
           return res.status(error.statusCode).json({
             success: false,
-            message: error.message
+            message: error.message,
           });
         }
 
         return res.status(500).json({
           success: false,
-          message: 'Workspace access check failed'
+          message: 'Workspace access check failed',
         });
       }
     };
@@ -227,13 +235,13 @@ export class RBACMiddleware {
         if (error instanceof ApiError) {
           return res.status(error.statusCode).json({
             success: false,
-            message: error.message
+            message: error.message,
           });
         }
 
         return res.status(500).json({
           success: false,
-          message: 'Ownership check failed'
+          message: 'Ownership check failed',
         });
       }
     };
@@ -266,9 +274,11 @@ export class RBACMiddleware {
         }
 
         // Check if user has manager-level permissions (can manage projects or users)
-        const hasManagerPermissions = req.user.permissions.some((p: IPermissionSet) => 
-          (p.module === PERMISSION_MODULES.PROJECTS && p.permissions.create) ||
-          (p.module === PERMISSION_MODULES.MEMBERS && p.permissions.edit)
+        const hasManagerPermissions = req.user.permissions.some(
+          (p: IPermissionSet) =>
+            (p.module === PERMISSION_MODULES.PROJECTS &&
+              p.permissions.create) ||
+            (p.module === PERMISSION_MODULES.MEMBERS && p.permissions.edit)
         );
 
         if (!hasManagerPermissions) {
@@ -280,13 +290,13 @@ export class RBACMiddleware {
         if (error instanceof ApiError) {
           return res.status(error.statusCode).json({
             success: false,
-            message: error.message
+            message: error.message,
           });
         }
 
         return res.status(500).json({
           success: false,
-          message: 'Manager permission check failed'
+          message: 'Manager permission check failed',
         });
       }
     };
@@ -306,19 +316,21 @@ export class RBACMiddleware {
     switch (scope) {
       case 'all':
         return true;
-      
+
       case 'own':
-        return options.resourceOwnerId ? 
-          options.resourceOwnerId.toString() === userId.toString() : 
-          true;
-      
+        return options.resourceOwnerId
+          ? options.resourceOwnerId.toString() === userId.toString()
+          : true;
+
       case 'assigned':
         // For assigned scope, check if user has access to the resource through project assignment
         // This would be implemented based on specific resource types
-        return options.userProjects ? 
-          options.userProjects.some(projectId => projectId.toString() === userId.toString()) :
-          true;
-      
+        return options.userProjects
+          ? options.userProjects.some(
+              projectId => projectId.toString() === userId.toString()
+            )
+          : true;
+
       default:
         return false;
     }
@@ -341,7 +353,7 @@ export class RBACMiddleware {
       return Object.values(PERMISSION_MODULES).map(module => ({
         module,
         permissions: { view: true, create: true, edit: true, delete: true },
-        scope: 'all'
+        scope: 'all',
       }));
     }
 
@@ -366,7 +378,10 @@ export class RBACMiddleware {
     module: string,
     action: 'view' | 'create' | 'edit' | 'delete'
   ): Promise<boolean> {
-    const permissions = await RBACMiddleware.getUserPermissions(userId, workspaceId);
+    const permissions = await RBACMiddleware.getUserPermissions(
+      userId,
+      workspaceId
+    );
     const permission = permissions.find(p => p.module === module);
     return permission ? permission.permissions[action] : false;
   }

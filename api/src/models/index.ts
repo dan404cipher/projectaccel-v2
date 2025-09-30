@@ -22,7 +22,7 @@ export const models = {
   Role,
   Invite,
   Counter,
-  AuditLog
+  AuditLog,
 };
 
 export default models;

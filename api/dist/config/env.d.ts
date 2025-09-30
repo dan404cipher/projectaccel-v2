@@ -1,0 +1,32 @@
+export declare const config: {
+    readonly NODE_ENV: string;
+    readonly PORT: number;
+    readonly API_VERSION: string;
+    readonly MONGODB_URI: string;
+    readonly MONGODB_TEST_URI: string;
+    readonly JWT_ACCESS_SECRET: string;
+    readonly JWT_REFRESH_SECRET: string;
+    readonly JWT_ACCESS_EXPIRES_IN: string;
+    readonly JWT_REFRESH_EXPIRES_IN: string;
+    readonly BCRYPT_ROUNDS: number;
+    readonly SESSION_SECRET: string;
+    readonly SMTP_HOST: string;
+    readonly SMTP_PORT: number;
+    readonly SMTP_USER: string;
+    readonly SMTP_PASS: string;
+    readonly FROM_EMAIL: string;
+    readonly FROM_NAME: string;
+    readonly FRONTEND_URL: string;
+    readonly RATE_LIMIT_WINDOW_MS: number;
+    readonly RATE_LIMIT_MAX_REQUESTS: number;
+    readonly LOG_LEVEL: string;
+    readonly CORS_ORIGIN: string;
+    readonly MAX_FILE_SIZE: number;
+    readonly UPLOAD_PATH: string;
+    readonly REDIS_URL: string;
+    readonly isProduction: () => boolean;
+    readonly isDevelopment: () => boolean;
+    readonly isTest: () => boolean;
+};
+export declare function validateConfig(): void;
+//# sourceMappingURL=env.d.ts.map

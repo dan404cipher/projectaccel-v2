@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Eye, EyeOff, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { toast } from 'sonner';
+import api from '@/api/axios';
 
 interface AddNewUserProps {
   isOpen: boolean;
@@ -12,31 +14,61 @@ interface AddNewUserProps {
 }
 
 interface UserFormData {
-  employeeName: string;
-  permissionLevel: string;
-  designation: string;
-  yearsOfExperience: string;
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
+  designation: string;
+  yearsOfExperience: string;
+  roleId: string;
+}
+
+interface Role {
+  id: string;
+  name: string;
+  description: string;
 }
 
 const AddNewUser: React.FC<AddNewUserProps> = ({ isOpen, onClose, onSubmit }) => {
   const [formData, setFormData] = useState<UserFormData>({
-    employeeName: '',
-    permissionLevel: '',
-    designation: '',
-    yearsOfExperience: '',
+    name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    designation: '',
+    yearsOfExperience: '',
+    roleId: ''
   });
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState<Partial<UserFormData>>({});
+  const [roles, setRoles] = useState<Role[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (field: keyof UserFormData, value: string) => {
+  // Fetch roles when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      fetchRoles();
+    }
+  }, [isOpen]);
+
+  const fetchRoles = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get('/roles');
+      if (response.data.success) {
+        setRoles(response.data.data || []);
+      }
+    } catch (error) {
+      console.error('Error fetching roles:', error);
+      toast.error('Failed to load roles. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleInputChange = (field: keyof UserFormData, value: string | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
     if (errors[field]) {
@@ -47,12 +79,12 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ isOpen, onClose, onSubmit }) =>
   const validateForm = (): boolean => {
     const newErrors: Partial<UserFormData> = {};
 
-    if (!formData.employeeName.trim()) {
-      newErrors.employeeName = 'Employee name is required';
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
     }
 
-    if (!formData.permissionLevel) {
-      newErrors.permissionLevel = 'Permission level is required';
+    if (!formData.roleId) {
+      newErrors.roleId = 'Role is required';
     }
 
     if (!formData.designation.trim()) {
@@ -90,30 +122,39 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ isOpen, onClose, onSubmit }) =>
     
     if (validateForm()) {
       onSubmit?.(formData);
+      toast.success('User created successfully!');
       // Reset form
       setFormData({
-        employeeName: '',
-        permissionLevel: '',
-        designation: '',
-        yearsOfExperience: '',
+        name: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        designation: '',
+        yearsOfExperience: '',
+        roleId: ''
       });
       setErrors({});
       onClose();
+    } else {
+      // Show specific validation errors
+      const errorMessages = Object.values(errors).filter(Boolean);
+      if (errorMessages.length > 0) {
+        toast.error(`Please fix the following errors: ${errorMessages.join(', ')}`);
+      } else {
+        toast.error('Please fill in all required fields');
+      }
     }
   };
 
   const handleCancel = () => {
     setFormData({
-      employeeName: '',
-      permissionLevel: '',
-      designation: '',
-      yearsOfExperience: '',
+      name: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      designation: '',
+      yearsOfExperience: '',
+      roleId: ''
     });
     setErrors({});
     onClose();
@@ -122,6 +163,9 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ isOpen, onClose, onSubmit }) =>
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-[632px] p-0 bg-[#f2f2f2] rounded-[24px] border-0">
+        <DialogHeader>
+          <DialogTitle className="sr-only">Add New User</DialogTitle>
+        </DialogHeader>
         <div className="relative">
           {/* Header */}
           <div className="bg-[#f2f2f2] h-[96px] rounded-t-[24px] border-b border-[rgba(103,144,155,0.16)] relative">
@@ -151,55 +195,56 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ isOpen, onClose, onSubmit }) =>
           {/* Form */}
           <div className="p-8 max-h-[600px] overflow-y-auto">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Employee Name */}
+              {/* Name */}
               <div className="space-y-4">
                 <label className="text-base font-medium text-[#666666]">
-                  Employee Name
+                  Name <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="text"
-                  placeholder="Enter employee name"
-                  value={formData.employeeName}
-                  onChange={(e) => handleInputChange('employeeName', e.target.value)}
+                  placeholder="Enter name"
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
                   className={`h-16 px-6 text-sm bg-white border-0 rounded-lg ${
-                    errors.employeeName ? 'border-red-500' : ''
+                    errors.name ? 'border-red-500' : ''
                   }`}
                 />
-                {errors.employeeName && (
-                  <p className="text-red-500 text-sm">{errors.employeeName}</p>
+                {errors.name && (
+                  <p className="text-red-500 text-sm">{errors.name}</p>
                 )}
               </div>
 
-              {/* Permission Level */}
+              {/* Role Selection */}
               <div className="space-y-4">
                 <label className="text-base font-medium text-[#666666]">
-                  Permission level
+                  Role <span className="text-red-500">*</span>
                 </label>
                 <Select
-                  value={formData.permissionLevel}
-                  onValueChange={(value) => handleInputChange('permissionLevel', value)}
+                  value={formData.roleId}
+                  onValueChange={(value) => handleInputChange('roleId', value)}
                 >
                   <SelectTrigger className={`h-16 px-6 text-sm bg-white border-0 rounded-lg ${
-                    errors.permissionLevel ? 'border-red-500' : ''
+                    errors.roleId ? 'border-red-500' : ''
                   }`}>
-                    <SelectValue placeholder="Select Permission level" />
+                    <SelectValue placeholder={loading ? "Loading roles..." : "Select Role"} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="admin">Admin</SelectItem>
-                    <SelectItem value="manager">Manager</SelectItem>
-                    <SelectItem value="member">Member</SelectItem>
-                    <SelectItem value="viewer">Viewer</SelectItem>
+                    {roles.map((role) => (
+                      <SelectItem key={role.id} value={role.id}>
+                        {role.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
-                {errors.permissionLevel && (
-                  <p className="text-red-500 text-sm">{errors.permissionLevel}</p>
+                {errors.roleId && (
+                  <p className="text-red-500 text-sm">{errors.roleId}</p>
                 )}
               </div>
 
               {/* Designation */}
               <div className="space-y-4">
                 <label className="text-base font-medium text-[#666666]">
-                  Designation
+                  Designation <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="text"
@@ -218,7 +263,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ isOpen, onClose, onSubmit }) =>
               {/* Years of Experience */}
               <div className="space-y-4">
                 <label className="text-base font-medium text-[#666666]">
-                  Year's of experience
+                  Years of experience <span className="text-red-500">*</span>
                 </label>
                 <Select
                   value={formData.yearsOfExperience}
@@ -227,7 +272,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ isOpen, onClose, onSubmit }) =>
                   <SelectTrigger className={`h-16 px-6 text-sm bg-white border-0 rounded-lg ${
                     errors.yearsOfExperience ? 'border-red-500' : ''
                   }`}>
-                    <SelectValue placeholder="Select Year's of experience" />
+                    <SelectValue placeholder="Select years of experience" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="0-1">0-1 years</SelectItem>
@@ -245,7 +290,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ isOpen, onClose, onSubmit }) =>
               {/* Email */}
               <div className="space-y-4">
                 <label className="text-base font-medium text-[#666666]">
-                  Email
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="email"
@@ -264,7 +309,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ isOpen, onClose, onSubmit }) =>
               {/* Password */}
               <div className="space-y-4">
                 <label className="text-base font-medium text-[#666666]">
-                  Password
+                  Password <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <Input
@@ -296,7 +341,7 @@ const AddNewUser: React.FC<AddNewUserProps> = ({ isOpen, onClose, onSubmit }) =>
               {/* Confirm Password */}
               <div className="space-y-4">
                 <label className="text-base font-medium text-[#666666]">
-                  Confirm Password
+                  Confirm Password <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <Input
