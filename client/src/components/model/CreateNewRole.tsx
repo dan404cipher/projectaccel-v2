@@ -156,6 +156,96 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
+    
+    // Auto-populate permissions when inherit from role is selected
+    if (field === 'inheritFrom') {
+      setDefaultPermissionsForRole(value);
+    }
+  };
+
+  const setDefaultPermissionsForRole = (role: string) => {
+    const defaultPermissions: Record<string, Record<string, PermissionSet>> = {
+      admin: {
+        // Admin gets all permissions
+        projects: { view: true, create: true, edit: true, delete: true },
+        tasks: { view: true, create: true, edit: true, delete: true },
+        sprints: { view: true, create: true, edit: true, delete: true },
+        team: { view: true, create: true, edit: true, delete: true },
+        files: { view: true, create: true, edit: true, delete: true },
+        reports: { view: true, create: true, edit: true, delete: true },
+        workspace: { view: true, create: true, edit: true, delete: true },
+        members: { view: true, create: true, edit: true, delete: true },
+        roles: { view: true, create: true, edit: true, delete: true },
+        comments: { view: true, create: true, edit: true, delete: true },
+        notifications: { view: true, create: true, edit: true, delete: true },
+        chat: { view: true, create: true, edit: true, delete: true },
+        messages: { view: true, create: true, edit: true, delete: true },
+        billing: { view: true, create: true, edit: true, delete: true },
+        integrations: { view: true, create: true, edit: true, delete: true },
+        settings: { view: true, create: true, edit: true, delete: true }
+      },
+      manager: {
+        // Manager gets most permissions except billing and settings
+        projects: { view: true, create: true, edit: true, delete: true },
+        tasks: { view: true, create: true, edit: true, delete: true },
+        sprints: { view: true, create: true, edit: true, delete: true },
+        team: { view: true, create: true, edit: true, delete: false },
+        files: { view: true, create: true, edit: true, delete: true },
+        reports: { view: true, create: true, edit: true, delete: false },
+        workspace: { view: true, create: true, edit: true, delete: false },
+        members: { view: true, create: true, edit: false, delete: false },
+        roles: { view: true, create: false, edit: false, delete: false },
+        comments: { view: true, create: true, edit: true, delete: true },
+        notifications: { view: true, create: true, edit: true, delete: false },
+        chat: { view: true, create: true, edit: true, delete: false },
+        messages: { view: true, create: true, edit: true, delete: false },
+        billing: { view: false, create: false, edit: false, delete: false },
+        integrations: { view: true, create: false, edit: false, delete: false },
+        settings: { view: false, create: false, edit: false, delete: false }
+      },
+      member: {
+        // Member gets basic permissions
+        projects: { view: true, create: true, edit: true, delete: false },
+        tasks: { view: true, create: true, edit: true, delete: true },
+        sprints: { view: true, create: true, edit: true, delete: false },
+        team: { view: true, create: false, edit: false, delete: false },
+        files: { view: true, create: true, edit: true, delete: false },
+        reports: { view: true, create: false, edit: false, delete: false },
+        workspace: { view: true, create: false, edit: false, delete: false },
+        members: { view: true, create: false, edit: false, delete: false },
+        roles: { view: false, create: false, edit: false, delete: false },
+        comments: { view: true, create: true, edit: true, delete: false },
+        notifications: { view: true, create: false, edit: false, delete: false },
+        chat: { view: true, create: true, edit: true, delete: false },
+        messages: { view: true, create: true, edit: true, delete: false },
+        billing: { view: false, create: false, edit: false, delete: false },
+        integrations: { view: false, create: false, edit: false, delete: false },
+        settings: { view: false, create: false, edit: false, delete: false }
+      },
+      guest: {
+        // Guest gets minimal permissions
+        projects: { view: true, create: false, edit: false, delete: false },
+        tasks: { view: true, create: false, edit: false, delete: false },
+        sprints: { view: true, create: false, edit: false, delete: false },
+        team: { view: true, create: false, edit: false, delete: false },
+        files: { view: true, create: false, edit: false, delete: false },
+        reports: { view: false, create: false, edit: false, delete: false },
+        workspace: { view: true, create: false, edit: false, delete: false },
+        members: { view: true, create: false, edit: false, delete: false },
+        roles: { view: false, create: false, edit: false, delete: false },
+        comments: { view: true, create: false, edit: false, delete: false },
+        notifications: { view: true, create: false, edit: false, delete: false },
+        chat: { view: true, create: false, edit: false, delete: false },
+        messages: { view: false, create: false, edit: false, delete: false },
+        billing: { view: false, create: false, edit: false, delete: false },
+        integrations: { view: false, create: false, edit: false, delete: false },
+        settings: { view: false, create: false, edit: false, delete: false }
+      }
+    };
+
+    if (defaultPermissions[role]) {
+      setPermissions(defaultPermissions[role]);
+    }
   };
 
   const handlePermissionChange = (categoryId: string, permissionType: keyof PermissionSet, checked: boolean) => {
@@ -196,10 +286,77 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
     e.preventDefault();
     
     if (validateForm()) {
-      const roleData = {
-        ...formData,
-        permissions
+      // Group permissions by main categories as expected by the API
+      // Core permissions: projects, tasks, sprints, team, files, reports, workspace
+      const corePermissions = {
+        view: permissions.projects?.view || permissions.tasks?.view || permissions.sprints?.view || 
+              permissions.team?.view || permissions.files?.view || permissions.reports?.view || 
+              permissions.workspace?.view || false,
+        create: permissions.projects?.create || permissions.tasks?.create || permissions.sprints?.create || 
+                permissions.team?.create || permissions.files?.create || permissions.reports?.create || 
+                permissions.workspace?.create || false,
+        edit: permissions.projects?.edit || permissions.tasks?.edit || permissions.sprints?.edit || 
+              permissions.team?.edit || permissions.files?.edit || permissions.reports?.edit || 
+              permissions.workspace?.edit || false,
+        delete: permissions.projects?.delete || permissions.tasks?.delete || permissions.sprints?.delete || 
+                permissions.team?.delete || permissions.files?.delete || permissions.reports?.delete || 
+                permissions.workspace?.delete || false
       };
+
+      // Team management: members, roles
+      const teamManagementPermissions = {
+        view: permissions.members?.view || permissions.roles?.view || false,
+        create: permissions.members?.create || permissions.roles?.create || false,
+        edit: permissions.members?.edit || permissions.roles?.edit || false,
+        delete: permissions.members?.delete || permissions.roles?.delete || false
+      };
+
+      // Communication: comments, notifications, chat, messages
+      const communicationPermissions = {
+        view: permissions.comments?.view || permissions.notifications?.view || 
+              permissions.chat?.view || permissions.messages?.view || false,
+        create: permissions.comments?.create || permissions.notifications?.create || 
+                permissions.chat?.create || permissions.messages?.create || false,
+        edit: permissions.comments?.edit || permissions.notifications?.edit || 
+              permissions.chat?.edit || permissions.messages?.edit || false,
+        delete: permissions.comments?.delete || permissions.notifications?.delete || 
+                permissions.chat?.delete || permissions.messages?.delete || false
+      };
+
+      // Administration: billing, integrations, settings
+      const administrationPermissions = {
+        view: permissions.billing?.view || permissions.integrations?.view || permissions.settings?.view || false,
+        create: permissions.billing?.create || permissions.integrations?.create || permissions.settings?.create || false,
+        edit: permissions.billing?.edit || permissions.integrations?.edit || permissions.settings?.edit || false,
+        delete: permissions.billing?.delete || permissions.integrations?.delete || permissions.settings?.delete || false
+      };
+
+      const groupedPermissions = {
+        core: corePermissions,
+        team_management: teamManagementPermissions,
+        communication: communicationPermissions,
+        administration: administrationPermissions
+      };
+
+      // Map frontend access scope values to backend values
+      const accessScopeMapping: Record<string, string> = {
+        'entire-organization': 'workspace',
+        'specific-projects': 'team',
+        'team-only': 'own'
+      };
+
+      const roleData = {
+        roleName: formData.roleName,
+        roleDescription: formData.roleDescription,
+        inheritFrom: formData.inheritFrom,
+        defaultAccessScope: accessScopeMapping[formData.defaultAccessScope] || 'workspace',
+        assignedUsers: formData.assignedUsers,
+        permissions: groupedPermissions
+      };
+      
+      console.log('Submitting role data:', roleData); // Debug log
+      console.log('Original permissions:', permissions); // Debug log
+      console.log('Grouped permissions:', groupedPermissions); // Debug log
       onSubmit?.(roleData);
       handleCancel();
     }
@@ -229,6 +386,7 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-[96vw] sm:max-w-[1000px] lg:max-w-[1200px] max-h-[95vh] h-[95vh] p-0 bg-white rounded-[24px] border-0 overflow-hidden [&>button]:hidden">
+        <DialogTitle className="sr-only">Create New Role</DialogTitle>
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="bg-white h-[60px] border-b border-gray-200 px-4 flex items-center justify-between flex-shrink-0">
@@ -384,22 +542,24 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
               <div className="space-y-3 overflow-y-auto" style={{ maxHeight: 'calc(95vh - 120px)' }}>
                 <div className="space-y-3">
                   {/* Permissions Header */}
-                  <div className="grid grid-cols-5 gap-1 sm:gap-2 text-xs sm:text-sm font-medium text-[#666666] border-b pb-2">
+                  <div className="grid grid-cols-7 text-xs sm:text-sm font-medium text-[#666666] border-b pb-2">
+                    <div className="col-span-2 pr-4"></div>
                     <div></div>
-                    <div className="text-center">View</div>
-                    <div className="text-center">Create</div>
-                    <div className="text-center">Edit</div>
-                    <div className="text-center">Delete</div>
+                    <div className="text-center px-1">View</div>
+                    <div className="text-center px-1">Create</div>
+                    <div className="text-center px-1">Edit</div>
+                    <div className="text-center px-1">Delete</div>
                   </div>
 
                   {/* Core Permissions */}
                   <div className="space-y-0.5">
                     <h3 className="text-sm font-medium text-[#666666] mb-1">Core Permissions</h3>
                     {permissionCategories.slice(1, 8).map((category) => (
-                      <div key={category.id} className="grid grid-cols-5 gap-1 sm:gap-2 items-center py-1">
-                        <div className="text-xs sm:text-sm text-[#252525] truncate">{category.name}</div>
+                      <div key={category.id} className="grid grid-cols-7 items-center py-1">
+                        <div className="col-span-2 text-xs sm:text-sm text-[#252525] pr-4">{category.name}</div>
+                        <div></div>
                         {(['view', 'create', 'edit', 'delete'] as const).map((permType) => (
-                          <div key={permType} className="flex justify-center">
+                          <div key={permType} className="flex justify-center px-1">
                             <Checkbox
                               checked={permissions[category.id]?.[permType] || false}
                               onCheckedChange={(checked) => 
@@ -417,10 +577,11 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                   <div className="space-y-0.5">
                     <h3 className="text-sm font-medium text-[#666666] mb-1">Team & User management</h3>
                     {permissionCategories.slice(8, 10).map((category) => (
-                      <div key={category.id} className="grid grid-cols-5 gap-1 sm:gap-2 items-center py-1">
-                        <div className="text-xs sm:text-sm text-[#252525] truncate">{category.name}</div>
+                      <div key={category.id} className="grid grid-cols-7 items-center py-1">
+                        <div className="col-span-2 text-xs sm:text-sm text-[#252525] pr-4">{category.name}</div>
+                        <div></div>
                         {(['view', 'create', 'edit', 'delete'] as const).map((permType) => (
-                          <div key={permType} className="flex justify-center">
+                          <div key={permType} className="flex justify-center px-1">
                             <Checkbox
                               checked={permissions[category.id]?.[permType] || false}
                               onCheckedChange={(checked) => 
@@ -438,10 +599,11 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                   <div className="space-y-0.5">
                     <h3 className="text-sm font-medium text-[#666666] mb-1">Communication & Collaboration</h3>
                     {permissionCategories.slice(10, 14).map((category) => (
-                      <div key={category.id} className="grid grid-cols-5 gap-1 sm:gap-2 items-center py-1">
-                        <div className="text-xs sm:text-sm text-[#252525] truncate">{category.name}</div>
+                      <div key={category.id} className="grid grid-cols-7 items-center py-1">
+                        <div className="col-span-2 text-xs sm:text-sm text-[#252525] pr-4">{category.name}</div>
+                        <div></div>
                         {(['view', 'create', 'edit', 'delete'] as const).map((permType) => (
-                          <div key={permType} className="flex justify-center">
+                          <div key={permType} className="flex justify-center px-1">
                             <Checkbox
                               checked={permissions[category.id]?.[permType] || false}
                               onCheckedChange={(checked) => 
@@ -459,10 +621,11 @@ const CreateNewRole: React.FC<CreateNewRoleProps> = ({ isOpen, onClose, onSubmit
                   <div className="space-y-0.5">
                     <h3 className="text-sm font-medium text-[#666666] mb-1">Administration / Advanced</h3>
                     {permissionCategories.slice(14).map((category) => (
-                      <div key={category.id} className="grid grid-cols-5 gap-1 sm:gap-2 items-center py-1">
-                        <div className="text-xs sm:text-sm text-[#252525] truncate">{category.name}</div>
+                      <div key={category.id} className="grid grid-cols-7 items-center py-1">
+                        <div className="col-span-2 text-xs sm:text-sm text-[#252525] pr-4">{category.name}</div>
+                        <div></div>
                         {(['view', 'create', 'edit', 'delete'] as const).map((permType) => (
-                          <div key={permType} className="flex justify-center">
+                          <div key={permType} className="flex justify-center px-1">
                             <Checkbox
                               checked={permissions[category.id]?.[permType] || false}
                               onCheckedChange={(checked) => 

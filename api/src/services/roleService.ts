@@ -748,6 +748,7 @@ export class RoleService {
               edit: permissionSet.edit || false,
               delete: permissionSet.delete || false,
             },
+            scope: 'all',
           });
         });
       }

@@ -469,7 +469,10 @@ const RolesPermissions: React.FC = () => {
         onClose={() => setIsCreateRoleModalOpen(false)}
         onSubmit={async (roleData) => {
           try {
+            console.log('Sending role data to API:', roleData);
+            console.log('API URL:', api.defaults.baseURL + '/roles');
             const response = await api.post('/roles', roleData);
+            console.log('API Response:', response.data);
             if (response.data.success) {
               // Refresh roles list
               await fetchRoles();
@@ -479,7 +482,9 @@ const RolesPermissions: React.FC = () => {
             }
           } catch (err: any) {
             console.error('Error creating role:', err);
+            console.error('Error response:', err.response?.data);
             setError(err.response?.data?.message || 'Failed to create role');
+            // Don't close the dialog on error so user can see the error and retry
           }
         }}
       />

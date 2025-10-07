@@ -40,9 +40,10 @@ class Server {
     // CORS configuration
     this.app.use(
       cors({
-        origin: [
+        origin: config.NODE_ENV === 'development' ? true : [
           config.CORS_ORIGIN,
           'http://localhost:8080', // Frontend development server
+          'http://localhost:8081', // Frontend development server (Vite default)
           'http://localhost:3000', // Alternative frontend port
         ],
         credentials: true,

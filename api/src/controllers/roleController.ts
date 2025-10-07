@@ -45,7 +45,7 @@ export class RoleController {
           name: roleName,
           description: roleDescription,
           permissions: backendPermissions,
-          ...(inheritFrom && { inheritFrom: new Types.ObjectId(inheritFrom) }),
+          ...(inheritFrom && Types.ObjectId.isValid(inheritFrom) && { inheritFrom: new Types.ObjectId(inheritFrom) }),
           defaultAccessScope: defaultAccessScope || 'workspace',
         },
         req.user.id
@@ -65,6 +65,7 @@ export class RoleController {
 
       res.status(201).json(response);
     } catch (error) {
+      console.error('Error creating role:', error);
       if (error instanceof ApiError) {
         res.status(error.statusCode).json({
           success: false,
@@ -74,6 +75,7 @@ export class RoleController {
         res.status(500).json({
           success: false,
           message: 'Internal server error',
+          error: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined,
         });
       }
     }
