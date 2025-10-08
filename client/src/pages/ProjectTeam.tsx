@@ -1,10 +1,14 @@
 import ProjectHeader from '@/components/ProjectHeader';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import CalentIcon from '/src/assets/icons/Vector.svg';
 import ClockIcon from '/src/assets/icons/Timer.svg';
 import TaskIcon from '/src/assets/icons/Task.svg';
 import AddMemember from '@/components/model/AddMemember';
+import { RootState } from '@/store/store';
+import { TeamMember, setMembers, addMember } from '@/store/team/teamSlice';
+import { initialTeamMembers } from '@/lib/initialTeamMembers';
 
 
 // Image assets from Figma design
@@ -17,17 +21,7 @@ const imgEllipse7 = "http://localhost:3845/assets/4415cf6b90ae6200aee0458930211f
 const imgEllipse248 = "/src/assets/icons/b1766b7062b0c67d9be111f724f646b15b02bf09.png";
 
 
-export interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  avatar: string;
-  dateRange: string;
-  tasks: number;
-  timeSpent: string;
-  progress: number;
-  skills: string[];
-}
+// TeamMember interface is now imported from the store
 
 export interface ViewMode {
   id: string;
@@ -36,79 +30,24 @@ export interface ViewMode {
 }
 
 export default function ProjectTeam() {
+  const dispatch = useDispatch();
+  const { members: teamMembers } = useSelector((state: RootState) => state.team);
   const [activeTab, setActiveTab] = useState('team');
   const [searchTerm, setSearchTerm] = useState('');
   const [openAddMemberModal, setOpenAddMemberModal] = useState(false);
   const navigate = useNavigate();
 
-  const teamMembers: TeamMember[] = [
-    {
-      id: '1',
-      name: 'Saranya',
-      role: 'Project Manager',
-      avatar: imgEllipse7,
-      dateRange: '2025-09-01 to 2025-09-24',
-      tasks: 2,
-      timeSpent: '14h/40h',
-      progress: 20,
-      skills: ['Product strategy', 'Roadmap', 'Analytic', '+2']
-    },
-    {
-      id: '2',
-      name: 'Saranya',
-      role: 'Project Manager',
-      avatar: imgEllipse7,
-      dateRange: '2025-09-01 to 2025-09-24',
-      tasks: 2,
-      timeSpent: '14h/40h',
-      progress: 70,
-      skills: ['Product strategy', 'Roadmap', 'Analytic', '+2']
-    },
-    {
-      id: '3',
-      name: 'Saranya',
-      role: 'Project Manager',
-      avatar: imgEllipse7,
-      dateRange: '2025-09-01 to 2025-09-24',
-      tasks: 2,
-      timeSpent: '14h/40h',
-      progress: 20,
-      skills: ['Product strategy', 'Roadmap', 'Analytic', '+2']
-    },
-    {
-      id: '4',
-      name: 'Saranya',
-      role: 'Project Manager',
-      avatar: imgEllipse7,
-      dateRange: '2025-09-01 to 2025-09-24',
-      tasks: 2,
-      timeSpent: '14h/40h',
-      progress: 20,
-      skills: ['Product strategy', 'Roadmap', 'Analytic', '+2']
-    },
-    {
-      id: '5',
-      name: 'Saranya',
-      role: 'Project Manager',
-      avatar: imgEllipse7,
-      dateRange: '2025-09-01 to 2025-09-24',
-      tasks: 2,
-      timeSpent: '14h/40h',
-      progress: 20,
-      skills: ['Product strategy', 'Roadmap', 'Analytic', '+2']
-    },
-    {
-      id: '6',
-      name: 'Saranya',
-      role: 'Project Manager',
-      avatar: imgEllipse7,
-      dateRange: '2025-09-01 to 2025-09-24',
-      tasks: 2,
-      timeSpent: '14h/40h',
-      progress: 20,
-      skills: ['Product strategy', 'Roadmap', 'Analytic', '+2']
+  // Initialize with dummy data if no members exist
+  useEffect(() => {
+    if (teamMembers.length === 0) {
+      // Convert initial team members to full TeamMember objects with IDs
+      const membersWithIds = initialTeamMembers.map((member, index) => ({
+        ...member,
+        id: `TM-${index + 1}`,
+      }));
+      dispatch(setMembers(membersWithIds));
     }
-  ];
+  }, [dispatch, teamMembers.length]);
 
   const viewModes: ViewMode[] = [
     { id: 'kanban', icon: imgPhKanbanFill, isActive: true },
@@ -127,6 +66,26 @@ export default function ProjectTeam() {
 
   const handleAddMember = () => {
     navigate('/team/add-member');
+  };
+
+  const handleCreateMember = (memberData: any) => {
+    const newMember = {
+      name: memberData.name,
+      role: memberData.role,
+      avatar: memberData.avatar || imgEllipse248,
+      dateRange: memberData.dateRange || '2025-01-01 to 2025-12-31',
+      tasks: memberData.tasks || 0,
+      timeSpent: memberData.timeSpent || '0h/0h',
+      progress: memberData.progress || 0,
+      skills: memberData.skills || [],
+      email: memberData.email,
+      phone: memberData.phone,
+      department: memberData.department,
+      joinDate: memberData.joinDate || new Date().toISOString().split('T')[0],
+    };
+    
+    dispatch(addMember(newMember));
+    setOpenAddMemberModal(false);
   };
 
   return (
@@ -196,7 +155,11 @@ export default function ProjectTeam() {
           }
         </div>
         {
-          <AddMemember isOpen={openAddMemberModal} onClose={()=>setOpenAddMemberModal(false)}/>
+          <AddMemember 
+            isOpen={openAddMemberModal} 
+            onClose={()=>setOpenAddMemberModal(false)}
+            onCreateMember={handleCreateMember}
+          />
         }
       </div>
     </div>

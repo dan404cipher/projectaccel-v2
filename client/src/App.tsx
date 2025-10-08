@@ -30,7 +30,7 @@ import { Onboard } from "./pages/Onboard";
 import Message from "./pages/Chat";
 import { CreateProject } from "./pages/CreateProject";
 import { Provider } from "react-redux";
-import store from "./store/store";
+import store from "./store/store.ts";
 import UserManagement from "./pages/Usermangment";
 
 const queryClient = new QueryClient();

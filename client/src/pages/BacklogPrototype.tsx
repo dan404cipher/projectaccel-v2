@@ -2,7 +2,11 @@ import { CustomTable } from '@/components/dashboard/CustomTable';
 import ProjectHeader from '@/components/ProjectHeader';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIssues, setSprints, addIssue } from '../store/issue/issueSlice';
+import { initialIssues, initialSprints } from '../lib/initialIssues';
+import { RootState } from '../store/store';
 import {AddTask} from '../components/model/addTask';
 
 
@@ -15,11 +19,69 @@ const img6 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
 export default function BacklogPrototype() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { issues, sprints } = useSelector((state: RootState) => state.issue);
   const [isSprintCollapsed, setIsSprintCollapsed] = useState(false);
-  const [addTaskOpen,setAddTaskOpen]=useState(false);
+  const [addTaskOpen, setAddTaskOpen] = useState(false);
+
+  // Initialize with dummy data if no issues exist
+  useEffect(() => {
+    if (issues.length === 0) {
+      // Convert initial issues to full Issue objects with IDs and timestamps
+      const issuesWithIds = initialIssues.map((issue, index) => ({
+        ...issue,
+        id: `ISSUE-${index + 1}`,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }));
+      dispatch(setIssues(issuesWithIds));
+    }
+    
+    if (sprints.length === 0) {
+      // Convert initial sprints to full Sprint objects with IDs
+      const sprintsWithIds = initialSprints.map((sprint, index) => ({
+        ...sprint,
+        id: `SPRINT-${index + 1}`,
+      }));
+      dispatch(setSprints(sprintsWithIds));
+    }
+  }, [dispatch, issues.length, sprints.length]);
 
   const toggleSprintCollapse = () => {
     setIsSprintCollapsed(!isSprintCollapsed);
+  };
+
+  const handleCreateIssue = (issueData: any) => {
+    console.log('Received issue data:', issueData); // Debug log
+    
+    // Map status values to match our issue slice
+    const statusMap: { [key: string]: 'To-do' | 'In Progress' | 'Done' | 'Backlog' } = {
+      'todo': 'To-do',
+      'in-progress': 'In Progress',
+      'done': 'Done',
+      'backlog': 'Backlog'
+    };
+    
+    const newIssue = {
+      type: issueData.type ? issueData.type.toUpperCase() : `TA-${Date.now()}`,
+      title: issueData.title,
+      description: issueData.description || '',
+      assignees: issueData.assignees || [],
+      moreCount: issueData.moreCount || 0,
+      status: statusMap[issueData.status] || 'Backlog' as 'To-do' | 'In Progress' | 'Done' | 'Backlog',
+      priority: (issueData.priority === 'low' ? 'Low' : 
+                 issueData.priority === 'medium' ? 'Medium' : 
+                 issueData.priority === 'high' ? 'High' : 'Medium') as 'Low' | 'Medium' | 'High' | 'Critical',
+      dueDate: issueData.dueDate ? new Date(issueData.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'Dec 31',
+      sprintId: undefined, // Always undefined for new issues (goes to backlog)
+      storyPoints: issueData.storyPoints || 1,
+      labels: issueData.labels || [],
+    };
+    
+    console.log('Creating new issue:', newIssue); // Debug log
+    console.log('Issue status:', newIssue.status); // Debug log
+    dispatch(addIssue(newIssue));
+    setAddTaskOpen(false);
   };
 
   
@@ -93,69 +155,15 @@ export default function BacklogPrototype() {
     },
 ];
 
-const data = [
-    {
-        id: 1,
-        type: "TA-117",
-        title: "Publish blog page",
-        assignees: [img2, img3, img4, img5, img6],
-        moreCount: 24,
-        status: "To-do",
-        priority: "Low",
-        dueDate: "Dec 5",
-    },
-    {
-        id: 2,
-        type: "TA-118",
-        title: "Fix homepage bug",
-        assignees: [img2, img3, img4],
-        moreCount: 3,
-        status: "In Progress",
-        priority: "High",
-        dueDate: "Dec 10",
-    },
-    {
-        id: 2,
-        type: "TA-118",
-        title: "Fix homepage bug",
-        assignees: [img2, img3, img4],
-        moreCount: 3,
-        status: "In Progress",
-        priority: "High",
-        dueDate: "Dec 10",
-    },
-    {
-        id: 2,
-        type: "TA-118",
-        title: "Fix homepage bug",
-        assignees: [img2, img3, img4],
-        moreCount: 3,
-        status: "In Progress",
-        priority: "High",
-        dueDate: "Dec 10",
-    },
-    {
-        id: 2,
-        type: "TA-118",
-        title: "Fix homepage bug",
-        assignees: [img2, img3, img4],
-        moreCount: 3,
-        status: "In Progress",
-        priority: "High",
-        dueDate: "Dec 10",
-    },
-    {
-        id: 2,
-        type: "TA-118",
-        title: "Fix homepage bug",
-        assignees: [img2, img3, img4],
-        moreCount: 3,
-        status: "In Progress",
-        priority: "High",
-        dueDate: "Dec 10",
-    },
-
-];
+  // Get issues for current sprint and backlog
+  const sprint1Issues = issues.filter(issue => issue.sprintId === 'SPRINT-1');
+  const backlogIssues = issues.filter(issue => issue.status === 'Backlog');
+  
+  // Debug logging
+  console.log('All issues:', issues);
+  console.log('Sprint 1 issues:', sprint1Issues);
+  console.log('Backlog issues:', backlogIssues);
+  console.log('Backlog issues count:', backlogIssues.length);
 
   const handleTabClick = (tab: string) => {
     switch (tab) {
@@ -265,11 +273,11 @@ const data = [
                     </div>
                     <div className="flex items-center gap-1">
                       <div className="bg-[#438197] rounded-full w-6 h-6 flex items-center justify-center">
-                        <span className="text-white text-sm font-medium">4</span>
+                        <span className="text-white text-sm font-medium">{sprint1Issues.length}</span>
                       </div>
                     </div>
                   </div>
-                  <span className="text-sm text-[#838488]">01 Dec-07 Dec (3 issue items)</span>
+                  <span className="text-sm text-[#838488]">01 Dec-07 Dec ({sprint1Issues.length} issue items)</span>
                 </div>
                 {/* Complete Sprint Button */}
                 <div className="flex items-center justify-end gap-2">
@@ -284,7 +292,7 @@ const data = [
                 </div>
               </div>
               {!isSprintCollapsed && (
-                <CustomTable selectable={true} draggable={true} data={data} columns={columns} />
+                <CustomTable selectable={true} draggable={true} data={sprint1Issues} columns={columns} />
               )}
             </div>
 
@@ -312,11 +320,11 @@ const data = [
                     </div>
                     <div className="flex items-center gap-1">
                       <div className="bg-[#438197] rounded-full w-6 h-6 flex items-center justify-center">
-                        <span className="text-white text-sm font-medium">4</span>
+                        <span className="text-white text-sm font-medium">{backlogIssues.length}</span>
                       </div>
                     </div>
                   </div>
-                  <span className="text-sm text-[#838488]">(3 issue items)</span>
+                  <span className="text-sm text-[#838488]">({backlogIssues.length} issue items)</span>
                 </div>
                 {/* Complete Sprint Button */}
                 <div className="flex items-center justify-end gap-2">
@@ -331,14 +339,14 @@ const data = [
                 </div>
               </div>
               {!isSprintCollapsed && (
-                <CustomTable selectable={true} draggable={true} data={data} columns={columns} />
+                <CustomTable selectable={true} draggable={true} data={backlogIssues} columns={columns} />
               )}
             </div> 
           </div>
         </div>
       </div>
       {
-        addTaskOpen && <AddTask isOpen={addTaskOpen} onClose={()=>setAddTaskOpen(false)}/>
+        addTaskOpen && <AddTask isOpen={addTaskOpen} onClose={()=>setAddTaskOpen(false)} onCreateIssue={handleCreateIssue}/>
       }
     </div>
   );

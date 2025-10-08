@@ -2,8 +2,12 @@ import { Select, SelectItem, SelectValue, SelectContent, SelectTrigger } from '@
 import { Projects } from '@/lib/MockData';
 import { getRemainingLabel } from '@/lib/utils';
 import { Plus } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProjects } from '../store/project/projectSlice';
+import { initialProjects } from '../lib/initialProjects';
+import { RootState } from '../store/store.ts';
 
 // Icon assets from public/icons directory
 const bugIcon = "/src/assets/icons/mdi_bug-outline.png";
@@ -53,8 +57,22 @@ const img5 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 const img6 = "/src/assets/icons/426cc48c65f01a64ae4fb95e309fac55efcf3530.png";
 
 export default function ProjectList() {
-  const [projects, setProjects] = useState(Projects);
+  const dispatch = useDispatch();
+  const { projects } = useSelector((state: RootState) => state.project);
   const navigate = useNavigate();
+
+  // Initialize with 5 initial projects if no projects exist
+  useEffect(() => {
+    if (projects.length === 0) {
+      // Convert initial projects to full Project objects with IDs and timestamps
+      const projectsWithIds = initialProjects.map((project, index) => ({
+        ...project,
+        id: `project-${index + 1}`,
+        createdAt: new Date().toISOString(),
+      }));
+      dispatch(setProjects(projectsWithIds));
+    }
+  }, [dispatch, projects.length]);
 
   const handleCardClick = (projectId: string) => {
     navigate(`/project-overview`);
@@ -163,6 +181,12 @@ export default function ProjectList() {
                     <span className="text-xs text-[#999999] font-medium">
                       {project?.assignee && project.assignee.length > 5 ? `+${project.assignee.length - 5}` : ""}
                     </span>
+                    {/* Show team member count and total hours if available */}
+                    {project?.teamMembers && project.teamMembers.length > 0 && (
+                      <div className="text-xs text-[#438197] font-medium ml-2">
+                        {project.teamMembers.length} members • {project.teamMembers.reduce((total, member) => total + member.hours, 0)}h
+                      </div>
+                    )}
                   </div>
                   <div className="bg-[rgba(203,102,102,0.16)] rounded-md px-2 py-1">
                     <span className="text-xs text-[#cb6666] font-medium">{getRemainingLabel(project.endDate)}</span>

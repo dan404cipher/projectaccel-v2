@@ -46,11 +46,17 @@ const teamMembers = [
     }
 ];
 
-export const AddTask = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+interface AddTaskProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onCreateIssue: (issueData: any) => void;
+}
+
+export const AddTask = ({ isOpen, onClose, onCreateIssue }: AddTaskProps) => {
     const [formData, setFormData] = useState({
         issueType: 'task',
-        priority: 'low',
-        status: 'todo',
+        priority: 'medium',
+        status: 'backlog', // Default to backlog for new issues
         title: '',
         startDate: '',
         dueDate: '',
@@ -71,6 +77,36 @@ export const AddTask = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => v
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log('Form submitted:', formData);
+        
+        const issueData = {
+            type: formData.issueType,
+            title: formData.title,
+            description: formData.description,
+            assignees: selectedMembers.map(member => member.avatar),
+            moreCount: selectedMembers.length,
+            status: formData.status,
+            priority: formData.priority,
+            dueDate: formData.dueDate,
+            storyPoints: parseInt(formData.estimate) || 1,
+            labels: [],
+        };
+        console.log('Sending issue data to parent:', issueData);
+        onCreateIssue(issueData);
+        
+        // Reset form
+        setFormData({
+            issueType: 'task',
+            priority: 'medium',
+            status: 'backlog',
+            title: '',
+            startDate: '',
+            dueDate: '',
+            estimate: '',
+            assignee: '',
+            description: ''
+        });
+        setSelectedMembers([]);
+        
         onClose();
     };
 
@@ -175,9 +211,8 @@ export const AddTask = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => v
                                             <SelectValue placeholder="Select Status" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="todo">
-                                                    Todo
-                                            </SelectItem>
+                                            <SelectItem value="backlog">Backlog</SelectItem>
+                                            <SelectItem value="todo">Todo</SelectItem>
                                             <SelectItem value="in-progress">In Progress</SelectItem>
                                             <SelectItem value="done">Done</SelectItem>
                                         </SelectContent>
