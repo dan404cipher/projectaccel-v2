@@ -20,6 +20,7 @@ const recentItems = [
 const administratorItems = [
   { title: "User Management", url: "/user-management", icon: Users },
   { title: "Subscription", url: "/subscription", icon: CreditCard },
+  { title: "Settings", url: "/settings", icon: Settings },
 ]
 
 export function AppSidebar() {

@@ -32,6 +32,15 @@ import { CreateProject } from "./pages/CreateProject";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import UserManagement from "./pages/Usermangment";
+import Settings from "./pages/super-admin/Settings";
+import { SuperAdminLayout } from "./components/layout/SuperAdminLayout";
+import SuperAdminDashboard from "./pages/super-admin/SuperAdminDashboard";
+import Companies from "./pages/super-admin/Companies";
+import PlanBilling from "./pages/super-admin/PlanBilling";
+import UserControl from "./pages/super-admin/UserControl";
+import Analytics from "./pages/super-admin/Analytics";
+import AuditLogs from "./pages/super-admin/AuditLogs";
+import Announcements from "./pages/super-admin/Announcements";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +83,20 @@ function App() {
                 <Route path="notification" element={<NotificationSettingScreen />} />
                 <Route path="add-team" element={<AddTeam />} />
                 <Route path="create-project" element={<CreateProject />} />
+                <Route path="settings" element={<Settings />} />
+              </Route>
+
+              {/* Super Admin routes - separate layout */}
+              <Route path="/super-admin" element={<SuperAdminLayout><Outlet /></SuperAdminLayout>}>
+                <Route index element={<SuperAdminDashboard />} />
+                <Route path="dashboard" element={<SuperAdminDashboard />} />
+                <Route path="companies" element={<Companies />} />
+                <Route path="plan-billing" element={<PlanBilling />} />
+                <Route path="user-control" element={<UserControl />} />
+                <Route path="analytics" element={<Analytics />} />
+                <Route path="audit-logs" element={<AuditLogs />} />
+                <Route path="announcements" element={<Announcements />} />
+                <Route path="settings" element={<Settings />} />
               </Route>
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
